@@ -1,0 +1,67 @@
+<!--
+  LANDING /diagnostico/ · CÓMO ES LA REUNIÓN (embudo, etapa 02: "Un video corto")
+  A la izquierda va el video de Carlos o, mientras no esté, su tarjeta. A la
+  derecha, las tres líneas de cómo es la reunión (se ven en los dos casos).
+  - Sin video (site.diagnostico.video vacío): tarjeta de Carlos. Sin foto, en
+    el build se publica sin el recuadro de la foto (diagnostico.css).
+  - Con URL de YouTube: diagnostico.js cambia la tarjeta por la fachada del
+    template (miniatura + botón). Al clic crea el iframe de
+    youtube-nocookie.com con enablejsapi=1 e id="diagnostico-video", y avisa
+    con el evento "ith:diagnostico-video" en document.
+  El .rv va en el contenedor (.diagnostico-reunion__media), no en la tarjeta,
+  para que reemplazar el contenido no deje nada sin animar.
+-->
+<section id="reunion" class="section diagnostico-reunion" aria-labelledby="reunion-titulo">
+  <div class="wrap diagnostico-reunion__grid">
+    <div class="diagnostico-reunion__media rv" data-diagnostico-media>
+      <figure class="diagnostico-carlos card-h">
+        <!-- <img class="diagnostico-carlos__img" src="/src/assets/img/equipo/carlos.webp" width="640" height="800" alt="Carlos Baldelli, presidente y socio de Intellihelp" loading="lazy" decoding="async"> -->
+        <div class="diagnostico-carlos__foto photo-ph" data-draft>
+          <svg class="photo-ph__icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h2.6l1.6-2.2h6.6L16.9 7h2.6A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z"/><circle cx="12" cy="12.8" r="3.6"/></svg>
+          <p class="nota"><b>Para Carlos</b>Me falta una foto tuya para esta tarjeta. Si no hay, se publica solo con tu nombre y tu cargo.</p>
+        </div>
+        <figcaption class="diagnostico-carlos__pie">
+          <span class="diagnostico-carlos__nombre">Carlos Baldelli</span>
+          <span class="eyebrow diagnostico-carlos__cargo">Presidente y socio de Intellihelp</span>
+          <span class="diagnostico-carlos__texto">Responsable de la relación con los clientes en proyectos nuevos y licitaciones.</span>
+        </figcaption>
+      </figure>
+      <div class="nota"><b>Para Carlos y Clau</b>Cuando grabemos el video lo pongo acá, en lugar de la tarjeta. Me alcanza con el link de YouTube.</div>
+    </div>
+
+    <div class="diagnostico-reunion__texto">
+      <header class="section-head rv">
+        <p class="eyebrow eyebrow--dash">La reunión</p>
+        <h2 id="reunion-titulo" class="h2">Una reunión con el presidente de Intellihelp.</h2>
+      </header>
+
+      <ul class="diagnostico-reunion__lista" role="list">
+        <li class="diagnostico-reunion__item rv">
+          <svg class="diagnostico-reunion__check ico" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+          <p><strong>Analiza tu caso de antemano.</strong> Con los datos del formulario, Carlos conoce tu empresa y el servicio que te interesa antes de la reunión.</p>
+        </li>
+        <li class="diagnostico-reunion__item rv" data-d="0.12">
+          <svg class="diagnostico-reunion__check ico" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+          <p><strong>Presenta casos comparables.</strong> Muestra cómo resolvimos necesidades similares en otras empresas y organismos, con el alcance de cada trabajo y, cuando la confidencialidad lo permite, el nombre del cliente.</p>
+        </li>
+        <li class="diagnostico-reunion__item rv" data-d="0.24">
+          <svg class="diagnostico-reunion__check ico" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+          <p><strong>Define los próximos pasos.</strong> Acuerda con tu empresa si corresponde un relevamiento de la instalación y el plazo de entrega de la propuesta por escrito.</p>
+        </li>
+      </ul>
+      <div class="nota"><b>Para Carlos</b>Estas tres líneas y lo que dice arriba de qué se lleva la empresa los escribí yo, con el embudo de Clau y los pasos de Contacto. Leelos y decime si la reunión es así. Si no me decís nada, quedan así.</div>
+    </div>
+  </div>
+
+  <!-- Fachada del video: la usa diagnostico.js solo si hay URL de YouTube. -->
+  <template data-diagnostico-video>
+    <div class="diagnostico-video">
+      <button type="button" class="diagnostico-video__play">
+        <img class="diagnostico-video__img" alt="" width="480" height="360" loading="lazy" decoding="async" />
+        <span class="diagnostico-video__icon" aria-hidden="true"><svg aria-hidden="true" focusable="false" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l10.5-6.5z"/></svg></span>
+        <span class="visually-hidden">Ver el video: Carlos cuenta cómo es la reunión de diagnóstico</span>
+      </button>
+    </div>
+    <p class="diagnostico-video__pie"><span class="diagnostico-carlos__nombre">Carlos Baldelli</span> <span class="eyebrow diagnostico-carlos__cargo">Presidente y socio de Intellihelp</span></p>
+  </template>
+</section>

@@ -1,0 +1,27 @@
+<!--
+  MIGAS DE PAN: Inicio > Página (páginas de primer nivel)
+  Para /soluciones/, /servicios/, /clientes/, /nosotros/ y /contacto/.
+  Imprime la ruta visible y el JSON-LD BreadcrumbList.
+
+  Uso (dentro del slot de partials/pagina/hero.html):
+    <include src="partials/pagina/migas-raiz.html" actual="Servicios"></include>
+
+  Props:
+    actual   obligatoria. Nombre de la página, igual que en el menú.
+-->
+<nav class="migas in d1" aria-label="Ruta de navegación">
+  <ol class="migas__list" role="list">
+    <li class="migas__item"><a class="migas__link" href="/">Inicio</a></li>
+    <li class="migas__item"><span aria-current="page">{{props.actual}}</span></li>
+  </ol>
+</nav>
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "{{site.url}}" },
+      { "@type": "ListItem", "position": 2, "name": "{{props.actual}}", "item": "{{page.url}}" }
+    ]
+  }
+</script>

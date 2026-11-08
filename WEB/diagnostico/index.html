@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <include
+      src="partials/pagina/head.html"
+      titulo="Reunión de diagnóstico IT por videollamada | Intellihelp"
+      descripcion="Agendá una reunión de diagnóstico por videollamada con Carlos Baldelli, presidente de Intellihelp: analizamos tu necesidad y definimos los próximos pasos."
+    ></include>
+
+    <!--
+      LANDING DE CAMPAÑA /diagnostico/ (embudo de ventas, pág. 4 y 5):
+      hero · cómo es la reunión (video de Carlos o su tarjeta) · clientes que
+      ya confían · los 4 pasos para agendar · calendario o formulario (#agenda)
+      · FAQ con schema.
+      No va en el menú principal: llegan desde las páginas de servicio,
+      LinkedIn y los anuncios. Sí va en el sitemap y en llms.txt.
+      Calendario y video salen de site.diagnostico (calendario, tipo,
+      vendedor, video). Los arma src/scripts/diagnostico.js (la página no
+      tiene condicionales en el build):
+      - calendario "crm": selector de día y hora con los horarios libres de la
+        agenda del CRM (public/api/agenda.php, mismo origen: la CSP no cambia).
+        La reserva queda en el CRM con la página y el canal de origen, y el CRM
+        manda la confirmación con el enlace de Meet. Si el CRM no responde o no
+        hay horarios, queda el formulario de siempre.
+      - calendario vacío: formulario de siempre. Con URL de Google Calendar o
+        Calendly hay que abrir antes la CSP del .htaccess (frame-src).
+      - video: con URL de YouTube hay que abrir frame-src para
+        youtube-nocookie.com e img-src para i.ytimg.com (miniatura).
+      Fuentes: embudo-ventas-intellihelp.pdf (etapas 02 y 03), informe p.17
+      (CTA "diagnóstico IT"), partials/equipo.html (cargo de Carlos),
+      contacto/index.html (pasos después de la reunión), fuentes-drive-clientes.md
+      §1.1 (clientes vigentes en 2026) y brief §13 (cobertura en el interior).
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "{{page.url}}#pagina",
+            "url": "{{page.url}}",
+            "name": "Reunión de diagnóstico IT por videollamada | Intellihelp",
+            "description": "Videollamada con Carlos Baldelli, presidente de Intellihelp, para empresas y organismos con una necesidad de soporte IT, seguridad electrónica, redes o un proyecto nuevo.",
+            "inLanguage": "es-AR",
+            "about": { "@id": "{{page.url}}#servicio" },
+            "publisher": { "@id": "{{site.url}}#organizacion" }
+          },
+          {
+            "@type": "Service",
+            "@id": "{{page.url}}#servicio",
+            "name": "Reunión de diagnóstico IT",
+            "serviceType": "Diagnóstico IT",
+            "description": "Videollamada con Carlos Baldelli, presidente de Intellihelp, para analizar la necesidad de la empresa u organismo y definir los próximos pasos: si corresponde un relevamiento técnico y cómo se elabora la propuesta.",
+            "url": "{{page.url}}",
+            "provider": {
+              "@type": "Organization",
+              "@id": "{{site.url}}#organizacion",
+              "name": "{{site.name}}",
+              "url": "{{site.url}}",
+              "telephone": "{{site.phone.display}}",
+              "email": "{{site.email}}"
+            },
+            "areaServed": [
+              { "@type": "City", "name": "Ciudad Autónoma de Buenos Aires" },
+              { "@type": "Country", "name": "Argentina" }
+            ],
+            "audience": {
+              "@type": "BusinessAudience",
+              "audienceType": "Empresas medianas y grandes, corporaciones y organismos públicos"
+            },
+            "availableChannel": {
+              "@type": "ServiceChannel",
+              "name": "Videollamada",
+              "serviceUrl": "{{page.url}}"
+            }
+          }
+        ]
+      }
+    </script>
+    <script type="module" src="/src/scripts/diagnostico.js"></script>
+  </head>
+  <body data-wa-texto="Hola Intellihelp, quiero agendar una reunión de diagnóstico con Carlos.">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <include src="partials/header.html"></include>
+
+    <!-- data-agenda: "formulario" hasta que diagnostico.js arme el calendario
+         (agenda del CRM con horarios, o URL de calendario válida); con eso pasa
+         a "calendario" y cambian los textos marcados con data-solo.
+         data-tipo y data-vendedor: el tipo de reunión del CRM y su dueño. -->
+    <main
+      id="contenido"
+      class="diagnostico"
+      data-agenda="formulario"
+      data-calendario="{{site.diagnostico.calendario}}"
+      data-tipo="{{site.diagnostico.tipo}}"
+      data-vendedor="{{site.diagnostico.vendedor}}"
+      data-video="{{site.diagnostico.video}}"
+    >
+      <include src="partials/pagina/hero.html">
+        <include src="partials/pagina/migas-raiz.html" actual="Reunión de diagnóstico"></include>
+        <p class="eyebrow eyebrow--dash in d2">Reunión de diagnóstico</p>
+        <h1 id="pagina-titulo" class="pagina-hero__title in d3">
+          Reunión de diagnóstico IT con Carlos Baldelli, <span class="pagina-hero__hl">por videollamada.</span>
+        </h1>
+        <p class="lead pagina-hero__lead in d4">
+          Una reunión con Carlos Baldelli, presidente de Intellihelp, para analizar la necesidad de tu empresa u organismo: soporte IT, cámaras de seguridad, redes o un proyecto nuevo. Al finalizar, contás con una primera evaluación de tu caso y los próximos pasos definidos.
+        </p>
+        <div class="pagina-hero__actions in d5">
+          <a class="btn btn--lime" href="#agenda">Agendá la reunión <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn btn--light" href="{{site.whatsapp.url}}" target="_blank" rel="noopener">Escribinos por WhatsApp<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a>
+        </div>
+        <p class="hero__note in d6">
+          <svg class="hero__check" aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+          <span>Carlos revisa la información de tu consulta antes de la reunión.</span>
+        </p>
+        <p class="hero__note in d6" data-draft>
+          <svg class="hero__check" aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+          <span>La reunión es sin cargo.</span>
+        </p>
+        <div class="nota"><b>Para Carlos</b>Clau plantea la reunión como gratuita, pero no lo encontré escrito en ningún documento. ¿Me confirmás que es sin cargo? Si me decís que sí, publico esta línea y la pregunta del costo.</div>
+      </include>
+
+      <include src="partials/pagina/diagnostico/reunion.html"></include>
+
+      <include src="partials/pagina/diagnostico/confian.html"></include>
+
+      <include
+        src="partials/pagina/bloque.html"
+        id="pasos"
+        eyebrow="Cómo se agenda"
+        titulo="Cuatro pasos para agendar la reunión."
+        fondo="section--soft"
+      >
+        <ol class="pasos__grid diagnostico-pasos" role="list">
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>1</span>
+            <h3 class="pasos__title">Elegís día y hora</h3>
+            <p class="pasos__text" data-solo="calendario">En el calendario de esta página, entre los horarios disponibles de Carlos.</p>
+            <p class="pasos__text" data-solo="formulario">Indicás en el formulario los días que te resultan convenientes y los coordinamos con la agenda de Carlos.</p>
+          </li>
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>2</span>
+            <h3 class="pasos__title">Completás tus datos</h3>
+            <p class="pasos__text">Tu nombre, tu empresa y el servicio que te interesa. Con esa información, Carlos prepara la reunión.</p>
+          </li>
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>3</span>
+            <h3 class="pasos__title">Recibís la confirmación</h3>
+            <p class="pasos__text" data-solo="calendario">Por mail, con un recordatorio previo a la reunión.</p>
+            <p class="pasos__text" data-solo="formulario">Te enviamos por mail el día, la hora y el enlace de la videollamada.</p>
+          </li>
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>4</span>
+            <h3 class="pasos__title">Reunión con Carlos Baldelli</h3>
+            <p class="pasos__text">Por videollamada, desde tu oficina o desde donde te encuentres.</p>
+          </li>
+        </ol>
+      </include>
+
+      <include src="partials/pagina/diagnostico/calendario.html"></include>
+      <include
+        src="partials/agenda.html"
+        titulo="Agendá tu reunión con Carlos Baldelli."
+        cierre="Por videollamada, desde donde estés."
+        necesidad="Reunión de diagnóstico"
+      ></include>
+
+      <include src="partials/pagina/faq.html" titulo="Antes de agendar.">
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Con quién me reúno?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Con Carlos Baldelli, presidente y socio de Intellihelp. Conduce la dirección comercial y es el responsable de la relación con los clientes en proyectos nuevos y licitaciones. La propuesta que recibe tu empresa se elabora a partir de lo que se analiza en esa reunión.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Qué tengo que preparar?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Alcanza con los datos que completás al agendar: tu nombre, tu empresa y el servicio que te interesa. Para aprovechar mejor la reunión, conviene definir qué necesitás resolver, en qué sedes y en qué plazo. Si se trata de una licitación, tené el pliego a mano.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Qué pasa después de la reunión?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Si el proyecto lo requiere, realizamos un relevamiento en tu oficina, planta o sucursal. Con esa información elaboramos la propuesta y te la enviamos por escrito. Una vez aprobada, acordamos la fecha de inicio.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Atienden empresas del interior?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Sí. La reunión es por videollamada, por lo que la ubicación no es un impedimento. La mayoría de nuestros clientes tiene su casa central en Buenos Aires y muchos contratos incluyen sedes en otras provincias: ejecutamos proyectos en 12 provincias y en CABA, con técnicos locales coordinados desde Buenos Aires.</p>
+          </div>
+        </details>
+
+        <!-- Borradores: no se publican hasta tener la respuesta. Al cargarla,
+             sacar data-draft: el schema FAQPage la suma solo. -->
+        <details name="faq" class="faq__item" data-draft>
+          <summary class="faq__q">
+            <span class="faq__q-text">¿La reunión tiene costo?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <div class="nota"><b>Para Carlos</b>Es la misma duda del principio de la página. Si me confirmás que es sin cargo, la respondo con eso y la publico.</div>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item" data-draft>
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Cuánto dura la reunión?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <div class="nota"><b>Para Carlos</b>¿Cuánto dura la reunión? En el informe Clau propone "Agendá 20 minutos". Pasame el tiempo y publico la respuesta; mientras tanto la pregunta queda oculta.</div>
+          </div>
+        </details>
+      </include>
+    </main>
+
+    <include src="partials/footer.html"></include>
+    <include src="partials/whatsapp.html"></include>
+  </body>
+</html>

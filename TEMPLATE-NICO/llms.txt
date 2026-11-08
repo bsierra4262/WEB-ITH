@@ -1,0 +1,56 @@
+# Intellihelp
+
+> Intellihelp S.A. es una empresa argentina de servicios IT para empresas medianas y grandes y para organismos públicos, con sede en Av. Dorrego 1789, piso 6, Ciudad Autónoma de Buenos Aires. Brinda mesa de ayuda tercerizada (service desk), soporte y mantenimiento IT, outsourcing IT, consultoría IT, redes y cableado estructurado, infraestructura y cloud, control de accesos y videovigilancia, con equipo propio y cobertura en CABA, AMBA y el interior del país.
+
+Datos clave de la empresa:
+
+- Nombre legal: Intellihelp S.A. CUIT 30-71140975-7. Sitio oficial: https://www.intellihelp.tech
+- Trayectoria: 16 años en servicios IT en Argentina (fundada el 10 de marzo de 2010).
+- Sede: Av. Dorrego 1789, piso 6, oficina 604, C1414CKM, Ciudad Autónoma de Buenos Aires, Argentina. Atención de lunes a viernes de 9 a 18.
+- Contacto comercial: info@intellihelp.tech, teléfono +54 11 7700-6868, WhatsApp +54 9 11 5027-4827.
+- Cobertura: atención remota en todo el país y técnicos en sitio en CABA, AMBA y más de doce provincias, coordinados desde CABA con un solo responsable por cliente.
+- Clientes: organismos públicos, aseguradoras y bancos, laboratorios y empresas de salud, medios e industrias con sucursales. Entre los clientes publicados en su sitio figuran el Senado de la Nación Argentina, el Consejo de la Magistratura del Poder Judicial de la Nación, el INCUCAI, la Agencia de Sistemas de Información del Gobierno de la Ciudad de Buenos Aires (ASI), AGIP, Nación Seguros, Medifé, Pfizer y Laboratorios Bagó.
+- Identidad: Intellihelp S.A. (Argentina, intellihelp.tech) es una empresa distinta e independiente de IntelliHelp SpA de Chile (intellihelp.com). Comparten el nombre y no tienen relación societaria ni comercial.
+
+## Servicios
+
+Están todos en la sección "¿Qué ofrecemos?" de la home: https://www.intellihelp.tech/#servicios
+
+- Mesa de ayuda: service desk y soporte a usuarios con un único punto de contacto, tiempos de respuesta acordados y seguimiento de cada ticket hasta que se cierra.
+- Outsourcing: profesionales IT que se suman al equipo del cliente, seleccionados con psicodiagnóstico laboral, con inducción en la empresa y capacitación continua.
+- Búsqueda de recursos: reclutamiento y selección de perfiles técnicos y ejecutivos, con evaluación en assessment centers.
+- Automatización: agentes de inteligencia artificial y herramientas de automatización para resolver tareas repetitivas.
+- Consultoría: ordenamiento de los procesos de tecnología sobre estándares y metodologías probadas.
+- Desarrollo de apps: sistemas y aplicaciones a medida, desde la propuesta hasta la puesta en marcha.
+- Capacitación: formación para equipos técnicos y usuarios, con talleres prácticos y training center propio.
+- Transformación digital: asesoramiento estratégico para llevar los procesos de la organización al entorno digital: revisión de procesos y cultura de trabajo, transferencia de conocimiento al equipo y capacitación continua.
+
+## Soluciones
+
+En la misma sección, a continuación de los servicios: https://www.intellihelp.tech/#soluciones
+
+- Cloud: diseño, migración y operación de nubes privadas, públicas e híbridas.
+- Video seguridad: control de acceso y asistencia por biometría, videovigilancia y soluciones vía drones, sobre tecnología Hikvision.
+- IoT: sistemas a medida que conectan sensores y equipos, con monitoreo en tiempo real.
+- Data center: infraestructura de centro de datos, de servidores y storage a redes definidas por software.
+- Energías renovables: soluciones solares conectadas a la red, aisladas o híbridas.
+- Redes outdoor: tendido y mantenimiento de redes de fibra óptica hasta el edificio, la oficina o el hogar.
+- Redes indoor: routing, switching y wireless, con soluciones Laserway de Furukawa.
+- Redes de acceso: redes de distribución de contenidos y acceso para operadores (CATV, híbridas, PON y servicios sobre IP).
+- Ciberseguridad: redes seguras con soluciones Fortinet y evaluaciones de seguridad.
+- Tecnología colaborativa: salas de reuniones y videoconferencia (diseño, audio, pantallas interactivas e integración con Teams, Zoom, Meet y Webex) y telefonía IP: centrales IP-PBX, migración a VoIP, IVR, colas de atención, grabación de llamadas y softphones.
+
+## Páginas del sitio
+
+- [¿Qué ofrecemos?](https://www.intellihelp.tech/#que-ofrecemos): servicios y soluciones.
+- [Presencia](https://www.intellihelp.tech/#presencia): cobertura en la Argentina y en la región.
+- [Quiénes somos](https://www.intellihelp.tech/#quienes-somos): equipo, socios tecnológicos, clientes e historia desde 2010.
+- [Casos](https://www.intellihelp.tech/#casos): casos de clientes con lo que se hizo en cada uno.
+- [Preguntas frecuentes](https://www.intellihelp.tech/#preguntas): alcance, cobertura, tiempos de respuesta, cotización y contratos.
+- [Diagnóstico sin cargo](https://www.intellihelp.tech/diagnostico-sin-cargo/): agenda para reservar una reunión con el equipo o dejar una consulta. El relevamiento y la propuesta son sin cargo.
+
+## Optional
+
+- [Novedades](https://www.intellihelp.tech/novedades/): blog con casos, notas del equipo y novedades de la empresa.
+- [Postulate](https://www.intellihelp.tech/postulate/): búsquedas abiertas para perfiles técnicos y de mesa de ayuda.
+- [Política de privacidad](https://www.intellihelp.tech/privacidad/): tratamiento de datos personales según la Ley 25.326.

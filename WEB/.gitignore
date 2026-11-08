@@ -1,0 +1,11 @@
+node_modules/
+dist/
+*.log
+.DS_Store
+Thumbs.db
+.env
+.env.*
+
+# Configuración local del CRM: lleva la clave y el secreto
+/config/*
+!/config/crm.example.php

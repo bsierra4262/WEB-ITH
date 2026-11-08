@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <include
+      src="partials/pagina/head.html"
+      titulo="Clientes y casos de éxito en Buenos Aires | Intellihelp"
+      descripcion="Organismos y empresas que trabajaron con Intellihelp en CABA: mesa de ayuda, outsourcing IT, fibra óptica, data center y videoseguridad, con datos de cada caso."
+    ></include>
+
+    <!--
+      CLIENTES Y CASOS (informe de visibilidad, cap. 9: "logos por sector +
+      casos con desafío, solución, alcance y tecnologías").
+      Fuentes: brief §6, §7, §11 y §13; textos-home.md §4 y §10;
+      fuentes-pdfs-old.md §5 y §6; fuentes-web-actual.md §6 y §7;
+      fuentes-wordpress-db.md §6; fuentes-drive-clientes.md §1 a §3 (vigencia,
+      años, cifras y casos de SRT y Nación Seguros).
+      Reglas: clientes perdidos (GCBA, ASI, AGIP) solo como proyectos
+      realizados, en pasado. El Cronista, Correo Argentino y Gendarmería no
+      aparecen. La UNL y Offal salieron: no hay trabajo hecho que lo pruebe.
+      Medifé va con logo y nombre: la empresa dio la autorización (oct. 2026).
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "@id": "{{page.url}}#pagina",
+        "name": "Clientes y casos de éxito de Intellihelp",
+        "description": "Proyectos de Intellihelp para organismos públicos y empresas de Buenos Aires: mesa de ayuda, outsourcing IT, búsqueda de perfiles, redes de fibra óptica, data center, videoseguridad, IoT y desarrollo de software.",
+        "url": "{{page.url}}",
+        "inLanguage": "es-AR",
+        "isPartOf": { "@type": "WebSite", "name": "{{site.name}}", "url": "{{site.url}}" },
+        "about": { "@type": "Organization", "@id": "{{site.url}}#organizacion", "name": "{{site.name}}" },
+        "mainEntity": {
+          "@type": "ItemList",
+          "name": "Casos de éxito",
+          "numberOfItems": 9,
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Cobertura 7x24 para los servidores de la Agencia de Sistemas de Información de la Ciudad de Buenos Aires", "url": "{{page.url}}#caso" },
+            { "@type": "ListItem", "position": 2, "name": "Outsourcing IT para un banco internacional", "url": "{{page.url}}#caso-banco-internacional" },
+            { "@type": "ListItem", "position": 3, "name": "Mesa de ayuda IT para MSD", "url": "{{page.url}}#caso-msd" },
+            { "@type": "ListItem", "position": 4, "name": "Mesa de ayuda para el grupo LoJack-Strix", "url": "{{page.url}}#caso-lojack" },
+            { "@type": "ListItem", "position": 5, "name": "Red GPON de la Ciudad de Buenos Aires", "url": "{{page.url}}#caso-gpon" },
+            { "@type": "ListItem", "position": 6, "name": "Red de fibra óptica para las oficinas de AGIP", "url": "{{page.url}}#caso-agip" },
+            { "@type": "ListItem", "position": 7, "name": "Servidor Huawei para el Senado de la Nación", "url": "{{page.url}}#caso-senado" },
+            { "@type": "ListItem", "position": 8, "name": "Storage Huawei para Sedronar", "url": "{{page.url}}#caso-sedronar" },
+            { "@type": "ListItem", "position": 9, "name": "Control de acceso y presentismo para la Superintendencia de Riesgos del Trabajo", "url": "{{page.url}}#caso-srt" }
+          ]
+        }
+      }
+    </script>
+  </head>
+  <body data-wa-texto="Hola Intellihelp, vi sus casos y quiero consultar por un proyecto.">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <include src="partials/header.html"></include>
+
+    <main id="contenido">
+      <include src="partials/pagina/hero.html">
+        <include src="partials/pagina/migas-raiz.html" actual="Clientes"></include>
+        <p class="eyebrow eyebrow--dash in d2">Clientes</p>
+        <h1 id="pagina-titulo" class="pagina-hero__title in d3">
+          Clientes y casos de éxito <span class="pagina-hero__hl">en organismos y empresas.</span>
+        </h1>
+        <p class="lead pagina-hero__lead in d4">
+          Proyectos para el Senado de la Nación, Pfizer y el grupo LoJack-Strix, entre otros, con el alcance de cada uno, la tecnología implementada y el resultado obtenido.
+        </p>
+        <div class="pagina-hero__actions in d5">
+          <a class="btn btn--lime" href="/diagnostico/">Agendá una reunión <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn btn--light" href="{{site.whatsapp.url}}" target="_blank" rel="noopener">Escribinos por WhatsApp<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a>
+        </div>
+
+        <!-- Contadores: data-count = cifra final; el "+" queda fijo fuera del span. -->
+        <ul class="hero__stats clientes-hero__stats in d6" role="list">
+          <li class="hero__stat">
+            <p class="hero__stat-num">+<span data-count="80" data-count-delay="900">80</span> proyectos</p>
+            <p class="hero__stat-label">implementados para empresas y organismos</p>
+          </li>
+          <li class="hero__stat">
+            <p class="hero__stat-num">+<span data-count="20" data-count-delay="900">20</span> contratos</p>
+            <p class="hero__stat-label">adjudicados por organismos públicos</p>
+          </li>
+          <li class="hero__stat">
+            <p class="hero__stat-num"><span data-count="12" data-count-delay="900">12</span> provincias</p>
+            <p class="hero__stat-label">y CABA, más Chile y Uruguay con socios locales</p>
+          </li>
+        </ul>
+      </include>
+
+      <include src="partials/pagina/respuesta.html" titulo="¿Con quién trabajó Intellihelp?">
+        <p>
+          Con organismos públicos nacionales y de la Ciudad de Buenos Aires, y con empresas de seguros, salud, laboratorios, industria y telecomunicaciones. Entre ellos, el Senado de la Nación, la Superintendencia de Riesgos del Trabajo, Sedronar, Medifé, Pfizer, MSD y el grupo LoJack-Strix. Desde nuestra sede en CABA ejecutamos proyectos en 12 provincias, y en Chile y Uruguay junto con socios locales.
+        </p>
+      </include>
+
+      <include
+        src="partials/pagina/bloque.html"
+        id="sectores"
+        eyebrow="Clientes por sector"
+        titulo="Seis sectores y los clientes de cada uno."
+        fondo="section--soft"
+      >
+        <template slot="bajada">
+          <p class="lead">Incluye clientes con servicio vigente y proyectos ya finalizados. Debajo de los logos de cada sector figura la nómina completa.</p>
+        </template>
+        <ul class="clientes-sectores" role="list">
+          <li class="clientes-sector card card-h rv">
+            <h3 class="clientes-sector__titulo">Sector público nacional</h3>
+            <ul class="logos__list clientes-sector__logos" role="list">
+              <li class="logos__item"><img class="logos__img logos__img--square" src="/src/assets/img/logos/senado-argentina.webp" width="65" height="48" alt="Senado de la Nación Argentina" loading="lazy" decoding="async" /></li>
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/logos/srt.webp" width="206" height="48" alt="SRT, Superintendencia de Riesgos del Trabajo" loading="lazy" decoding="async" /></li>
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/logos/parques-nacionales.webp" width="48" height="48" alt="Administración de Parques Nacionales" loading="lazy" decoding="async" /></li>
+            </ul>
+            <p class="clientes-sector__nombres">Superintendencia de Riesgos del Trabajo, Administración de Parques Nacionales, Consejo de la Magistratura, INCUCAI, Senado de la Nación, Sedronar, Boletín Oficial y NIC.ar.</p>
+          </li>
+
+          <li class="clientes-sector card card-h rv">
+            <h3 class="clientes-sector__titulo">Gobierno de la Ciudad <span class="clientes-sector__sub">Proyectos realizados</span></h3>
+            <ul class="logos__list clientes-sector__logos" role="list">
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/logos/agencia-sistemas.webp" width="50" height="48" alt="Agencia de Sistemas de Información del Gobierno de la Ciudad de Buenos Aires" loading="lazy" decoding="async" /></li>
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/logos/agip.webp" width="156" height="48" alt="AGIP, Administración Gubernamental de Ingresos Públicos" loading="lazy" decoding="async" /></li>
+            </ul>
+            <p class="clientes-sector__nombres">Agencia de Sistemas de Información, AGIP y los ministerios de Salud y de Educación de la Ciudad.</p>
+          </li>
+
+          <li class="clientes-sector card card-h rv">
+            <h3 class="clientes-sector__titulo">Seguros y salud</h3>
+            <ul class="logos__list clientes-sector__logos" role="list">
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/logos/nacion-seguros.webp" width="266" height="48" alt="Nación Seguros" loading="lazy" decoding="async" /></li>
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/logos/medife.webp" width="208" height="48" alt="Medifé" loading="lazy" decoding="async" /></li>
+            </ul>
+            <p class="clientes-sector__nombres">Nación Seguros, Medifé y Avalian.</p>
+          </li>
+
+          <li class="clientes-sector card card-h rv">
+            <h3 class="clientes-sector__titulo">Laboratorios</h3>
+            <ul class="logos__list clientes-sector__logos" role="list">
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/logos/pfizer.webp" width="117" height="48" alt="Pfizer" loading="lazy" decoding="async" /></li>
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/logos/bago.webp" width="145" height="48" alt="Laboratorios Bagó" loading="lazy" decoding="async" /></li>
+            </ul>
+            <p class="clientes-sector__nombres">Pfizer, Laboratorios Bagó y MSD.</p>
+          </li>
+
+          <li class="clientes-sector card card-h rv">
+            <h3 class="clientes-sector__titulo">Industria y consumo</h3>
+            <ul class="logos__list clientes-sector__logos" role="list">
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/logos/reckitt-benckiser.webp" width="93" height="48" alt="Reckitt Benckiser" loading="lazy" decoding="async" /></li>
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/logos/petropack.webp" width="160" height="48" alt="Petropack" loading="lazy" decoding="async" /></li>
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/logos/cartocor.webp" width="221" height="48" alt="Cartocor, Grupo Arcor" loading="lazy" decoding="async" /></li>
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/logos/came.webp" width="100" height="48" alt="CAME, Confederación Argentina de la Mediana Empresa" loading="lazy" decoding="async" /></li>
+            </ul>
+            <p class="clientes-sector__nombres">Reckitt Benckiser, Petropack, Cartocor (Grupo Arcor) y CAME.</p>
+          </li>
+
+          <li class="clientes-sector card card-h rv">
+            <h3 class="clientes-sector__titulo">Telecomunicaciones y seguridad vehicular</h3>
+            <ul class="logos__list clientes-sector__logos" role="list">
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/logos/cablevision-fibertel.webp" width="223" height="48" alt="Cablevisión-Fibertel" loading="lazy" decoding="async" /></li>
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/logos/lojack.webp" width="257" height="48" alt="LoJack" loading="lazy" decoding="async" /></li>
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/logos/strix.webp" width="126" height="48" alt="Strix, grupo LoJack" loading="lazy" decoding="async" /></li>
+            </ul>
+            <p class="clientes-sector__nombres">Cablevisión-Fibertel, Huawei Argentina, LoJack, Strix e Ituran.</p>
+          </li>
+        </ul>
+        <div class="nota"><b>Para Nico</b>ODI nos dio permiso para aparecer, pero no sé qué empresa es y no tengo su logo oficial. ¿Me pasás el nombre completo? Si no, queda afuera.</div>
+      </include>
+
+      <include
+        src="partials/pagina/caso.html"
+        eyebrow="Caso destacado"
+        titulo="Cobertura 7x24 para los servidores de la Ciudad de Buenos Aires."
+        cliente="Agencia de Sistemas de Información"
+        detalle="Gobierno de la Ciudad de Buenos Aires · proyecto realizado"
+      >
+        <div class="casos__row">
+          <dt class="eyebrow">El desafío</dt>
+          <dd>El soporte de servidores y bases de datos multiplataforma se prestaba en horario de oficina, y el organismo requería un equipo con cobertura permanente.</dd>
+        </div>
+        <div class="casos__row">
+          <dt class="eyebrow">Qué hicimos</dt>
+          <dd>Incorporamos administradores de sistemas y de bases de datos al equipo del organismo. Asumieron la instalación, el monitoreo, las actualizaciones, los respaldos y la documentación, con una base de conocimiento propia del organismo.</dd>
+        </div>
+        <div class="casos__row">
+          <dt class="eyebrow">El resultado</dt>
+          <dd>La cobertura pasó de 5x8 a 7x24, con un tiempo máximo de respuesta de 2 horas ante incidentes, establecido por contrato.</dd>
+        </div>
+        <template slot="panel">
+          <div class="casos__compare">
+            <p class="casos__box">
+              <span class="casos__big">5x8</span>
+              <span class="casos__cap">Antes</span>
+            </p>
+            <svg class="casos__arrow" aria-hidden="true" focusable="false" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16"/><path d="M13 5l7 7-7 7"/></svg>
+            <p class="casos__box casos__box--now">
+              <span class="casos__big"><span data-count="7" data-count-delay="300">7</span>x<span data-count="24" data-count-delay="300">24</span></span>
+              <span class="casos__cap">Con Intellihelp</span>
+            </p>
+          </div>
+          <p class="casos__sla">
+            <span class="casos__big"><span data-count="2" data-count-delay="300">2</span> h</span>
+            <span class="casos__sla-text">tiempo máximo de respuesta acordado ante cualquier incidente</span>
+          </p>
+          <p class="eyebrow">Tecnologías</p>
+          <ul class="pagina-caso__tecs" role="list">
+            <li class="chip">VMware</li>
+            <li class="chip">Linux y zLinux</li>
+            <li class="chip">Windows Server</li>
+            <li class="chip">Oracle Database</li>
+            <li class="chip">Oracle RAC</li>
+            <li class="chip">Data Guard</li>
+          </ul>
+        </template>
+      </include>
+
+      <section id="casos" class="section clientes-casos" aria-labelledby="casos-titulo">
+        <div class="wrap">
+          <header class="section-head rv">
+            <p class="eyebrow eyebrow--dash">Casos por servicio</p>
+            <h2 id="casos-titulo" class="h2">Casos agrupados por servicio.</h2>
+            <p class="lead">Cada proyecto se presenta con la información que podemos publicar. En los dos casos bancarios, el nombre del cliente es reservado.</p>
+          </header>
+
+          <!-- Grupo 1 -->
+          <div class="clientes-grupo">
+            <div class="clientes-grupo__head rv">
+              <h3 class="clientes-grupo__titulo">Mesa de ayuda, outsourcing IT y búsqueda</h3>
+              <a class="clientes-grupo__link" href="/servicios/outsourcing-y-service-desk/">Ver el servicio<span class="visually-hidden"> de outsourcing IT y service desk</span> <span class="arr" aria-hidden="true">→</span></a>
+            </div>
+            <ul class="casos__grid clientes-casos__grid" role="list">
+              <li id="caso-banco-internacional" class="casos__card card-h rv">
+                <p class="eyebrow">Outsourcing IT · Banca</p>
+                <h4 class="casos__name">Un banco internacional</h4>
+                <dl class="casos__rows clientes-caso__rows">
+                  <div class="casos__row"><dt class="eyebrow">Desafío</dt><dd>Incorporar perfiles IT de distintas especialidades y niveles de seniority a los equipos del banco.</dd></div>
+                  <div class="casos__row"><dt class="eyebrow">Qué hicimos</dt><dd>Seleccionamos a cada profesional y lo asignamos en modalidad de outsourcing, con seguimiento de nuestro equipo.</dd></div>
+                  <div class="casos__row"><dt class="eyebrow">Alcance</dt><dd>Más de 40 posiciones cubiertas en un año.</dd></div>
+                </dl>
+                <ul class="servicios__chips" role="list" aria-label="Tecnologías">
+                  <li class="chip">COBOL</li>
+                  <li class="chip">.NET</li>
+                  <li class="chip">Java</li>
+                  <li class="chip">Scrum</li>
+                </ul>
+              </li>
+              <li id="caso-msd" class="casos__card card-h rv">
+                <p class="eyebrow">Mesa de ayuda · Laboratorio</p>
+                <h4 class="casos__name">MSD</h4>
+                <dl class="casos__rows clientes-caso__rows">
+                  <div class="casos__row"><dt class="eyebrow">Desafío</dt><dd>Conformar un equipo técnico para la atención presencial de los pedidos de soporte de los empleados.</dd></div>
+                  <div class="casos__row"><dt class="eyebrow">Qué hicimos</dt><dd>Implementamos una mesa de ayuda IT de nivel 1 y 2 en las oficinas del laboratorio.</dd></div>
+                  <div class="casos__row"><dt class="eyebrow">Alcance</dt><dd>Argentina, con atención presencial.</dd></div>
+                </dl>
+                <ul class="servicios__chips" role="list" aria-label="Servicio">
+                  <li class="chip">Service desk N1 y N2</li>
+                  <li class="chip">Soporte en sitio</li>
+                </ul>
+              </li>
+              <li id="caso-lojack" class="casos__card card-h rv">
+                <p class="eyebrow">Mesa de ayuda · Seguridad vehicular</p>
+                <h4 class="casos__name">Grupo LoJack-&#8288;Strix</h4>
+                <dl class="casos__rows clientes-caso__rows">
+                  <div class="casos__row"><dt class="eyebrow">Qué hacemos</dt><dd>Desde 2022 prestamos la mesa de ayuda de nivel 1 en sus oficinas, con atención por teléfono, WhatsApp, web y mail, supervisor propio y guardias fuera de horario.</dd></div>
+                  <div class="casos__row"><dt class="eyebrow">Alcance</dt><dd>Argentina, y la migración a Windows 11 de las oficinas de Chile y Uruguay junto con socios locales.</dd></div>
+                </dl>
+                <ul class="servicios__chips" role="list" aria-label="Servicio">
+                  <li class="chip">Service desk N1</li>
+                  <li class="chip">Soporte en sitio</li>
+                  <li class="chip">Jira</li>
+                  <li class="chip">Microsoft 365</li>
+                </ul>
+              </li>
+              <li class="casos__card card-h rv">
+                <p class="eyebrow">Outsourcing IT · Laboratorio</p>
+                <h4 class="casos__name">Pfizer</h4>
+                <dl class="casos__rows clientes-caso__rows">
+                  <div class="casos__row"><dt class="eyebrow">Desafío</dt><dd>Cubrir perfiles funcionales y de datos de baja disponibilidad en el mercado.</dd></div>
+                  <div class="casos__row"><dt class="eyebrow">Qué hicimos</dt><dd>Nuestro equipo de selección incorporó analistas funcionales, analistas de datos y especialistas en bases de datos, que se desempeñaron en modalidad de outsourcing.</dd></div>
+                </dl>
+                <ul class="servicios__chips" role="list" aria-label="Perfiles">
+                  <li class="chip">Análisis funcional</li>
+                  <li class="chip">Datos</li>
+                  <li class="chip">Bases de datos</li>
+                </ul>
+              </li>
+              <li class="casos__card card-h rv">
+                <p class="eyebrow">Búsqueda IT · Banca y seguros</p>
+                <h4 class="casos__name">Un banco nacional</h4>
+                <dl class="casos__rows clientes-caso__rows">
+                  <div class="casos__row"><dt class="eyebrow">Desafío</dt><dd>Cubrir perfiles de alto seniority, escasos en el mercado, para el banco y su compañía de seguros.</dd></div>
+                  <div class="casos__row"><dt class="eyebrow">Qué hicimos</dt><dd>Realizamos la búsqueda y la evaluación de candidatos para su incorporación directa a la nómina del banco, sin outsourcing.</dd></div>
+                  <div class="casos__row"><dt class="eyebrow">Resultado</dt><dd>Cubrimos las búsquedas principales del banco y de su compañía de seguros.</dd></div>
+                </dl>
+              </li>
+              <li class="casos__card card-h rv">
+                <p class="eyebrow">Preventa · Tecnología</p>
+                <h4 class="casos__name">Huawei Argentina</h4>
+                <dl class="casos__rows clientes-caso__rows">
+                  <div class="casos__row"><dt class="eyebrow">Desafío</dt><dd>Brindar apoyo técnico y de gestión a Huawei en sus oportunidades con organismos de gobierno.</dd></div>
+                  <div class="casos__row"><dt class="eyebrow">Qué hicimos</dt><dd>Prestamos servicios de preventa desde las oficinas de Huawei.</dd></div>
+                  <div class="casos__row"><dt class="eyebrow">Alcance</dt><dd>Dos años de servicio.</dd></div>
+                </dl>
+                <ul class="servicios__chips" role="list" aria-label="Tecnologías">
+                  <li class="chip">Acceso</li>
+                  <li class="chip">Networking</li>
+                  <li class="chip">Seguridad</li>
+                  <li class="chip">Comunicaciones</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Grupo 2 -->
+          <div class="clientes-grupo">
+            <div class="clientes-grupo__head rv">
+              <h3 class="clientes-grupo__titulo">Redes y fibra óptica</h3>
+              <a class="clientes-grupo__link" href="/soluciones/redes-ftth/">Ver la solución<span class="visually-hidden"> de redes FTTH y fibra óptica</span> <span class="arr" aria-hidden="true">→</span></a>
+            </div>
+            <ul class="casos__grid clientes-casos__grid" role="list">
+              <li id="caso-gpon" class="casos__card card-h rv">
+                <p class="eyebrow">Redes · CABA · 2018 a 2023</p>
+                <h4 class="casos__name">Red GPON de la Ciudad</h4>
+                <dl class="casos__rows clientes-caso__rows">
+                  <div class="casos__row"><dt class="eyebrow">Desafío</dt><dd>Garantizar la continuidad operativa de la red privada que conecta los establecimientos educativos, de salud y de seguridad de la Ciudad.</dd></div>
+                  <div class="casos__row"><dt class="eyebrow">Qué hicimos</dt><dd>Proveímos equipamiento GPON Huawei y prestamos soporte y mantenimiento 7x24, con guardia, repuestos y una OLT de respaldo.</dd></div>
+                  <div class="casos__row"><dt class="eyebrow">Alcance</dt><dd>Unas 1.000 ONT y más de 20 OLT, durante 5 años.</dd></div>
+                </dl>
+                <ul class="servicios__chips" role="list" aria-label="Tecnologías">
+                  <li class="chip">GPON</li>
+                  <li class="chip">Huawei</li>
+                  <li class="chip">Fibra óptica</li>
+                </ul>
+              </li>
+              <li id="caso-agip" class="casos__card card-h rv">
+                <p class="eyebrow">Fibra óptica · CABA · 2017</p>
+                <h4 class="casos__name">AGIP</h4>
+                <dl class="casos__rows clientes-caso__rows">
+                  <div class="casos__row"><dt class="eyebrow">Qué hicimos</dt><dd>Conectamos las oficinas de AGIP a la red de fibra óptica del Gobierno de la Ciudad.</dd></div>
+                  <div class="casos__row"><dt class="eyebrow">Alcance</dt><dd>28 sedes y unos 10,8 km de tendido, con mantenimiento 7x24 durante 24 meses y una disponibilidad comprometida del 99,7 %.</dd></div>
+                </dl>
+                <ul class="servicios__chips" role="list" aria-label="Tecnologías">
+                  <li class="chip">Fibra óptica</li>
+                  <li class="chip">Mantenimiento</li>
+                  <li class="chip">Soporte N1 y N2</li>
+                </ul>
+              </li>
+              <li class="casos__card card-h rv">
+                <p class="eyebrow">FTTH · CABA · 2018</p>
+                <h4 class="casos__name">Plan Sarmiento</h4>
+                <dl class="casos__rows clientes-caso__rows">
+                  <div class="casos__row"><dt class="eyebrow">Qué hicimos</dt><dd>Conectamos por fibra óptica escuelas y dependencias de Educación, Justicia y Seguridad, y Salud de la Zona 1 de la Ciudad.</dd></div>
+                  <div class="casos__row"><dt class="eyebrow">Alcance</dt><dd>Unos 300 puntos conectados.</dd></div>
+                </dl>
+                <ul class="servicios__chips" role="list" aria-label="Tecnologías">
+                  <li class="chip">FTTH</li>
+                  <li class="chip">GPON</li>
+                </ul>
+              </li>
+              <li class="casos__card card-h rv">
+                <p class="eyebrow">Networking · Salud · Proyecto realizado</p>
+                <h4 class="casos__name">Red de Hospitales de la Ciudad de Buenos Aires</h4>
+                <dl class="casos__rows clientes-caso__rows">
+                  <div class="casos__row"><dt class="eyebrow">Qué hicimos</dt><dd>Proveímos, instalamos y configuramos los switches de núcleo y de borde de la red de hospitales del Ministerio de Salud de la Ciudad de Buenos Aires.</dd></div>
+                </dl>
+                <ul class="servicios__chips" role="list" aria-label="Tecnologías">
+                  <li class="chip">Huawei</li>
+                  <li class="chip">Switching</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Grupo 3 -->
+          <div class="clientes-grupo">
+            <div class="clientes-grupo__head rv">
+              <h3 class="clientes-grupo__titulo">Data center y cloud</h3>
+              <a class="clientes-grupo__link" href="/soluciones/data-center/">Ver la solución<span class="visually-hidden"> de data center</span> <span class="arr" aria-hidden="true">→</span></a>
+            </div>
+            <ul class="casos__grid clientes-casos__grid" role="list">
+              <li id="caso-senado" class="casos__card card-h rv">
+                <p class="eyebrow">Data center · Sector público</p>
+                <h4 class="casos__name">Senado de la Nación</h4>
+                <dl class="casos__rows clientes-caso__rows">
+                  <div class="casos__row"><dt class="eyebrow">Qué hicimos</dt><dd>En 2017 proveímos e instalamos en rack un servidor Huawei, con soporte 7x24 durante 36 meses.</dd></div>
+                </dl>
+                <ul class="servicios__chips" role="list" aria-label="Tecnologías">
+                  <li class="chip">Servidor Huawei</li>
+                </ul>
+              </li>
+              <li id="caso-sedronar" class="casos__card card-h rv">
+                <p class="eyebrow">Storage · Sector público</p>
+                <h4 class="casos__name">Sedronar</h4>
+                <dl class="casos__rows clientes-caso__rows">
+                  <div class="casos__row"><dt class="eyebrow">Qué hicimos</dt><dd>Entre 2016 y 2017 proveímos e instalamos un storage Huawei OceanStor 2200 V3 con controladora dual y conectividad Fibre Channel, con recepción definitiva del organismo.</dd></div>
+                </dl>
+                <ul class="servicios__chips" role="list" aria-label="Tecnologías">
+                  <li class="chip">Huawei OceanStor</li>
+                  <li class="chip">Storage</li>
+                </ul>
+              </li>
+              <li class="casos__card card-h rv">
+                <p class="eyebrow">Backup · CABA · Proyecto realizado</p>
+                <h4 class="casos__name">Agencia de Sistemas de Información</h4>
+                <dl class="casos__rows clientes-caso__rows">
+                  <div class="casos__row"><dt class="eyebrow">Qué hicimos</dt><dd>Administramos el storage y el backup del organismo, con políticas de resguardo y pruebas periódicas de recupero.</dd></div>
+                </dl>
+                <ul class="servicios__chips" role="list" aria-label="Tecnologías">
+                  <li class="chip">IBM Tivoli Storage Manager</li>
+                  <li class="chip">Hitachi</li>
+                  <li class="chip">IBM</li>
+                </ul>
+              </li>
+              <li class="casos__card card-h rv">
+                <p class="eyebrow">Cloud · Telecomunicaciones</p>
+                <h4 class="casos__name">Cablevisión-Fibercorp</h4>
+                <dl class="casos__rows clientes-caso__rows">
+                  <div class="casos__row"><dt class="eyebrow">Qué hicimos</dt><dd>En 2017 realizamos la consultoría y la implementación de OpenStack para su nube privada.</dd></div>
+                </dl>
+                <ul class="servicios__chips" role="list" aria-label="Tecnologías">
+                  <li class="chip">OpenStack</li>
+                  <li class="chip">Nube privada</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Grupo 4 -->
+          <div class="clientes-grupo">
+            <div class="clientes-grupo__head rv">
+              <h3 class="clientes-grupo__titulo">Videoseguridad, control de acceso e IoT</h3>
+              <a class="clientes-grupo__link" href="/soluciones/">Ver todas las soluciones <span class="arr" aria-hidden="true">→</span></a>
+            </div>
+            <ul class="casos__grid clientes-casos__grid" role="list">
+              <li id="caso-srt" class="casos__card card-h rv">
+                <p class="eyebrow">Control de acceso · Desde 2024</p>
+                <h4 class="casos__name">Superintendencia de Riesgos del Trabajo</h4>
+                <dl class="casos__rows clientes-caso__rows">
+                  <div class="casos__row"><dt class="eyebrow">Desafío</dt><dd>Controlar el acceso y el presentismo de unas 1.300 personas en 19 sedes.</dd></div>
+                  <div class="casos__row"><dt class="eyebrow">Qué hicimos</dt><dd>Implementamos reconocimiento facial, molinetes y HikCentral integrado con Meta4. Las 16 comisiones médicas del interior quedaron operativas en un mes.</dd></div>
+                  <div class="casos__row"><dt class="eyebrow">Hoy</dt><dd>Prestamos el mantenimiento, con primera respuesta en menos de una hora.</dd></div>
+                </dl>
+                <ul class="servicios__chips" role="list" aria-label="Tecnologías">
+                  <li class="chip">Hikvision</li>
+                  <li class="chip">HikCentral</li>
+                  <li class="chip">Meta4</li>
+                </ul>
+              </li>
+              <li class="casos__card card-h rv">
+                <p class="eyebrow">Videovigilancia · Desde 2023</p>
+                <h4 class="casos__name">Nación Seguros</h4>
+                <dl class="casos__rows clientes-caso__rows">
+                  <div class="casos__row"><dt class="eyebrow">Qué hacemos</dt><dd>Prestamos el mantenimiento preventivo y correctivo de la videovigilancia de su casa central, bajo un contrato de renovación anual.</dd></div>
+                  <div class="casos__row"><dt class="eyebrow">SLA</dt><dd>Correctivo 7x24, con respuesta en 2 horas y reparación en 4.</dd></div>
+                </dl>
+                <ul class="servicios__chips" role="list" aria-label="Tecnologías">
+                  <li class="chip">Hikvision</li>
+                  <li class="chip">Mantenimiento</li>
+                </ul>
+              </li>
+              <li class="casos__card card-h rv">
+                <p class="eyebrow">IoT industrial · Envases</p>
+                <h4 class="casos__name">Petropack</h4>
+                <dl class="casos__rows clientes-caso__rows">
+                  <div class="casos__row"><dt class="eyebrow">Qué hicimos</dt><dd>Implementamos una prueba piloto IIoT en la planta de Paraná que transmitía al servidor del cliente la velocidad, el arranque y la parada de una impresora industrial (2020-2021).</dd></div>
+                </dl>
+                <ul class="servicios__chips" role="list" aria-label="Tecnologías">
+                  <li class="chip">IIoT</li>
+                  <li class="chip">PLC</li>
+                  <li class="chip">OPC</li>
+                </ul>
+              </li>
+              <li class="casos__card card-h rv">
+                <p class="eyebrow">IoT · Seguridad vehicular</p>
+                <h4 class="casos__name">Ituran</h4>
+                <dl class="casos__rows clientes-caso__rows">
+                  <div class="casos__row"><dt class="eyebrow">Qué hicimos</dt><dd>Implementamos una solución IoT para el seguimiento de personas y objetos.</dd></div>
+                </dl>
+                <ul class="servicios__chips" role="list" aria-label="Tecnologías">
+                  <li class="chip">IoT</li>
+                  <li class="chip">Tracking</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Grupo 5 -->
+          <div class="clientes-grupo">
+            <div class="clientes-grupo__head rv">
+              <h3 class="clientes-grupo__titulo">Desarrollo de software y consultoría</h3>
+              <a class="clientes-grupo__link" href="/servicios/">Ver todos los servicios <span class="arr" aria-hidden="true">→</span></a>
+            </div>
+            <ul class="casos__grid clientes-casos__grid" role="list">
+              <li class="casos__card card-h rv">
+                <p class="eyebrow">Software · Sector público</p>
+                <h4 class="casos__name">Boletín Oficial</h4>
+                <dl class="casos__rows clientes-caso__rows">
+                  <div class="casos__row"><dt class="eyebrow">Qué hicimos</dt><dd>Desarrollamos el sistema de administración del Boletín Oficial de la República Argentina.</dd></div>
+                </dl>
+              </li>
+              <li class="casos__card card-h rv">
+                <p class="eyebrow">Software · Sector público</p>
+                <h4 class="casos__name">NIC.ar</h4>
+                <dl class="casos__rows clientes-caso__rows">
+                  <div class="casos__row"><dt class="eyebrow">Qué hicimos</dt><dd>Desarrollamos un sistema de administración y gestión de dominios.</dd></div>
+                </dl>
+              </li>
+              <li class="casos__card card-h rv">
+                <p class="eyebrow">Software · Consumo masivo</p>
+                <h4 class="casos__name">Reckitt Benckiser</h4>
+                <dl class="casos__rows clientes-caso__rows">
+                  <div class="casos__row"><dt class="eyebrow">Qué hicimos</dt><dd>Desarrollamos un sistema de gestión de patrimonio y suministros.</dd></div>
+                </dl>
+              </li>
+              <li class="casos__card card-h rv">
+                <p class="eyebrow">Consultoría · Cámara empresaria</p>
+                <h4 class="casos__name">CAME</h4>
+                <dl class="casos__rows clientes-caso__rows">
+                  <div class="casos__row"><dt class="eyebrow">Qué hicimos</dt><dd>Brindamos asesoramiento en el desarrollo de una aplicación móvil de e-learning.</dd></div>
+                </dl>
+              </li>
+            </ul>
+            <div class="nota"><b>Para Nico</b>Estos cuatro casos los saqué de la presentación de 2022 y no dicen tecnologías ni año. Si me pasás esos datos les sumo el desafío y el alcance; si no, quedan así.</div>
+          </div>
+
+          <div class="nota"><b>Para Carlos</b>No tengo ningún testimonio aprobado. ¿Se lo pedimos a LoJack-Strix, a la SRT o a Parques Nacionales, y a algún cliente de cámaras? Cuando lleguen los pongo acá con nombre y cargo.</div>
+        </div>
+      </section>
+
+      <include src="partials/pagina/faq.html" titulo="Referencias, organismos y sedes del interior.">
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Con qué tipo de clientes trabaja Intellihelp?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Con empresas medianas y grandes, corporaciones y organismos nacionales, provinciales y municipales. Con pymes trabajamos según el servicio, principalmente en la instalación de cámaras de seguridad y control de acceso.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Trabajaron con organismos públicos?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Sí, con más de 20 contrataciones públicas adjudicadas. Proveímos e instalamos un servidor Huawei para el Senado de la Nación y el storage de Sedronar, y para la Ciudad de Buenos Aires mantuvimos la red GPON de unos 1.000 establecimientos y prestamos la cobertura 7x24 de sus servidores.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Qué experiencia tienen en mesa de ayuda y outsourcing IT?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Implementamos la mesa de ayuda de nivel 1 y 2 de MSD y la de nivel 1 del grupo LoJack-Strix, en las oficinas de cada cliente. Para un banco internacional cubrimos más de 40 posiciones IT en un año, para Pfizer incorporamos analistas funcionales y de datos, y desde 2023 prestamos a Medifé un servicio de outsourcing de QA.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Tienen clientes fuera de Buenos Aires?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Sí. Trabajamos en 12 provincias: para la SRT implementamos el control de acceso de 16 comisiones médicas del interior y para una obra social prestamos soporte en sus agencias del interior. Para LoJack trabajamos también en Chile y Uruguay, junto con socios locales.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Pueden darme referencias de clientes?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Contamos con referencias comerciales de organismos y empresas. Solicitalas durante la evaluación de tu proyecto y te enviamos las de los casos más afines a tu necesidad.</p>
+            <div class="nota"><b>Para Carlos</b>¿Qué clientes aceptan dar referencias y cómo se las pasamos al que las pide? Si no me decís nada, la respuesta queda así.</div>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Por qué algunos casos no nombran al cliente?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Porque algunos contratos incluyen cláusulas de confidencialidad, como los de los dos bancos de esta página. En esos casos publicamos el servicio prestado, los perfiles incorporados y las cifras del proyecto, sin identificar a la entidad.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Siguen trabajando con estos clientes?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Con buena parte de ellos, sí. Hoy prestamos servicios, entre otros, a la SRT, Parques Nacionales, el grupo LoJack-Strix, Nación Seguros, Medifé, el Consejo de la Magistratura y el INCUCAI. Los trabajos para la Ciudad de Buenos Aires, el Senado y Sedronar fueron proyectos ya finalizados.</p>
+          </div>
+        </details>
+      </include>
+
+      <include
+        src="partials/pagina/cta.html"
+        titulo="Si tu proyecto es similar a alguno de estos casos, contanos."
+        cierre="Te explicamos cómo lo resolvimos."
+      ></include>
+    </main>
+
+    <include src="partials/footer.html"></include>
+    <include src="partials/whatsapp.html"></include>
+  </body>
+</html>

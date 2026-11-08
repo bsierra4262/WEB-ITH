@@ -1,0 +1,174 @@
+/* =========================================================
+   Intellihelp — movimiento (preloader y recetas de animación con el ritmo de Globant)
+   Se enlaza después de styles.css y trabaja junto con js/motion.js. Detalle de cada receta, tiempos y cómo sumarlo a
+   una página interna: README-movimiento.md.
+
+   Reglas de la casa:
+   - Identidad de Nico intacta: no cambia colores, tipografía, botones ni el header (solo su movimiento).
+   - Una sola curva (--ease-out de styles.css, easeOutQuint) y una escala de tiempos fija (tokens --m-*).
+     Lo único lineal es lo que tiene que serlo: el giro del aro del preloader, la cinta de logos, las barras de avance
+     y el parallax atado al scroll.
+   - Solo transform y opacity (más `translate`/`scale` sueltos, que también los resuelve la GPU).
+   - Todo cuelga de .anim (la pone el <head> si hay IntersectionObserver y no se pidió "reducir movimiento") y además va
+     dentro de prefers-reduced-motion: no-preference. Con "reducir movimiento" la página queda visible y quieta.
+   - Cada elemento entra una sola vez por carga. Sin botones de pausa.
+   - Sin subrayados (ni fijos ni animados) ni líneas que se dibujan debajo de textos o títulos: los links solo cambian
+     de color (regla global en styles.css).
+   - Los íconos de las tarjetas levitan siempre, de forma visible y pareja (bloque 8): se mueve el círculo entero, así
+     el ícono queda centrado en él y no se corre nada del layout.
+   ========================================================= */
+
+:root {
+  --m-ease: var(--ease-out, cubic-bezier(.22, 1, .36, 1));
+  --m-t-hover: .2s;    /* color y flecha (igual que --t-fast) */
+  --m-t-lift: .35s;    /* elevación */
+  --m-t-head: .45s;    /* header: compactarse, ocultarse y volver */
+  --m-t-line: .9s;     /* cada línea de un título que sube desde su máscara */
+  --m-t-photo: .9s;    /* telón que descubre una foto */
+  --m-t-zoom: 1.4s;    /* la foto pasa de 106 % a su tamaño */
+  --m-step: .08s;      /* paso entre líneas (igual que --stagger) */
+}
+
+/* ---------- 1. Animación de carga ----------
+   Es un componente aparte, igual en todas las páginas: css/carga.css + js/carga.js (telón carbón, logo original
+   completo en el centro exacto y una línea lima simétrica; ~1 s, en cada carga, recarga y al volver con Atrás).
+   main.js revela lo que está a la vista cuando empieza a abrirse el telón (evento ith:intro-salida). */
+
+@media (prefers-reduced-motion: no-preference) {
+
+  /* ---------- 2. Títulos por líneas con máscara ----------
+     motion.js parte el título en palabras (.m-w = máscara, .m-w__in = la palabra) en el momento en que main.js lo
+     revela, mide en qué línea cayó cada una y les da la misma demora por línea: cada renglón sube desde abajo de su
+     máscara, uno detrás de otro. Al terminar se deshace el partido y queda el HTML original.
+     .m-host es el hijo del encabezado .rv-seq que contiene el título: se le saca la subida de styles.css para que no
+     se sumen las dos. */
+  .anim .rv-seq.show > .m-host { animation: none; }
+  .anim .m-w {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+    padding: .1em 0 .16em;   /* aire para tildes y descendentes: la máscara no los corta */
+    margin: -.1em 0 -.16em;  /* ...y no cambia el alto de la línea */
+  }
+  .anim .m-w__in {
+    display: inline-block;
+    animation: mLine var(--m-t-line) var(--m-ease) var(--m-d, 0s) both;
+  }
+
+  /* ---------- 3. Fotos que se descubren ----------
+     Un telón del color de la sección se retira hacia abajo (la foto aparece de arriba abajo) mientras la imagen pasa
+     de 106 % a su tamaño. Arranca junto con el revelado de su tarjeta (motion.js pone .m-in y la demora --m-d).
+     Se usa `scale` suelto para no pisar el zoom del hover de styles.css (transform). */
+  .anim .m-photo { position: relative; overflow: hidden; }
+  .anim .m-photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: var(--m-cover, var(--white));
+    transform-origin: 50% 100%;
+    pointer-events: none;
+  }
+  .anim .bg-gray .m-photo { --m-cover: var(--lav-2); }
+  .anim .m-photo.m-in::after { animation: mUncover var(--m-t-photo) var(--m-ease) var(--m-d, 0s) both; }
+  .anim .m-photo.m-in > img { animation: mZoom var(--m-t-zoom) var(--m-ease) var(--m-d, 0s) both; }
+
+  /* ---------- 4. Header: pasó a styles.css ("Header"), común a todas las páginas, con su comportamiento en main.js. */
+
+  /* ---------- 5. Transiciones de sección ----------
+     a) El bloque oscuro de cierre ("Agendá una reunión") se expande a su lugar desde el 94 %, antes que su contenido.
+     b) Salida del hero con parallax suave, atada al scroll (solo donde el navegador tiene scroll-driven animations):
+        el fondo de luces baja más lento que la página y el texto apenas se retrasa. Usa `translate` suelto, que se
+        suma a las entradas de styles.css sin pisarlas, y no toca la opacidad del texto (main.js la maneja con .is-idle).
+     La barrita del rótulo (.eyebrow::before) ya no se dibuja: entra junto con el rótulo, sin líneas animadas. */
+  .anim .cta-card.closing.rv-seq:not(.show) { opacity: 0; transform: scale(.94); }
+  .anim .cta-card.closing.rv-seq.show { animation: mGrow var(--m-t-line) var(--m-ease) var(--rv-d, 0s) backwards; }
+
+  @supports (animation-timeline: view()) {
+    .anim .hero { view-timeline: --m-hero block; }
+    .anim .hero__media > :is(img, video, .fondo) {
+      animation: mParMedia linear both;
+      animation-timeline: --m-hero;
+      animation-range: exit 0% exit 100%;
+    }
+    .anim .hero__inner {
+      animation: mParText linear both;
+      animation-timeline: --m-hero;
+      animation-range: exit 0% exit 100%;
+    }
+  }
+
+  /* ---------- 6. Hover ----------
+     Sin subrayados: en el menú, el pie y los links de texto solo cambia el color (styles.css, --t-fast con la curva de
+     la casa). Las tarjetas no suben ni hacen sombra: el filete de arriba y el título toman el color de la sección. */
+
+  /* ---------- 7. Slider de Presencia ----------
+     La vista entrante llega de costado (28 px) en el sentido del cambio. data-m-dir lo pone motion.js en cada cambio;
+     la primera vista conserva la entrada de styles.css. La cinta de clientes no frena nunca (ni con el mouse ni con
+     el foco): la maneja main.js. */
+  .anim .is-slider[data-m-dir="next"] .pres-slide.is-active > * { animation-name: mPresNext; }
+  .anim .is-slider[data-m-dir="prev"] .pres-slide.is-active > * { animation-name: mPresPrev; }
+
+  /* ---------- 8. Íconos que levitan ----------
+     El círculo del ícono (con el ícono centrado adentro) sube y baja 7 px a cada lado de su lugar (14 px de recorrido)
+     en un ciclo de 3,6 s con curva senoidal: se nota siempre, sin saltos. Se usa `translate` suelto, que no pisa el
+     transform de las entradas ni ocupa lugar en el layout (no queda espacio de más). En cada grupo de tres tarjetas
+     la ola va ordenada de izquierda a derecha (0, 0,45 y 0,9 s de desfase): igual en todos los grupos. */
+  .anim :is(#servicios, #soluciones) .service .icon-circle,
+  .anim .closing__text > .icon-circle,
+  .anim :is(.postulate-why__item, .postulate-profile) > .icon-circle,
+  .anim .postulate-jobs__ico {
+    animation: mLevita 3.6s cubic-bezier(.37, 0, .63, 1) var(--lev-d, 0s) infinite;
+  }
+  .anim .carousel__slide > .service:nth-child(2) .icon-circle { --lev-d: -.45s; }
+  .anim .carousel__slide > .service:nth-child(3) .icon-circle { --lev-d: -.9s; }
+  /* Subpáginas (Postulate): la misma ola, de izquierda a derecha en cada grilla */
+  .anim :is(.postulate-why__item, .postulate-profile):nth-child(2) > .icon-circle { --lev-d: -.45s; }
+  .anim :is(.postulate-why__item, .postulate-profile):nth-child(3) > .icon-circle { --lev-d: -.9s; }
+  .anim :is(.postulate-why__item, .postulate-profile):nth-child(4) > .icon-circle { --lev-d: -1.35s; }
+  /* En Casos el círculo también tiene su entrada (popSoft, con transform): las dos animaciones conviven */
+  .anim .case-card:not([inert]) .case-card__head .icon-circle {
+    animation: popSoft .5s var(--ease-out) .35s both, mLevita 3.6s cubic-bezier(.37, 0, .63, 1) .85s infinite;
+  }
+
+  /* ---------- 9. Preguntas frecuentes: filas escalonadas ----------
+     La lista no se mueve como bloque: entran sus filas, una detrás de otra (60 ms), con la subida corta. */
+  .anim .faq__list.rv:not(.show) { opacity: 1; transform: none; }
+  .anim .faq__list.rv:not(.show) > .faq__item { opacity: 0; }
+  .anim .faq__list.rv.show { animation: none; }
+  .anim .faq__list.rv.show > .faq__item { animation: riseSm .6s var(--ease-out) calc(var(--rv-d, 0s) + var(--fi, 0) * .06s) backwards; }
+  .faq__list > .faq__item:nth-child(2) { --fi: 1; }
+  .faq__list > .faq__item:nth-child(3) { --fi: 2; }
+  .faq__list > .faq__item:nth-child(4) { --fi: 3; }
+  .faq__list > .faq__item:nth-child(5) { --fi: 4; }
+  .faq__list > .faq__item:nth-child(6) { --fi: 5; }
+  .faq__list > .faq__item:nth-child(7) { --fi: 6; }
+  .faq__list > .faq__item:nth-child(8) { --fi: 7; }
+  .faq__list > .faq__item:nth-child(n+9) { --fi: 8; }
+
+  /* ---------- 10. Mapa que se recorre solo ----------
+     main.js pasa el indicador por cada zona con presencia. Mientras es automático (.is-tour) el resto del mapa apenas
+     se atenúa, sin desenfoque; cuando el visitante elige una zona vuelve el foco completo de styles.css. */
+  :is(#presencia, #presencia-regional) .map-stage.is-focusing.is-tour .prov:not(.is-active) { opacity: .72; filter: none; }
+}
+
+/* ---------- Contadores ----------
+   Los cuenta main.js (1,4 s, ease-out cúbico). Acá solo cifras de ancho fijo, para que el número no baile mientras sube. */
+.anim [data-count] { font-variant-numeric: tabular-nums; }
+
+/* ---------- Keyframes ---------- */
+@keyframes mLine    { from { transform: translateY(120%); } to { transform: none; } }
+@keyframes mUncover { from { transform: scaleY(1); } to { transform: scaleY(0); visibility: hidden; } }
+@keyframes mZoom    { from { scale: 1.06; } to { scale: 1; } }
+@keyframes mGrow    { from { opacity: 0; transform: scale(.94); } to { opacity: 1; transform: none; } }
+@keyframes mParMedia { to { translate: 0 18%; } }
+@keyframes mParText  { to { translate: 0 10%; } }
+@keyframes mPresNext { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: none; } }
+@keyframes mPresPrev { from { opacity: 0; transform: translateX(-28px); } to { opacity: 1; transform: none; } }
+@keyframes mLevita   { 0%, 100% { translate: 0 -7px; } 50% { translate: 0 7px; } }
+
+/* ---------- Reducir movimiento ----------
+   Los íconos quedan quietos en su lugar. */
+@media (prefers-reduced-motion: reduce) {
+  .icon-circle { animation: none !important; translate: none !important; }
+}

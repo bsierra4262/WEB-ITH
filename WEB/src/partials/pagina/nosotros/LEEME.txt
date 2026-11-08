@@ -1,0 +1,10 @@
+Parciales de /nosotros/ y /contacto/.
+- equipo.html: grilla del equipo (7 personas + equipo técnico) y la cita, con
+  las mismas clases que la home (equipo__*). Es una copia adaptada de
+  partials/equipo.html. La tarjeta de Brian nombra las herramientas internas
+  como desarrollo de Intellihelp (aprobado por Dirección en octubre de 2026),
+  sin datos de la infraestructura.
+- iconos/: íconos de las tarjetas de marcas (trazo 1.8, 24x24, clases
+  "ico svc-ico", como partials/pagina/iconos/).
+Los íconos de canales de /contacto/ están en ../contacto/iconos/ y se pasan a
+partials/pagina/dato.html con icono="../contacto/iconos/telefono".

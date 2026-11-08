@@ -1,0 +1,202 @@
+/* ==========================================================================
+   Presencia fuera de CABA
+   Franja cremita: texto + lista a la izquierda, tarjeta blanca con el mapa
+   interactivo de Argentina a la derecha (PDF pág. 05-06; el mapa reemplaza
+   la grilla de provincias del PDF por decisión de diseño).
+   ========================================================================== */
+
+.presencia__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(36px, 5vw, 48px);
+}
+
+.presencia__head {
+  margin-bottom: 0;
+}
+
+/* Lista del PDF: ✓ en círculo y el comienzo de cada ítem en negrita.
+   Color del original: círculo violeta con check blanco; el check hace
+   pop y se dibuja (.ico) cuando el bloque entra en pantalla. */
+.presencia__list[role='list'] {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: clamp(24px, 3vw, 32px);
+}
+
+.presencia__item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.presencia__item strong {
+  font-weight: 700;
+}
+
+.presencia__check {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-top: 2px;
+  border-radius: 50%;
+  background: var(--c-violet);
+  color: var(--c-white);
+}
+
+/* Nota interna de revisión (solo en desarrollo o con ?notas) */
+.presencia__nota {
+  margin-top: 20px;
+}
+
+/* Tarjeta del mapa */
+.presencia__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: clamp(20px, 3vw, 28px);
+}
+
+.presencia__map {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  margin-inline: auto;
+}
+
+.presencia__map .prov {
+  fill: var(--c-cream);
+  stroke: var(--c-white);
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+  cursor: pointer;
+  transition:
+    fill var(--dur),
+    stroke var(--dur);
+}
+
+.presencia__map .prov.on {
+  fill: var(--c-violet);
+}
+
+.presencia__map .prov.caba {
+  stroke-width: 2;
+}
+
+/* Zona de toque de CABA: círculo invisible más grande que el punto */
+.presencia__map .presencia__hit {
+  fill: transparent;
+  stroke: none;
+  pointer-events: all;
+}
+
+/* Teclado (map.js hace enfocables las activas): el foco se ve igual que el
+   hover, más el contorno de foco del sitio (:focus-visible en base.css). */
+.presencia__map .prov:hover,
+.presencia__map .prov:focus-visible,
+.presencia__map .prov.is-active {
+  fill: var(--c-carbon);
+  stroke: var(--c-carbon);
+}
+
+.presencia__map .prov.caba:hover,
+.presencia__map .prov.caba:focus-visible,
+.presencia__map .prov.caba.is-active {
+  stroke: var(--c-white);
+}
+
+/* Lector: provincia + estado (reserva su alto para que nada salte) */
+.presencia__reader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-height: 52px;
+  text-align: center;
+}
+
+.presencia__reader-name {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--c-violet);
+}
+
+.presencia__reader-status {
+  font-size: var(--fs-small);
+  color: var(--text-2);
+}
+
+/* Leyenda + provincias activas */
+.presencia__foot {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 14px;
+  border-top: 2px solid var(--divider-light);
+}
+
+.presencia__legend[role='list'] {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 20px;
+  font-size: 0.8125rem;
+  color: var(--text-2);
+}
+
+.presencia__legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.presencia__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--c-cream);
+  border: 1px solid var(--c-line);
+}
+
+.presencia__dot--on {
+  background: var(--c-violet);
+  border-color: var(--c-violet);
+}
+
+.presencia__provs[role='list'] {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+}
+
+.presencia__provs li {
+  padding: 5px 11px;
+  border-radius: var(--radius-pill);
+  background: var(--c-violet);
+  color: var(--c-white);
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+@media (min-width: 960px) {
+  .presencia__layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(48px, 6vw, 80px);
+  }
+}

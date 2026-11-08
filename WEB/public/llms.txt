@@ -1,0 +1,81 @@
+# Intellihelp
+
+> Intellihelp (INTELLIHELP S.A., CUIT 30-71140975-7) es una empresa argentina de servicios IT para empresas medianas y grandes y para organismos públicos. Tiene su oficina en Palermo, Ciudad de Buenos Aires, y trabaja desde 2012 (14 años). Da mesa de ayuda (help desk), outsourcing IT, selección de personal IT, desarrollo de software, automatización, cámaras de seguridad y control de accesos para empresas, ciberseguridad, cableado estructurado, fibra óptica, redes de acceso, data center y cloud.
+
+Aclaración importante: Intellihelp (www.intellihelp.tech, Argentina) no tiene relación con IntelliHelp SpA, una empresa de Chile con un nombre parecido. Son empresas distintas.
+
+Datos básicos:
+
+- Razón social: INTELLIHELP S.A. CUIT 30-71140975-7.
+- Sitio: https://www.intellihelp.tech/
+- Trayectoria: 14 años, desde 2012.
+- Quiénes dirigen la empresa: Carlos Baldelli (presidente y socio) y Nicolás Baldelli (director de operaciones y socio). El equipo de la oficina son 7 personas, más los técnicos y analistas en nómina de Intellihelp que trabajan en las oficinas de los clientes.
+- Oficina: Av. Dorrego 1789, piso 6, oficina 604, C1414CKM, Palermo, Ciudad Autónoma de Buenos Aires, Argentina.
+- Horario de atención: lunes a viernes, de 9 a 18.
+- Clientes: empresas medianas y grandes, corporaciones y organismos nacionales, provinciales y municipales. Con pymes, según el servicio: la instalación de cámaras de seguridad y control de acceso sirve para empresas de cualquier tamaño.
+- Cobertura: los clientes tienen su casa central en Buenos Aires y los contratos pueden cubrir sus sedes en otras provincias o en países limítrofes. Hubo proyectos en 12 provincias y en CABA, y en Chile y Uruguay con socios locales.
+- Organismos públicos: más de 20 contrataciones públicas adjudicadas.
+- Partners: Gold Partner de Huawei (desde 2016) y de Hikvision (desde 2018).
+
+## Servicios
+
+Los presta el equipo de Intellihelp con su propia gente.
+
+- [Servicios IT para empresas](https://www.intellihelp.tech/servicios/): índice de los 7 servicios.
+- [Outsourcing IT y service desk](https://www.intellihelp.tech/servicios/outsourcing-y-service-desk/): mesa de ayuda (help desk) tercerizada de niveles 1 y 2, con SLA y procesos ITIL, en las oficinas del cliente o en las de Intellihelp. También suma profesionales IT al equipo del cliente, en nómina de Intellihelp o del cliente.
+- [Reclutamiento y selección de personal IT](https://www.intellihelp.tech/servicios/reclutamiento-y-seleccion/): relevamiento del puesto, entrevista con psicodiagnóstico laboral, assessment e informe por candidato.
+- [Headhunting IT y executive search](https://www.intellihelp.tech/servicios/busqueda-de-recursos/): búsqueda de perfiles IT escasos y de ejecutivos que entran a la nómina del cliente.
+- [Desarrollo de software y aplicaciones a medida](https://www.intellihelp.tech/servicios/desarrollo-de-aplicaciones/): empresa de desarrollo de software en CABA. Sistemas transaccionales, aplicaciones mobile y software a medida, por proyecto cerrado o time and material.
+- [Automatización de procesos y con IA](https://www.intellihelp.tech/servicios/automatizacion/): automatización de tareas repetitivas entre sistemas, bots de atención y agentes expertos con la información de la empresa.
+- [Capacitación IT para empresas](https://www.intellihelp.tech/servicios/capacitacion/): cursos in company, talleres prácticos y la plataforma propia INTELLIHELP-Learning.
+- [Consultoría IT](https://www.intellihelp.tech/servicios/consultoria/): ITIL para la mesa de ayuda, PMI y metodologías ágiles, calidad, planes de IT y transformación digital.
+
+## Soluciones
+
+Proyectos en los que Intellihelp integra equipos de uno o más fabricantes y queda como único proveedor: relevamiento, instalación, puesta en marcha y mantenimiento.
+
+- [Soluciones IT para empresas](https://www.intellihelp.tech/soluciones/): índice de las 9 soluciones.
+- [Instalación de cámaras de seguridad y control de acceso](https://www.intellihelp.tech/soluciones/seguridad/): videovigilancia IP, control de accesos para empresas y organismos, biometría facial y de huella, molinetes y barreras con Hikvision, Suprema y Dahua. Integración de HikCentral o BioStar con el sistema de personal o de sueldos para el presentismo.
+- [Ciberseguridad para empresas](https://www.intellihelp.tech/soluciones/ciberseguridad/): redes seguras y ciberseguridad con Fortinet, incluidas las redes industriales (OT).
+- [Cableado estructurado y redes LAN](https://www.intellihelp.tech/soluciones/redes-indoor/): cableado estructurado, red LAN y wifi para empresas. Furukawa Laserway (GPON para cableado estructurado) y switches y access points Huawei, Cisco, Aruba y Ubiquiti.
+- [Redes FTTH e instalación de fibra óptica](https://www.intellihelp.tech/soluciones/redes-ftth/): redes FTTH y GPON para organismos, empresas con varias sedes y proveedores de internet, con equipos de acceso Huawei.
+- [Data center, servidores y storage](https://www.intellihelp.tech/soluciones/data-center/): servidores, storage, switches y nube privada con Huawei, Dell, HP y Lenovo.
+- [Servicios en la nube](https://www.intellihelp.tech/soluciones/cloud/): nube privada Huawei FusionCloud u OpenStack, nube pública e híbrida y migración a Microsoft 365.
+- [Soluciones IoT e IIoT](https://www.intellihelp.tech/soluciones/iot/): sensores, gateways, monitoreo remoto y tableros en tiempo real para plantas, edificios y espacios públicos.
+- [Redes de acceso GPON, CATV y HFC](https://www.intellihelp.tech/soluciones/acceso/): redes de acceso para proveedores de internet, cableoperadores y organismos con muchas sedes, con Huawei y Furukawa.
+- [Energías renovables](https://www.intellihelp.tech/soluciones/energias-renovables/): factibilidad, diseño y asesoría para sistemas solares on-grid, off-grid e híbridos con Huawei.
+
+Marcas con las que trabaja: Huawei, Hikvision, Dahua, Suprema, Furukawa, Fortinet, Microsoft, Cisco, Aruba, Ubiquiti, MikroTik, HP, Dell, Lenovo, APC, Eaton, Panduit, Red Hat, SUSE y Grandstream.
+
+## Casos
+
+Proyectos realizados. Más casos, con el desafío, la solución y las tecnologías, en la página de clientes.
+
+- [Clientes y casos de éxito](https://www.intellihelp.tech/clientes/): clientes por sector (organismos públicos, seguros, salud, laboratorios, industria y telecomunicaciones) y más de 20 casos.
+- Superintendencia de Riesgos del Trabajo (desde 2024): control de acceso y presentismo con reconocimiento facial, HikCentral e integración con Meta4, en 3 edificios de CABA y 16 comisiones médicas del interior.
+- Administración de Parques Nacionales (desde 2023): mantenimiento integral 7x24 de la Casa Central (red GPON, cámaras, biometría, wifi, firewall y UPS).
+- Nación Seguros (desde 2023): mantenimiento de la videovigilancia de su casa central.
+- Grupo LoJack-Strix (desde 2022): mesa de ayuda de nivel 1 en sus oficinas, con guardias fuera de horario.
+- Agencia de Sistemas de Información del Gobierno de la Ciudad de Buenos Aires: administradores de sistemas y de bases de datos para sus servidores. La guardia pasó de 5x8 a 7x24, con 2 horas de respuesta máxima acordada ante cualquier incidente.
+- Red GPON de la Ciudad de Buenos Aires (2018 a 2023): mantenimiento 7x24 de unas 1.000 ONT y más de 20 OLT Huawei.
+- AGIP (2017): conexión de 28 sedes a la red de fibra óptica del Gobierno de la Ciudad.
+- Senado de la Nación: instalación de un servidor Huawei.
+- Sedronar: storage Huawei OceanStor.
+- Un banco internacional: más de 40 posiciones IT cubiertas en un año (Cobol, .NET, Java, arquitectos, Scrum Masters y testers).
+- MSD y Pfizer: mesa de ayuda y outsourcing IT.
+- Petropack (2020-2021): piloto IIoT que registra la velocidad, el arranque y la parada de una impresora industrial en su planta de Paraná.
+
+## Empresa y contacto
+
+- [Quiénes somos](https://www.intellihelp.tech/nosotros/): historia, equipo, marcas y la aclaración sobre IntelliHelp SpA de Chile.
+- [Trabajá con nosotros](https://www.intellihelp.tech/nosotros/#trabaja-con-nosotros): búsquedas laborales y envío de CV a rrhh@intellihelp.tech.
+- [Contacto](https://www.intellihelp.tech/contacto/): formulario, WhatsApp, teléfono, mail y dirección.
+- [Reunión de diagnóstico](https://www.intellihelp.tech/diagnostico/): videollamada con Carlos Baldelli, presidente de Intellihelp, para contar qué quiere resolver la empresa u organismo y definir los próximos pasos. Es la forma más directa de empezar: se pide desde esa página o desde el formulario de cualquier página del sitio.
+- [Aviso de privacidad](https://www.intellihelp.tech/privacidad/): qué datos personales recibe Intellihelp por el formulario y cómo trata los datos de sus clientes durante un servicio, según la Ley 25.326.
+- Teléfono: +54 11 7700-6868
+- WhatsApp: +54 9 11 5027-4827 (https://wa.me/5491150274827)
+- Mail comercial: info@intellihelp.tech
+- Mail de RRHH: rrhh@intellihelp.tech
+- LinkedIn: https://www.linkedin.com/company/intellihelp/
+
+Última actualización de este archivo: 30 de octubre de 2026.

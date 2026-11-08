@@ -1,0 +1,38 @@
+<!--
+  LANDING /diagnostico/ · CALENDARIO (embudo, etapa 02: "El calendario, ahí mismo")
+  Va justo antes de <include src="partials/agenda.html">, que sigue siendo la
+  sección #agenda en los dos casos (así el CTA del header, reveal.js y el
+  resto de los módulos la siguen encontrando).
+  - site.diagnostico.calendario = "crm" (lo que se usa): agenda del CRM, en
+    pagina/diagnostico/agenda-crm.html. Si el CRM no responde o no hay
+    horarios, queda el formulario de siempre.
+  - site.diagnostico.calendario vacío: formulario de siempre.
+  - Con URL https de una página de citas de Google Calendar o de Calendly
+    (queda como alternativa; hay que abrir antes la CSP del .htaccess):
+    diagnostico.js reemplaza el contenido del panel blanco (.agenda__panel)
+    por este template y le pone la URL al iframe (#diagnostico-calendario,
+    con data-calendario). A Google Calendar le agrega gv=true, que es el modo
+    para embeber. <main> pasa a data-agenda="calendario".
+-->
+<div class="wrap diagnostico-agenda-nota" data-solo="calendario" data-draft>
+  <div class="nota"><b>Para Carlos</b>La agenda de esta página es la del CRM: toma tus horarios libres de Google Calendar, crea la reunión con Meet y te deja el contacto, la empresa y el canal por el que llegó. En esta versión de prueba muestra mis horarios. Antes de publicarla necesito que entres al CRM con tu cuenta de Google, aceptes el permiso del calendario y me confirmes tu horario para estas reuniones. Hoy la configuré de lunes a viernes de 9 a 18, de 30 minutos, con 15 de margen entre una y otra.</div>
+</div>
+<div class="wrap diagnostico-agenda-nota" data-solo="formulario" data-draft>
+  <div class="nota"><b>Para Clau</b>Si en lugar del calendario ves el formulario, es porque el CRM no respondió o no hay horarios libres en las próximas tres semanas. En ese caso la consulta llega igual por mail y queda registrada en el CRM con el canal de origen. Las reservas se miden con schedule_meeting y las consultas con generate_lead.</div>
+</div>
+
+<include src="agenda-crm.html"></include>
+
+<template data-diagnostico-calendario>
+  <h3 class="agenda__h3" id="agenda-calendario-titulo">Elegí día y hora</h3>
+  <p class="agenda__sub">Estos son los horarios disponibles de Carlos. Al confirmar, recibís un mail con el enlace de la videollamada y un recordatorio previo a la reunión.</p>
+  <iframe
+    id="diagnostico-calendario"
+    class="diagnostico-calendario"
+    data-calendario
+    title="Calendario para agendar la reunión de diagnóstico con Carlos Baldelli"
+    loading="lazy"
+    referrerpolicy="strict-origin-when-cross-origin"
+  ></iframe>
+  <p class="agenda__sub diagnostico-calendario__alt">¿No encontrás un horario conveniente? Escribinos por <a href="{{site.whatsapp.url}}" target="_blank" rel="noopener">WhatsApp<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a> o a <a href="mailto:{{site.email}}">{{site.email}}</a> y lo coordinamos.</p>
+</template>

@@ -1,0 +1,38 @@
+<!--
+  DATOS CLAVE (informe: tamaño de empresa, modalidad, SLA y horario, cobertura
+  y modelo de precio)
+  Franja cremita con tarjetas blancas (mismo estilo que "Qué hacemos" de la
+  home): ícono en badge que hace pop y flota, título y texto. Cada tarjeta es
+  un partials/pagina/dato.html.
+  Si un dato no está confirmado: la tarjeta lleva una .nota y, si no hay nada
+  publicable, data-draft en el include del dato no sirve (el include no es un
+  elemento): envolvé el include en <div data-draft> … </div>.
+
+  Uso:
+    <include src="partials/pagina/datos.html" titulo="Cómo es el servicio.">
+      <include src="partials/pagina/dato.html" icono="empresa" titulo="Para quién">
+        <p>Empresas medianas y grandes…</p>
+        <div class="nota"><b>Para Carlos</b>¿Desde cuántos puestos lo ofrecemos? Si no me decís nada, queda sin rango.</div>
+      </include>
+      <div data-draft>
+        <include src="partials/pagina/dato.html" icono="precio" titulo="Modelo de precio">
+          <div class="nota"><b>Para Carlos</b>…</div>
+        </include>
+      </div>
+    </include>
+
+  Props:
+    titulo    obligatoria (h2).
+    eyebrow   opcional (por defecto "Datos clave").
+-->
+<section id="datos" class="section section--soft pagina-datos" aria-labelledby="datos-titulo">
+  <div class="wrap">
+    <header class="section-head rv">
+      <p class="eyebrow eyebrow--dash">{{props.eyebrow|Datos clave}}</p>
+      <h2 id="datos-titulo" class="h2">{{props.titulo}}</h2>
+    </header>
+    <div class="pagina-datos__grid">
+      <slot></slot>
+    </div>
+  </div>
+</section>

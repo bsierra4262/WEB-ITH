@@ -1,0 +1,354 @@
+/* ==========================================================================
+   Header — carbón y sticky, con los colores del código original
+   (DOCS/diseno/Home-html-referencia): fondo #333333 con borde #4A4A4A,
+   "Servicios IT / CABA · año" en cremita, links blancos con hover lima y
+   CTA lima. Estructura del PDF: logo + divisor vertical + bajada, nav
+   centrado y CTA a la derecha. En < 960px y con JS: menú hamburguesa con panel carbón.
+   Sin JS (.site-header sin .is-enhanced) la navegación siempre queda visible.
+   ========================================================================== */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 45;
+  background: var(--c-carbon-2);
+  color: var(--text-on-dark);
+  border-bottom: 1px solid var(--c-line-2);
+  transition: box-shadow var(--dur) var(--ease-out);
+}
+
+.site-header.is-scrolled {
+  box-shadow: 0 6px 24px rgb(42 42 42 / 0.28);
+}
+
+/* Foco visible sobre fondo oscuro */
+.site-header :focus-visible {
+  outline-color: var(--c-white);
+}
+
+.site-header__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 16px;
+  min-height: var(--header-h);
+}
+
+/* Marca */
+.site-header__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  color: var(--text-on-dark);
+  text-decoration: none;
+}
+
+.site-header__brand:hover {
+  color: var(--text-on-dark);
+}
+
+.site-header__logo {
+  display: block;
+  width: auto;
+  height: 44px;
+}
+
+.site-header__tag {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-display);
+  font-size: 0.8125rem; /* 13px */
+  line-height: 1.15;
+  letter-spacing: 0.04em;
+  color: var(--text-2-on-dark);
+  white-space: nowrap;
+  /* Divisor vertical entre el logo y la bajada (PDF), en el gris del borde */
+  padding-left: 12px;
+  border-left: 1px solid var(--c-line-2);
+}
+
+/* Navegación */
+.site-header__list {
+  display: flex;
+  align-items: center;
+  gap: 8px 22px;
+}
+
+.site-header__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-family: var(--font-display);
+  font-size: 1.0625rem; /* 17px */
+  font-weight: 400;
+  color: var(--text-on-dark);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+
+.site-header__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 8px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--c-lime);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease-out);
+}
+
+/* aria-current="page" (página actual) y "true" (sección de la página actual o,
+   en la home, sección visible): los marca el plugin de parciales o header.js */
+.site-header__link:hover,
+.site-header__link[aria-current] {
+  color: var(--c-lime);
+}
+
+.site-header__link[aria-current]::after {
+  transform: scaleX(1);
+}
+
+.site-header__cta {
+  min-height: 48px;
+  white-space: nowrap;
+}
+
+/* Botón hamburguesa (solo con JS y en mobile) */
+.site-header__toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  margin-right: -6px;
+  border: 0;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text-on-dark);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.site-header__toggle:hover {
+  color: var(--c-lime);
+}
+
+.site-header__burger {
+  position: relative;
+  display: block;
+  width: 22px;
+  height: 16px;
+}
+
+.site-header__burger > span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition:
+    transform 0.3s var(--ease-out),
+    opacity 0.2s;
+}
+
+.site-header__burger > span:nth-child(1) { top: 0; }
+.site-header__burger > span:nth-child(2) { top: 7px; }
+.site-header__burger > span:nth-child(3) { top: 14px; }
+
+.site-header.is-open .site-header__burger > span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.site-header.is-open .site-header__burger > span:nth-child(2) {
+  opacity: 0;
+}
+
+.site-header.is-open .site-header__burger > span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ---------- Mobile (< 960px) ---------- */
+@media (max-width: 959.98px) {
+  .site-header__brand {
+    min-height: var(--header-h);
+  }
+
+  /* Sin JS: fila propia debajo de la marca, con scroll horizontal */
+  .site-header__menu {
+    order: 3;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-inline: calc(-1 * var(--gutter));
+    padding: 4px var(--gutter) 10px;
+    width: calc(100% + 2 * var(--gutter));
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .site-header__menu::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Con JS: hamburguesa + panel desplegable */
+  .site-header.is-enhanced .site-header__toggle {
+    display: inline-flex;
+  }
+
+  .site-header.is-enhanced .site-header__menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: auto;
+    margin: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    max-height: calc(100dvh - var(--header-h));
+    padding: 8px var(--gutter) 24px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: var(--c-carbon-2);
+    border-bottom: 1px solid var(--c-line-2);
+    box-shadow: 0 18px 32px rgb(42 42 42 / 0.35);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition:
+      opacity var(--dur) var(--ease-out),
+      transform var(--dur) var(--ease-out),
+      visibility 0s linear var(--dur);
+  }
+
+  .site-header.is-enhanced.is-open .site-header__menu {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    /* Sin transición de visibility al abrir: queda visible al instante y el
+       primer link se puede enfocar enseguida. */
+    transition:
+      opacity var(--dur) var(--ease-out),
+      transform var(--dur) var(--ease-out);
+  }
+
+  /* Evita que el visibility heredado "transicione" en los hijos (la regla de
+     movimiento reducido pone transition-duration a todo) y bloquee el foco. */
+  .site-header.is-enhanced :is(.site-header__nav, .site-header__list, .site-header__list > li) {
+    transition-property: none;
+  }
+
+  .site-header.is-enhanced .site-header__list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .site-header.is-enhanced .site-header__list > li + li {
+    border-top: 1px solid var(--c-line-2);
+  }
+
+  .site-header.is-enhanced .site-header__link {
+    display: flex;
+    min-height: 52px;
+  }
+
+  .site-header.is-enhanced .site-header__link::after {
+    right: auto;
+    width: 28px;
+    bottom: 10px;
+  }
+
+  .site-header.is-enhanced .site-header__cta {
+    width: 100%;
+    min-height: 52px;
+  }
+
+  /* Velo detrás del panel: el toque afuera solo cierra el menú (header.js) y
+     no activa el link que haya debajo. Mismo carbón de las sombras. Al cerrar
+     queda visible durante el fundido para recibir también el fin del toque. */
+  .site-header.is-enhanced::before {
+    content: '';
+    position: fixed;
+    inset: var(--header-h) 0 0;
+    background: rgb(42 42 42 / 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity var(--dur) var(--ease-out),
+      visibility 0s linear var(--dur);
+  }
+
+  .site-header.is-enhanced.is-open::before {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity var(--dur) var(--ease-out);
+  }
+
+  .site-header.is-enhanced .site-header__menu {
+    overscroll-behavior: contain;
+  }
+}
+
+/* ---------- Desktop (≥ 960px) ---------- */
+@media (min-width: 960px) {
+  .site-header__bar {
+    flex-wrap: nowrap;
+    column-gap: 24px;
+  }
+
+  .site-header__menu {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .site-header__nav {
+    margin-inline: auto;
+  }
+
+  /* Mientras se ve #agenda (header.js le pone aria-current) el CTA se oculta:
+     el visitante ya está en el formulario. Mismo fundido que .wa-float.is-hidden.
+     Conserva su lugar para que el nav no se corra. */
+  .site-header__cta {
+    transition:
+      transform var(--dur) var(--ease-out),
+      background-color var(--dur),
+      color var(--dur),
+      border-color var(--dur),
+      box-shadow var(--dur),
+      opacity 0.3s var(--ease-out),
+      visibility 0.3s;
+  }
+
+  .site-header__cta[aria-current='true'] {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+/* Movimiento reducido: animations.css deja a .btn sin transform; el fundido
+   del CTA se mantiene, como el de .wa-float. */
+@media (min-width: 960px) and (prefers-reduced-motion: reduce) {
+  .site-header .site-header__cta {
+    transition-property: background-color, color, border-color, box-shadow, opacity, visibility;
+  }
+}
+
+@media (max-width: 359.98px) {
+  .site-header__tag {
+    display: none;
+  }
+}

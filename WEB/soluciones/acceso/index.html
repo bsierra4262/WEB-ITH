@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <include
+      src="partials/pagina/head.html"
+      titulo="Redes GPON y CATV para ISP y operadores | Intellihelp"
+      descripcion="Redes de acceso GPON, CATV, HFC y triple play para ISP, cableoperadores y organismos, con Huawei y Furukawa. Diseño, puesta en marcha y guardia."
+    ></include>
+
+    <!--
+      SOLUCIÓN: REDES DE ACCESO CATV, PON Y HFC (fase 2 del informe de
+      visibilidad, días 45 a 75).
+      Estructura del informe (cap. 9): hero · respuesta corta · qué incluye ·
+      marcas · cuándo te conviene · cómo trabajamos · datos clave · caso real ·
+      FAQ · formulario.
+      Keyword principal: gpon. Secundarias: catv, triple play, red hfc.
+      Fuentes: brief §2.1.2 (Huawei acceso: redes ópticas pasivas para
+      empresas, ISP y MSO); fuentes-pdfs-old.md §3 (acceso: CATV, híbridas,
+      PON/GPON, 3 Play, IPTV, HFC, VoIP; redes de FO y coaxiales);
+      fuentes-drive-clientes.md §2 "Acceso" (red GPON del GCBA 2018-2023:
+      unas 21 a 22 OLT y unas 1.000 ONT, guardia, repuestos, OLT de respaldo,
+      Huawei TAC, U2000, PRTG, iMaster NCE; provisión de OLT MA5800 y ONT;
+      GPON Furukawa de Parques Nacionales, 114 ONT), §3 (SLA de APN) y §4
+      punto 11 (certificaciones Huawei en propuestas a la ASI) y punto 10
+      (Gold Partner Huawei vigente).
+      HFC: no hay proyecto hecho. Se ofrece como parte del catálogo, sin caso.
+      GCBA en pasado (cliente perdido).
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "@id": "{{page.url}}#servicio",
+        "name": "Redes de acceso GPON, CATV y HFC",
+        "serviceType": "Redes GPON",
+        "alternateName": ["Redes CATV", "Red HFC", "Triple play", "Redes de acceso para ISP y operadores de cable"],
+        "description": "Intellihelp diseña, implementa y mantiene redes de acceso GPON, CATV e híbridas (HFC) para proveedores de internet, operadores de cable, empresas y organismos públicos, con soluciones de acceso Huawei y GPON Furukawa, incluida la operación y el mantenimiento 7x24.",
+        "url": "{{page.url}}",
+        "provider": {
+          "@type": "Organization",
+          "@id": "{{site.url}}#organizacion",
+          "name": "{{site.name}}",
+          "url": "{{site.url}}",
+          "telephone": "{{site.phone.display}}",
+          "email": "{{site.email}}"
+        },
+        "brand": [
+          { "@type": "Brand", "name": "Huawei" },
+          { "@type": "Brand", "name": "Furukawa Electric" }
+        ],
+        "areaServed": [
+          { "@type": "City", "name": "Ciudad Autónoma de Buenos Aires" },
+          { "@type": "Country", "name": "Argentina" }
+        ],
+        "audience": {
+          "@type": "BusinessAudience",
+          "audienceType": "Proveedores de internet (ISP), operadores de cable (MSO), empresas con muchas sedes y organismos públicos"
+        }
+      }
+    </script>
+  </head>
+  <body data-wa-texto="Hola Intellihelp, quiero consultar por una red de acceso GPON o CATV.">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <include src="partials/header.html"></include>
+
+    <main id="contenido">
+      <include src="partials/pagina/hero.html">
+        <include
+          src="partials/pagina/migas.html"
+          seccion="Soluciones"
+          seccion-url="/soluciones/"
+          actual="Redes de acceso"
+        ></include>
+        <p class="eyebrow eyebrow--dash in d2">Solución · Redes de acceso</p>
+        <h1 id="pagina-titulo" class="pagina-hero__title in d3">
+          Redes GPON y CATV para proveedores de internet <span class="pagina-hero__hl">y operadores de cable.</span>
+        </h1>
+        <p class="lead pagina-hero__lead in d4">
+          Internet, televisión y telefonía sobre un mismo acceso, con OLT y ONT Huawei. Durante cinco años prestamos el mantenimiento 7x24 de la red GPON de la Ciudad de Buenos Aires: más de 20 OLT y unas 1.000 ONT.
+        </p>
+        <div class="pagina-hero__actions in d5">
+          <a class="btn btn--lime" href="/diagnostico/">Agendá una reunión <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn btn--light" href="{{site.whatsapp.url}}" target="_blank" rel="noopener">Escribinos por WhatsApp<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a>
+        </div>
+        <p class="hero__note in d6">
+          <svg class="hero__check" aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+          <span>Gold Partner de Huawei desde 2016.</span>
+        </p>
+      </include>
+
+      <include src="partials/pagina/respuesta.html" titulo="¿Qué redes de acceso implementa Intellihelp?">
+        <p>
+          Diseñamos, implementamos y mantenemos redes de acceso GPON, CATV e híbridas para proveedores de internet (ISP), operadores de cable (MSO), empresas y organismos públicos. Trabajamos con las soluciones de acceso de Huawei y GPON de Furukawa, y podemos asumir la operación y el mantenimiento 7x24 de la red.
+        </p>
+      </include>
+
+      <include
+        src="partials/pagina/bloque.html"
+        id="incluye"
+        eyebrow="Qué incluye"
+        titulo="Redes de fibra, coaxiales o híbridas."
+        fondo="section--soft"
+      >
+        <template slot="bajada">
+          <p class="lead">Diseñamos la red según la infraestructura existente y el plan de crecimiento de cada operador. Nuestro equipo técnico se capacitó con Furukawa en redes ópticas pasivas y GPON, y en la operación de OLT.</p>
+        </template>
+        <ul class="servicios__grid" role="list">
+          <li class="servicios__card card rv slow card-h" data-d="0">
+            <span class="servicios__num" aria-hidden="true">01</span>
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/redes-dc/iconos/fibra.html"></include></span>
+            <h3 class="servicios__title">Redes ópticas pasivas (GPON)</h3>
+            <p class="servicios__text">Una red óptica pasiva distribuye la fibra a cada abonado o sede desde una OLT central. La implementamos con OLT y ONT Huawei o con GPON Furukawa.</p>
+            <ul class="servicios__chips" role="list" aria-label="Tecnologías">
+              <li class="chip">GPON</li>
+              <li class="chip">OLT</li>
+              <li class="chip">ONT</li>
+            </ul>
+          </li>
+
+          <li class="servicios__card card rv slow card-h" data-d="0.35">
+            <span class="servicios__num" aria-hidden="true">02</span>
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/acceso/iconos/tv.html"></include></span>
+            <h3 class="servicios__title">CATV, HFC y triple play</h3>
+            <p class="servicios__text">Redes HFC de fibra y coaxial para TV por cable, internet y telefonía sobre el mismo acceso. En redes GPON, el triple play se presta con IPTV y VoIP.</p>
+            <ul class="servicios__chips" role="list" aria-label="Incluye">
+              <li class="chip">CATV</li>
+              <li class="chip">Red HFC</li>
+              <li class="chip">Triple play</li>
+            </ul>
+          </li>
+
+          <li class="servicios__card card rv slow card-h" data-d="0.7">
+            <span class="servicios__num" aria-hidden="true">03</span>
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/acceso/iconos/herramienta.html"></include></span>
+            <h3 class="servicios__title">Operación y mantenimiento 7x24</h3>
+            <p class="servicios__text">Guardia, repuestos, una OLT de respaldo, gestión con las plataformas del fabricante y monitoreo con PRTG, con escalamiento al soporte técnico de Huawei.</p>
+            <ul class="servicios__chips" role="list" aria-label="Herramientas">
+              <li class="chip">Guardia 7x24</li>
+              <li class="chip">iMaster NCE</li>
+              <li class="chip">PRTG</li>
+            </ul>
+          </li>
+        </ul>
+        <div class="clientes-sector card card-h rv servicios-mas soluciones-marcas">
+          <p class="eyebrow">Marcas con las que trabajamos</p>
+          <ul class="logos__list clientes-sector__logos" role="list" aria-label="Marcas">
+            <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/huawei.webp" width="220" height="48" alt="Huawei" loading="lazy" decoding="async" /></li>
+            <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/furukawa.webp" width="310" height="48" alt="Furukawa Electric" loading="lazy" decoding="async" /></li>
+          </ul>
+          <div class="nota"><b>Para Nico</b>Sumé arriba la formación en GPON y OLT de Furukawa que tenemos documentada. La carpeta de Huawei del zip vino vacía, así que no nombro certificaciones Huawei. Si alguien tiene hoy una HCIA o HCNP vigente, pasame el certificado y la agrego.</div>
+        </div>
+      </include>
+
+      <include
+        src="partials/pagina/bloque.html"
+        id="para-quien"
+        eyebrow="Perfiles de cliente"
+        titulo="Trabajamos con operadores y con organizaciones de múltiples sedes."
+      >
+        <ul class="casos__grid pagina-casos" role="list">
+          <li class="casos__card card-h rv">
+            <p class="eyebrow">ISP y cableoperadores</p>
+            <h3 class="casos__name">Proveedores de internet y televisión</h3>
+            <p class="casos__text">Para extender la fibra a nuevas zonas de cobertura o incorporar televisión y telefonía sobre la misma red. Trabajamos con las soluciones de acceso de Huawei para ISP y MSO.</p>
+          </li>
+          <li class="casos__card card-h rv">
+            <p class="eyebrow">Empresas y organismos</p>
+            <h3 class="casos__name">Organizaciones con múltiples sedes</h3>
+            <p class="casos__text">Para conformar una red privada que conecte escuelas, hospitales, oficinas o dependencias. La red GPON de la Ciudad conectaba establecimientos educativos, de salud y de seguridad.</p>
+          </li>
+        </ul>
+      </include>
+
+      <include
+        src="partials/pagina/bloque.html"
+        id="como-trabajamos"
+        eyebrow="Cómo trabajamos"
+        titulo="Operación continua, con guardia técnica 7x24."
+        fondo="section--soft"
+      >
+        <ol class="pasos__grid" role="list">
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>1</span>
+            <h3 class="pasos__title">Ingeniería</h3>
+            <p class="pasos__text">Relevamos la zona o las sedes, dimensionamos OLT, divisores y ONT, y documentamos la red.</p>
+          </li>
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>2</span>
+            <h3 class="pasos__title">Puesta en servicio</h3>
+            <p class="pasos__text">Proveemos e instalamos los equipos de acceso, los configuramos y habilitamos cada punto de la red.</p>
+          </li>
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>3</span>
+            <h3 class="pasos__title">Operación</h3>
+            <p class="pasos__text">Guardia 7x24, repuestos, equipo de respaldo y escalamiento directo al soporte técnico de Huawei cuando corresponde.</p>
+          </li>
+        </ol>
+      </include>
+
+      <include src="partials/pagina/datos.html" titulo="Alcance y condiciones de una red de acceso.">
+        <include src="partials/pagina/dato.html" icono="empresa" titulo="Para quién">
+          <p>ISP, cableoperadores, empresas con múltiples sedes y organismos. Hoy mantenemos la red GPON de Parques Nacionales, con 114 ONT, y entre 2018 y 2023 mantuvimos la de la Ciudad de Buenos Aires, con unas 1.000.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="check" titulo="Modalidad">
+          <p>Proyecto llave en mano y contrato de mantenimiento, con guardia 7x24 cuando la red lo requiere.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="reloj" titulo="SLA">
+          <p>Se define en cada contrato. En la Administración de Parques Nacionales, los tiempos de respuesta son de 2, 4, 12 o 24 horas según la criticidad, con monitoreo 7x24.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="mapa" titulo="Cobertura">
+          <p>Casa central en CABA. En el interior trabajamos con técnicos locales coordinados desde Buenos Aires.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="precio" titulo="Modelo de precio">
+          <p>La implementación se cotiza por proyecto y el mantenimiento, por abono mensual. La propuesta se elabora después del relevamiento.</p>
+        </include>
+      </include>
+
+      <include
+        src="partials/pagina/caso.html"
+        titulo="Cinco años de guardia 7x24 sobre la red GPON de la Ciudad."
+        cliente="Agencia de Sistemas de Información"
+        detalle="Gobierno de la Ciudad de Buenos Aires · 2018 a 2023"
+      >
+        <div class="casos__row">
+          <dt class="eyebrow">El desafío</dt>
+          <dd>La red GPON conectaba establecimientos educativos, de salud y de seguridad, por lo que cualquier interrupción afectaba la atención al ciudadano.</dd>
+        </div>
+        <div class="casos__row">
+          <dt class="eyebrow">Qué hicimos</dt>
+          <dd>Soporte y mantenimiento 7x24 en tres contratos con prórrogas: guardia, repuestos, una OLT de respaldo, gestión de la red con U2000 e iMaster NCE, monitoreo con PRTG y escalamiento al centro de asistencia técnica (TAC) de Huawei. Además, proveímos OLT MA5800 y cientos de ONT.</dd>
+        </div>
+        <div class="casos__row">
+          <dt class="eyebrow">Resultado</dt>
+          <dd>La Ciudad extendió el contrato hasta 2023. Al finalizar, la red sumaba 22 OLT y unas 1.000 ONT bajo nuestro mantenimiento.</dd>
+        </div>
+        <template slot="panel">
+          <p class="casos__sla">
+            <span class="casos__big"><span data-count="1000" data-count-delay="300">1.000</span></span>
+            <span class="casos__sla-text">ONT y más de 20 OLT mantenidas 7x24 durante 5 años</span>
+          </p>
+          <p class="eyebrow">Tecnologías</p>
+          <ul class="pagina-caso__tecs" role="list">
+            <li class="chip">GPON</li>
+            <li class="chip">Huawei MA5800</li>
+            <li class="chip">Huawei ONT</li>
+            <li class="chip">iMaster NCE</li>
+            <li class="chip">U2000</li>
+            <li class="chip">PRTG</li>
+          </ul>
+        </template>
+        <template slot="extra">
+          <ul class="casos__grid pagina-casos soluciones-casos" role="list">
+            <li class="casos__card card-h rv">
+              <p class="eyebrow">GPON Furukawa · desde 2023</p>
+              <h3 class="casos__name">Parques Nacionales</h3>
+              <p class="casos__text">Mantenemos la red GPON de su casa central, con 114 ONT, dentro del mantenimiento integral 7x24 de la infraestructura.</p>
+            </li>
+          </ul>
+          <div class="nota pagina-caso__nota"><b>Para Nico</b>No encontré ningún proyecto HFC terminado en el Drive, así que la página lo ofrece sin caso. ¿Tenés alguno para contar? Si no me decís nada, queda así.</div>
+        </template>
+      </include>
+
+      <include src="partials/pagina/faq.html" titulo="Preguntas frecuentes sobre redes GPON, CATV y HFC.">
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Qué es una OLT y qué es una ONT?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>La OLT es el equipo central de la red GPON y se instala en la cabecera o en el data center. Cada ONT se ubica en el domicilio del abonado o en la sede, y convierte la señal óptica para la red local. Una OLT atiende a múltiples ONT.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Qué es triple play?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Es la prestación de internet, televisión y telefonía sobre un mismo acceso. En una red GPON se presta con IPTV y VoIP; en una red HFC, con TV por radiofrecuencia (RF) y datos y telefonía sobre DOCSIS. En ambos casos, el abonado cuenta con una sola instalación para los tres servicios.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Qué diferencia hay entre CATV, HFC y GPON?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>CATV es la red de televisión por cable, tradicionalmente coaxial. HFC combina fibra hasta el nodo y coaxial hasta el abonado, y GPON lleva la fibra hasta el usuario final. Recomendamos la tecnología según la red existente y el plan de crecimiento del operador.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Hacen el mantenimiento 7x24 de una red GPON?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Sí. Entre 2018 y 2023 mantuvimos la red GPON de la Ciudad de Buenos Aires con guardia, repuestos, una OLT de respaldo y escalamiento al soporte de Huawei. Hoy mantenemos la de la Administración de Parques Nacionales.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Trabajan solo con Huawei?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>No. Para operadores trabajamos con las soluciones de acceso de Huawei, y en redes de organismos y edificios también con GPON de Furukawa, como en Parques Nacionales.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿También realizan el tendido de fibra?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>El tendido, los empalmes, la certificación OTDR y los anillos forman parte de <a href="/soluciones/redes-ftth/">redes FTTH y fibra óptica</a>. Si el proyecto requiere ambas soluciones, lo ejecuta el mismo equipo.</p>
+          </div>
+        </details>
+
+        <!-- Borrador: no se publica hasta tener la respuesta. Al cargarla,
+             sacar data-draft: el schema FAQPage la suma solo. -->
+        <details name="faq" class="faq__item" data-draft>
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Cuánto tarda en ponerse en marcha una red GPON?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <div class="nota"><b>Para Nico</b>La web vieja dice que la red GPON del GCBA llegó a unas 1.000 locaciones en 4 meses, pero en el Drive solo está el mantenimiento. ¿Me confirmás ese plazo? Hasta entonces la pregunta no sale.</div>
+          </div>
+        </details>
+      </include>
+
+      <include
+        src="partials/pagina/bloque.html"
+        id="relacionadas"
+        eyebrow="Más soluciones"
+        titulo="La red de acceso comienza en la fibra óptica."
+      >
+        <ul class="servicios__grid" role="list">
+          <li class="rv slow" data-d="0">
+            <a class="servicios__card card card-h pagina-link-card" href="/soluciones/redes-ftth/">
+              <span class="servicios__icon icon-badge"><include src="partials/pagina/redes-dc/iconos/fibra.html"></include></span>
+              <span class="servicios__title">Redes FTTH y fibra óptica</span>
+              <span class="servicios__text">Tendido, empalmes y certificación de la fibra entre sedes y hasta cada edificio.</span>
+              <span class="pagina-link-card__more">Ver fibra y FTTH <span class="arr" aria-hidden="true">→</span></span>
+            </a>
+          </li>
+          <li class="rv slow" data-d="0.35">
+            <a class="servicios__card card card-h pagina-link-card" href="/soluciones/data-center/">
+              <span class="servicios__icon icon-badge"><include src="partials/pagina/redes-dc/iconos/servidor.html"></include></span>
+              <span class="servicios__title">Data center</span>
+              <span class="servicios__text">Servidores, storage y switches Huawei para la cabecera de la red.</span>
+              <span class="pagina-link-card__more">Ver data center <span class="arr" aria-hidden="true">→</span></span>
+            </a>
+          </li>
+          <li class="rv slow" data-d="0.7">
+            <a class="servicios__card card card-h pagina-link-card" href="/soluciones/redes-indoor/">
+              <span class="servicios__icon icon-badge"><include src="partials/pagina/redes-dc/iconos/cable.html"></include></span>
+              <span class="servicios__title">Cableado estructurado y redes LAN</span>
+              <span class="servicios__text">Infraestructura de red dentro de cada edificio, incluida la LAN óptica pasiva (POL) Furukawa Laserway.</span>
+              <span class="pagina-link-card__more">Ver cableado estructurado <span class="arr" aria-hidden="true">→</span></span>
+            </a>
+          </li>
+        </ul>
+      </include>
+
+      <include
+        src="partials/pagina/cta.html"
+        titulo="Contanos cuántos abonados o sedes tiene tu red."
+        cierre="Diseñamos su crecimiento."
+        necesidad="Redes, fibra o data center"
+      ></include>
+    </main>
+
+    <include src="partials/footer.html"></include>
+    <include src="partials/whatsapp.html"></include>
+  </body>
+</html>

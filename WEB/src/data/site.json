@@ -1,0 +1,43 @@
+{
+  "name": "Intellihelp",
+  "url": "https://www.intellihelp.tech/",
+  "email": "info@intellihelp.tech",
+  "emailRrhh": "rrhh@intellihelp.tech",
+  "address": "Av. Dorrego 1789, piso 6, oficina 604, C1414CKM, CABA",
+  "street": "Av. Dorrego 1789, piso 6, oficina 604",
+  "postalCode": "C1414CKM",
+  "addressShort": "Av. Dorrego 1789, piso 6, of. 604, CABA",
+  "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Av.+Dorrego+1789,+C1414CKM,+CABA",
+  "whatsapp": {
+    "number": "5491150274827",
+    "display": "+54 9 11 5027-4827",
+    "url": "https://wa.me/5491150274827?text=Hola%20Intellihelp%2C%20quiero%20hacer%20una%20consulta."
+  },
+  "linkedin": "https://www.linkedin.com/company/intellihelp/",
+  "year": "2026",
+  "years": "14",
+  "phone": {
+    "display": "+54 11 7700-6868",
+    "tel": "+541177006868"
+  },
+  "since": "2012",
+  "horario": {
+    "texto": "de lunes a viernes, de 9 a 18",
+    "corto": "Lunes a viernes, de 9 a 18",
+    "abre": "09:00",
+    "cierra": "18:00",
+    "fuente": "Confirmado por marketing el 03/11/2026: lun. a vie. 9 a 18, sáb. y dom. cerrado; el perfil de Google Maps todavía figura con apertura a las 8 y hay que corregirlo allá"
+  },
+  "analytics": {
+    "ga4": "",
+    "gtm": "GTM-54S82VL3",
+    "clarity": ""
+  },
+  "diagnostico": {
+    "calendario": "crm",
+    "tipo": "diagnostico",
+    "vendedor": "bsierra",
+    "fuente": "calendario: \"crm\" usa la agenda del CRM (public/api/agenda.php). tipo y vendedor: el tipo de reunión y el usuario del CRM dueño de la agenda; en local apuntan al CRM de pruebas (bsierra). Antes de publicar, vendedor pasa a ser el usuario de Carlos y el mismo par va en la configuración del servidor (tipos).",
+    "video": ""
+  }
+}

@@ -1,0 +1,63 @@
+<!--
+  Header fijo (sticky) carbón, compartido por todas las páginas. Colores del
+  código original (DOCS/diseno/Home-html-referencia): fondo #333333, links
+  blancos con hover lima y CTA lima. Estructura del PDF: logo + divisor vertical
+  + "Servicios IT / CABA · año", nav centrado y CTA a la derecha.
+
+  Navegación global (informe de visibilidad, arquitectura de fase 1). Links
+  absolutos a las páginas, con data-nav="seccion": el plugin de parciales marca
+  el link de la página actual (aria-current="page") o el de la sección que la
+  contiene (aria-current="true": "Servicios" en /servicios/x/).
+  data-section: ids de las secciones de la HOME que corresponden a cada link;
+  en la home, header.js marca el link mientras se ve esa sección.
+  CTA: sin JS va al formulario de la landing /diagnostico/ (paso "páginas de
+  servicio → landing" del embudo). Con JS, si la página tiene su propio
+  formulario (#agenda: home y páginas con la banda CTA), header.js lo cambia a
+  #agenda, baja hasta ahí y se oculta en escritorio mientras se ve el
+  formulario. Si se decide que el CTA lleve siempre a /diagnostico/, el cambio
+  va en initCta de header.js.
+  Sin JS la navegación se ve siempre (en mobile, en una fila con scroll propio).
+  Con JS (src/scripts/modules/header.js): menú hamburguesa en < 960px y sombra
+  al scrollear (.is-scrolled).
+-->
+<header class="site-header" data-header>
+  <div class="wrap site-header__bar">
+    <a class="site-header__brand" href="/">
+      <img
+        class="site-header__logo"
+        src="/src/assets/img/brand/ith-logo.svg"
+        width="82"
+        height="44"
+        alt="Intellihelp, volver al inicio"
+        fetchpriority="high"
+        decoding="async"
+      />
+      <span class="site-header__tag"><span>Servicios IT</span> <span>CABA · {{site.since}}</span></span>
+    </a>
+
+    <button
+      class="site-header__toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="site-menu"
+      aria-label="Abrir menú"
+      hidden
+      data-header-toggle
+    >
+      <span class="site-header__burger" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+
+    <div class="site-header__menu" id="site-menu" data-header-menu>
+      <nav class="site-header__nav" aria-label="Principal">
+        <ul class="site-header__list" role="list">
+          <li><a class="site-header__link" href="/soluciones/" data-nav="seccion">Soluciones</a></li>
+          <li><a class="site-header__link" href="/servicios/" data-nav="seccion" data-section="servicios">Servicios</a></li>
+          <li><a class="site-header__link" href="/clientes/" data-nav="seccion" data-section="clientes casos testimonios">Clientes</a></li>
+          <li><a class="site-header__link" href="/nosotros/" data-nav="seccion" data-section="historia equipo presencia">Nosotros</a></li>
+          <li><a class="site-header__link" href="/contacto/" data-nav="seccion" data-section="agenda">Contacto</a></li>
+        </ul>
+      </nav>
+      <a class="btn btn--lime site-header__cta" href="/diagnostico/#agenda" data-section="agenda" data-cta-agenda>Agendá una reunión</a>
+    </div>
+  </div>
+</header>

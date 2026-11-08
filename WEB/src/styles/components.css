@@ -1,0 +1,701 @@
+/* ==========================================================================
+   Componentes reutilizables
+   ========================================================================== */
+
+/* Contenedor */
+.wrap {
+  width: 100%;
+  max-width: calc(var(--wrap) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--section-y);
+}
+
+.section--soft {
+  background: var(--surface-soft);
+}
+
+/* Superficies oscuras / de marca: invierten texto */
+.on-dark {
+  background: var(--surface-dark);
+  color: var(--text-on-dark);
+}
+
+.on-brand {
+  background: var(--surface-brand);
+  color: var(--text-on-dark);
+}
+
+/* Encabezado de sección */
+.section-head {
+  max-width: 760px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: clamp(28px, 4vw, 40px);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.eyebrow--dash::before {
+  content: '';
+  width: 20px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  flex: none;
+}
+
+.on-dark .eyebrow,
+.on-brand .eyebrow {
+  color: var(--accent-on-dark);
+}
+
+.h2 {
+  font-size: var(--fs-h2);
+}
+
+.lead {
+  font-size: var(--fs-lead);
+  line-height: var(--lh-body);
+  color: var(--text-2);
+}
+
+.on-dark .lead,
+.on-brand .lead {
+  color: var(--text-2-on-dark);
+}
+
+.muted {
+  color: var(--text-2);
+}
+
+/* Botones */
+.btn {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 0 26px;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform var(--dur) var(--ease-out),
+    background-color var(--dur),
+    color var(--dur),
+    border-color var(--dur),
+    box-shadow var(--dur);
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  left: -70%;
+  width: 45%;
+  background: rgb(255 255 255 / 0.35);
+  transform: skewX(-22deg);
+  transition: left 0.65s var(--ease-out);
+  pointer-events: none;
+}
+
+.btn:hover::after {
+  left: 130%;
+}
+
+.btn:hover {
+  transform: translateY(-3px) scale(1.025);
+  box-shadow: var(--shadow-btn);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn--sm {
+  min-height: 44px;
+  padding: 0 20px;
+  font-size: 1rem;
+}
+
+.btn--block {
+  width: 100%;
+}
+
+/* Principal: violeta */
+.btn--primary {
+  background: var(--c-violet);
+  color: var(--c-white);
+}
+
+.btn--primary:hover {
+  background: var(--c-carbon);
+  color: var(--c-white);
+}
+
+.on-dark .btn--primary:hover {
+  background: var(--c-white);
+  color: var(--c-violet);
+}
+
+/* Contorno sobre fondo claro */
+.btn--ghost {
+  background: transparent;
+  color: var(--c-carbon);
+  border-color: var(--c-carbon);
+}
+
+.btn--ghost:hover {
+  color: var(--c-violet);
+  border-color: var(--c-violet);
+}
+
+/* Contorno sobre fondo oscuro */
+.btn--light {
+  background: transparent;
+  color: var(--c-white);
+  border-color: var(--c-white);
+}
+
+.btn--light:hover {
+  background: var(--c-white);
+  color: var(--c-carbon);
+}
+
+/* Lima: CTA principal (como el código original) */
+.btn--lime {
+  background: var(--c-lime);
+  color: var(--c-carbon);
+}
+
+.btn--lime:hover {
+  background: var(--c-lime);
+  color: var(--c-carbon);
+  filter: brightness(1.06);
+}
+
+/* Botón blanco */
+.btn--white {
+  background: var(--c-white);
+  color: var(--c-violet);
+}
+
+.btn--white:hover {
+  background: var(--c-carbon);
+  color: var(--c-white);
+}
+
+.btn .arr {
+  display: inline-block;
+  transition: transform 0.3s var(--ease-out);
+}
+
+.btn:hover .arr {
+  transform: translateX(5px);
+}
+
+/* Chips */
+.chip {
+  display: inline-block;
+  background: var(--c-cream);
+  color: var(--c-carbon);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.3;
+  padding: 7px 12px;
+  border-radius: var(--radius-pill);
+}
+
+/* Tarjetas */
+.card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+}
+
+.card-h {
+  transition:
+    transform 0.4s var(--ease-out),
+    box-shadow 0.4s var(--ease-out);
+}
+
+.card-h:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+/* Íconos en badge */
+.icon-badge {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: var(--c-cream);
+  color: var(--c-violet);
+}
+
+/* Formularios
+   Campo como el original (borde carbón, fondo blanco, foco violeta), con los
+   estados completos. Los bordes de estado se suman con box-shadow para que
+   ningún estado cambie el alto ni salte el layout.
+     hover        borde violeta
+     foco         borde violeta + anillo violeta suave
+     error        borde violeta doble (aria-invalid, lo pone contact-form.js)
+     deshabilitado / formulario enviando (aria-busy): cremita, sin interacción
+   El texto va a 16px para que iOS no haga zoom al tocar el campo. */
+.field {
+  --field-ring: 0 0 0 0 transparent;
+  --field-edge: 0 0 0 0 transparent;
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  margin: 0;
+  padding: 11px 14px;
+  border: 1px solid var(--c-carbon);
+  border-radius: var(--radius);
+  background: var(--c-white);
+  box-shadow: var(--field-edge), var(--field-ring);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--c-carbon);
+  caret-color: var(--c-violet);
+  appearance: none;
+  transition:
+    border-color var(--dur),
+    box-shadow var(--dur),
+    background-color var(--dur);
+}
+
+.field::placeholder {
+  color: #6b6b6b; /* 5.3:1 sobre blanco */
+  opacity: 1;
+}
+
+.field:hover {
+  border-color: var(--c-violet);
+}
+
+.field:focus,
+.field:focus-visible {
+  /* El contorno transparente aparece en modo de alto contraste de Windows */
+  outline: 2px solid transparent;
+  outline-offset: 0;
+  border-color: var(--c-violet);
+  --field-edge: inset 0 0 0 1px var(--c-violet);
+  --field-ring: 0 0 0 4px rgb(102 51 153 / 0.2);
+}
+
+.field[aria-invalid='true'] {
+  border-color: var(--c-violet);
+  --field-edge: inset 0 0 0 1px var(--c-violet);
+  background: #fcfafe;
+}
+
+.field[aria-invalid='true']:focus {
+  --field-ring: 0 0 0 4px rgb(102 51 153 / 0.28);
+}
+
+.field:disabled,
+[aria-busy='true'] .field {
+  border-color: #b9b5bd;
+  background: #f7f5f9;
+  color: var(--text-2);
+  cursor: not-allowed;
+}
+
+[aria-busy='true'] .field {
+  cursor: progress;
+  pointer-events: none;
+}
+
+textarea.field {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Autocompletado de Chrome/Edge/Safari: sin el fondo amarillo/celeste. El
+   fondo propio del navegador no se puede pisar; se tapa con una sombra
+   interna blanca, sumada a la del estado. */
+.field:-webkit-autofill {
+  -webkit-text-fill-color: var(--c-carbon);
+  box-shadow: inset 0 0 0 100px var(--c-white), var(--field-edge), var(--field-ring);
+  transition: background-color 600000s 0s, color 600000s 0s, border-color var(--dur), box-shadow var(--dur);
+}
+
+.field:autofill {
+  box-shadow: inset 0 0 0 100px var(--c-white), var(--field-edge), var(--field-ring);
+}
+
+/* Select nativo (sin JS, o hasta que select.js lo reemplaza): sin la flecha
+   del sistema y con un chevron violeta propio. */
+select.field {
+  padding-right: 44px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23663399' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 18px;
+  cursor: pointer;
+  text-overflow: ellipsis;
+}
+
+select.field::-ms-expand {
+  display: none;
+}
+
+/* Desplegable propio (select.js): botón con el aspecto de .field y una
+   lista role="listbox". El <select> real queda oculto pero sigue en el
+   formulario con su name: es el que viaja en el envío. */
+.select {
+  position: relative;
+}
+
+.select .select__native {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  min-height: 0;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.select__button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.select__value {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.select__value[data-placeholder] {
+  color: #6b6b6b;
+}
+
+.select__chev {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-right: -2px;
+  color: var(--c-violet);
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.select.is-open .select__button {
+  border-color: var(--c-violet);
+  --field-edge: inset 0 0 0 1px var(--c-violet);
+  --field-ring: 0 0 0 4px rgb(102 51 153 / 0.2);
+}
+
+.select.is-open .select__chev {
+  transform: rotate(180deg);
+}
+
+.select__list {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  max-height: min(392px, 60vh);
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--c-white);
+  border: 1px solid rgb(102 51 153 / 0.22);
+  border-radius: 12px;
+  box-shadow:
+    0 2px 6px rgb(42 42 42 / 0.06),
+    0 18px 40px rgb(42 42 42 / 0.16);
+  transform-origin: top center;
+  animation: select-in 0.16s var(--ease-out);
+}
+
+.select__list[hidden] {
+  display: none;
+}
+
+.select__list:focus {
+  outline: none;
+}
+
+.select.is-up .select__list {
+  top: auto;
+  bottom: calc(100% + 6px);
+  transform-origin: bottom center;
+  animation-name: select-in-up;
+}
+
+.select__option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  line-height: 1.35;
+  color: var(--c-carbon);
+  cursor: pointer;
+  user-select: none;
+}
+
+.select__option + .select__option {
+  margin-top: 2px;
+}
+
+.select__option.is-active {
+  background: var(--c-cream);
+  color: var(--c-violet);
+}
+
+.select__option[aria-selected='true'] {
+  font-weight: 600;
+  color: var(--c-violet);
+}
+
+.select__check {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-left: auto;
+  color: var(--c-violet);
+  visibility: hidden;
+}
+
+.select__option[aria-selected='true'] .select__check {
+  visibility: visible;
+}
+
+@keyframes select-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+  }
+}
+
+@keyframes select-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .select__list {
+    animation: none;
+  }
+
+  .select__chev {
+    transition: none;
+  }
+}
+
+/* Alto contraste de Windows: la opción activa se marca con el color del sistema */
+@media (forced-colors: active) {
+  .select__option.is-active {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+
+  .select__check {
+    forced-color-adjust: auto;
+  }
+}
+
+/* Placeholder de foto (hasta tener las fotos reales) */
+.photo-ph {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 4px;
+  padding: 16px;
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--c-violet);
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--c-cream) 0 14px,
+    rgb(102 51 153 / 0.07) 14px 28px
+  );
+  color: var(--c-carbon);
+  overflow: hidden;
+}
+
+.photo-ph__icon {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  color: var(--c-violet);
+  opacity: 0.6;
+}
+
+/* Notas internas para revisión (ocultas en producción) */
+.nota {
+  border: 1px dashed var(--c-violet);
+  background: var(--c-cream);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--c-carbon);
+  text-align: left;
+}
+
+.nota b {
+  display: block;
+  margin-bottom: 2px;
+  font-family: var(--font-display);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--c-violet);
+}
+
+html:not(.show-notes) .nota,
+html:not(.show-notes) [data-draft] {
+  display: none !important;
+}
+
+/* Accesibilidad */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -100px;
+  z-index: 100;
+  padding: 12px 18px;
+  border-radius: var(--radius);
+  background: var(--c-violet);
+  color: var(--c-white);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 12px;
+  color: var(--c-white);
+}
+
+/* Punto de estado "en vivo" */
+.dot-live {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--signal);
+  animation: pulse 2.2s ease-out infinite;
+}
+
+/* Botón "Ocultar notas / Mostrar notas" (solo en desarrollo o con ?notas).
+   En mobile se muestra vertical, pegado al borde izquierdo y dentro del gutter. */
+.notes-toggle {
+  position: fixed;
+  left: calc(12px + env(safe-area-inset-left, 0px));
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  z-index: 60;
+  padding: 7px 12px;
+  border: 1px solid var(--c-line-2);
+  border-radius: var(--radius-pill);
+  background: var(--c-carbon);
+  color: var(--c-white);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  opacity: 0.85;
+  box-shadow: var(--shadow-btn);
+  transition: opacity var(--dur);
+}
+
+.notes-toggle:hover,
+.notes-toggle:focus-visible {
+  opacity: 1;
+}
+
+@media (max-width: 599px) {
+  /* En el celular queda como una pastilla fina dentro del gutter de 16px,
+     para no tapar el comienzo del texto alineado a la izquierda */
+  .notes-toggle {
+    left: 0;
+    bottom: 88px;
+    width: 14px;
+    padding: 8px 0;
+    border-left: 0;
+    border-radius: 0 999px 999px 0;
+    font-size: 10px;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    opacity: 0.7;
+  }
+}
+
+.notes-toggle[aria-pressed='false'] {
+  background: var(--c-violet);
+  border-color: var(--c-violet);
+}
+
+/* Nota sobre fondo oscuro (como la del hero en el PDF): oscura con título lima */
+.on-dark .nota {
+  background: rgb(255 255 255 / 0.06);
+  border-color: rgb(255 255 255 / 0.35);
+  color: var(--c-cream);
+}
+
+.on-dark .nota b {
+  color: var(--c-lime);
+}

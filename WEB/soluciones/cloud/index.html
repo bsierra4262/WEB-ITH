@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <include
+      src="partials/pagina/head.html"
+      titulo="Servicios en la nube para empresas en CABA | Intellihelp"
+      descripcion="Servicios en la nube para empresas y organismos de CABA: nube privada con Huawei Cloud Stack u OpenStack, nube pública e híbrida, y migración a Microsoft 365."
+    ></include>
+
+    <!--
+      SOLUCIÓN: CLOUD (fase 2 del informe de visibilidad, días 45 a 75).
+      Estructura del informe (cap. 9): hero · respuesta corta · qué incluye ·
+      marcas · cómo trabajamos · datos clave · caso real · infraestructura propia ·
+      FAQ · formulario.
+      Keyword principal: servicios en la nube. Secundarias: nube privada,
+      nube pública, nube híbrida, migración a la nube, Microsoft 365 empresas,
+      Huawei Cloud, FusionCloud.
+      Fuentes: brief §2.1.2 (cloud: virtualización de puestos sobre la nube
+      Huawei; nube privada FusionCloud); fuentes-pdfs-old.md §3 (privada,
+      pública, híbrida, orquestación y automatización); fuentes-web-actual.md
+      (unidad Cloud Huawei 2020; landing de Huawei Cloud: pago por uso y
+      soporte en español); fuentes-drive-clientes.md §2 "Cloud" (Cablevisión-
+      Fibercorp OpenStack 2017; migración a Microsoft 365 de unas 120 cuentas
+      de una obra social, 2023, sin nombre), §3 (SLA de APN), §4 punto 8
+      (confidencialidad), punto 10 (Gold Partner Huawei vigente) y punto 16
+      (modalidades de cobro, sin precios); fuentes-capacidades-internas.md
+      O1, O2, O7 y D5 (sin nombres de herramientas, hosts ni versiones).
+      Las propuestas de hosting en Huawei Cloud no tuvieron cierre: no van
+      como caso.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "@id": "{{page.url}}#servicio",
+        "name": "Servicios en la nube para empresas",
+        "serviceType": "Servicios en la nube",
+        "alternateName": ["Nube privada", "Nube pública", "Nube híbrida", "Migración a Microsoft 365", "Huawei Cloud", "Huawei Cloud Stack", "Huawei FusionCloud"],
+        "description": "Intellihelp diseña, implementa y mantiene nubes privadas, públicas e híbridas para empresas y organismos públicos con sede en Buenos Aires: nube privada Huawei Cloud Stack u OpenStack, nube pública Huawei Cloud, virtualización de puestos de trabajo y migración a Microsoft 365, con soporte posterior.",
+        "url": "{{page.url}}",
+        "provider": {
+          "@type": "Organization",
+          "@id": "{{site.url}}#organizacion",
+          "name": "{{site.name}}",
+          "url": "{{site.url}}",
+          "telephone": "{{site.phone.display}}",
+          "email": "{{site.email}}"
+        },
+        "brand": [
+          { "@type": "Brand", "name": "Huawei" },
+          { "@type": "Brand", "name": "Microsoft" }
+        ],
+        "areaServed": [
+          { "@type": "City", "name": "Ciudad Autónoma de Buenos Aires" },
+          { "@type": "Country", "name": "Argentina" }
+        ],
+        "audience": {
+          "@type": "BusinessAudience",
+          "audienceType": "Empresas medianas y grandes, corporaciones y organismos públicos"
+        }
+      }
+    </script>
+  </head>
+  <body data-wa-texto="Hola Intellihelp, quiero consultar por servicios en la nube (nube privada, pública o Microsoft 365).">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <include src="partials/header.html"></include>
+
+    <main id="contenido">
+      <include src="partials/pagina/hero.html">
+        <include
+          src="partials/pagina/migas.html"
+          seccion="Soluciones"
+          seccion-url="/soluciones/"
+          actual="Cloud"
+        ></include>
+        <p class="eyebrow eyebrow--dash in d2">Solución · Cloud</p>
+        <h1 id="pagina-titulo" class="pagina-hero__title in d3">
+          Servicios en la nube para empresas <span class="pagina-hero__hl">en Buenos Aires.</span>
+        </h1>
+        <p class="lead pagina-hero__lead in d4">
+          Nube privada en el data center del cliente, nube pública de Huawei o un esquema híbrido que combine ambas. El mismo equipo que ejecuta la migración presta luego el soporte.
+        </p>
+        <div class="pagina-hero__actions in d5">
+          <a class="btn btn--lime" href="/diagnostico/">Agendá una reunión <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn btn--light" href="{{site.whatsapp.url}}" target="_blank" rel="noopener">Escribinos por WhatsApp<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a>
+        </div>
+        <p class="hero__note in d6">
+          <svg class="hero__check" aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+          <span>Gold Partner de Huawei desde 2016.</span>
+        </p>
+      </include>
+
+      <include src="partials/pagina/respuesta.html" titulo="¿Qué servicios en la nube presta Intellihelp?">
+        <p>
+          Diseñamos e implementamos nubes privadas, públicas e híbridas para empresas y organismos con sede en Buenos Aires. Instalamos Huawei Cloud Stack (ex FusionCloud) u OpenStack en el data center del cliente, migramos cargas a Huawei Cloud y trasladamos el correo y los archivos a Microsoft 365, con soporte posterior a cargo de nuestro equipo.
+        </p>
+      </include>
+
+      <include
+        src="partials/pagina/bloque.html"
+        id="incluye"
+        eyebrow="Qué incluye"
+        titulo="Cada sistema se aloja donde corresponde: en el data center propio o en la nube."
+        fondo="section--soft"
+      >
+        <ul class="servicios__grid" role="list">
+          <li class="servicios__card card rv slow card-h" data-d="0">
+            <span class="servicios__num" aria-hidden="true">01</span>
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/redes-dc/iconos/servidor.html"></include></span>
+            <h3 class="servicios__title">Nube privada</h3>
+            <p class="servicios__text">Los datos permanecen en el data center del cliente, y el cómputo, el almacenamiento y la red se asignan a demanda como recursos compartidos, igual que en una nube pública. La implementamos con Huawei Cloud Stack (ex FusionCloud) u OpenStack.</p>
+            <ul class="servicios__chips" role="list" aria-label="Tecnologías">
+              <li class="chip">Huawei Cloud Stack</li>
+              <li class="chip">OpenStack</li>
+              <li class="chip">Virtualización</li>
+            </ul>
+          </li>
+
+          <li class="servicios__card card rv slow card-h" data-d="0.35">
+            <span class="servicios__num" aria-hidden="true">02</span>
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/redes-dc/iconos/nube.html"></include></span>
+            <h3 class="servicios__title">Nube pública e híbrida</h3>
+            <p class="servicios__text">Huawei Cloud se factura por uso y cuenta con soporte en español. Si una parte debe permanecer en servidores propios, conectamos ambos entornos mediante VPN o enlace dedicado y definimos, sistema por sistema, qué carga corre en cada uno.</p>
+            <ul class="servicios__chips" role="list" aria-label="Incluye">
+              <li class="chip">Huawei Cloud</li>
+              <li class="chip">Nube híbrida</li>
+              <li class="chip">Interconexión</li>
+            </ul>
+          </li>
+
+          <li class="servicios__card card rv slow card-h" data-d="0.7">
+            <span class="servicios__num" aria-hidden="true">03</span>
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/cloud/iconos/puesto.html"></include></span>
+            <h3 class="servicios__title">Puestos de trabajo y Microsoft 365</h3>
+            <p class="servicios__text">Escritorios virtuales sobre la nube de Huawei, o correo, Teams y OneDrive en Microsoft 365 con doble factor de autenticación.</p>
+            <ul class="servicios__chips" role="list" aria-label="Incluye">
+              <li class="chip">Escritorios virtuales</li>
+              <li class="chip">Microsoft 365</li>
+              <li class="chip">Doble factor</li>
+            </ul>
+          </li>
+        </ul>
+        <div class="clientes-sector card card-h rv servicios-mas soluciones-marcas">
+          <p class="eyebrow">Marcas con las que trabajamos</p>
+          <ul class="logos__list clientes-sector__logos" role="list" aria-label="Marcas">
+            <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/huawei.webp" width="220" height="48" alt="Huawei" loading="lazy" decoding="async" /></li>
+            <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/microsoft.webp" width="225" height="48" alt="Microsoft" loading="lazy" decoding="async" /></li>
+          </ul>
+        </div>
+      </include>
+
+      <include
+        src="partials/pagina/bloque.html"
+        id="como-trabajamos"
+        eyebrow="Cómo trabajamos"
+        titulo="La migración se planifica y se ejecuta por etapas."
+      >
+        <ol class="pasos__grid" role="list">
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>1</span>
+            <h3 class="pasos__title">Relevamiento</h3>
+            <p class="pasos__text">Relevamos los sistemas que operan en los servidores, los que deben permanecer en las instalaciones por normativa o por costo y los que conviene trasladar a la nube pública.</p>
+          </li>
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>2</span>
+            <h3 class="pasos__title">Migración y capacitación</h3>
+            <p class="pasos__text">Implementamos la plataforma, migramos cada carga según el plan acordado y, al finalizar, capacitamos a los usuarios.</p>
+          </li>
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>3</span>
+            <h3 class="pasos__title">Soporte</h3>
+            <p class="pasos__text">Asumimos la administración y el soporte de los sistemas migrados, con los tiempos de respuesta establecidos en el contrato.</p>
+          </li>
+        </ol>
+      </include>
+
+      <include src="partials/pagina/datos.html" titulo="Condiciones del servicio en la nube.">
+        <include src="partials/pagina/dato.html" icono="empresa" titulo="Para quién">
+          <p>Empresas medianas y grandes y organismos públicos, desde una sola oficina hasta organizaciones con sedes en varias provincias.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="check" titulo="Modalidad">
+          <p>Llave en mano: relevamiento, diseño, migración y capacitación, con soporte posterior por abono mensual o bolsa de horas.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="reloj" titulo="SLA">
+          <p>Se define en cada contrato. En la Administración de Parques Nacionales, por ejemplo, los tiempos de respuesta son de 2, 4, 12 o 24 horas según la criticidad, con monitoreo 7x24.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="mapa" titulo="Cobertura">
+          <p>Casa central en CABA. En sedes del interior trabajamos con técnicos locales coordinados desde Buenos Aires.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="precio" titulo="Modelo de precio">
+          <p>La implementación o la migración se cotiza por proyecto, y el soporte, por abono mensual. Después del relevamiento, enviamos la propuesta por escrito.</p>
+        </include>
+      </include>
+
+      <include
+        src="partials/pagina/caso.html"
+        titulo="120 cuentas en Microsoft 365, todas con doble factor."
+        cliente="Obra social con agencias en la Patagonia y en la provincia de Buenos Aires"
+        detalle="Salud · nombre reservado · 2023"
+      >
+        <div class="casos__row">
+          <dt class="eyebrow">Qué migramos</dt>
+          <dd>El correo, los archivos y las reuniones de unas 120 cuentas: Exchange Online, OneDrive y Teams, con las identidades en Entra ID (antes Azure AD).</dd>
+        </div>
+        <div class="casos__row">
+          <dt class="eyebrow">Seguridad</dt>
+          <dd>Todas las cuentas se configuraron con doble factor de autenticación.</dd>
+        </div>
+        <div class="casos__row">
+          <dt class="eyebrow">Cierre del proyecto</dt>
+          <dd>Capacitamos al personal en las nuevas herramientas y continuamos con el soporte en su sede central.</dd>
+        </div>
+        <template slot="panel">
+          <p class="casos__sla">
+            <span class="casos__big"><span data-count="120" data-count-delay="300">120</span></span>
+            <span class="casos__sla-text">cuentas migradas a Microsoft 365 con doble factor, en 2023</span>
+          </p>
+          <p class="eyebrow">Tecnologías</p>
+          <ul class="pagina-caso__tecs" role="list">
+            <li class="chip">Microsoft 365</li>
+            <li class="chip">Entra ID</li>
+            <li class="chip">Exchange Online</li>
+            <li class="chip">Teams</li>
+            <li class="chip">OneDrive</li>
+          </ul>
+        </template>
+        <template slot="extra">
+          <ul class="casos__grid pagina-casos soluciones-casos" role="list">
+            <li class="casos__card card-h rv">
+              <p class="eyebrow">Nube privada · Telecomunicaciones · 2017</p>
+              <h3 class="casos__name">Cablevisión-Fibercorp</h3>
+              <p class="casos__text">Realizamos la consultoría y la implementación de OpenStack, la plataforma de nube privada de código abierto.</p>
+            </li>
+            <li class="casos__card card-h rv">
+              <p class="eyebrow">Huawei Cloud · desde 2020</p>
+              <h3 class="casos__name">Unidad dedicada a Huawei Cloud</h3>
+              <p class="casos__text">En 2020 incorporamos una unidad dedicada a las soluciones cloud de Huawei: nube pública, nube privada y puestos de trabajo virtuales.</p>
+            </li>
+          </ul>
+        </template>
+      </include>
+
+      <include
+        src="partials/pagina/bloque.html"
+        id="en-casa"
+        eyebrow="Infraestructura propia"
+        titulo="Aplicamos estos criterios en la operación interna de Intellihelp."
+        fondo="section--soft"
+      >
+        <template slot="bajada">
+          <p class="lead">Nuestro equipo de sistemas migró los servicios internos de la compañía a plataformas de código abierto que administra directamente.</p>
+        </template>
+        <ul class="casos__grid pagina-casos soluciones-casos" role="list">
+          <li class="casos__card card-h rv">
+            <p class="eyebrow">Acceso remoto</p>
+            <h3 class="casos__name">VPN corporativa</h3>
+            <p class="casos__text">El personal accede a los recursos internos desde cualquier ubicación, con permisos asignados según el grupo de cada usuario.</p>
+          </li>
+          <li class="casos__card card-h rv">
+            <p class="eyebrow">Identidad</p>
+            <h3 class="casos__name">Inicio de sesión único</h3>
+            <p class="casos__text">El acceso a la VPN y a la base de conocimientos se realiza con la cuenta corporativa, y solo se admiten cuentas de la compañía.</p>
+          </li>
+          <li class="casos__card card-h rv">
+            <p class="eyebrow">Plataforma</p>
+            <h3 class="casos__name">Servicios en contenedores</h3>
+            <p class="casos__text">Cada servicio opera en su propio contenedor, con reinicio automático ante fallas y una configuración documentada que permite reconstruirlo en otro servidor.</p>
+          </li>
+        </ul>
+      </include>
+
+      <include src="partials/pagina/faq.html" titulo="Preguntas frecuentes sobre nube privada, pública e híbrida.">
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Qué me conviene: nube privada, pública o híbrida?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Depende del tipo de datos que maneja tu empresa y de la variabilidad de la demanda. La nube privada mantiene todo en el data center propio, la pública se factura por uso y la híbrida combina ambas. Lo definimos en el relevamiento, sistema por sistema.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Qué es Huawei Cloud Stack (ex FusionCloud)?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Es la plataforma de nube privada de Huawei, antes llamada FusionCloud. Virtualiza servidores y puestos de trabajo dentro del data center propio, de modo que los datos no salen de las instalaciones de la empresa.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Migran el correo de la empresa a Microsoft 365?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Sí, junto con los archivos y Teams, y con doble factor de autenticación en todas las cuentas. En 2023 migramos unas 120 cuentas de una obra social y cerramos el proyecto con la capacitación del personal.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Puedo dejar una parte en mis servidores y otra en la nube?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Ese esquema es una nube híbrida. Los sistemas que por normativa o por costo deben permanecer en tus instalaciones siguen allí, y el resto se traslada a la nube pública. Diseñamos la interconexión de ambos entornos y definimos qué sistemas corren en cada uno.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Quién da soporte después de la migración?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Nuestro equipo, si así lo definís. El soporte se contrata por abono mensual o bolsa de horas, y los tiempos de respuesta quedan establecidos en el contrato.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Cómo cuidan los datos de mi empresa durante el servicio?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Toda persona que trabaja en tus sistemas firma un convenio de confidencialidad que se mantiene vigente después del servicio. Los accesos se asignan con registro y solo para la tarea encomendada. Si corresponde, firmamos un acuerdo de confidencialidad con tu empresa y, al finalizar el servicio, damos de baja los accesos de nuestro equipo.</p>
+          </div>
+        </details>
+
+        <!-- Borrador: no se publica hasta tener la respuesta. Al cargarla,
+             sacar data-draft: el schema FAQPage la suma solo. -->
+        <details name="faq" class="faq__item" data-draft>
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Cuánto tarda una migración a la nube?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <div class="nota"><b>Para Nico</b>¿Cuánto tardó la migración a Microsoft 365 de la obra social en 2023, y cuánto lleva en general armar una nube privada? Con esos dos plazos publico la pregunta.</div>
+          </div>
+        </details>
+      </include>
+
+      <include
+        src="partials/pagina/bloque.html"
+        id="relacionadas"
+        eyebrow="Más soluciones"
+        titulo="La nube también requiere infraestructura física y red."
+      >
+        <ul class="servicios__grid" role="list">
+          <li class="rv slow" data-d="0">
+            <a class="servicios__card card card-h pagina-link-card" href="/soluciones/data-center/">
+              <span class="servicios__icon icon-badge"><include src="partials/pagina/redes-dc/iconos/storage.html"></include></span>
+              <span class="servicios__title">Data center</span>
+              <span class="servicios__text">Servidores, storage y switches Huawei para la nube privada alojada en las instalaciones del cliente.</span>
+              <span class="pagina-link-card__more">Ver data center <span class="arr" aria-hidden="true">→</span></span>
+            </a>
+          </li>
+          <li class="rv slow" data-d="0.35">
+            <a class="servicios__card card card-h pagina-link-card" href="/soluciones/ciberseguridad/">
+              <span class="servicios__icon icon-badge"><include src="partials/pagina/iconos/escudo.html"></include></span>
+              <span class="servicios__title">Ciberseguridad</span>
+              <span class="servicios__text">Fortinet protege la oficina, las sedes y la conexión con la nube.</span>
+              <span class="pagina-link-card__more">Ver ciberseguridad <span class="arr" aria-hidden="true">→</span></span>
+            </a>
+          </li>
+          <li class="rv slow" data-d="0.7">
+            <a class="servicios__card card card-h pagina-link-card" href="/soluciones/redes-indoor/">
+              <span class="servicios__icon icon-badge"><include src="partials/pagina/redes-dc/iconos/cable.html"></include></span>
+              <span class="servicios__title">Cableado estructurado y redes LAN</span>
+              <span class="servicios__text">Infraestructura de red de la oficina, por la que circula todo el tráfico hacia la nube.</span>
+              <span class="pagina-link-card__more">Ver cableado estructurado <span class="arr" aria-hidden="true">→</span></span>
+            </a>
+          </li>
+        </ul>
+      </include>
+
+      <include
+        src="partials/pagina/cta.html"
+        titulo="Contanos qué sistemas operan hoy en tus servidores."
+        cierre="Te indicamos qué conviene migrar a la nube."
+        necesidad="Redes, fibra o data center"
+      ></include>
+    </main>
+
+    <include src="partials/footer.html"></include>
+    <include src="partials/whatsapp.html"></include>
+  </body>
+</html>

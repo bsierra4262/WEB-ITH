@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--
+      Página 404 propia (informe: "en español, con enlaces a servicios y
+      contacto"). El hosting la muestra en cualquier URL que no existe, por
+      eso: noindex, sin canonical y, en el build, rutas de assets absolutas
+      (plugin pagina404 en vite.config.js). En Hostinger hace falta
+      "ErrorDocument 404 /404.html" en el .htaccess de la raíz.
+      En desarrollo, cualquier URL sin página muestra esta.
+    -->
+    <title>No encontramos esta página | Intellihelp</title>
+    <meta name="description" content="La dirección solicitada no existe en el sitio de Intellihelp. Desde esta página podés acceder a los servicios, las soluciones y los datos de contacto." />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#2A2A2A" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script type="module" src="/src/scripts/main.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <include src="partials/header.html"></include>
+
+    <main id="contenido">
+      <include src="partials/pagina/hero.html">
+        <p class="eyebrow eyebrow--dash in d1">Error 404</p>
+        <h1 id="pagina-titulo" class="pagina-hero__title in d2">
+          No encontramos <span class="pagina-hero__hl">esta página.</span>
+        </h1>
+        <p class="lead pagina-hero__lead in d3">
+          La dirección puede haber cambiado con la renovación del sitio o contener un error de tipeo. Estas son las secciones principales del sitio.
+        </p>
+        <div class="pagina-hero__actions in d4">
+          <a class="btn btn--lime" href="/">Ir al inicio <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn btn--light" href="/contacto/">Ver teléfono y WhatsApp</a>
+        </div>
+      </include>
+
+      <include src="partials/pagina/bloque.html" id="atajos" eyebrow="Atajos" titulo="Tres accesos a las secciones principales.">
+        <ul class="servicios__grid" role="list">
+          <li class="rv slow" data-d="0">
+            <a class="servicios__card card card-h pagina-link-card" href="/servicios/">
+              <span class="servicios__icon icon-badge"><include src="partials/pagina/iconos/auriculares.html"></include></span>
+              <span class="servicios__title">Servicios</span>
+              <span class="servicios__text">Outsourcing IT, mesa de ayuda tercerizada, búsqueda de perfiles IT, desarrollo y consultoría.</span>
+              <span class="pagina-link-card__more">Ver servicios <span class="arr" aria-hidden="true">→</span></span>
+            </a>
+          </li>
+          <li class="rv slow" data-d="0.35">
+            <a class="servicios__card card card-h pagina-link-card" href="/soluciones/">
+              <span class="servicios__icon icon-badge"><include src="partials/pagina/iconos/escudo.html"></include></span>
+              <span class="servicios__title">Soluciones</span>
+              <span class="servicios__text">Cámaras de seguridad y control de acceso, ciberseguridad, cableado estructurado, fibra FTTH y data center.</span>
+              <span class="pagina-link-card__more">Ver soluciones <span class="arr" aria-hidden="true">→</span></span>
+            </a>
+          </li>
+          <li class="rv slow" data-d="0.7">
+            <a class="servicios__card card card-h pagina-link-card" href="/contacto/">
+              <span class="servicios__icon icon-badge"><include src="partials/pagina/iconos/mapa.html"></include></span>
+              <span class="servicios__title">Contacto</span>
+              <span class="servicios__text">{{site.address}}. Teléfono {{site.phone.display}} y mail {{site.email}}.</span>
+              <span class="pagina-link-card__more">Ir a contacto <span class="arr" aria-hidden="true">→</span></span>
+            </a>
+          </li>
+        </ul>
+      </include>
+    </main>
+
+    <include src="partials/footer.html"></include>
+    <include src="partials/whatsapp.html"></include>
+  </body>
+</html>

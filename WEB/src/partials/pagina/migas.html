@@ -1,0 +1,34 @@
+<!--
+  MIGAS DE PAN: Inicio > Sección > Página (páginas de segundo nivel)
+  Imprime la ruta visible (dentro del hero de página) y el JSON-LD
+  BreadcrumbList con los mismos nombres. Para páginas de primer nivel
+  (/servicios/, /clientes/, /nosotros/…) usar migas-raiz.html.
+
+  Uso (dentro del slot de partials/pagina/hero.html):
+    <include src="partials/pagina/migas.html"
+      seccion="Servicios" seccion-url="/servicios/"
+      actual="Outsourcing IT y service desk"></include>
+
+  Props (todas obligatorias, sin comillas dobles ni el signo &):
+    seccion       nombre de la sección madre, igual que en el menú.
+    seccion-url   ruta absoluta con barra final ("/servicios/").
+    actual        nombre corto de esta página.
+-->
+<nav class="migas in d1" aria-label="Ruta de navegación">
+  <ol class="migas__list" role="list">
+    <li class="migas__item"><a class="migas__link" href="/">Inicio</a></li>
+    <li class="migas__item"><a class="migas__link" href="{{props.seccion-url}}">{{props.seccion}}</a></li>
+    <li class="migas__item"><span aria-current="page">{{props.actual}}</span></li>
+  </ol>
+</nav>
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "{{site.url}}" },
+      { "@type": "ListItem", "position": 2, "name": "{{props.seccion}}", "item": "{{page.origin}}{{props.seccion-url}}" },
+      { "@type": "ListItem", "position": 3, "name": "{{props.actual}}", "item": "{{page.url}}" }
+    ]
+  }
+</script>

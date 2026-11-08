@@ -1,0 +1,57 @@
+<!--
+  CASO REAL (informe: "un caso real con las tecnologías usadas")
+  Misma tarjeta partida que el caso destacado de la home (clases casos__* de
+  src/styles/sections/casos.css): relato a la izquierda (desafío, solución,
+  alcance) y panel carbón a la derecha con la cifra y las tecnologías.
+  Solo casos de las fuentes (DOCS/contenido/fuentes). Clientes perdidos, en
+  pasado. Sin años ni montos que no estén confirmados (van como .nota).
+
+  Uso:
+    <include src="partials/pagina/caso.html"
+      titulo="Más de 40 posiciones cubiertas en un año."
+      cliente="Banco internacional" detalle="Banca · nombre reservado">
+      <div class="casos__row"><dt class="eyebrow">El desafío</dt><dd>…</dd></div>
+      <div class="casos__row"><dt class="eyebrow">Qué hicimos</dt><dd>…</dd></div>
+      <div class="casos__row"><dt class="eyebrow">Alcance</dt><dd>…</dd></div>
+      <template slot="panel">
+        <p class="casos__sla"> cifra con casos__big y data-count </p>
+        <p class="eyebrow">Tecnologías</p>
+        <ul class="pagina-caso__tecs" role="list"><li class="chip">Java</li></ul>
+      </template>
+    </include>
+  Debajo se pueden sumar más casos chicos con la grilla de la home:
+    <ul class="casos__grid pagina-casos" role="list"><li class="casos__card card-h rv">…</li></ul>
+  (ponerlos dentro del slot "extra": <template slot="extra">…</template>).
+
+  Props:
+    titulo    obligatoria (h2 de la sección).
+    cliente   obligatoria (nombre del cliente o descripción si es anónimo).
+    detalle   opcional (sector, ciudad…).
+    eyebrow   opcional (por defecto "Caso real").
+  Slots: el principal (filas casos__row del <dl>), "panel" y "extra".
+-->
+<section id="caso" class="section casos pagina-caso" aria-labelledby="caso-titulo">
+  <div class="wrap">
+    <header class="section-head rv">
+      <p class="eyebrow eyebrow--dash">{{props.eyebrow|Caso real}}</p>
+      <h2 id="caso-titulo" class="h2">{{props.titulo}}</h2>
+    </header>
+
+    <article class="casos__featured card-h rv" aria-label="Caso: {{props.cliente}}">
+      <div class="casos__story">
+        <p class="casos__org">
+          <span>{{props.cliente}}</span>
+          <span>{{props.detalle|}}</span>
+        </p>
+        <dl class="casos__rows">
+          <slot></slot>
+        </dl>
+      </div>
+      <div class="casos__stats on-dark">
+        <slot name="panel"></slot>
+      </div>
+    </article>
+
+    <slot name="extra"></slot>
+  </div>
+</section>

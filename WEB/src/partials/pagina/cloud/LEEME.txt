@@ -1,0 +1,4 @@
+Parciales de /soluciones/cloud/ (fase 2 del informe).
+iconos/: íconos de las tarjetas servicios__card, mismo formato que partials/pagina/iconos/
+(trazo 1.8, 24x24, clases "ico svc-ico"). Uso:
+  <span class="servicios__icon icon-badge"><include src="partials/pagina/cloud/iconos/NOMBRE.html"></include></span>

@@ -1,0 +1,23 @@
+/* Punto de entrada de estilos. Orden: tokens → base → componentes → secciones → animaciones */
+@import './tokens.css';
+@import './base.css';
+@import './components.css';
+
+@import './sections/header.css';
+@import './sections/hero.css';
+@import './sections/logos.css';
+@import './sections/problema.css';
+@import './sections/servicios.css';
+@import './sections/historia.css';
+@import './sections/equipo.css';
+@import './sections/presencia.css';
+@import './sections/casos.css';
+@import './sections/testimonios.css';
+@import './sections/pasos.css';
+@import './sections/faq.css';
+@import './sections/agenda.css';
+@import './sections/footer.css';
+@import './sections/whatsapp.css';
+@import './sections/pagina.css';
+
+@import './animations.css';

@@ -1,0 +1,31 @@
+<!--
+  BANDA CTA FINAL CON FORMULARIO (informe: "formulario y WhatsApp con un
+  mensaje propio de esa página")
+  Reutiliza el cierre de la home (partials/agenda.html, id="agenda"): carbón
+  con fondo de red, filas de contacto y el formulario corto. El formulario
+  manda el campo oculto "origen" con la ruta de la página; el WhatsApp de la
+  banda toma el mensaje de data-wa-texto del <body>. Va última dentro de <main>.
+  Como la página tiene #agenda, el CTA del header baja hasta acá.
+
+  Uso:
+    <include src="partials/pagina/cta.html"
+      titulo="¿Querés tercerizar tu mesa de ayuda?"
+      necesidad="Soporte IT, mesa de ayuda u outsourcing IT"></include>
+
+  Props (opcionales):
+    titulo      primera frase del título.
+    cierre      segunda frase, en lima. Conviene una propia de cada página: la
+                de por defecto ("Un especialista de nuestro equipo te responde.") ya está en
+                varias y se vuelve fórmula.
+    necesidad   opción del select que viene elegida. Tiene que ser exactamente
+                una de estas (son los valores de public/api/contact.php):
+                Cámaras de seguridad y control de acceso
+                Soporte IT, mesa de ayuda u outsourcing IT
+                Redes, fibra o data center
+                Ciberseguridad
+                Búsqueda de perfiles IT
+                Desarrollo de software o automatización con IA
+                Licitación o proyecto para un organismo público
+                Otro proyecto
+-->
+<include src="../agenda.html" titulo="{{props.titulo|Contanos qué querés resolver.}}" cierre="{{props.cierre|Un especialista de nuestro equipo te responde.}}" necesidad="{{props.necesidad|}}"></include>

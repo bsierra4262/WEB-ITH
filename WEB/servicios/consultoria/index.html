@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <include
+      src="partials/pagina/head.html"
+      titulo="Consultoría IT e ITIL en Buenos Aires | Intellihelp"
+      descripcion="Consultoría IT para empresas y organismos de CABA: ITIL para la mesa de ayuda, prácticas del PMI y metodologías ágiles, calidad, planes de IT y transformación digital."
+    ></include>
+
+    <!--
+      SERVICIO (fase 2): CONSULTORÍA. Estructura del informe:
+      hero · respuesta corta · qué incluye · cómo trabajamos · datos clave ·
+      caso real · FAQ con schema · formulario + WhatsApp.
+      Fuentes: brief §2 y §4.1 (transformación digital, ITIL, ágiles, PMI/PMO,
+      calidad, planes de IT); fuentes-pdfs-old.md §2, §6.1 a §6.3 (ASI y
+      Huawei); fuentes-drive-clientes.md §2 "Consultoría" (análisis de brechas ITIL 4 para un
+      integrador de tecnología, 2023) y §4 punto 11 (PMP); parte publicable de
+      DOCS/privado/perfil/analisis-tickets-glpi.md §3.5 (mesa de ayuda GLPI
+      para una obra social, 2026, sin nombre del cliente).
+      Keyword principal: consultoría IT.
+      Secundarias: ITIL, metodologías ágiles, sistema de gestión de calidad,
+      transformación digital (con H2 propio en #transformacion-digital, pegado
+      a la respuesta corta para no romper la alternancia de fondos).
+      Redacción: DOCS/contenido/guia-de-estilo.md (versión del 30/10/2026).
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "@id": "{{page.url}}#servicio",
+        "name": "Consultoría IT",
+        "serviceType": "Consultoría IT",
+        "alternateName": ["Consultoría ITIL", "Gestión de proyectos PMI", "Metodologías ágiles", "Transformación digital"],
+        "description": "Consultoría IT para empresas y organismos con sede en Buenos Aires: ordenamiento de la mesa de ayuda y los servicios con ITIL, gestión de proyectos según las prácticas del PMI, oficina de proyectos (PMO) y metodologías ágiles, calidad y certificación de procesos, planes estratégicos de IT y transformación digital, con diagnóstico, plan e implementación.",
+        "url": "{{page.url}}",
+        "provider": {
+          "@type": "Organization",
+          "@id": "{{site.url}}#organizacion",
+          "name": "{{site.name}}",
+          "url": "{{site.url}}",
+          "telephone": "{{site.phone.display}}",
+          "email": "{{site.email}}"
+        },
+        "areaServed": [
+          { "@type": "City", "name": "Ciudad Autónoma de Buenos Aires" },
+          { "@type": "Country", "name": "Argentina" }
+        ],
+        "audience": {
+          "@type": "BusinessAudience",
+          "audienceType": "Empresas medianas y grandes y organismos públicos"
+        }
+      }
+    </script>
+  </head>
+  <body data-wa-texto="Hola Intellihelp, quiero consultar por consultoría IT.">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <include src="partials/header.html"></include>
+
+    <main id="contenido">
+      <include src="partials/pagina/hero.html">
+        <include
+          src="partials/pagina/migas.html"
+          seccion="Servicios"
+          seccion-url="/servicios/"
+          actual="Consultoría"
+        ></include>
+        <p class="eyebrow eyebrow--dash in d2">Servicio</p>
+        <h1 id="pagina-titulo" class="pagina-hero__title in d3">
+          Consultoría IT <span class="pagina-hero__hl">para empresas y organismos de Buenos Aires.</span>
+        </h1>
+        <p class="lead pagina-hero__lead in d4">
+          Organizamos la mesa de ayuda con ITIL, gestionamos proyectos con las prácticas del PMI y con metodologías ágiles, y elaboramos el plan de IT de la organización. Además, implementamos las recomendaciones del diagnóstico.
+        </p>
+        <div class="pagina-hero__actions in d5">
+          <a class="btn btn--lime" href="#agenda">Solicitá un diagnóstico <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn btn--light" href="{{site.whatsapp.url}}" target="_blank" rel="noopener">Escribinos por WhatsApp<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a>
+        </div>
+        <p class="hero__note in d6">
+          <svg class="hero__check" aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+          <span>Entregamos por escrito el diagnóstico, el plan y la documentación.</span>
+        </p>
+      </include>
+
+      <include src="partials/pagina/respuesta.html" titulo="¿Qué hace la consultoría IT de Intellihelp?">
+        <p>
+          Analizamos cómo opera el área de sistemas y la organizamos con estándares reconocidos: ITIL para la mesa de ayuda y los servicios, las prácticas del PMI, la oficina de proyectos (PMO) y metodologías ágiles para los proyectos, y calidad y certificación de procesos. También elaboramos planes estratégicos de IT y proyectos de transformación digital para empresas y organismos de Buenos Aires.
+        </p>
+      </include>
+
+      <include
+        src="partials/pagina/bloque.html"
+        id="transformacion-digital"
+        eyebrow="Transformación digital"
+        titulo="Transformación digital para empresas, un proceso por vez."
+        fondo="soluciones-pegado"
+      >
+        <template slot="bajada">
+          <p class="lead">La entendemos como la migración de un proceso concreto, hoy gestionado en papel, correo o planillas, a un sistema que lo ordena y permite medirlo. Estos son algunos de los proyectos que realizamos.</p>
+        </template>
+        <ul class="casos__grid pagina-casos" role="list">
+          <li class="casos__card card-h rv">
+            <p class="eyebrow">Sector público · 2023 y 2024</p>
+            <h3 class="casos__name">Facturas con circuito de aprobación</h3>
+            <p class="casos__text">Para una empresa pública de servicios postales, la facturación y la gestión de proveedores pasaron a un sistema con aprobaciones según el rol de cada usuario. Lo desarrolló nuestra <a href="/servicios/desarrollo-de-aplicaciones/">software factory</a>.</p>
+          </li>
+          <li class="casos__card card-h rv">
+            <p class="eyebrow">Comedores escolares · Desde 2025</p>
+            <h3 class="casos__name">Consumos registrados con la huella</h3>
+            <p class="casos__text">La huella dactilar registra cada consumición, se imprime el ticket y se generan los reportes diarios y mensuales del comedor, aun sin conexión a internet. Es uno de nuestros casos de <a href="/servicios/automatizacion/">automatización</a>.</p>
+          </li>
+          <li class="casos__card card-h rv">
+            <p class="eyebrow">Equipos · Farmacéutica · 2022 y 2023</p>
+            <h3 class="casos__name">Pfizer</h3>
+            <p class="casos__text">Incorporamos analistas funcionales a su equipo de transformación digital, en modalidad <a href="/servicios/outsourcing-y-service-desk/">outsourcing</a>.</p>
+          </li>
+        </ul>
+      </include>
+
+      <include
+        src="partials/pagina/bloque.html"
+        id="incluye"
+        eyebrow="Qué incluye"
+        titulo="Servicios, proyectos y estrategia."
+        fondo="section--soft"
+      >
+        <template slot="bajada">
+          <p class="lead">Tres frentes que pueden contratarse por separado. En la mayoría de los proyectos comenzamos por el primero.</p>
+        </template>
+        <ul class="servicios__grid" role="list">
+          <li class="servicios__card card rv slow card-h" data-d="0">
+            <span class="servicios__num" aria-hidden="true">01</span>
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/iconos/auriculares.html"></include></span>
+            <h3 class="servicios__title">ITIL y gestión de servicios</h3>
+            <p class="servicios__text">Medimos la brecha entre la operación actual de la mesa de ayuda y el modelo de ITIL 4. Luego definimos categorías, prioridades, acuerdos de nivel de servicio y escalamiento, y los configuramos en la herramienta.</p>
+            <ul class="servicios__chips" role="list" aria-label="Incluye">
+              <li class="chip">Análisis de brechas</li>
+              <li class="chip">SLA y OLA</li>
+              <li class="chip">Incidentes y problemas</li>
+            </ul>
+          </li>
+
+          <li class="servicios__card card rv slow card-h" data-d="0.35">
+            <span class="servicios__num" aria-hidden="true">02</span>
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/servicios-clientes/iconos/consultoria.html"></include></span>
+            <h3 class="servicios__title">Proyectos: PMI, PMO y ágiles</h3>
+            <p class="servicios__text">Creamos o fortalecemos la oficina de proyectos con las prácticas del PMI, o conducimos equipos con Scrum. Alcance, riesgos, cronograma y métricas de seguimiento quedan documentados y visibles.</p>
+            <ul class="servicios__chips" role="list" aria-label="Incluye">
+              <li class="chip">PMI/PMO</li>
+              <li class="chip">Scrum</li>
+              <li class="chip">DevOps</li>
+            </ul>
+          </li>
+
+          <li class="servicios__card card rv slow card-h" data-d="0.7">
+            <span class="servicios__num" aria-hidden="true">03</span>
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/iconos/empresa.html"></include></span>
+            <h3 class="servicios__title">Planes de IT y transformación digital</h3>
+            <p class="servicios__text">Planes estratégicos de IT y de negocio, calidad y certificación de procesos, y proyectos que llevan un proceso en papel o planilla a un sistema.</p>
+            <ul class="servicios__chips" role="list" aria-label="Incluye">
+              <li class="chip">Plan estratégico de IT</li>
+              <li class="chip">Calidad y procesos</li>
+              <li class="chip">Transformación digital</li>
+            </ul>
+          </li>
+        </ul>
+      </include>
+
+      <include
+        src="partials/pagina/bloque.html"
+        id="como-trabajamos"
+        eyebrow="Cómo trabajamos"
+        titulo="Primero medimos la situación actual; después, proponemos."
+      >
+        <ol class="pasos__grid" role="list">
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>1</span>
+            <h3 class="pasos__title">Diagnóstico</h3>
+            <p class="pasos__text">Relevamos procesos, herramientas y datos reales, como una muestra de tickets o el estado de los proyectos, los comparamos con el estándar y documentamos las brechas.</p>
+          </li>
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>2</span>
+            <h3 class="pasos__title">Plan por escrito</h3>
+            <p class="pasos__text">Detallamos qué cambiar, en qué orden y con qué herramienta. Si detectamos inconsistencias en los criterios vigentes, las señalamos antes de comenzar la implementación.</p>
+          </li>
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>3</span>
+            <h3 class="pasos__title">Implementación y revisión</h3>
+            <p class="pasos__text">Configuramos, documentamos y capacitamos. Al mes de uso, proponemos una revisión con los indicadores reales para realizar los ajustes necesarios.</p>
+          </li>
+        </ol>
+      </include>
+
+      <include src="partials/pagina/datos.html" titulo="Alcance y entregables de la consultoría.">
+        <include src="partials/pagina/dato.html" icono="empresa" titulo="Para quién">
+          <p>Áreas de sistemas de empresas medianas y grandes y organismos públicos que necesitan ordenar su operación o encarar un proyecto de envergadura.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="check" titulo="Entregables">
+          <p>El diagnóstico, el plan y la documentación de operación para usuarios y técnicos.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="equipo" titulo="Quién la realiza">
+          <p>Consultores con experiencia en mesas de ayuda, infraestructura y gestión de proyectos, que aplican ITIL 4, las prácticas del PMI y Scrum.</p>
+          <div class="nota"><b>Para Nico</b>Las propuestas de 2018 a 2021 listan PMP. ¿Quién tiene hoy PMP o ITIL en el equipo? En el zip de certificaciones no hay ninguna de las dos, así que saqué "certificaciones en gestión de proyectos". Si alguien las tiene vigentes, las nombro en esta tarjeta.</div>
+        </include>
+        <div data-draft>
+          <include src="partials/pagina/dato.html" icono="precio" titulo="Modelo de precio">
+            <div class="nota"><b>Para Carlos</b>¿Publicamos si la consultoría se cotiza por proyecto cerrado o por bolsa de horas? Sería solo la modalidad, sin montos. Hasta que me digas, esta tarjeta no sale.</div>
+          </include>
+        </div>
+      </include>
+
+      <include
+        src="partials/pagina/caso.html"
+        titulo="De una planilla a una mesa de ayuda con SLA por categoría y prioridad."
+        cliente="Obra social"
+        detalle="Salud · mesa de ayuda del área de Sistemas · 2026"
+      >
+        <div class="casos__row">
+          <dt class="eyebrow">El desafío</dt>
+          <dd>El área de Sistemas registraba los pedidos en una planilla y los recibía por canales informales, sin visibilidad sobre los vencimientos.</dd>
+        </div>
+        <div class="casos__row">
+          <dt class="eyebrow">Qué hicimos</dt>
+          <dd>Implementamos la mesa de ayuda sobre GLPI con 14 categorías de servicio, tipificación ITIL, tres prioridades, 70 reglas de asignación automática y escalamiento en tres niveles.</dd>
+        </div>
+        <div class="casos__row">
+          <dt class="eyebrow">Resultado</dt>
+          <dd>Los plazos se computan solo en horario hábil y descuentan feriados, los controles de rutina generan sus propios tickets y el área visualiza en un tablero los pedidos próximos a vencer. La entrega incluyó guías para usuarios y técnicos.</dd>
+        </div>
+        <template slot="panel">
+          <p class="casos__sla">
+            <span class="casos__big"><span data-count="70" data-count-delay="300">70</span></span>
+            <span class="casos__sla-text">reglas de asignación automática sobre 14 categorías de servicio y 3 prioridades, con escalamiento en tres niveles</span>
+          </p>
+          <p class="eyebrow">Herramientas</p>
+          <ul class="pagina-caso__tecs" role="list">
+            <li class="chip">GLPI</li>
+            <li class="chip">ITIL</li>
+            <li class="chip">SLA</li>
+            <li class="chip">Escalamiento N1 a N3</li>
+          </ul>
+        </template>
+        <template slot="extra">
+          <ul class="casos__grid pagina-casos" role="list">
+            <li class="casos__card card-h rv">
+              <p class="eyebrow">ITIL 4 · Tecnología</p>
+              <h3 class="casos__name">Un integrador de tecnología</h3>
+              <p class="casos__text">En 2023 realizamos el análisis de brechas (gap analysis) de sus procesos frente a ITIL 4 y lo complementamos con seis meses de <a href="/servicios/capacitacion/">capacitación</a>.</p>
+            </li>
+            <li class="casos__card card-h rv">
+              <p class="eyebrow">Preventa técnica · Tecnología</p>
+              <h3 class="casos__name">Huawei Argentina</h3>
+              <p class="casos__text">Durante dos años, consultores de Intellihelp trabajaron en su oficina en la preventa técnica de sus proyectos para organismos de gobierno.</p>
+            </li>
+            <li class="casos__card card-h rv">
+              <p class="eyebrow">Sistemas y bases de datos · Gobierno</p>
+              <h3 class="casos__name">Agencia de Sistemas de Información (GCBA)</h3>
+              <p class="casos__text">Ampliamos la administración de sus sistemas operativos y bases de datos de una cobertura 5x8 a 7x24, con un tiempo máximo de respuesta de 2 horas.</p>
+            </li>
+          </ul>
+          <div class="nota"><b>Para Nico</b>¿En qué años fueron lo de Huawei y lo de la Agencia de Sistemas? Por ahora los dejé en pasado y sin año.</div>
+        </template>
+      </include>
+
+      <include src="partials/pagina/faq.html" titulo="Preguntas frecuentes sobre consultoría IT.">
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Qué es la consultoría IT?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Es un diagnóstico del funcionamiento del área de sistemas, con un plan de mejora y, si lo solicitás, su implementación. Trabajamos sobre la mesa de ayuda, los proyectos y la estrategia de IT.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Para qué le sirve ITIL a mi mesa de ayuda?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Para que cada pedido tenga categoría, prioridad, un plazo comprometido y un responsable. En la obra social donde lo implementamos, los pedidos dejaron la planilla y el área pasó a controlar en un tablero los vencimientos próximos.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Trabajan con PMI o con metodologías ágiles?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Con ambos enfoques, según el proyecto. Las prácticas del PMI se aplican a una oficina de proyectos o a una obra con plazos fijos, y Scrum a un desarrollo que se define por etapas, como los de nuestra software factory.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Qué entienden por transformación digital?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Es la migración de un proceso concreto, hoy gestionado en papel, correo o planillas, a un sistema que lo ordena y permite medirlo. Puede tratarse de la mesa de ayuda, la facturación de proveedores o la rendición de gastos, y suele derivar en <a href="/servicios/desarrollo-de-aplicaciones/">desarrollo a medida</a> o en <a href="/servicios/automatizacion/">automatización</a>.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Implementan lo que recomiendan?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Sí, si lo solicitás. Configuramos la herramienta, la documentamos y capacitamos a tu equipo. También podés quedarte con el plan y ejecutarlo con recursos propios.</p>
+          </div>
+        </details>
+
+        <!-- Borradores: no se publican hasta tener la respuesta. Al cargarla,
+             sacar data-draft: el schema FAQPage la suma solo. -->
+        <details name="faq" class="faq__item" data-draft>
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Acompañan una certificación de calidad, como ISO 9001?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <div class="nota"><b>Para Nico</b>El brief nombra "calidad: certificación de procesos", pero no encontré ningún proyecto ni con qué norma. Si hay uno, contame cuál. Si no, la pregunta no sale.</div>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item" data-draft>
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Cuánto cuesta una consultoría IT?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <div class="nota"><b>Para Carlos</b>Depende de lo mismo que la tarjeta de precio. Si no me decís nada, no sale.</div>
+          </div>
+        </details>
+      </include>
+
+      <include
+        src="partials/pagina/cta.html"
+        titulo="Contanos qué parte de tu área de sistemas querés ordenar."
+        cierre="El primer paso es un diagnóstico."
+        necesidad="Otro proyecto"
+      ></include>
+    </main>
+
+    <include src="partials/footer.html"></include>
+    <include src="partials/whatsapp.html"></include>
+  </body>
+</html>

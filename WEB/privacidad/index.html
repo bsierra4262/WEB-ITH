@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <include
+      src="partials/pagina/head.html"
+      titulo="Aviso de privacidad y datos personales | Intellihelp"
+      descripcion="Cómo usa Intellihelp los datos del formulario y de WhatsApp, cómo cuida los de tu empresa durante un servicio y tus derechos según la Ley 25.326."
+      actualizado="2026-10-30"
+    ></include>
+
+    <!--
+      AVISO DE PRIVACIDAD (sección institucional). Ley 25.326 de Protección
+      de Datos Personales, su Decreto 1558/2001 y la Disposición 10/2008
+      (leyenda obligatoria del art. 14 inc. 3 y del órgano de control, hoy la
+      Agencia de Acceso a la Información Pública).
+      Lo enlazan la leyenda del formulario (partials/agenda.html, que también
+      usa pagina/cta.html), el footer y la sección "Trabajá con nosotros".
+      Medición (#medicion): se carga solo Tag Manager (analytics.gtm en
+      src/data/site.json); GA4 y Clarity se configuran adentro del contenedor.
+      Si cambia lo que se mide, actualizar esa sección y la fecha (acá, en el
+      JSON-LD y en el sitemap).
+      Datos de clientes durante un servicio (#datos-de-clientes,
+      #fin-del-servicio y #camaras-y-biometria): Ley 25.326 arts. 9, 10 y 25
+      y Disposición 10/2015 (videovigilancia). Los enlazan las preguntas
+      frecuentes de la home, Ciberseguridad, Outsourcing y Seguridad. Base:
+      convenio de confidencialidad del personal y acuerdos con clientes
+      (DOCS/contenido/fuentes/fuentes-drive-clientes.md, punto 8).
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": "{{page.url}}#pagina",
+        "url": "{{page.url}}",
+        "name": "Aviso de privacidad y datos personales | Intellihelp",
+        "description": "Cómo usa Intellihelp los datos del formulario y de WhatsApp, cómo cuida los de tu empresa durante un servicio y tus derechos según la Ley 25.326.",
+        "inLanguage": "es-AR",
+        "datePublished": "2026-10-23",
+        "dateModified": "2026-10-30",
+        "isPartOf": { "@id": "{{site.url}}#sitio" },
+        "about": { "@id": "{{site.url}}#organizacion" },
+        "publisher": {
+          "@type": "Organization",
+          "@id": "{{site.url}}#organizacion",
+          "name": "{{site.name}}",
+          "legalName": "INTELLIHELP S.A.",
+          "taxID": "30-71140975-7",
+          "email": "{{site.email}}",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "{{site.street}}",
+            "postalCode": "{{site.postalCode}}",
+            "addressLocality": "Ciudad Autónoma de Buenos Aires",
+            "addressRegion": "CABA",
+            "addressCountry": "AR"
+          }
+        }
+      }
+    </script>
+  </head>
+  <body data-wa-texto="Hola Intellihelp, tengo una consulta sobre mis datos personales.">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <include src="partials/header.html"></include>
+
+    <main id="contenido">
+      <include src="partials/pagina/hero.html">
+        <include src="partials/pagina/migas-raiz.html" actual="Aviso de privacidad"></include>
+        <p class="eyebrow eyebrow--dash in d2">Privacidad</p>
+        <h1 id="pagina-titulo" class="pagina-hero__title in d3">
+          Aviso de privacidad: <span class="pagina-hero__hl">qué hacemos con tus datos.</span>
+        </h1>
+        <p class="lead pagina-hero__lead in d4">
+          Los datos que completás en el formulario o al agendar una reunión se utilizan únicamente para responder tu consulta y coordinar esa reunión. A continuación, el detalle y tus derechos según la Ley 25.326.
+        </p>
+        <div class="pagina-hero__actions in d5">
+          <a class="btn btn--lime" href="mailto:{{site.email}}?subject=Mis%20datos%20personales">Escribinos sobre tus datos <span class="arr" aria-hidden="true">→</span></a>
+        </div>
+        <p class="hero__note in d6">
+          <span>Última actualización: <time datetime="2026-10-30">30 de octubre de 2026</time>.</span>
+        </p>
+      </include>
+
+      <include src="partials/pagina/respuesta.html" titulo="¿Qué hace Intellihelp con mis datos?">
+        <p>
+          INTELLIHELP S.A. utiliza tu nombre, tu empresa, tu mail, tu teléfono y tu mensaje exclusivamente para responder tu consulta y coordinar una reunión. Los registramos en nuestro sistema de gestión de clientes y, si agendás una reunión, la creamos en Google Calendar con su enlace de Google Meet. No los comercializamos ni los cedemos a terceros, salvo requerimiento legal o judicial. Podés solicitar su acceso, rectificación o supresión escribiendo a {{site.email}}.
+        </p>
+        <p>
+          Si ya sos cliente, la información de tu empresa a la que accedemos durante un servicio se rige por reglas propias, detalladas más abajo en <a href="#datos-de-clientes">Datos de nuestros clientes durante un servicio</a>.
+        </p>
+      </include>
+
+      <include src="partials/pagina/datos.html" titulo="Quién guarda tus datos, cuáles y para qué." eyebrow="Tus datos">
+        <include src="partials/pagina/dato.html" icono="empresa" titulo="Responsable">
+          <p>INTELLIHELP S.A., CUIT 30-71140975-7.</p>
+          <p>{{site.street}}, {{site.postalCode}}, Ciudad Autónoma de Buenos Aires.</p>
+          <p><a href="mailto:{{site.email}}">{{site.email}}</a></p>
+          <div class="nota"><b>Para Carlos</b>¿La base de contactos está inscripta en el Registro Nacional de Bases de Datos de la AAIP? Si es así, pasame el número y lo pongo acá. Si no me decís nada, queda sin número.</div>
+        </include>
+        <include src="partials/pagina/dato.html" icono="../servicios-clientes/iconos/seleccion" titulo="Qué datos">
+          <p>Nombre y apellido, empresa u organismo y mail laboral. Son los tres datos necesarios para responderte.</p>
+          <p>El teléfono, el servicio de interés y el mensaje son opcionales. Si agendás una reunión, también el día y la hora elegidos.</p>
+          <p>Registramos además la página desde la que nos escribiste y cómo llegaste al sitio (por ejemplo, desde un buscador, LinkedIn o un anuncio), para saber qué canales resultan útiles.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="check" titulo="Para qué">
+          <p>Para responder tu consulta, coordinar la reunión y enviarte su confirmación y su recordatorio. No los utilizamos para enviarte publicidad.</p>
+          <p>Los tratamos con tu consentimiento, que otorgás al marcar la casilla del formulario y que podés revocar en cualquier momento. Registramos la fecha y la versión del texto que aceptaste.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="../contacto/iconos/mail" titulo="Quién los ve">
+          <p>Llegan por mail a {{site.email}} y quedan registrados en nuestro sistema de gestión de clientes, desarrollado por Intellihelp. Solo acceden a ellos las personas de Intellihelp que atienden las consultas y las reuniones.</p>
+          <p>Si agendás una reunión, la creamos en Google Calendar con un enlace de Google Meet. Google recibe solo tu nombre, tu empresa, tu mail y el día y la hora, y puede procesarlos fuera de la Argentina (transferencia internacional), que aceptás al agendar.</p>
+          <p>No los cedemos a terceros, salvo obligación legal. Los proveedores de hosting y de correo los alojan por cuenta nuestra.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="reloj" titulo="Cuánto tiempo">
+          <p>Mientras dure la consulta o la relación comercial que surja de ella. Luego conservamos solo lo que la ley obliga a guardar, como la documentación contractual.</p>
+          <p>Podés solicitar su eliminación antes de ese plazo.</p>
+          <div class="nota"><b>Para Carlos</b>¿Queremos un plazo fijo para borrar las consultas que no avanzaron, por ejemplo 24 meses? Si me lo decís, lo agrego acá; si no, queda como está.</div>
+        </include>
+        <include src="partials/pagina/dato.html" icono="escudo" titulo="Cómo los cuidamos">
+          <p>El sitio funciona con HTTPS: la información del formulario se transmite cifrada, también entre el sitio y nuestro sistema de gestión de clientes.</p>
+          <p>El sistema requiere una cuenta personal para cada integrante del equipo. Tu dirección IP no se guarda: solo un código derivado de ella, que usamos para frenar envíos automáticos.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="../contacto/iconos/whatsapp" titulo="WhatsApp">
+          <p>Los mensajes por WhatsApp se transmiten a través de ese servicio y se rigen por su propia política de privacidad.</p>
+          <p>Tu número y el contenido de la conversación se utilizan solo para responderte.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="equipo" titulo="Tu CV">
+          <p>Si nos enviás tu CV a <a href="mailto:{{site.emailRrhh}}">{{site.emailRrhh}}</a>, lo utilizamos únicamente para nuestros procesos de selección.</p>
+          <p>Podés actualizarlo o solicitar su eliminación en cualquier momento.</p>
+        </include>
+      </include>
+
+      <include src="partials/pagina/bloque.html" id="derechos" eyebrow="Tus derechos" titulo="Podés acceder a tus datos, rectificarlos o suprimirlos.">
+        <template slot="bajada">
+          <p class="lead">Son los derechos de acceso, rectificación y supresión previstos en los artículos 14 a 16 de la Ley 25.326. Su ejercicio es gratuito.</p>
+        </template>
+        <ol class="pasos__grid" role="list">
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>1</span>
+            <h3 class="pasos__title">Escribinos</h3>
+            <p class="pasos__text">Enviá un mail a <a href="mailto:{{site.email}}?subject=Mis%20datos%20personales">{{site.email}}</a> desde la casilla que usaste e indicá si querés acceder a tus datos, rectificarlos o suprimirlos. Si es necesario, te pediremos que acredites tu identidad.</p>
+          </li>
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>2</span>
+            <h3 class="pasos__title">Te respondemos</h3>
+            <p class="pasos__text">Respondemos los pedidos de acceso dentro de los 10 días corridos, y realizamos la rectificación o la supresión dentro de los 5 días hábiles.</p>
+          </li>
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>3</span>
+            <h3 class="pasos__title">Si no obtenés respuesta</h3>
+            <p class="pasos__text">Podés presentar un reclamo ante la Agencia de Acceso a la Información Pública, órgano de control de la ley.</p>
+          </li>
+        </ol>
+        <p class="servicios__extra servicios__proof">El titular de los datos personales tiene la facultad de ejercer el derecho de acceso a los mismos en forma gratuita a intervalos no inferiores a seis meses, salvo que se acredite un interés legítimo al efecto conforme lo establecido en el artículo 14, inciso 3 de la Ley Nº 25.326.</p>
+        <p class="servicios__extra servicios__proof">La AGENCIA DE ACCESO A LA INFORMACIÓN PÚBLICA, en su carácter de Órgano de Control de la Ley Nº 25.326, tiene la atribución de atender las denuncias y reclamos que interpongan quienes resulten afectados en sus derechos por incumplimiento de las normas vigentes en materia de protección de datos personales.</p>
+      </include>
+
+      <include src="partials/pagina/bloque.html" id="medicion" eyebrow="Cookies y medición" titulo="Qué medimos en el sitio y cómo desactivarlo." fondo="section--soft">
+        <template slot="bajada">
+          <p class="lead">Utilizamos herramientas de Google, Microsoft y LinkedIn para conocer qué páginas resultan útiles, cómo llegan las empresas al sitio y para mostrar anuncios a quienes ya lo visitaron. Ninguna recibe tu nombre ni tu mail.</p>
+        </template>
+        <ul class="servicios__grid" role="list">
+          <li class="servicios__card card rv slow card-h" data-d="0">
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/servicios-clientes/iconos/codigo.html"></include></span>
+            <h3 class="servicios__title">Google Tag Manager</h3>
+            <p class="servicios__text">Administra las demás herramientas desde un único lugar: define cuál se carga y en qué momento. No realiza mediciones propias.</p>
+          </li>
+          <li class="servicios__card card rv slow card-h" data-d="0.2">
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/servicios-clientes/iconos/lupa.html"></include></span>
+            <h3 class="servicios__title">Google Analytics</h3>
+            <p class="servicios__text">Registra las visitas: de dónde provienen, qué páginas se leen y hasta qué punto, cuánto se reproduce un video y si luego se envía una consulta o se agenda una reunión. Los datos se analizan en forma agregada, nunca por persona.</p>
+          </li>
+          <li class="servicios__card card rv slow card-h" data-d="0.4">
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/nosotros/iconos/camara.html"></include></span>
+            <h3 class="servicios__title">Microsoft Clarity</h3>
+            <p class="servicios__text">Registra la navegación de forma anónima y genera mapas de calor: dónde se hace clic, hasta dónde se recorre la página y en qué puntos se interrumpe la navegación. Lo que escribís en el formulario queda oculto.</p>
+            <div class="nota"><b>Para Clau</b>Cuando configures Clarity en GTM, ¿dejás el enmascarado en Equilibrado o Estricto? Así no graba lo que se escribe en el formulario.</div>
+          </li>
+          <li class="servicios__card card rv slow card-h" data-d="0">
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/seguridad-ciber/iconos/antena.html"></include></span>
+            <h3 class="servicios__title">Anuncios de Google</h3>
+            <p class="servicios__text">Si visitaste el sitio, Google puede mostrarte luego un anuncio nuestro en el buscador o en YouTube. También nos informa si un anuncio derivó en una consulta.</p>
+          </li>
+          <li class="servicios__card card rv slow card-h" data-d="0.2">
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/iconos/equipo.html"></include></span>
+            <h3 class="servicios__title">Anuncios de LinkedIn</h3>
+            <p class="servicios__text">Cumple la misma función en LinkedIn: permite mostrar anuncios a quienes ya visitaron el sitio y conocer, en forma agregada, de qué industrias y cargos provienen las visitas. LinkedIn no nos informa tu identidad.</p>
+          </li>
+          <li class="servicios__card card rv slow card-h" data-d="0.4">
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/iot/iconos/ubicacion.html"></include></span>
+            <h3 class="servicios__title">Origen de la visita</h3>
+            <p class="servicios__text">Tu navegador conserva durante 90 días cómo ingresaste por primera vez: desde Google, desde una publicación de LinkedIn o desde un anuncio. Si enviás una consulta por el formulario, ese dato se incluye en ella.</p>
+          </li>
+        </ul>
+        <p class="servicios__extra servicios__proof">Para desactivarlas, bloqueá o eliminá las cookies y los datos de este sitio desde la configuración de tu navegador, o navegá en una ventana privada: el sitio funciona igual. Google Analytics ofrece además su <a href="https://tools.google.com/dlpage/gaoptout">complemento de inhabilitación</a>, los anuncios personalizados de Google se desactivan en <a href="https://myadcenter.google.com/">Mi Centro de anuncios</a> y los de LinkedIn, en las preferencias de publicidad de tu cuenta.</p>
+        <p class="servicios__extra servicios__proof">Google, Microsoft y LinkedIn procesan esta información en sus servidores, que pueden estar fuera de la Argentina, y cada una la trata según su propia política de privacidad.</p>
+      </include>
+
+      <include src="partials/pagina/bloque.html" id="datos-de-clientes" eyebrow="Si sos cliente" titulo="Datos de nuestros clientes durante un servicio.">
+        <template slot="bajada">
+          <p class="lead">Para prestar soporte, administrar redes o instalar equipamiento, trabajamos sobre sistemas que contienen información de tu empresa y de su personal. Esa información pertenece a tu empresa: la tratamos por su cuenta, como encargados del tratamiento según el artículo 25 de la Ley 25.326, y solo para los fines previstos en el contrato.</p>
+        </template>
+        <ul class="servicios__grid" role="list">
+          <li class="servicios__card card rv slow card-h" data-d="0">
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/seguridad-ciber/iconos/candado.html"></include></span>
+            <h3 class="servicios__title">Confidencialidad firmada</h3>
+            <p class="servicios__text">Cada integrante de nuestro equipo firma un convenio de confidencialidad que mantiene su vigencia después de su desvinculación de Intellihelp. Si tu empresa lo requiere, firmamos además un acuerdo con ella.</p>
+          </li>
+          <li class="servicios__card card rv slow card-h" data-d="0.35">
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/iconos/equipo.html"></include></span>
+            <h3 class="servicios__title">Una cuenta por persona</h3>
+            <p class="servicios__text">No trabajamos con usuarios compartidos. Cada técnico accede con una cuenta nominal y solo con los permisos que requiere su tarea, de modo que cada acción queda asociada a una persona.</p>
+          </li>
+          <li class="servicios__card card rv slow card-h" data-d="0.7">
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/seguridad-ciber/iconos/red.html"></include></span>
+            <h3 class="servicios__title">Acceso remoto controlado</h3>
+            <p class="servicios__text">Nos conectamos en forma remota solo cuando la tarea lo requiere y por los medios que aprueba tu área de sistemas. Cada conexión queda registrada.</p>
+          </li>
+          <li class="servicios__card card rv slow card-h" data-d="0">
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/seguridad-ciber/iconos/servidor.html"></include></span>
+            <h3 class="servicios__title">Tus datos, en tus sistemas</h3>
+            <p class="servicios__text">No copiamos información de tu empresa a equipos ni a servicios propios. Si un trabajo lo requiere, como una migración o un respaldo, lo hacemos con tu autorización y solo durante el tiempo necesario.</p>
+          </li>
+          <li class="servicios__card card rv slow card-h" data-d="0.35">
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/iconos/check.html"></include></span>
+            <h3 class="servicios__title">Solo para tu servicio</h3>
+            <p class="servicios__text">Seguimos tus instrucciones y no utilizamos la información para otro fin ni la cedemos a terceros. Si un trabajo requiere la participación de un socio, te lo informamos previamente y asume el mismo compromiso.</p>
+          </li>
+          <li class="servicios__card card rv slow card-h" data-d="0.7">
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/iconos/escudo.html"></include></span>
+            <h3 class="servicios__title">Seguridad de la información</h3>
+            <p class="servicios__text">Los equipos que utilizamos se entregan con registro y se destinan solo a la tarea asignada. Si detectamos un hecho que pueda afectar tu información, te lo informamos de inmediato y trabajamos con tu equipo para contenerlo.</p>
+          </li>
+        </ul>
+      </include>
+
+      <include src="partials/pagina/bloque.html" id="fin-del-servicio" eyebrow="Al terminar" titulo="Al finalizar el contrato, la información vuelve a tu empresa." fondo="section--soft">
+        <ol class="pasos__grid" role="list">
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>1</span>
+            <h3 class="pasos__title">Cerramos los accesos</h3>
+            <p class="pasos__text">Damos de baja las cuentas, las conexiones remotas y las credenciales que utilizó nuestro equipo. Recomendamos cambiar las contraseñas que conocíamos y te asistimos en ese proceso.</p>
+          </li>
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>2</span>
+            <h3 class="pasos__title">Devolvemos o destruimos</h3>
+            <p class="pasos__text">Te devolvemos los equipos y la información de tu empresa en nuestro poder. Lo que no se devuelve se elimina de forma segura, salvo que nos autorices por escrito a conservarlo para un trabajo posterior, como permite el artículo 25.</p>
+          </li>
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>3</span>
+            <h3 class="pasos__title">Entregamos la documentación</h3>
+            <p class="pasos__text">El inventario, las configuraciones, los diagramas y los procedimientos se entregan a la persona que designes, para que tu equipo o el proveedor que continúe el servicio disponga de toda la información.</p>
+          </li>
+        </ol>
+        <p class="servicios__extra servicios__proof">El convenio de confidencialidad de nuestro equipo no vence con el contrato: el deber de secreto del artículo 10 de la Ley 25.326 sigue después de terminado el servicio.</p>
+      </include>
+
+      <include src="partials/pagina/bloque.html" id="camaras-y-biometria" eyebrow="Cámaras y biometría" titulo="Grabaciones y datos biométricos: quién es el responsable.">
+        <template slot="bajada">
+          <p class="lead">En las instalaciones de videovigilancia y control de acceso, las imágenes y los datos biométricos pertenecen a tu empresa, que es la responsable de esa base de datos. Nuestra tarea es instalar y mantener los equipos según su política.</p>
+        </template>
+        <ul class="servicios__grid" role="list">
+          <li class="servicios__card card rv slow card-h" data-d="0">
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/seguridad-ciber/iconos/camara.html"></include></span>
+            <h3 class="servicios__title">Guarda y permisos</h3>
+            <p class="servicios__text">Configuramos el período de conservación de las grabaciones y los usuarios autorizados a verlas o exportarlas, según lo que defina tu empresa. Si aún no cuenta con una política, colaboramos en su definición.</p>
+          </li>
+          <li class="servicios__card card rv slow card-h" data-d="0.35">
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/seguridad-ciber/iconos/huella.html"></include></span>
+            <h3 class="servicios__title">Plantillas cifradas</h3>
+            <p class="servicios__text">Los lectores no trabajan con la imagen de la huella o del rostro, sino con una plantilla. Activamos su cifrado en los equipos y en el software de gestión y, cuando el equipamiento lo permite, conservamos solo la plantilla.</p>
+          </li>
+          <li class="servicios__card card rv slow card-h" data-d="0.7">
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/seguridad-ciber/iconos/busqueda.html"></include></span>
+            <h3 class="servicios__title">Cartel de aviso</h3>
+            <p class="servicios__text">La Disposición 10/2015 sobre videovigilancia, que hoy aplica la AAIP, exige informar con carteles visibles la existencia de cámaras, el responsable y dónde ejercer los derechos. Indicamos su ubicación y el contenido requerido.</p>
+          </li>
+        </ul>
+        <p class="servicios__extra servicios__proof">Nuestros técnicos acceden a las grabaciones solo para resolver una falla o a pedido de tu empresa. Al finalizar el mantenimiento, sus usuarios se dan de baja como en cualquier otro servicio.</p>
+      </include>
+    </main>
+
+    <include src="partials/footer.html"></include>
+    <include src="partials/whatsapp.html"></include>
+  </body>
+</html>

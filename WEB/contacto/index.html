@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <include
+      src="partials/pagina/head.html"
+      titulo="Contacto: oficina en Palermo, Buenos Aires | Intellihelp"
+      descripcion="Contactá a Intellihelp por WhatsApp, teléfono o mail, o agendá una reunión. Oficina en Palermo: {{site.address}}."
+    ></include>
+
+    <!--
+      CONTACTO (sección institucional). La URL /contacto/ se mantiene
+      porque la usa el perfil de Google. Keyword: intellihelp.
+      Todos los datos salen de src/data/site.json (NAP idéntico en todo el
+      sitio). El horario (site.horario) lo confirmó marketing el 03/11/2026
+      y también va en el schema (openingHoursSpecification).
+      Fuentes: brief §2.2.2.1, §13 y §15.1; textos-home.md §12 y §14;
+      fuentes-web-actual.md §11; informe p.4 y p.26 (NAP y clic para llamar).
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        "@id": "{{page.url}}#pagina",
+        "url": "{{page.url}}",
+        "name": "Contacto: oficina en Palermo, Buenos Aires | Intellihelp",
+        "inLanguage": "es-AR",
+        "about": { "@id": "{{site.url}}#organizacion" },
+        "mainEntity": {
+          "@type": ["Organization", "LocalBusiness"],
+          "@id": "{{site.url}}#organizacion",
+          "name": "{{site.name}}",
+          "legalName": "INTELLIHELP S.A.",
+          "url": "{{site.url}}",
+          "email": "{{site.email}}",
+          "telephone": "{{site.phone.display}}",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "{{site.street}}",
+            "postalCode": "{{site.postalCode}}",
+            "addressLocality": "Ciudad Autónoma de Buenos Aires",
+            "addressRegion": "CABA",
+            "addressCountry": "AR"
+          },
+          "hasMap": "{{site.mapsUrl}}",
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+              "opens": "{{site.horario.abre}}",
+              "closes": "{{site.horario.cierra}}"
+            }
+          ],
+          "sameAs": ["{{site.linkedin}}"],
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "contactType": "sales",
+              "telephone": "{{site.phone.display}}",
+              "email": "{{site.email}}",
+              "areaServed": "AR",
+              "availableLanguage": "es"
+            },
+            {
+              "@type": "ContactPoint",
+              "contactType": "WhatsApp",
+              "telephone": "{{site.whatsapp.display}}",
+              "url": "{{site.whatsapp.url}}",
+              "availableLanguage": "es"
+            },
+            {
+              "@type": "ContactPoint",
+              "contactType": "human resources",
+              "email": "{{site.emailRrhh}}",
+              "availableLanguage": "es"
+            }
+          ]
+        }
+      }
+    </script>
+  </head>
+  <body data-wa-texto="Hola Intellihelp, quiero hacer una consulta desde la página de contacto.">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <include src="partials/header.html"></include>
+
+    <main id="contenido">
+      <include src="partials/pagina/hero.html">
+        <include src="partials/pagina/migas-raiz.html" actual="Contacto"></include>
+        <p class="eyebrow eyebrow--dash in d2">Contacto</p>
+        <h1 id="pagina-titulo" class="pagina-hero__title in d3">
+          Contacto con Intellihelp, <span class="pagina-hero__hl">en Palermo, CABA.</span>
+        </h1>
+        <p class="lead pagina-hero__lead in d4">
+          Llamanos al {{site.phone.display}} o escribinos por WhatsApp. Si preferís que te contactemos, completá el formulario y coordinamos una reunión. Atendemos {{site.horario.texto}}.
+        </p>
+        <div class="pagina-hero__actions in d5">
+          <a class="btn btn--lime" href="/diagnostico/">Agendá una reunión <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn btn--light" href="{{site.whatsapp.url}}" target="_blank" rel="noopener">Escribinos por WhatsApp<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a>
+        </div>
+        <p class="hero__note in d6">
+          <svg class="hero__check" aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+          <span>Atendemos a empresas y organismos con sede en Buenos Aires y a sus sedes del interior del país.</span>
+        </p>
+      </include>
+
+      <include src="partials/pagina/respuesta.html" titulo="¿Cómo me comunico con Intellihelp?">
+        <p>
+          Escribinos por WhatsApp al {{site.whatsapp.display}}, llamanos al {{site.phone.display}} o enviá un mail a {{site.email}}. Nuestra sede está en {{site.address}}. Si tenés un proyecto, solicitá una <a href="/diagnostico/">reunión de diagnóstico por videollamada</a> o completá el formulario de esta página. Para postulaciones laborales, el mail es {{site.emailRrhh}}.
+        </p>
+      </include>
+
+      <include src="partials/pagina/datos.html" titulo="Cuatro canales de contacto con nuestra sede." eyebrow="Canales">
+        <include src="partials/pagina/dato.html" icono="../contacto/iconos/whatsapp" titulo="WhatsApp">
+          <p><a href="{{site.whatsapp.url}}" target="_blank" rel="noopener">{{site.whatsapp.display}}<span class="visually-hidden"> (WhatsApp, se abre en una pestaña nueva)</span></a></p>
+          <p>Para consultas breves o para coordinar una visita.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="../contacto/iconos/telefono" titulo="Teléfono">
+          <p><a href="tel:{{site.phone.tel}}"><span class="visually-hidden">Llamanos al </span>{{site.phone.display}}</a></p>
+          <p>Atención directa de nuestra sede de Palermo.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="../contacto/iconos/mail" titulo="Mail">
+          <p><a href="mailto:{{site.email}}">{{site.email}}</a></p>
+          <p>Para postulaciones laborales, enviá tu CV a <a href="mailto:{{site.emailRrhh}}">{{site.emailRrhh}}</a></p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="mapa" titulo="Oficina">
+          <p>{{site.address}}</p>
+          <p>{{site.horario.corto}}.</p>
+          <p><a href="{{site.mapsUrl}}" target="_blank" rel="noopener">Cómo llegar, en Google Maps<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a></p>
+        </include>
+      </include>
+
+      <include
+        src="partials/pagina/bloque.html"
+        id="despues"
+        eyebrow="Después de escribirnos"
+        titulo="Del primer mensaje a la propuesta, en tres pasos."
+      >
+        <ol class="pasos__grid" role="list">
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>1</span>
+            <h3 class="pasos__title">Coordinamos la reunión</h3>
+            <p class="pasos__text">A partir de tu consulta, te contactamos por teléfono o por mail para coordinar una reunión en nuestra sede de Palermo o en tu oficina.</p>
+          </li>
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>2</span>
+            <h3 class="pasos__title">Relevamiento técnico</h3>
+            <p class="pasos__text">Si el proyecto lo requiere, realizamos un relevamiento en tu oficina, planta o sucursal y evaluamos la instalación existente.</p>
+          </li>
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>3</span>
+            <h3 class="pasos__title">Recibís la propuesta</h3>
+            <p class="pasos__text">Con la información relevada elaboramos la propuesta técnica y económica, y te la enviamos por escrito. Una vez aprobada, acordamos la fecha de inicio.</p>
+          </li>
+        </ol>
+        <div class="nota"><b>Para Nico</b>¿En cuánto tiempo contestamos una consulta y cuánto tardamos en iniciar el servicio una vez aprobada la propuesta? Con esos dos plazos completo los pasos 1 y 3; si no, quedan sin plazo.</div>
+      </include>
+
+      <include src="partials/pagina/faq.html" titulo="Antes de escribirnos.">
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Dónde queda la oficina de Intellihelp?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>En {{site.address}}, en el barrio de Palermo. Para reunirte en nuestra sede, coordiná la visita previamente por WhatsApp, por teléfono o mediante el formulario.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Puedo escribirles por WhatsApp?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Sí, al {{site.whatsapp.display}}. Desde el botón de esta página, el mensaje se abre ya redactado: agregá tu consulta y el nombre de tu empresa u organismo.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿En qué horario atienden?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Nuestra sede atiende {{site.horario.texto}}. Fuera de ese horario, podés dejar tu consulta por WhatsApp, por mail o en el formulario, y la respondemos dentro del horario de atención.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Atienden empresas fuera de Buenos Aires?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Sí. La mayoría de nuestros clientes tiene su casa central en Buenos Aires, y varios contratos incluyen sus sedes del interior. En 2024, por ejemplo, implementamos el control de acceso en 16 comisiones médicas de la Superintendencia de Riesgos del Trabajo en el interior, de Salta a Mendoza, en un mes y con técnicos locales coordinados desde Buenos Aires. Para LoJack trabajamos también en Chile y Uruguay, junto con socios locales.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Qué conviene contar en la primera consulta?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Qué necesitás resolver, en qué sede y en qué plazo. Si se trata de una licitación, adjuntá el pliego. Con esa información coordinamos una reunión o un relevamiento en tu oficina o planta.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Cómo mando mi CV?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Por mail, a {{site.emailRrhh}}, indicando tu perfil. El formulario y el WhatsApp de esta página están destinados a consultas comerciales. En <a href="/nosotros/#trabaja-con-nosotros">Nosotros</a> describimos el proceso de selección.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Intellihelp es la misma empresa que IntelliHelp SpA de Chile?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>No. IntelliHelp SpA es una empresa chilena del mismo rubro, sin relación con nosotros. Intellihelp es INTELLIHELP S.A., una sociedad argentina, y nuestros canales oficiales son los de esta página: {{site.phone.display}}, {{site.whatsapp.display}} y {{site.email}}.</p>
+          </div>
+        </details>
+
+        <!-- Borradores: no se publican hasta tener el dato. Al cargarlo, sacar
+             data-draft: el schema FAQPage la suma solo. -->
+        <details name="faq" class="faq__item" data-draft>
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Cuánto tardan en responder?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <div class="nota"><b>Para Nico y Carlos</b>¿En cuánto tiempo nos comprometemos a contestar el formulario, el mail y el WhatsApp? Hasta que me pasen el plazo, esta pregunta no se publica.</div>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item" data-draft>
+          <summary class="faq__q">
+            <span class="faq__q-text">¿La primera reunión tiene costo?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <div class="nota"><b>Para Carlos</b>El informe de Clau propone decir que la primera reunión de diagnóstico es sin cargo. ¿Lo confirmás? Hasta que me digas, esta pregunta no se publica.</div>
+          </div>
+        </details>
+      </include>
+
+      <include src="partials/pagina/cta.html" titulo="Contanos tu proyecto, aunque esté en una etapa inicial." cierre="Lo analizamos con vos y definimos el alcance."></include>
+    </main>
+
+    <include src="partials/footer.html"></include>
+    <include src="partials/whatsapp.html"></include>
+  </body>
+</html>

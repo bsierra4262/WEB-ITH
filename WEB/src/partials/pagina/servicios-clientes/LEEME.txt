@@ -1,0 +1,9 @@
+Parciales de /servicios/ y /clientes/.
+iconos/: mismos trazos que partials/pagina/iconos/ (24x24, trazo 1.8, clases
+"ico svc-ico"), para las tarjetas del índice de servicios:
+  seleccion    reclutamiento y selección
+  bot          automatización con IA
+  codigo       desarrollo de aplicaciones
+  birrete      capacitación
+  lupa         búsqueda de recursos
+  consultoria  consultoría

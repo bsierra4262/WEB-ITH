@@ -1,0 +1,172 @@
+<!--
+  Cierre "Hablemos" con el formulario. Lo usan la home y la banda CTA de las
+  páginas internas (partials/pagina/cta.html), siempre con id="agenda".
+  Props opcionales (las pasa pagina/cta.html; la home no pasa ninguna):
+    titulo     primera frase del título (por defecto "Contanos qué querés resolver.")
+    cierre     segunda frase, en lima (por defecto "Un especialista de nuestro equipo te responde.")
+    necesidad  opción del select que viene elegida (texto exacto de una option)
+  El campo oculto "origen" lleva la ruta de la página (page.path) y llega en
+  el mail, en el CRM y en el evento generate_lead.
+  Consentimiento (Ley 25.326, art. 5): la casilla "acepto" es obligatoria y
+  no viene marcada. Su texto tiene que ser idéntico al de la versión
+  "consentimiento_version" en public/api/_crm.php (CRM_CONSENTIMIENTOS) y al
+  del selector de la landing (pagina/diagnostico/calendario.html): el CRM
+  guarda la huella del texto que aceptó cada persona. Si cambia, versión nueva.
+  La primera fila de contacto lleva a la landing /diagnostico/ (embudo:
+  páginas de servicio → landing). En la propia landing se oculta con la regla
+  de abajo, que compara data-ruta con la ruta de la página. analytics.js
+  mide el clic como click_calendar (link_diagnostico).
+-->
+<style>.agenda__diag[data-ruta="/diagnostico/"]{display:none}</style>
+<section id="agenda" class="section tech on-dark agenda" aria-labelledby="agenda-titulo">
+  <include src="fondo.html"></include>
+
+  <div class="wrap agenda__grid">
+    <div class="agenda__intro rv">
+      <p class="eyebrow eyebrow--dash">Hablemos</p>
+      <h2 id="agenda-titulo" class="h2 agenda__h2">{{props.titulo|Contanos qué querés resolver.}} <span class="agenda__mark">{{props.cierre|Un especialista de nuestro equipo te responde.}}</span></h2>
+      <p class="agenda__lead">Podés comunicarte por cualquiera de estos canales o completar el formulario. Atendemos {{site.horario.texto}}.</p>
+
+      <ul class="agenda__contact" role="list">
+        <li class="agenda__diag" data-ruta="{{page.path}}">
+          <a class="agenda__row" href="/diagnostico/">
+            <span class="agenda__ico" aria-hidden="true"><svg class="ico" aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span>
+            <span class="agenda__row-text">Agendá una reunión de diagnóstico con Carlos Baldelli <span class="agenda__row-sub">Presidente de Intellihelp, por videollamada</span></span>
+          </a>
+        </li>
+        <li>
+          <a class="agenda__row agenda__row--wa" href="{{site.whatsapp.url}}" target="_blank" rel="noopener">
+            <span class="agenda__ico" aria-hidden="true"><svg class="ico" aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.2-.24-.59-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.21 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.42.25-.69.25-1.29.18-1.41-.08-.13-.28-.2-.57-.35m-5.42 7.4h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88a9.82 9.82 0 0 1 9.88 9.89c0 5.45-4.44 9.88-9.88 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41Z"/></svg></span>
+            <span class="agenda__row-text">Escribinos por WhatsApp <span class="agenda__row-sub">{{site.whatsapp.display}}</span><span class="visually-hidden"> (se abre en una pestaña nueva)</span></span>
+          </a>
+        </li>
+        <li>
+          <a class="agenda__row" href="tel:{{site.phone.tel}}">
+            <span class="agenda__ico" aria-hidden="true"><svg class="ico" aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></span>
+            <span class="agenda__row-text"><span class="visually-hidden">Llamanos al </span>{{site.phone.display}}</span>
+          </a>
+        </li>
+        <li>
+          <a class="agenda__row" href="mailto:{{site.email}}">
+            <span class="agenda__ico" aria-hidden="true"><svg class="ico" aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg></span>
+            <span class="agenda__row-text">{{site.email}}</span>
+          </a>
+        </li>
+        <li>
+          <a class="agenda__row agenda__row--addr" href="{{site.mapsUrl}}" target="_blank" rel="noopener">
+            <span class="agenda__ico" aria-hidden="true"><svg class="ico" aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.1-7-11.5a7 7 0 0 1 14 0C19 14.9 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
+            <span class="agenda__row-text">{{site.address}}<span class="visually-hidden"> (ver en Google Maps, se abre en una pestaña nueva)</span></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="agenda__panel rv" data-d="0.15">
+      <h3 class="agenda__h3" id="agenda-form-titulo">Agendá una reunión</h3>
+      <p class="agenda__sub">Completá el formulario y te escribimos para coordinar la reunión.</p>
+
+      <!-- Sin JS: validación nativa del navegador y POST normal (contact.php
+           vuelve a la página de origen con ?enviado=1#agenda). Con JS:
+           contact-form.js valida en español, envía con fetch y muestra el
+           resultado acá mismo. La acción es absoluta (/api/…) para que funcione
+           desde páginas anidadas. -->
+      <form id="contact-form" class="agenda__form" action="/api/contact.php" method="post" aria-labelledby="agenda-form-titulo" data-email="{{site.email}}" data-necesidad="{{props.necesidad|}}">
+        <input type="hidden" name="origen" value="{{page.path}}" />
+        <!-- Canal de origen de la primera visita: los completa contact-form.js con lo que guardó analytics.js y contact.php los suma al final del mail. -->
+        <input type="hidden" name="canal" value="" />
+        <input type="hidden" name="utm_source" value="" />
+        <input type="hidden" name="utm_medium" value="" />
+        <input type="hidden" name="utm_campaign" value="" />
+        <input type="hidden" name="utm_term" value="" />
+        <input type="hidden" name="utm_content" value="" />
+        <input type="hidden" name="gclid" value="" />
+        <input type="hidden" name="li_fat_id" value="" />
+        <input type="hidden" name="referrer" value="" />
+        <input type="hidden" name="landing" value="" />
+        <input type="hidden" name="visitas_landing" value="" />
+        <!-- Versión del texto de la casilla de consentimiento y clave del envío
+             (la genera contact-form.js): con ella el CRM no duplica la consulta
+             si el envío se repite. -->
+        <input type="hidden" name="consentimiento_version" value="web-2026-11" />
+        <input type="hidden" name="idem" value="" />
+        <p class="agenda__required-note">Los campos con <span class="agenda__req" aria-hidden="true">*</span><span class="visually-hidden">asterisco</span> son obligatorios.</p>
+        <div class="agenda__row2">
+          <div class="agenda__field">
+            <label class="agenda__label" for="cf-nombre">Nombre y apellido <span class="agenda__req" aria-hidden="true">*</span></label>
+            <input class="field" id="cf-nombre" name="nombre" type="text" autocomplete="name" maxlength="120" placeholder="Tu nombre completo" required />
+          </div>
+          <div class="agenda__field">
+            <label class="agenda__label" for="cf-empresa">Empresa u organismo <span class="agenda__req" aria-hidden="true">*</span></label>
+            <input class="field" id="cf-empresa" name="empresa" type="text" autocomplete="organization" maxlength="120" placeholder="Razón social o nombre comercial" required />
+          </div>
+        </div>
+
+        <div class="agenda__row2">
+          <div class="agenda__field">
+            <label class="agenda__label" for="cf-mail">Mail laboral <span class="agenda__req" aria-hidden="true">*</span></label>
+            <input class="field" id="cf-mail" name="mail" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="254" placeholder="nombre@empresa.com" required />
+          </div>
+          <div class="agenda__field">
+            <label class="agenda__label" for="cf-telefono">Teléfono</label>
+            <input class="field" id="cf-telefono" name="telefono" type="tel" inputmode="tel" autocomplete="tel" maxlength="40" placeholder="Opcional" />
+          </div>
+        </div>
+
+        <div class="agenda__field">
+          <label class="agenda__label" for="cf-necesidad">¿Qué necesitás?</label>
+          <!-- Orden según las prioridades del brief (§3). El texto de cada opción
+               es el valor que se envía (value, o el texto si no tiene):
+               public/api/contact.php (NECESIDADES) tiene que listar estos mismos
+               valores. Las largas llevan un texto corto para que entren enteras
+               en el celular; la prop "necesidad" acepta el value o el texto.
+               La primera va vacía para no mandar un servicio que la persona no
+               eligió; vacía o desconocida, el mail la registra como "Sin especificar".
+               Con JS, select.js lo cambia por un desplegable propio (botón +
+               lista role="listbox") y este <select> queda oculto en el
+               formulario: es el que se envía. Sin JS se usa el nativo. -->
+          <select class="field agenda__select" id="cf-necesidad" name="necesidad" data-select>
+            <option value="" selected>Elegí una opción</option>
+            <option value="Cámaras de seguridad y control de acceso">Cámaras y control de acceso</option>
+            <option value="Soporte IT, mesa de ayuda u outsourcing IT">Soporte IT u outsourcing</option>
+            <option>Redes, fibra o data center</option>
+            <option>Ciberseguridad</option>
+            <option>Búsqueda de perfiles IT</option>
+            <option value="Desarrollo de software o automatización con IA">Software o automatización con IA</option>
+            <option value="Licitación o proyecto para un organismo público">Licitación u organismo público</option>
+            <option>Otro proyecto</option>
+          </select>
+        </div>
+
+        <div class="agenda__field">
+          <label class="agenda__label" for="cf-mensaje">Contanos sobre el proyecto</label>
+          <textarea class="field agenda__textarea" id="cf-mensaje" name="mensaje" rows="4" maxlength="3000" placeholder="Por ejemplo: qué necesitás resolver, cuántas sedes o puestos abarca y en qué plazo."></textarea>
+        </div>
+
+        <!-- Trampa para bots: invisible para personas y lectores de pantalla -->
+        <div class="agenda__hp" aria-hidden="true">
+          <label for="cf-website">No completar</label>
+          <input id="cf-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <div class="agenda__check">
+          <input class="agenda__check-input" id="cf-acepto" name="acepto" type="checkbox" value="1" required />
+          <label class="agenda__check-label" for="cf-acepto">Acepto que Intellihelp use estos datos para responder mi consulta y coordinar la reunión, según el <a href="/privacidad/">aviso de privacidad</a>. <span class="agenda__req" aria-hidden="true">*</span></label>
+        </div>
+
+        <button type="submit" class="btn btn--lime btn--block agenda__submit">
+          <span class="agenda__submit-label">Solicitá la reunión</span> <span class="arr" aria-hidden="true">→</span>
+        </button>
+
+        <div class="agenda__status" role="status" aria-live="polite"></div>
+
+        <p class="agenda__legal"><svg class="agenda__legal-ico" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10.5" width="16" height="10.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg><span>Registramos tu consulta en nuestro sistema de gestión de clientes para responderla y coordinar la reunión. No la utilizamos para enviarte publicidad. Más detalle en el <a href="/privacidad/">aviso de privacidad</a> (Ley 25.326).</span></p>
+      </form>
+
+      <div class="agenda__done" id="contact-success" tabindex="-1" hidden>
+        <span class="agenda__done-ico" aria-hidden="true"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+        <p class="agenda__done-title">Gracias. Recibimos tu consulta.</p>
+        <p class="agenda__done-text">Te escribimos en breve para coordinar la reunión.</p>
+      </div>
+    </div>
+  </div>
+</section>

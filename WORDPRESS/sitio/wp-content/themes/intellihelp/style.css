@@ -1,0 +1,12 @@
+/*
+Theme Name: Intellihelp Novedades
+Theme URI: https://www.intellihelp.tech/novedades/
+Author: Brian Sierra
+Author URI: https://www.intellihelp.tech/
+Description: Tema del blog "Novedades" de Intellihelp. WordPress se usa solo para el blog: la home, /diagnostico-sin-cargo/ y /postulate/ son páginas HTML del sitio principal. Header y pie iguales a los del sitio principal (identidad de Nico: Saira, carbón, violeta y lima). Los estilos están en assets/css/main.css (base, header y pie) y assets/css/blog.css; este archivo solo identifica el tema.
+Version: 2.0.0
+Requires at least: 6.5
+Requires PHP: 8.1
+License: Propietario - Intellihelp
+Text Domain: intellihelp
+*/

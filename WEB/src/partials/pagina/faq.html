@@ -1,0 +1,41 @@
+<!--
+  PREGUNTAS FRECUENTES DE LA PÁGINA (informe: FAQ de 5 a 8 preguntas con schema)
+  Mismo componente que la home (clases faq__* de src/styles/sections/faq.css y
+  acordeón nativo <details name="faq">; faq.js cubre navegadores viejos).
+  El schema FAQPage se arma solo en el build con las preguntas publicadas
+  (data-faq-auto, ver plugins/vite-plugin-partials.js): no hay que copiar el
+  texto a mano. Las preguntas con data-draft y las .nota no entran.
+
+  Uso:
+    <include src="partials/pagina/faq.html" titulo="Lo que nos preguntan sobre outsourcing IT.">
+      <details name="faq" class="faq__item">
+        <summary class="faq__q">
+          <span class="faq__q-text">¿Pregunta?</span>
+          <span class="faq__sign" aria-hidden="true"></span>
+        </summary>
+        <div class="faq__a">
+          <p>Respuesta corta, con un dato concreto.</p>
+        </div>
+      </details>
+      <details name="faq" class="faq__item" data-draft> (pregunta sin respuesta confirmada:
+        lleva solo una .nota dentro de faq__a) </details>
+    </include>
+
+  Props:
+    titulo    obligatoria (h2).
+    eyebrow   opcional (por defecto "Preguntas frecuentes").
+-->
+<section id="preguntas" class="section section--soft faq" aria-labelledby="preguntas-titulo">
+  <div class="wrap faq__grid">
+    <header class="faq__head rv">
+      <p class="eyebrow eyebrow--dash">{{props.eyebrow|Preguntas frecuentes}}</p>
+      <h2 id="preguntas-titulo" class="h2 faq__h2">{{props.titulo}}</h2>
+    </header>
+
+    <div class="faq__list rv" data-d="0.12">
+      <slot></slot>
+    </div>
+  </div>
+
+  <script type="application/ld+json" data-faq-auto></script>
+</section>

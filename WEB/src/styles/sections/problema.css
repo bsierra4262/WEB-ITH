@@ -1,0 +1,110 @@
+/* ==========================================================================
+   Problema — "Cuándo nos llaman" (estructura del PDF: "Lo que cuesta un mal soporte")
+   Estructura del PDF: lead con barra a la izquierda y UNA tarjeta partida
+   en dos mitades unidas (radio 16, sombra). Colores del original: fondo
+   blanco, mitad cremita (alternativas, eyebrow violeta) y mitad carbón
+   (cómo lo resolvemos, eyebrow lima). Íconos con círculo y onda del original (.ic-no / .ic-ok).
+   En mobile las mitades se apilan.
+   ========================================================================== */
+
+.problema {
+  background: var(--surface);
+}
+
+.problema__head {
+  max-width: 980px;
+  gap: 16px;
+  margin-bottom: clamp(32px, 4.5vw, 48px);
+}
+
+.problema__head .h2 {
+  /* Corte natural del título, sin balanceo (como en el PDF) */
+  text-wrap: pretty;
+}
+
+.problema__lead {
+  max-width: 680px;
+  margin-top: 8px;
+  padding-left: clamp(16px, 1.6vw, 20px);
+  border-left: 4px solid var(--c-lime);
+  font-size: var(--fs-lead);
+  line-height: var(--lh-body);
+  color: var(--text-2);
+}
+
+/* --- Tarjeta partida ----------------------------------------------------- */
+.problema__split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.problema__half {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: clamp(24px, 3vw, 40px);
+}
+
+.problema__half--hoy {
+  background: var(--surface-soft);
+}
+
+.problema__list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.problema__item {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  column-gap: 14px;
+  align-items: start;
+}
+
+/* Círculo del ícono (la animación pop + onda vive en animations.css) */
+.problema__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.problema__icon.ic-no {
+  background: var(--c-white);
+  color: var(--c-carbon);
+}
+
+.problema__icon.ic-ok {
+  background: var(--c-lime);
+  color: var(--c-carbon);
+}
+
+.problema__title {
+  margin-bottom: 5px;
+  font-size: 1.375rem; /* 22px */
+  font-weight: 600;
+  line-height: 1.3;
+  text-wrap: pretty;
+}
+
+.problema__text {
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--text-2);
+}
+
+.problema__half--ith .problema__text {
+  color: var(--text-2-on-dark);
+}
+
+@media (min-width: 860px) {
+  .problema__split {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

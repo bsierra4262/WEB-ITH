@@ -1,0 +1,66 @@
+<!--
+  Testimonios: BORRADOR. Toda la sección lleva data-draft, así que no se publica
+  en producción hasta tener testimonios reales (se ve en dev o con ?notas).
+  Al publicar, sacar data-draft de la sección y borrar las notas.
+
+  Estructura sugerida para cada testimonio real (reemplaza a la .nota de cada tarjeta):
+
+  <li class="testimonios__card card rv">
+    <figure class="testimonios__figure">
+      <blockquote class="testimonios__quote">
+        <p>“Texto literal del cliente, tal como lo aprobó.”</p>
+      </blockquote>
+      <figcaption class="testimonios__person">
+        <img class="testimonios__avatar" src="/src/assets/img/testimonios/nombre.webp" width="44" height="44" alt="" loading="lazy" decoding="async" />
+        <span class="testimonios__who">
+          <span class="testimonios__name">Nombre y apellido</span>
+          <span class="testimonios__role">Cargo, empresa</span>
+        </span>
+      </figcaption>
+    </figure>
+  </li>
+-->
+<section id="testimonios" class="section section--soft testimonios" aria-labelledby="testimonios-titulo" data-draft>
+  <div class="wrap">
+    <header class="section-head rv">
+      <p class="eyebrow eyebrow--dash">Testimonios</p>
+      <h2 id="testimonios-titulo" class="h2">Clientes con relaciones de largo plazo.</h2>
+    </header>
+
+    <ul class="testimonios__grid" role="list">
+      <li class="testimonios__card card card-h rv">
+        <div class="nota"><b>Pendiente mío</b>Le pido el testimonio al supervisor de Help Desk de LoJack-Strix con el que trabajé y averiguo en qué empresa está hoy. La idea es que cuente cómo funciona la mesa y qué cambió.</div>
+        <div class="testimonios__person">
+          <span class="testimonios__avatar" aria-hidden="true"></span>
+          <span class="testimonios__who">
+            <span class="testimonios__name">Nombre y apellido</span>
+            <span class="testimonios__role">Cargo, empresa</span>
+          </span>
+        </div>
+      </li>
+      <li class="testimonios__card card card-h rv">
+        <div class="nota"><b>Para Nico</b>¿La SRT o Parques Nacionales nos darían un testimonio con nombre? Me gustaría que cuenten cuánto hace que trabajamos juntos y por qué renovaron.</div>
+        <div class="testimonios__person">
+          <span class="testimonios__avatar" aria-hidden="true"></span>
+          <span class="testimonios__who">
+            <span class="testimonios__name">Nombre y apellido</span>
+            <span class="testimonios__role">Cargo, empresa</span>
+          </span>
+        </div>
+      </li>
+      <li class="testimonios__card card card-h rv">
+        <div class="nota"><b>Para Nico</b>¿Petropack o alguna pyme nos daría un testimonio sobre una instalación de cámaras o control de acceso? Que hable de los plazos y de cómo quedó el trabajo.</div>
+        <div class="testimonios__person">
+          <span class="testimonios__avatar" aria-hidden="true"></span>
+          <span class="testimonios__who">
+            <span class="testimonios__name">Nombre y apellido</span>
+            <span class="testimonios__role">Cargo, empresa</span>
+          </span>
+        </div>
+      </li>
+    </ul>
+
+    <div class="nota testimonios__google rv"><b>Pendiente mío</b>Hoy hay 3 reseñas de 5 estrellas en Google. Cuando pasemos las 5, las sumo acá con link al perfil.</div>
+    <div class="nota testimonios__google rv"><b>Para Carlos</b>En la web vieja hay dos testimonios de 2020, pero son de colegas y socios, no de clientes. ¿Los usamos con fecha y permiso o los dejamos afuera? Si no me decís nada, quedan afuera.</div>
+  </div>
+</section>

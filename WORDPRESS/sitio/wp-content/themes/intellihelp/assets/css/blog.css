@@ -1,0 +1,283 @@
+/* =========================================================
+   Novedades (blog): listado, categorías, búsqueda y nota.
+   Se carga después de main.css solo en esas pantallas (template-parts/blog/modulo.php). Usa los tokens y piezas de
+   main.css (.page-head, .eyebrow, .hl, .next-link, .chip, .prose, .cta-card.closing, .rv); acá van solo las piezas
+   propias. Paleta cerrada: carbón, violeta, lima, lila y gris. Del lenguaje de Globant: listado editorial con una nota
+   destacada grande, grilla aireada, filetes finos y fotos que se acercan apenas al pasar el mouse.
+   Tarjetas minimalistas: sin caja, sin fondo y sin sombra; las separa el aire y, donde hace falta, un filete de 1 px.
+   Ningún enlace lleva subrayado (ni fijo ni animado): se distinguen por color y peso.
+   ========================================================= */
+
+/* ---------- Encabezado ---------- */
+.page-head--blog .section-title--big { max-width: 14em; }
+.page-head--blog + .blog-list,
+.page-head--blog + .post-search-wrap { padding-top: 40px; }
+.page-head--blog + .post-search-wrap + .blog-list { padding-top: 32px; }
+
+/* ---------- Imagen de la nota (tarjeta, destacada y nota) ---------- */
+.post-media {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-sm);
+  background: var(--ink);
+}
+.post-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--t-img) var(--ease-out);
+}
+/* Sin imagen destacada: caja carbón con el logo (el mismo placeholder de marca que las notas cargadas). */
+.post-media__vacia {
+  position: absolute;
+  inset: 0;
+  background: var(--ink) url("../img/logo-intellihelp.png") no-repeat center / auto 22%;
+}
+
+/* ---------- Filtro por categoría ---------- */
+/* Mismo selector de píldoras (.seg) que Presencia, Clientes y Casos en el sitio principal: pista gris redondeada y
+   la opción activa en violeta con texto blanco. "Todas las notas" va primero y queda marcada en el listado general; en
+   una categoría se marca la suya (para volver está "Todas las notas", sin "×"). En celular las píldoras pasan de
+   renglón (sin desplazamiento interno). */
+.post-filter { margin-bottom: 48px; }
+.post-filter__list { display: flex; flex-wrap: wrap; gap: 6px; width: max-content; max-width: 100%; padding: 6px; border-radius: 28px; background: var(--gray-bg); }
+.post-filter__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 22px;
+  border-radius: 999px;
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background-color var(--t-fast) var(--ease-out), color var(--t-fast) var(--ease-out);
+}
+.post-filter__item:hover { color: var(--purple); }
+.post-filter__item[aria-current="page"] { background: var(--purple); color: var(--white); }
+.post-filter__item[aria-current="page"]:hover { background: var(--ink); color: var(--white); }
+.post-filter__item:focus-visible { outline-offset: 2px; }
+@media (max-width: 600px) {
+  .post-filter__list { width: auto; border-radius: 26px; }
+  .post-filter__item { min-height: 42px; padding: 0 16px; font-size: 15px; white-space: normal; text-align: center; }
+}
+
+/* ---------- Nota destacada ---------- */
+.post-feature {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 32px clamp(32px, 5vw, 72px);
+  padding-bottom: clamp(48px, 6vw, 80px);
+  margin-bottom: clamp(48px, 6vw, 80px);
+  border-bottom: 1px solid var(--gray-bg);
+}
+/* Sola (categoría con una única nota): sin filete ni aire de más antes del cierre. */
+.post-feature:last-child { padding-bottom: 0; margin-bottom: 0; border-bottom: 0; }
+.post-feature__body { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
+.post-feature__title { margin: 0; font-size: clamp(30px, 3.4vw, 46px); font-weight: 700; line-height: 1.1; }
+.post-feature__excerpt { margin: 0; color: var(--muted); font-size: 19px; line-height: 1.6; }
+.post-feature__more { margin-top: 6px; }
+@media (max-width: 900px) {
+  .post-feature { grid-template-columns: minmax(0, 1fr); }
+}
+/* Celular: el WhatsApp flotante (52 px a 16 px del borde) ocupa la franja derecha. El rótulo de la destacada deja libre
+   esa franja (padding derecho) y la categoría pasa a su propio renglón, sin el separador; el botón no se mueve. */
+@media (max-width: 760px) {
+  .post-feature__eyebrow { align-items: flex-start; padding-right: 64px; line-height: 1.6; }
+  .post-feature__eyebrow::before { margin-top: .7em; }
+  .post-feature__sep { display: none; }
+  .post-feature__cat { display: block; }
+}
+
+/* ---------- Grilla ---------- */
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(40px, 4vw, 56px) clamp(24px, 3vw, 40px);
+}
+@media (max-width: 1100px) { .post-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 680px) { .post-grid { grid-template-columns: minmax(0, 1fr); } }
+
+.post-card { position: relative; display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+.post-card__body { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.post-card__title { margin: 0; font-size: clamp(22px, 1.9vw, 26px); font-weight: 700; line-height: 1.2; }
+.post-card__excerpt { margin: 0; color: var(--muted); font-size: 17px; line-height: 1.6; }
+
+/* Un solo enlace por nota (en el título); su ::after cubre toda la tarjeta. Al pasar el mouse el título solo cambia a
+   violeta: sin subrayado ni líneas debajo de los renglones. */
+.post-card__link { color: var(--ink); text-decoration: none; transition: color var(--t-fast) var(--ease-out); }
+.post-card__link::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+.post-card__link:focus-visible { outline: none; }
+.post-card__link:focus-visible::after { outline: 2px solid var(--ink); outline-offset: 6px; border-radius: var(--radius); }
+:is(.post-card, .post-feature):hover .post-card__link { color: var(--purple); }
+:is(.post-card, .post-feature):hover .post-feature__more { color: var(--purple); }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  :is(.post-card, .post-feature):hover .post-media img { transform: scale(1.04); }
+  .post-feature:hover .post-feature__more .arr { transform: translateX(4px); }
+}
+
+/* ---------- Datos de la nota ---------- */
+.post-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 0; margin: 0; color: var(--muted); font-size: 15px; }
+.post-meta > * + *::before { content: "·"; margin: 0 10px; color: var(--muted); }
+
+/* ---------- Paginación ----------
+   Como las flechas de los carruseles del sitio principal: "Anteriores" a la izquierda y "Siguientes" a la derecha, una a
+   cada lado, y los números al centro. En celular las dos quedan como botones cuadrados con la flecha sola (el texto
+   sigue para lectores de pantalla). */
+.post-pager { margin-top: clamp(48px, 6vw, 72px); padding-top: 32px; border-top: 1px solid var(--gray-bg); }
+.post-pager .nav-links { position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; min-height: 48px; margin: 0; padding: 0 168px; }
+.post-pager .page-numbers {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  min-height: 48px;
+  padding: 0 14px;
+  border: 1px solid var(--gray-bg);
+  border-radius: var(--radius-sm);
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color var(--t-fast) var(--ease-out), border-color var(--t-fast) var(--ease-out), color var(--t-fast) var(--ease-out);
+}
+.post-pager a.page-numbers:hover { border-color: var(--ink); color: var(--ink); }
+.post-pager .page-numbers.current { background: var(--ink); border-color: var(--ink); color: var(--white); }
+.post-pager .page-numbers.dots { border-color: transparent; }
+.post-pager :is(.prev, .next) { position: absolute; top: 0; gap: 8px; padding: 0 20px; }
+.post-pager .prev { left: 0; }
+.post-pager .next { right: 0; }
+.post-pager :is(.prev, .next) > [aria-hidden] { display: inline-block; transition: transform var(--t-fast) var(--ease-out); }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .post-pager .prev:hover > [aria-hidden] { transform: translateX(-4px); }
+  .post-pager .next:hover > [aria-hidden] { transform: translateX(4px); }
+}
+@media (max-width: 760px) {
+  .post-pager .nav-links { padding: 0 56px; }
+  .post-pager :is(.prev, .next) { width: 48px; padding: 0; }
+  .post-pager__txt { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .post-pager .page-numbers:not(.prev):not(.next) { min-width: 40px; padding: 0 10px; }
+}
+
+/* ---------- Estado vacío ---------- */
+.post-empty { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; max-width: 640px; padding-top: 32px; border-top: 1px solid var(--gray-bg); }
+.post-empty__text { margin: 0; font-size: 21px; line-height: 1.5; }
+
+/* ---------- Búsqueda ---------- */
+.post-search { display: flex; flex-wrap: wrap; gap: 10px; max-width: 640px; }
+.post-search__input {
+  flex: 1 1 240px;
+  min-width: 0;
+  min-height: 48px;
+  padding: 0 16px;
+  border: 1px solid var(--line-dark);
+  border-radius: var(--radius-sm);
+  font: inherit;
+  font-size: 17px;
+  color: var(--ink);
+  background: var(--white);
+}
+.post-search__input::placeholder { color: var(--muted); opacity: 1; }
+.post-search__input { caret-color: var(--purple); transition: border-color var(--t-fast) var(--ease-out); }
+.post-search__input:hover { border-color: var(--ink); }
+.post-search__input:focus-visible { outline: 2px solid var(--purple); outline-offset: 1px; }
+/* Sin el fondo celeste del autocompletado del navegador. */
+.post-search__input:autofill { -webkit-box-shadow: 0 0 0 40px var(--white) inset; -webkit-text-fill-color: var(--ink); }
+
+/* =========================================================
+   Nota
+   ========================================================= */
+.post-hero { padding: calc(var(--section-y) * .7) 0 clamp(32px, 4vw, 56px); background: transparent; }
+.post-hero__head { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; max-width: 980px; }
+.post-hero__crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin: 0; color: var(--muted); font-size: 15px; font-weight: 600; }
+.post-hero__crumbs a { color: var(--muted); text-decoration: none; transition: color var(--t-fast) var(--ease-out); }
+.post-hero__crumbs a:hover { color: var(--purple); }
+.post-hero__back span { display: inline-block; transition: transform var(--t-fast) ease; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .post-hero__back:hover span { transform: translateX(-4px); }
+}
+.post-hero__title { margin: 0; font-size: var(--h1); font-weight: 700; line-height: 1.06; letter-spacing: -.01em; }
+.post-hero__lead { max-width: 40em; margin: 0; color: var(--muted); font-size: clamp(19px, 1.7vw, 22px); line-height: 1.55; }
+.post-meta--hero { font-size: 16px; }
+.post-meta__autor { color: var(--ink); font-weight: 600; }
+
+.post-media--hero { aspect-ratio: 16 / 9; max-height: 680px; width: 100%; }
+.post-media--hero figcaption { position: absolute; left: 16px; bottom: 12px; padding: 4px 10px; border-radius: 6px; background: rgba(42, 42, 42, .75); color: var(--white); font-size: 14px; }
+/* La foto de la nota entra con un acercamiento lento (el mismo gesto del zoom de las tarjetas), dentro de su marco. */
+@keyframes mediaIn { from { transform: scale(1.06); } to { transform: none; } }
+.anim .post-media--hero.rv.show img { animation: mediaIn 1.4s var(--ease-out) backwards; }
+.anim .post-media--hero.rv.show { animation-name: fadeIn; animation-duration: 1s; }
+.anim .post-media--hero.rv:not(.show) { transform: none; }
+
+/* Columna de lectura (720px) con "Compartir" a la izquierda, fijo mientras se lee. */
+.post-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 720px) minmax(0, 1fr);
+  gap: 0 40px;
+  padding-top: clamp(48px, 6vw, 80px);
+  padding-bottom: clamp(56px, 7vw, 104px);
+}
+.post-layout__rail { grid-column: 1; justify-self: end; }
+.post-layout__body { grid-column: 2; min-width: 0; }
+.post-prose { max-width: none; font-size: 19px; line-height: 1.75; }
+.post-prose > p:first-child { font-size: 22px; line-height: 1.6; color: var(--ink); }
+.post-prose h2 { margin-top: 2em; }
+
+.post-end { display: flex; flex-direction: column; gap: 28px; margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--gray-bg); }
+/* Etiquetas: texto con filete fino, sin relleno; al pasar el mouse cambian a violeta. */
+.post-end__tags .chip { border: 1px solid var(--gray-bg); background: transparent; color: var(--muted); font-weight: 600; text-decoration: none; transition: color var(--t-fast) var(--ease-out), border-color var(--t-fast) var(--ease-out); }
+.post-end__tags .chip:hover { border-color: var(--purple); color: var(--purple); }
+
+/* Compartir */
+.post-share { display: flex; align-items: center; gap: 14px; }
+.post-share__label { margin: 0; color: var(--muted); font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+.post-share__list { display: flex; gap: 10px; }
+.post-share__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--gray-bg);
+  border-radius: 50%;
+  color: var(--ink);
+  text-decoration: none;
+  transition: background-color var(--t-fast) var(--ease-out), border-color var(--t-fast) var(--ease-out), color var(--t-fast) var(--ease-out);
+}
+/* Hover como en la home: solo cambia el color (el círculo ya levita, ver "Animaciones" en main.css; los íconos no
+   suben ni se agrandan con el mouse). */
+.post-share__btn:hover { background: var(--ink); border-color: var(--ink); color: var(--white); }
+.post-share--rail { position: sticky; top: calc(var(--header-h) + 32px); flex-direction: column; align-items: center; }
+.post-share--rail .post-share__list { flex-direction: column; }
+
+@media (max-width: 1100px) {
+  .post-layout { grid-template-columns: minmax(0, 1fr); }
+  .post-layout__rail { display: none; }
+  .post-layout__body { grid-column: 1; max-width: 720px; }
+}
+@media (min-width: 1101px) {
+  .post-share--fila { display: none; }
+}
+@media (max-width: 600px) {
+  .post-prose { font-size: 18px; }
+  .post-prose > p:first-child { font-size: 20px; }
+}
+
+/* ---------- Notas relacionadas ---------- */
+.post-related { border-top: 1px solid var(--gray-bg); }
+.post-related__head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 32px; margin-bottom: 48px; }
+.post-related__head .section-head { margin-bottom: 0; }
+
+/* ---------- Cierre ---------- */
+.blog-cta .cta-card__title { max-width: 14em; }
+
+@media (prefers-reduced-motion: reduce) {
+  .post-media img, .post-card__link, .post-filter__item, .post-share__btn, .post-pager .page-numbers, .post-hero__back span, .post-end__tags .chip { transition: none; }
+}

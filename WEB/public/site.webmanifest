@@ -1,0 +1,15 @@
+{
+  "name": "Intellihelp",
+  "short_name": "ITH",
+  "description": "Mesa de ayuda, outsourcing IT, redes, cámaras de seguridad y control de acceso desde 2012.",
+  "lang": "es-AR",
+  "start_url": "/",
+  "scope": "/",
+  "display": "browser",
+  "theme_color": "#2A2A2A",
+  "background_color": "#FFFFFF",
+  "icons": [
+    { "src": "/favicon-32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

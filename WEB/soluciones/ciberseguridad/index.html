@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <include
+      src="partials/pagina/head.html"
+      titulo="Ciberseguridad para empresas en Buenos Aires | Intellihelp"
+      descripcion="Ciberseguridad para empresas y organismos de Buenos Aires con Fortinet: redes seguras para oficinas, sedes, trabajo remoto, nube y entornos industriales (OT)."
+    ></include>
+
+    <!--
+      SOLUCIÓN: CIBERSEGURIDAD (segunda línea del informe, cap. 9).
+      Estructura: hero · respuesta corta · qué incluye · junto con tu red ·
+      datos clave · cómo trabajamos · caso (borrador) · FAQ · formulario.
+      Fuentes: brief §2.1.7 (Fortinet: redes seguras, OT, "proveemos,
+      instalamos y mantenemos"), §1.1 y §6 (público), §13 (cobertura);
+      fuentes-web-actual.md §5 y fuentes-pdfs-old.md §3 ("seguridad integral
+      de red": firewalls de nueva generación, DDoS, control de contenidos,
+      seguridad de correo y web).
+      Keyword principal: ciberseguridad para empresas.
+      Secundarias: empresas de ciberseguridad, servicios de ciberseguridad,
+      seguridad informática.
+      Caso: el FortiGate de Parques Nacionales dentro del mantenimiento
+      integral (fuentes-drive-clientes.md §2 "Ciberseguridad" y §4 punto 28,
+      que también da el partner Fortinet desde 2023). No hay un proyecto de
+      perímetro propio ejecutado; lo de LoJack y Nación Seguros (2023) quedó
+      en oferta y no se usa. Casos chicos: Microsoft 365 con doble factor
+      (obra social, sin nombre; el caso completo está en /soluciones/cloud/) y
+      la red de la oficina (fuentes-capacidades-internas.md R2 y R3).
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "@id": "{{page.url}}#servicio",
+        "name": "Ciberseguridad para empresas",
+        "serviceType": "Ciberseguridad",
+        "alternateName": ["Servicios de ciberseguridad", "Seguridad informática para empresas", "Redes seguras Fortinet"],
+        "description": "Intellihelp provee, instala y mantiene soluciones de ciberseguridad Fortinet como partner del fabricante: protección de la red de oficina, las sedes, el trabajo remoto, la nube y las redes industriales (OT), para empresas medianas y grandes y organismos públicos con sede en Buenos Aires.",
+        "url": "{{page.url}}",
+        "provider": {
+          "@type": "Organization",
+          "@id": "{{site.url}}#organizacion",
+          "name": "{{site.name}}",
+          "url": "{{site.url}}",
+          "telephone": "{{site.phone.display}}",
+          "email": "{{site.email}}"
+        },
+        "brand": { "@type": "Brand", "name": "Fortinet" },
+        "areaServed": [
+          { "@type": "City", "name": "Ciudad Autónoma de Buenos Aires" },
+          { "@type": "Country", "name": "Argentina" }
+        ],
+        "audience": {
+          "@type": "BusinessAudience",
+          "audienceType": "Empresas medianas y grandes, corporaciones y organismos públicos"
+        }
+      }
+    </script>
+  </head>
+  <body data-wa-texto="Hola Intellihelp, quiero consultar por ciberseguridad para mi empresa.">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <include src="partials/header.html"></include>
+
+    <main id="contenido">
+      <include src="partials/pagina/hero.html">
+        <include
+          src="partials/pagina/migas.html"
+          seccion="Soluciones"
+          seccion-url="/soluciones/"
+          actual="Ciberseguridad"
+        ></include>
+        <p class="eyebrow eyebrow--dash in d2">Solución</p>
+        <h1 id="pagina-titulo" class="pagina-hero__title in d3">
+          Ciberseguridad para empresas <span class="pagina-hero__hl">con Fortinet, en Buenos Aires.</span>
+        </h1>
+        <p class="lead pagina-hero__lead in d4">
+          Como partner de Fortinet, implementamos y mantenemos su plataforma de seguridad para la red de oficina, la interconexión entre sedes, el trabajo remoto y la nube. Desde noviembre de 2023 operamos el firewall FortiGate de la casa central de Parques Nacionales.
+        </p>
+        <div class="pagina-hero__actions in d5">
+          <a class="btn btn--lime" href="#agenda">Solicitá un relevamiento de la red <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn btn--light" href="{{site.whatsapp.url}}" target="_blank" rel="noopener">Escribinos por WhatsApp<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a>
+        </div>
+        <p class="hero__note in d6">
+          <svg class="hero__check" aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+          <span>Diseño de la red y de su seguridad a cargo de un mismo equipo.</span>
+        </p>
+      </include>
+
+      <include src="partials/pagina/respuesta.html" titulo="¿Qué hace Intellihelp en ciberseguridad?">
+        <p>
+          Protegemos la red corporativa con equipamiento Fortinet que proveemos, instalamos y mantenemos como partner del fabricante. El servicio abarca la red de oficina, la interconexión entre sedes, el trabajo remoto, la nube y la segmentación de redes industriales (OT), para empresas medianas y grandes y organismos públicos con sede en Buenos Aires.
+        </p>
+      </include>
+
+      <include
+        src="partials/pagina/bloque.html"
+        id="incluye"
+        eyebrow="Qué incluye"
+        titulo="La red corporativa se extiende más allá de la oficina."
+        fondo="section--soft"
+      >
+        <template slot="bajada">
+          <p class="lead">Alcanza a las sedes, al personal que trabaja de forma remota y a los servicios en la nube. Protegemos cada uno de esos perímetros.</p>
+        </template>
+        <ul class="servicios__grid" role="list">
+          <li class="servicios__card card rv slow card-h" data-d="0">
+            <span class="servicios__num" aria-hidden="true">01</span>
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/seguridad-ciber/iconos/red.html"></include></span>
+            <h3 class="servicios__title">Redes seguras</h3>
+            <p class="servicios__text">La plataforma Security Fabric de Fortinet integra red y seguridad: FortiGate como firewall y SD-WAN entre sedes, protección de la LAN, acceso remoto por VPN y cobertura de los servicios en la nube.</p>
+            <ul class="servicios__chips" role="list" aria-label="Cubre">
+              <li class="chip">LAN y WAN</li>
+              <li class="chip">Trabajo remoto</li>
+              <li class="chip">Nube</li>
+            </ul>
+          </li>
+
+          <li class="servicios__card card rv slow card-h" data-d="0.35">
+            <span class="servicios__num" aria-hidden="true">02</span>
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/seguridad-ciber/iconos/candado.html"></include></span>
+            <h3 class="servicios__title">Seguridad perimetral</h3>
+            <p class="servicios__text">Firewalls de nueva generación FortiGate con prevención de intrusiones (IPS), filtrado web, control de aplicaciones y protección ante ataques de denegación de servicio (DoS). También implementamos la seguridad del correo electrónico.</p>
+            <ul class="servicios__chips" role="list" aria-label="Incluye">
+              <li class="chip">Firewall de nueva generación</li>
+              <li class="chip">IPS</li>
+              <li class="chip">Correo y web</li>
+            </ul>
+          </li>
+
+          <li class="servicios__card card rv slow card-h" data-d="0.7">
+            <span class="servicios__num" aria-hidden="true">03</span>
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/seguridad-ciber/iconos/fabrica.html"></include></span>
+            <h3 class="servicios__title">Seguridad OT</h3>
+            <p class="servicios__text">Firewalls FortiGate Rugged para entornos industriales, con segmentación entre la red de planta (OT) y la red corporativa, e inspección de protocolos industriales.</p>
+            <ul class="servicios__chips" role="list" aria-label="Para">
+              <li class="chip">Plantas industriales</li>
+              <li class="chip">Redes de operación</li>
+            </ul>
+          </li>
+        </ul>
+        <div class="clientes-sector card card-h rv servicios-mas soluciones-marcas">
+          <p class="eyebrow">Marca con la que trabajamos</p>
+          <ul class="logos__list clientes-sector__logos" role="list" aria-label="Marca">
+            <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/fortinet.webp" width="418" height="48" alt="Fortinet" loading="lazy" decoding="async" /></li>
+          </ul>
+        </div>
+        <div class="nota"><b>Para Nico</b>La tarjeta de seguridad perimetral viene de la web vieja de 2018. La reescribí con las funciones de FortiGate y saqué la mitigación de DDoS, que en general la presta el proveedor del enlace. ¿Seguimos ofreciendo seguridad de correo? Si no me decís nada, queda así.</div>
+      </include>
+
+      <include
+        src="partials/pagina/bloque.html"
+        id="tu-red"
+        eyebrow="Integración con la red"
+        titulo="Diseñamos la red y también su seguridad."
+      >
+        <template slot="bajada">
+          <p class="lead">Implementamos el cableado, el wifi, los servidores y la videovigilancia. Cuando toda la infraestructura está a nuestro cargo, hay un único responsable ante cualquier incidente.</p>
+        </template>
+        <ul class="servicios__grid" role="list">
+          <li class="rv slow" data-d="0">
+            <a class="servicios__card card card-h pagina-link-card" href="/soluciones/redes-indoor/">
+              <span class="servicios__icon icon-badge"><include src="partials/pagina/seguridad-ciber/iconos/cable.html"></include></span>
+              <h3 class="servicios__title">Cableado estructurado y redes LAN</h3>
+              <p class="servicios__text">Infraestructura de red dentro del edificio: cableado estructurado y wifi corporativo.</p>
+              <span class="pagina-link-card__more">Ver cableado estructurado <span class="arr" aria-hidden="true">→</span></span>
+            </a>
+          </li>
+          <li class="rv slow" data-d="0.35">
+            <a class="servicios__card card card-h pagina-link-card" href="/soluciones/data-center/">
+              <span class="servicios__icon icon-badge"><include src="partials/pagina/seguridad-ciber/iconos/servidor.html"></include></span>
+              <h3 class="servicios__title">Data center</h3>
+              <p class="servicios__text">Servidores, almacenamiento y networking Huawei.</p>
+              <span class="pagina-link-card__more">Ver data center <span class="arr" aria-hidden="true">→</span></span>
+            </a>
+          </li>
+          <li class="rv slow" data-d="0.7">
+            <a class="servicios__card card card-h pagina-link-card" href="/soluciones/seguridad/">
+              <span class="servicios__icon icon-badge"><include src="partials/pagina/seguridad-ciber/iconos/camara.html"></include></span>
+              <h3 class="servicios__title">Cámaras y control de acceso</h3>
+              <p class="servicios__text">Videovigilancia y biometría con Hikvision, Suprema y Dahua.</p>
+              <span class="pagina-link-card__more">Ver cámaras y control de acceso <span class="arr" aria-hidden="true">→</span></span>
+            </a>
+          </li>
+        </ul>
+      </include>
+
+      <include src="partials/pagina/datos.html" titulo="Datos clave del servicio de ciberseguridad.">
+        <include src="partials/pagina/dato.html" icono="empresa" titulo="Para quién">
+          <p>Empresas medianas y grandes, corporaciones y organismos nacionales, provinciales y municipales. Pymes, según el alcance del proyecto.</p>
+          <div class="nota"><b>Para Nico y Carlos</b>¿Desde cuántos usuarios o sedes nos conviene tomar un proyecto de ciberseguridad? Con un número lo sumo acá; si no, queda el texto como está.</div>
+        </include>
+        <include src="partials/pagina/dato.html" icono="check" titulo="Modalidad">
+          <p>Provisión, instalación y configuración de equipamiento Fortinet, con mantenimiento posterior a cargo de nuestro equipo.</p>
+          <div class="nota"><b>Para Nico</b>En Parques el firewall entra en un mantenimiento con monitoreo. ¿Eso lo ofrecemos como servicio mensual a cualquier cliente o solo proyecto y mantenimiento? Si no me decís nada, queda como está.</div>
+        </include>
+        <include src="partials/pagina/dato.html" icono="reloj" titulo="SLA y horario">
+          <p>Se define en cada contrato. En la Administración de Parques Nacionales, donde operamos el firewall, los tiempos de respuesta son de 2, 4, 12 o 24 horas según la criticidad, con monitoreo 7x24.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="mapa" titulo="Cobertura">
+          <p>Casa central en CABA. En otras provincias, con configuración remota y visitas técnicas o con técnicos locales coordinados desde Buenos Aires.</p>
+        </include>
+        <div data-draft>
+          <include src="partials/pagina/dato.html" icono="precio" titulo="Modelo de precio">
+            <div class="nota"><b>Para Carlos</b>¿Publicamos cómo se cotiza la ciberseguridad (proyecto, licencias o abono de mantenimiento), sin montos? Hasta que me digas, esta tarjeta no sale.</div>
+          </include>
+        </div>
+      </include>
+
+      <include
+        src="partials/pagina/bloque.html"
+        id="como-trabajamos"
+        eyebrow="Cómo trabajamos"
+        titulo="Antes de recomendar equipamiento, relevamos la red."
+      >
+        <ol class="pasos__grid" role="list">
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>1</span>
+            <h3 class="pasos__title">Relevamiento</h3>
+            <p class="pasos__text">Analizamos la topología de la red, la cantidad de sedes y de usuarios remotos y los activos a proteger. Sobre esa base, enviamos la propuesta.</p>
+          </li>
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>2</span>
+            <h3 class="pasos__title">Implementación</h3>
+            <p class="pasos__text">Proveemos, instalamos y configuramos el equipamiento Fortinet sobre la infraestructura existente.</p>
+          </li>
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>3</span>
+            <h3 class="pasos__title">Mantenimiento</h3>
+            <p class="pasos__text">Una vez implementada la protección, prestamos el mantenimiento preventivo y correctivo del equipamiento.</p>
+          </li>
+        </ol>
+        <div class="nota"><b>Para Nico</b>Puse que somos partner de Fortinet desde 2023, como figura en el Drive. ¿Qué nivel de partner tenemos hoy? Con eso lo sumo acá. La pregunta frecuente sobre formación Fortinet la cambié por la experiencia con FortiGate, porque la certificación Fortinet Certified Fundamentals de Alejandro venció el 09/10/2026. Si alguien la renueva o rinde otra, la vuelvo a nombrar.</div>
+      </include>
+
+      <include
+        src="partials/pagina/caso.html"
+        titulo="El firewall de Parques Nacionales, dentro de un mantenimiento 7x24."
+        cliente="Administración de Parques Nacionales"
+        detalle="Organismo nacional · desde 2023"
+      >
+        <div class="casos__row">
+          <dt class="eyebrow">El desafío</dt>
+          <dd>La casa central requería un único servicio de soporte para toda su infraestructura: red GPON, videovigilancia, biometría, wifi, routers, switches, UPS y firewall.</dd>
+        </div>
+        <div class="casos__row">
+          <dt class="eyebrow">Qué hicimos</dt>
+          <dd>Desde noviembre de 2023 operamos su firewall FortiGate dentro del mantenimiento integral, con monitoreo proactivo y el resto de la red bajo el mismo contrato.</dd>
+        </div>
+        <div class="casos__row">
+          <dt class="eyebrow">Resultado</dt>
+          <dd>La red y su seguridad dependen de un único equipo, con tiempos de respuesta de 2, 4, 12 o 24 horas según la criticidad del incidente.</dd>
+        </div>
+        <template slot="panel">
+          <p class="casos__sla">
+            <span class="casos__big"><span data-count="2" data-count-delay="300">2</span></span>
+            <span class="casos__sla-text">horas de respuesta en los incidentes más graves, con monitoreo 7x24</span>
+          </p>
+          <p class="eyebrow">Tecnologías</p>
+          <ul class="pagina-caso__tecs" role="list">
+            <li class="chip">Fortinet</li>
+            <li class="chip">FortiGate</li>
+            <li class="chip">MikroTik</li>
+            <li class="chip">Huawei</li>
+          </ul>
+        </template>
+        <template slot="extra">
+          <ul class="casos__grid pagina-casos soluciones-casos" role="list">
+            <li class="casos__card card-h rv">
+              <p class="eyebrow">Microsoft 365 · Salud · 2023</p>
+              <h3 class="casos__name">Obra social</h3>
+              <p class="casos__text">Su migración a Microsoft 365 se completó con doble factor de autenticación en todas las cuentas. <a href="/soluciones/cloud/#caso">El caso se detalla en la página de nube</a>.</p>
+            </li>
+            <li class="casos__card card-h rv">
+              <p class="eyebrow">Segmentación de red · Práctica interna</p>
+              <h3 class="casos__name">Red corporativa de Intellihelp</h3>
+              <p class="casos__text">En nuestra sede, los puestos de trabajo, la impresión, la telefonía IP y la videovigilancia operan en redes virtuales (VLAN) separadas, y el firewall solo admite entre ellas el tráfico autorizado expresamente.</p>
+            </li>
+          </ul>
+          <div class="nota pagina-caso__nota"><b>Para Nico</b>Armé el caso con el FortiGate de Parques porque es el único trabajo Fortinet ejecutado que encontré en el Drive; lo de LoJack y Nación Seguros quedó en oferta. Si tenés un proyecto de perímetro que se pueda nombrar, lo pongo como caso principal. Si no me decís nada, queda así.</div>
+        </template>
+      </include>
+
+      <include src="partials/pagina/faq.html" titulo="Preguntas frecuentes sobre ciberseguridad y Fortinet.">
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Qué es la ciberseguridad para empresas?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Es el conjunto de equipamiento, configuraciones y políticas que protegen la red, los datos y los equipos de una empresa frente a accesos no autorizados y ataques. En Intellihelp la implementamos con la plataforma de redes seguras de Fortinet, instalada y mantenida por nuestro equipo.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Por qué trabajan con Fortinet?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Porque integra red y seguridad en una sola plataforma: la misma solución cubre la red de oficina, la WAN entre sedes, el trabajo remoto y la nube. Somos partner del fabricante desde 2023.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Qué incluye el servicio?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Incluye el relevamiento de la red, el equipamiento Fortinet, su instalación y su configuración, y luego el mantenimiento preventivo y correctivo de esos equipos.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Pueden proteger al personal que trabaja de forma remota?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Sí. La plataforma de Fortinet extiende a los usuarios remotos y a los servicios en la nube el mismo nivel de protección que tiene la oficina.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Hacen seguridad para redes industriales (OT)?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Lo ofrecemos con la línea FortiGate Rugged, diseñada para entornos industriales: segmentamos la red de planta (OT) respecto de la red corporativa y controlamos el tráfico entre ambas. La instalamos y la mantenemos con el mismo criterio que una red corporativa.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Cubren sedes fuera de Buenos Aires?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Sí. Prestamos el servicio desde nuestra sede de CABA y, para las sedes de otras provincias, el relevamiento define la modalidad: configuración remota del equipamiento con visitas técnicas, o técnicos locales coordinados por nuestro equipo.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Cómo cuidan los datos de mi empresa (Ley 25.326)?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Aplicamos las mismas prácticas que recomendamos para tu red. Cada técnico accede con una cuenta propia y solo con los permisos necesarios, cada acceso remoto queda registrado y la información no sale de tus sistemas sin tu autorización. Al finalizar el servicio, damos de baja nuestras cuentas. <a href="/privacidad/#datos-de-clientes">El detalle completo está en el aviso de privacidad</a>.</p>
+          </div>
+        </details>
+
+        <!-- Borradores: no se publican hasta tener la respuesta. Al cargarla,
+             sacar data-draft: el schema FAQPage la suma solo. -->
+        <details name="faq" class="faq__item" data-draft>
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Qué pasa si tenemos un incidente de seguridad?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <div class="nota"><b>Para Nico</b>Para esta respuesta me falta qué le prometemos a un cliente que no tiene un mantenimiento como el de Parques: ¿quién atiende un incidente y en cuánto tiempo? Hasta que me digas, la pregunta no sale.</div>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item" data-draft>
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Cuánto cuesta la ciberseguridad para una empresa?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <div class="nota"><b>Para Carlos</b>Esta pregunta depende de lo mismo que la tarjeta de precio de más arriba. Si me das el visto bueno para explicar cómo se cotiza, la escribo; si no, no sale.</div>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Tienen experiencia con equipamiento Fortinet?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Sí. Desde noviembre de 2023 operamos el firewall FortiGate de la casa central de la Administración de Parques Nacionales, dentro de un mantenimiento integral 7x24 con tiempos de respuesta de 2, 4, 12 o 24 horas según la criticidad del incidente.</p>
+          </div>
+        </details>
+      </include>
+
+      <include
+        src="partials/pagina/cta.html"
+        titulo="Contanos cuántas sedes y usuarios remotos tiene tu red."
+        cierre="La protegemos sobre la infraestructura existente."
+        necesidad="Ciberseguridad"
+      ></include>
+    </main>
+
+    <include src="partials/footer.html"></include>
+    <include src="partials/whatsapp.html"></include>
+  </body>
+</html>

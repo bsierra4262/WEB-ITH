@@ -1,0 +1,103 @@
+<!--
+  Pie del sitio, compartido por todas las páginas. Colores del código original:
+  carbón #333333 con borde #4A4A4A, títulos de columna en lima, links cremita y
+  divisor inferior #444444.
+  Grilla: marca + bajada | Soluciones | Servicios | Empresa | Contacto, con las
+  páginas principales (links absolutos con data-nav: el plugin de parciales
+  marca la página actual). Para no saturar el pie, Servicios suma solo las tres
+  páginas de fase 2 más buscadas; al resto se llega desde cada índice. Fila
+  inferior con razón social, CUIT y las marcas que integramos. Textos: textos-home.md §15.
+  El año del copyright sale de site.year (site.json): hay que actualizarlo en
+  enero o, mejor, que el plugin de parciales lo tome de la fecha del build. El botón
+  "Ocultar notas" / "Mostrar notas" lo crea src/scripts/modules/notes.js (solo
+  en desarrollo o con ?notas).
+-->
+<footer class="site-footer on-dark">
+  <div class="wrap">
+    <div class="site-footer__grid">
+      <div class="site-footer__brand">
+        <div class="site-footer__logo-row">
+          <a class="site-footer__logo-link" href="/">
+            <img
+              class="site-footer__logo"
+              src="/src/assets/img/brand/ith-logo.svg"
+              width="82"
+              height="44"
+              alt="Intellihelp, volver al inicio"
+              loading="lazy"
+              decoding="async"
+            />
+          </a>
+          <p class="site-footer__tag"><span>Servicios IT</span> <span>CABA · {{site.since}}</span></p>
+        </div>
+        <p class="site-footer__about">
+          INTELLIHELP S.A. presta servicios informáticos a empresas y organismos públicos. Empresa argentina con sede en Buenos Aires desde {{site.since}}.
+        </p>
+        <p class="site-footer__disclaimer">No tenemos relación con IntelliHelp SpA de Chile.</p>
+      </div>
+
+      <nav class="site-footer__col" aria-labelledby="pie-soluciones">
+        <h2 id="pie-soluciones" class="eyebrow site-footer__title">Soluciones</h2>
+        <ul class="site-footer__list" role="list">
+          <li><a href="/soluciones/seguridad/" data-nav>Cámaras de seguridad y control de acceso</a></li>
+          <li><a href="/soluciones/ciberseguridad/" data-nav>Ciberseguridad</a></li>
+          <li><a href="/soluciones/redes-indoor/" data-nav>Cableado estructurado y redes LAN</a></li>
+          <li><a href="/soluciones/redes-ftth/" data-nav>Fibra óptica FTTH</a></li>
+          <li><a href="/soluciones/data-center/" data-nav>Data center</a></li>
+          <li><a href="/soluciones/" data-nav>Todas las soluciones</a></li>
+        </ul>
+      </nav>
+
+      <nav class="site-footer__col" aria-labelledby="pie-servicios">
+        <h2 id="pie-servicios" class="eyebrow site-footer__title">Servicios</h2>
+        <ul class="site-footer__list" role="list">
+          <li><a href="/servicios/outsourcing-y-service-desk/" data-nav>Outsourcing IT y service desk</a></li>
+          <li><a href="/servicios/reclutamiento-y-seleccion/" data-nav>Selección de personal IT</a></li>
+          <li><a href="/servicios/desarrollo-de-aplicaciones/" data-nav>Desarrollo de software</a></li>
+          <li><a href="/servicios/automatizacion/" data-nav>Automatización con IA</a></li>
+          <li><a href="/servicios/" data-nav>Todos los servicios</a></li>
+        </ul>
+      </nav>
+
+      <nav class="site-footer__col" aria-labelledby="pie-empresa">
+        <h2 id="pie-empresa" class="eyebrow site-footer__title">Empresa</h2>
+        <ul class="site-footer__list" role="list">
+          <li><a href="/clientes/" data-nav>Clientes y casos</a></li>
+          <li><a href="/nosotros/" data-nav>Nosotros</a></li>
+          <li><a href="/nosotros/#trabaja-con-nosotros">Trabajá con nosotros</a></li>
+          <li><a href="/contacto/" data-nav>Contacto</a></li>
+          <li><a href="/privacidad/" data-nav>Aviso de privacidad</a></li>
+          <li data-draft>
+            <a href="/blog/">Blog</a>
+            <div class="nota"><b>Pendiente mío</b>El link al blog lo publico cuando el WordPress ande en /blog/ con el mismo GTM.</div>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="site-footer__col">
+        <h2 id="pie-contacto" class="eyebrow site-footer__title">Contacto</h2>
+        <address class="site-footer__address">
+          <ul class="site-footer__list" role="list" aria-labelledby="pie-contacto">
+            <li><a href="mailto:{{site.email}}">{{site.email}}</a></li>
+            <li><a href="tel:{{site.phone.tel}}">{{site.phone.display}}</a></li>
+            <li>
+              <a href="{{site.whatsapp.url}}" target="_blank" rel="noopener">WhatsApp {{site.whatsapp.display}}<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a>
+            </li>
+            <li>
+              <a href="{{site.linkedin}}" target="_blank" rel="noopener">LinkedIn<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a>
+            </li>
+            <li>
+              <a href="{{site.mapsUrl}}" target="_blank" rel="noopener">{{site.address}}<span class="visually-hidden"> (ver en Google Maps, se abre en una pestaña nueva)</span></a>
+            </li>
+            <li>{{site.horario.corto}}</li>
+          </ul>
+        </address>
+      </div>
+    </div>
+
+    <div class="site-footer__bottom">
+      <p>© {{site.year}} INTELLIHELP S.A. · CUIT 30-71140975-7</p>
+      <p>Gold Partner Huawei · Gold Partner Hikvision · Suprema · Furukawa · Fortinet</p>
+    </div>
+  </div>
+</footer>

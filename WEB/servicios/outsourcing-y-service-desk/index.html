@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <include
+      src="partials/pagina/head.html"
+      titulo="Outsourcing IT y service desk en Buenos Aires | Intellihelp"
+      descripcion="Mesa de ayuda tercerizada, service desk de niveles 1 y 2 y profesionales IT para el área de sistemas de empresas y organismos de CABA. Intellihelp, desde {{site.since}}."
+    ></include>
+
+    <!--
+      PÁGINA MODELO de servicio (estructura del informe de visibilidad, cap. 9):
+      hero · respuesta corta · datos clave (tamaño, modalidad, SLA y horario,
+      cobertura, precio) · qué incluye · cómo elegimos a la gente · caso real
+      con tecnologías · FAQ con schema · formulario + WhatsApp propio.
+      Fuentes: brief §2.2.1, §2.2.2 y §3; fuentes-pdfs-old.md §2 y §6.6-6.10;
+      fuentes-web-actual.md §4. Keyword principal: outsourcing IT.
+      Secundarias: service desk, mesa de ayuda tercerizada, soporte IT para empresas.
+      Redacción: DOCS/contenido/guia-de-estilo.md (versión del 30/10/2026).
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "@id": "{{page.url}}#servicio",
+        "name": "Outsourcing IT y service desk",
+        "serviceType": "Outsourcing IT",
+        "alternateName": ["Mesa de ayuda tercerizada", "Service desk", "Help desk", "Soporte IT para empresas"],
+        "description": "Mesa de ayuda y soporte IT a cargo de profesionales que selecciona y acompaña Intellihelp: service desk de niveles 1 y 2 con SLA y procesos ITIL, en las oficinas del cliente o en las de Intellihelp, para empresas medianas y grandes y organismos públicos con sede en Buenos Aires.",
+        "url": "{{page.url}}",
+        "provider": {
+          "@type": "Organization",
+          "@id": "{{site.url}}#organizacion",
+          "name": "{{site.name}}",
+          "url": "{{site.url}}",
+          "telephone": "{{site.phone.display}}",
+          "email": "{{site.email}}"
+        },
+        "areaServed": [
+          { "@type": "City", "name": "Ciudad Autónoma de Buenos Aires" },
+          { "@type": "Country", "name": "Argentina" }
+        ],
+        "audience": {
+          "@type": "BusinessAudience",
+          "audienceType": "Empresas medianas y grandes, corporaciones y organismos públicos"
+        }
+      }
+    </script>
+  </head>
+  <body data-wa-texto="Hola Intellihelp, quiero consultar por outsourcing IT y mesa de ayuda.">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <include src="partials/header.html"></include>
+
+    <main id="contenido">
+      <include src="partials/pagina/hero.html">
+        <include
+          src="partials/pagina/migas.html"
+          seccion="Servicios"
+          seccion-url="/servicios/"
+          actual="Outsourcing IT y service desk"
+        ></include>
+        <p class="eyebrow eyebrow--dash in d2">Servicio</p>
+        <h1 id="pagina-titulo" class="pagina-hero__title in d3">
+          Outsourcing IT y service desk <span class="pagina-hero__hl">en Buenos Aires.</span>
+        </h1>
+        <p class="lead pagina-hero__lead in d4">
+          Implementamos y operamos mesas de ayuda de niveles 1 y 2, e incorporamos profesionales IT al equipo del cliente, en sus oficinas o en las nuestras. El grupo LoJack-&#8288;Strix, MSD y Pfizer contrataron este servicio.
+        </p>
+        <div class="pagina-hero__actions in d5">
+          <a class="btn btn--lime" href="/diagnostico/">Agendá una reunión <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn btn--light" href="{{site.whatsapp.url}}" target="_blank" rel="noopener">Escribinos por WhatsApp<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a>
+        </div>
+        <p class="hero__note in d6">
+          <svg class="hero__check" aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+          <span>Profesionales seleccionados con psicodiagnóstico laboral y acompañados durante todo el servicio.</span>
+        </p>
+      </include>
+
+      <include src="partials/pagina/respuesta.html" titulo="¿Qué es el outsourcing IT de Intellihelp?">
+        <p>
+          Es la tercerización de la mesa de ayuda (help desk) y el soporte IT con profesionales que Intellihelp selecciona y acompaña. Operamos service desk de niveles 1 y 2 con acuerdos de nivel de servicio (SLA) y procesos ITIL, en las oficinas del cliente o en las nuestras, para empresas medianas y grandes y organismos públicos con sede en Buenos Aires.
+        </p>
+      </include>
+
+      <include src="partials/pagina/datos.html" titulo="Condiciones del servicio en cinco puntos.">
+        <include src="partials/pagina/dato.html" icono="empresa" titulo="Para quién">
+          <p>Empresas medianas y grandes, corporaciones y organismos públicos. Pymes, según el caso.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="auriculares" titulo="Modalidad">
+          <p>El equipo trabaja en las oficinas del cliente o desde las nuestras, en nómina de Intellihelp o del cliente.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="reloj" titulo="SLA y horario">
+          <p>Se establecen en cada contrato. En LoJack, la mesa atiende de lunes a viernes de 8 a 19, con supervisión propia y guardias fuera de horario.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="mapa" titulo="Cobertura">
+          <p>Prestamos el servicio desde CABA, y el contrato puede incluir sedes del interior: hoy trabajamos en 12 provincias y, junto con socios locales, en Chile y Uruguay.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="precio" titulo="Modelo de precio">
+          <p>Abono mensual por perfil, según su seniority. El soporte de infraestructura también puede contratarse con una bolsa de horas mensual.</p>
+        </include>
+      </include>
+
+      <include
+        src="partials/pagina/bloque.html"
+        id="incluye"
+        eyebrow="Qué incluye"
+        titulo="Tres modalidades para tercerizar el soporte IT."
+      >
+        <template slot="bajada">
+          <p class="lead">Se contratan por separado o en conjunto, según lo que ya resuelve el área de sistemas del cliente.</p>
+        </template>
+        <ul class="servicios__grid" role="list">
+          <li class="servicios__card card rv slow card-h" data-d="0">
+            <span class="servicios__num" aria-hidden="true">01</span>
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/iconos/auriculares.html"></include></span>
+            <h3 class="servicios__title">Mesa de ayuda y service desk</h3>
+            <p class="servicios__text">Soporte de niveles 1 y 2 para usuarios e infraestructura, con acuerdos de nivel de servicio (SLA y OLA) y gestión de incidentes según ITIL. En la modalidad llave en mano aportamos las personas, las herramientas y el espacio físico.</p>
+            <ul class="servicios__chips" role="list" aria-label="Incluye">
+              <li class="chip">Service desk N1 y N2</li>
+              <li class="chip">Soporte en sitio</li>
+              <li class="chip">SLA y OLA</li>
+              <li class="chip">ITIL</li>
+            </ul>
+          </li>
+
+          <li class="servicios__card card rv slow card-h" data-d="0.35">
+            <span class="servicios__num" aria-hidden="true">02</span>
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/iconos/equipo.html"></include></span>
+            <h3 class="servicios__title">Profesionales IT en el equipo del cliente</h3>
+            <p class="servicios__text">Analistas, desarrolladores, administradores y técnicos integrados al equipo del cliente. La supervisión, el control y, cuando se requiere, el espacio físico están a cargo de Intellihelp.</p>
+            <ul class="servicios__chips" role="list" aria-label="Modalidades">
+              <li class="chip">En nómina de Intellihelp</li>
+              <li class="chip">En nómina del cliente</li>
+            </ul>
+          </li>
+
+          <li class="servicios__card card rv slow card-h" data-d="0.7">
+            <span class="servicios__num" aria-hidden="true">03</span>
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/iconos/check.html"></include></span>
+            <h3 class="servicios__title">Soluciones técnicas llave en mano</h3>
+            <p class="servicios__text">Un único responsable de todo el proyecto: relevamos los requerimientos, implementamos la solución y prestamos el mantenimiento preventivo y correctivo.</p>
+            <ul class="servicios__chips" role="list" aria-label="Incluye">
+              <li class="chip">Relevamiento</li>
+              <li class="chip">Implementación</li>
+              <li class="chip">Mantenimiento</li>
+            </ul>
+          </li>
+        </ul>
+      </include>
+
+      <include
+        src="partials/pagina/bloque.html"
+        id="seleccion"
+        eyebrow="Cómo trabajamos"
+        titulo="Cada profesional asignado atraviesa un proceso de tres etapas."
+        fondo="section--soft"
+      >
+        <ol class="pasos__grid" role="list">
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>1</span>
+            <h3 class="pasos__title">Selección</h3>
+            <p class="pasos__text">Preselección telefónica y por videollamada, y entrevista presencial con analistas en psicodiagnóstico laboral. El cliente recibe un informe de entrevista de cada candidato.</p>
+          </li>
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>2</span>
+            <h3 class="pasos__title">Inducción</h3>
+            <p class="pasos__text">Dos inducciones, una en la empresa cliente y otra en Intellihelp, con su kit de bienvenida.</p>
+          </li>
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>3</span>
+            <h3 class="pasos__title">Seguimiento</h3>
+            <p class="pasos__text">Durante todo el servicio mantenemos reuniones con cada profesional, realizamos coaching y encuestas de inicio y de salida, y lo capacitamos en INTELLIHELP-Learning, nuestra plataforma de e-learning.</p>
+          </li>
+        </ol>
+      </include>
+
+      <include
+        src="partials/pagina/caso.html"
+        titulo="Más de 40 posiciones IT cubiertas en un año."
+        cliente="Banco internacional"
+        detalle="Banca"
+      >
+        <div class="casos__row">
+          <dt class="eyebrow">El desafío</dt>
+          <dd>Incorporar a los equipos del banco perfiles IT de distintas especialidades y niveles de seniority.</dd>
+        </div>
+        <div class="casos__row">
+          <dt class="eyebrow">Qué hicimos</dt>
+          <dd>Seleccionamos a cada profesional y lo incorporamos en modalidad outsourcing, con seguimiento de Intellihelp.</dd>
+        </div>
+        <div class="casos__row">
+          <dt class="eyebrow">Perfiles</dt>
+          <dd>Analistas COBOL, programadores .NET y Java, analistas funcionales, líderes de proyecto, arquitectos de soluciones, Scrum Masters y testers.</dd>
+        </div>
+        <template slot="panel">
+          <p class="casos__sla">
+            <span class="casos__big">+<span data-count="40" data-count-delay="300">40</span></span>
+            <span class="casos__sla-text">posiciones cubiertas en un año, en modalidad outsourcing</span>
+          </p>
+          <p class="eyebrow">Tecnologías</p>
+          <ul class="pagina-caso__tecs" role="list">
+            <li class="chip">COBOL</li>
+            <li class="chip">.NET</li>
+            <li class="chip">Java</li>
+            <li class="chip">Scrum</li>
+          </ul>
+        </template>
+        <template slot="extra">
+          <div class="nota pagina-caso__nota"><b>Para Nico</b>Del banco internacional no encontré el año ni si el servicio sigue. ¿Me lo confirmás? El nombre no lo pongo, porque el caso de 2022 tampoco lo da.</div>
+          <ul class="casos__grid pagina-casos" role="list">
+            <li class="casos__card card-h rv">
+              <p class="eyebrow">Mesa de ayuda · Laboratorio</p>
+              <h3 class="casos__name">MSD</h3>
+              <p class="casos__text">Mesa de ayuda IT de niveles 1 y 2 con atención presencial para los empleados del laboratorio en sus oficinas de Argentina.</p>
+            </li>
+            <li class="casos__card card-h rv">
+              <p class="eyebrow">Mesa de ayuda · Desde 2022</p>
+              <h3 class="casos__name">Grupo LoJack-&#8288;Strix</h3>
+              <p class="casos__text">Operamos su mesa de ayuda de nivel 1 en sus oficinas, con atención por teléfono, WhatsApp, web y correo, y guardias fuera de horario.</p>
+            </li>
+            <li class="casos__card card-h rv">
+              <p class="eyebrow">Soporte 7x24 · Desde 2023</p>
+              <h3 class="casos__name">Parques Nacionales</h3>
+              <p class="casos__text">Mantenimiento integral 7x24 de la infraestructura de su casa central (red GPON, videovigilancia, biometría, red inalámbrica y firewall FortiGate), con monitoreo proactivo y un único punto de contacto.</p>
+            </li>
+            <li class="casos__card card-h rv">
+              <p class="eyebrow">Outsourcing IT · Laboratorio</p>
+              <h3 class="casos__name">Pfizer</h3>
+              <p class="casos__text">Incorporamos analistas funcionales, analistas de datos y especialistas en bases de datos en modalidad outsourcing.</p>
+            </li>
+            <li class="casos__card card-h rv">
+              <p class="eyebrow">Soporte en sitio · Salud</p>
+              <h3 class="casos__name">Una obra social</h3>
+              <p class="casos__text">Un técnico en la sede central y, desde 2025, soporte presencial en sus agencias de Neuquén, Bahía Blanca, Mendoza y Campana, coordinado desde Buenos Aires.</p>
+            </li>
+            <li class="casos__card card-h rv">
+              <p class="eyebrow">Outsourcing IT · Medicina prepaga</p>
+              <h3 class="casos__name">Medifé</h3>
+              <p class="casos__text">Desde 2023 prestamos a Medifé un servicio de outsourcing de QA: un tester senior seleccionado por Intellihelp integra su equipo de sistemas, con nuestro seguimiento.</p>
+            </li>
+          </ul>
+          <p class="servicios-mas rv">
+            <a class="btn btn--ghost" href="/clientes/">Ver más casos de outsourcing <span class="arr" aria-hidden="true">→</span></a>
+          </p>
+        </template>
+      </include>
+
+      <include src="partials/pagina/faq.html" titulo="Preguntas frecuentes sobre outsourcing IT y mesa de ayuda.">
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Qué es el outsourcing IT?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Es la delegación en un proveedor especializado de la mesa de ayuda, el soporte o parte del equipo de sistemas. En Intellihelp lo prestamos con profesionales que seleccionamos, capacitamos y acompañamos, en nómina propia o de tu empresa.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿La mesa de ayuda trabaja en mis oficinas o en las de ustedes?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>En cualquiera de las dos. En MSD y en el grupo LoJack-Strix, el equipo se ubicó en las oficinas del cliente. También prestamos el servicio desde nuestras oficinas, con herramientas y espacio físico propios.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Help desk, service desk y mesa de ayuda son lo mismo?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Los tres términos se refieren a la atención de los pedidos de los usuarios. El service desk agrega lo que excede la primera llamada: el nivel 2, los SLA de cada contrato y la gestión de incidentes según ITIL. Nuestro servicio incluye las tres funciones.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Qué niveles de soporte cubren?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Nivel 1 y nivel 2: atención a usuarios, incidentes, solicitudes y soporte de infraestructura. Trabajamos con procesos ITIL y con acuerdos de nivel de servicio (SLA y OLA) definidos en cada contrato.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Para qué tamaño de empresa trabajan?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Principalmente para empresas medianas y grandes, corporaciones y organismos nacionales, provinciales y municipales. Con pymes, según el caso y el servicio. Nuestros contratos vigentes van desde un técnico en sitio hasta la mesa de ayuda del grupo LoJack-Strix y el mantenimiento integral 7x24 de la casa central de Parques Nacionales.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Cómo eligen a los profesionales?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Preseleccionamos a cada candidato por teléfono o videollamada y lo evaluamos en una entrevista presencial con analistas en psicodiagnóstico laboral. Entregamos un informe de cada entrevista y acompañamos al candidato en las entrevistas con tu empresa.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿El personal queda en nómina de Intellihelp o de mi empresa?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Ambas opciones son posibles. En outsourcing, la persona está en nómina de Intellihelp y nos ocupamos de la supervisión y el seguimiento. Si preferís incorporarla a tu nómina, realizamos la búsqueda y mantenemos el acompañamiento en coordinación con tus líderes.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Cubren sedes fuera de Buenos Aires?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Sí. La mesa de ayuda puede cubrir también las sedes del interior. Desde julio de 2025 prestamos soporte presencial en las agencias de una obra social en Neuquén, Bahía Blanca, Mendoza y Campana, con técnicos locales coordinados desde Buenos Aires. Para el grupo LoJack-Strix coordinamos con socios locales la migración de los puestos de trabajo de sus oficinas en Chile y Uruguay.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Cómo cuidan los datos de mi empresa (Ley 25.326)?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Cada profesional asignado a tu mesa de ayuda firma un convenio de confidencialidad con Intellihelp y, si lo solicitás, firmamos también uno con tu empresa. Trabaja con una cuenta nominal, con los permisos de su puesto, y respeta tus políticas internas. Al finalizar el contrato se dan de baja sus accesos y la información permanece en tus sistemas. <a href="/privacidad/#datos-de-clientes">Ver cómo cuidamos tus datos</a>.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Cuál es el tiempo de respuesta de la mesa de ayuda?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Se define con vos en el SLA, según la criticidad de cada pedido. En Parques Nacionales respondemos en 2, 4, 12 o 24 horas según la gravedad, y en las agencias del interior de una obra social las urgencias se atienden en el día.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Cómo se cobra la mesa de ayuda tercerizada?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Con un abono mensual por cada perfil del equipo, que depende de su seniority y del horario de cobertura. Para soporte de infraestructura también ofrecemos una bolsa de horas mensual. La propuesta se elabora después del relevamiento.</p>
+          </div>
+        </details>
+
+        <!-- Borrador: no se publica hasta tener la respuesta. Al cargarla,
+             sacar data-draft: el schema FAQPage la suma solo. -->
+        <details name="faq" class="faq__item" data-draft>
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Qué pasa cuando termina el contrato?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <div class="nota"><b>Para Carlos</b>Me falta cómo le pasamos la documentación y el conocimiento al cliente cuando termina el contrato. En el Drive solo está documentado el inicio del servicio. ¿Me lo contás en dos líneas? Hasta entonces la pregunta no sale.</div>
+          </div>
+        </details>
+      </include>
+
+      <include
+        src="partials/pagina/cta.html"
+        titulo="Contanos cuántos usuarios atiende hoy tu mesa de ayuda y en qué horario."
+        cierre="Con esos datos preparamos el relevamiento."
+        necesidad="Soporte IT, mesa de ayuda u outsourcing IT"
+      ></include>
+    </main>
+
+    <include src="partials/footer.html"></include>
+    <include src="partials/whatsapp.html"></include>
+  </body>
+</html>

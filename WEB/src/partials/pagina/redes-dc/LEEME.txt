@@ -1,0 +1,5 @@
+Parciales de redes y data center: /soluciones/redes-indoor/,
+/soluciones/redes-ftth/ y /soluciones/data-center/.
+iconos/: íconos de las tarjetas servicios__card (mismo trazo y clases
+"ico svc-ico" que partials/pagina/iconos/). Uso:
+  <span class="servicios__icon icon-badge"><include src="partials/pagina/redes-dc/iconos/fibra.html"></include></span>

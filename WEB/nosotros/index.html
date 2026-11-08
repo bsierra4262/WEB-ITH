@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <include
+      src="partials/pagina/head.html"
+      titulo="Quiénes somos: servicios IT en Buenos Aires | Intellihelp"
+      descripcion="Intellihelp es una empresa argentina de servicios IT con oficina en Palermo, CABA, desde {{site.since}}. Conocé al equipo, la historia y las marcas que integramos."
+    ></include>
+
+    <!--
+      NOSOTROS (sección institucional). Keyword principal: intellihelp,
+      con la aclaración del homónimo IntelliHelp SpA (Chile) en texto, en un
+      dato clave, en la FAQ y en el schema (disambiguatingDescription).
+      Fuentes: brief §1, §4, §5, §6, §13 y §15; textos-home.md §7 y §8;
+      fuentes-web-actual.md §1; fuentes-wordpress-db.md §8 (búsquedas);
+      fuentes-linkedin-brian.md (cargo y certificaciones de Brian);
+      fuentes-certificaciones-equipo.md (certificaciones vigentes por marca,
+      corte 30/10/2026: "certificación" solo con examen y vigente; Suprema,
+      Furukawa, Cisco, Fortinet y Avaya van como formación).
+      La historia es el mismo parcial de la home (partials/historia.html).
+      Las herramientas internas aparecen solo en la tarjeta de Brian
+      (pagina/nosotros/equipo.html), como desarrollo de Intellihelp.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        "@id": "{{page.url}}#pagina",
+        "url": "{{page.url}}",
+        "name": "Quiénes somos: servicios IT en Buenos Aires | Intellihelp",
+        "inLanguage": "es-AR",
+        "about": { "@id": "{{site.url}}#organizacion" },
+        "mainEntity": {
+          "@type": ["Organization", "LocalBusiness"],
+          "@id": "{{site.url}}#organizacion",
+          "name": "{{site.name}}",
+          "legalName": "INTELLIHELP S.A.",
+          "alternateName": "ITH",
+          "taxID": "30-71140975-7",
+          "url": "{{site.url}}",
+          "foundingDate": "{{site.since}}",
+          "description": "INTELLIHELP S.A. es una empresa argentina de servicios informáticos con oficina en Palermo, Ciudad de Buenos Aires. Presta soporte IT, mesa de ayuda, outsourcing IT, redes, fibra óptica, data center, cámaras de seguridad y control de acceso a empresas y organismos públicos.",
+          "disambiguatingDescription": "No tiene relación con IntelliHelp SpA de Chile.",
+          "email": "{{site.email}}",
+          "telephone": "{{site.phone.display}}",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "{{site.street}}",
+            "postalCode": "{{site.postalCode}}",
+            "addressLocality": "Ciudad Autónoma de Buenos Aires",
+            "addressRegion": "CABA",
+            "addressCountry": "AR"
+          },
+          "sameAs": ["{{site.linkedin}}"],
+          "employee": [
+            { "@type": "Person", "name": "Carlos Baldelli", "jobTitle": "Presidente y socio" },
+            { "@type": "Person", "name": "Nicolás Baldelli", "jobTitle": "Director de operaciones y socio" },
+            { "@type": "Person", "name": "Laura Zaltron", "jobTitle": "Responsable de marketing y comunicaciones" },
+            { "@type": "Person", "name": "Lisandro Campos", "jobTitle": "Preventa y servicios" },
+            { "@type": "Person", "name": "Brian Sierra", "jobTitle": "Jefe de sistemas y soporte técnico" },
+            { "@type": "Person", "name": "Alejandro Ayala", "jobTitle": "Responsable de instalaciones y posventa" },
+            { "@type": "Person", "name": "Raúl Nasif", "jobTitle": "Administración" }
+          ]
+        }
+      }
+    </script>
+  </head>
+  <body data-wa-texto="Hola Intellihelp, quiero conocer más sobre la empresa y el equipo.">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <include src="partials/header.html"></include>
+
+    <main id="contenido">
+      <include src="partials/pagina/hero.html">
+        <include src="partials/pagina/migas-raiz.html" actual="Nosotros"></include>
+        <p class="eyebrow eyebrow--dash in d2">Nosotros</p>
+        <h1 id="pagina-titulo" class="pagina-hero__title in d3">
+          Intellihelp, <span class="pagina-hero__hl">servicios IT desde Buenos Aires.</span>
+        </h1>
+        <p class="lead pagina-hero__lead in d4">
+          Prestamos servicios de soporte IT, outsourcing, redes y seguridad electrónica a empresas y organismos públicos. Desde nuestra sede de Palermo, el equipo de dirección y gestión coordina los proyectos y a los profesionales asignados a cada cliente. Somos una empresa argentina de capital nacional.
+        </p>
+        <div class="pagina-hero__actions in d5">
+          <a class="btn btn--lime" href="/diagnostico/">Agendá una reunión <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn btn--light" href="{{site.whatsapp.url}}" target="_blank" rel="noopener">Escribinos por WhatsApp<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a>
+        </div>
+        <ul class="hero__stats pagina-hero__stats in d6" role="list">
+          <li class="hero__stat">
+            <p class="hero__stat-num"><span data-count="{{site.years}}" data-count-delay="900">{{site.years}}</span> años</p>
+            <p class="hero__stat-label">de trayectoria, desde {{site.since}}</p>
+          </li>
+          <li class="hero__stat">
+            <p class="hero__stat-num">+<span data-count="20" data-count-delay="900">20</span> contratos</p>
+            <p class="hero__stat-label">adjudicados por organismos públicos</p>
+          </li>
+          <li class="hero__stat">
+            <p class="hero__stat-num"><span data-count="21" data-count-delay="900">21</span> marcas</p>
+            <p class="hero__stat-label">integradas en nuestros proyectos. Gold Partner de Huawei&nbsp;y&nbsp;Hikvision</p>
+          </li>
+        </ul>
+      </include>
+
+      <include src="partials/pagina/respuesta.html" titulo="¿Qué es Intellihelp?">
+        <p>
+          INTELLIHELP S.A. es una empresa argentina de servicios informáticos con sede en Palermo, Ciudad de Buenos Aires. Desde {{site.since}} prestamos servicios de soporte IT, mesa de ayuda, outsourcing IT, redes, fibra óptica, data center, cámaras de seguridad y control de acceso a empresas medianas y grandes y a organismos públicos con sede en Buenos Aires.
+        </p>
+      </include>
+
+      <include src="partials/pagina/datos.html" titulo="Intellihelp en cuatro datos." eyebrow="Quiénes somos">
+        <include src="partials/pagina/dato.html" icono="empresa" titulo="Empresa argentina">
+          <p>INTELLIHELP S.A. es una sociedad argentina de capital nacional, CUIT 30-71140975-7.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="equipo" titulo="Para quién trabajamos">
+          <p>Empresas medianas y grandes, corporaciones y organismos nacionales, provinciales y municipales; pymes, según el servicio. Hoy prestamos servicios, entre otros, a la Superintendencia de Riesgos del Trabajo, Parques Nacionales, Nación Seguros, Medifé y el grupo LoJack-Strix.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="mapa" titulo="Dónde estamos">
+          <p>{{site.address}}. Atendemos a organizaciones con sede en Buenos Aires y a sus sedes del interior: prestamos servicios en 12 provincias y, junto con socios locales, en Chile y Uruguay.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="escudo" titulo="Sin vínculo con IntelliHelp SpA">
+          <p>IntelliHelp SpA es una empresa chilena del mismo rubro y con un nombre similar. No tiene relación societaria ni comercial con Intellihelp.</p>
+        </include>
+      </include>
+
+      <include
+        src="partials/pagina/bloque.html"
+        id="como-trabajamos"
+        eyebrow="Cómo trabajamos"
+        titulo="Servicios, equipamiento e integración con un solo proveedor."
+      >
+        <template slot="bajada">
+          <p class="lead">Los servicios los presta nuestro propio personal. En los proyectos integramos equipamiento de distintos fabricantes bajo un único contrato y una única responsabilidad técnica.</p>
+        </template>
+        <ul class="servicios__grid" role="list">
+          <li class="servicios__card card rv slow card-h" data-d="0">
+            <span class="servicios__num" aria-hidden="true">01</span>
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/iconos/equipo.html"></include></span>
+            <h3 class="servicios__title">Servicios con equipo propio</h3>
+            <p class="servicios__text">Prestamos la mesa de ayuda, el soporte técnico y el outsourcing con profesionales en nómina de Intellihelp, que seleccionamos, capacitamos y supervisamos. Si el cliente prefiere incorporarlos a su propia nómina, realizamos la búsqueda y la selección.</p>
+            <ul class="servicios__chips" role="list" aria-label="Servicios">
+              <li class="chip">Outsourcing IT</li>
+              <li class="chip">Mesa de ayuda</li>
+              <li class="chip">Búsqueda IT</li>
+            </ul>
+          </li>
+
+          <li class="servicios__card card rv slow card-h" data-d="0.35">
+            <span class="servicios__num" aria-hidden="true">02</span>
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/iconos/check.html"></include></span>
+            <h3 class="servicios__title">Varios fabricantes, un contrato</h3>
+            <p class="servicios__text">Integramos equipamiento de uno o más fabricantes y, cuando resulta conveniente, lo adquirimos a través de mayoristas. Si una obra combina Hikvision, Huawei y Furukawa, el contrato y la responsabilidad técnica son de Intellihelp.</p>
+            <ul class="servicios__chips" role="list" aria-label="Soluciones">
+              <li class="chip">Cámaras y accesos</li>
+              <li class="chip">Redes y fibra</li>
+              <li class="chip">Data center</li>
+            </ul>
+          </li>
+
+          <li class="servicios__card card rv slow card-h" data-d="0.7">
+            <span class="servicios__num" aria-hidden="true">03</span>
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/iconos/empresa.html"></include></span>
+            <h3 class="servicios__title">Del molinete al sistema de RR. HH.</h3>
+            <p class="servicios__text">Integramos los lectores biométricos y los molinetes con HikCentral o BioStar, y conectamos esas plataformas con el sistema de recursos humanos del cliente para registrar el presentismo en forma automática. Finalizada la instalación, el soporte continúa a nuestro cargo.</p>
+            <ul class="servicios__chips" role="list" aria-label="Ejemplos">
+              <li class="chip">HikCentral</li>
+              <li class="chip">BioStar</li>
+              <li class="chip">Presentismo</li>
+            </ul>
+          </li>
+        </ul>
+        <p class="servicios__extra">
+          Nuestro trabajo se apoya en seis valores: <strong>cumplir lo acordado</strong>; <strong>comunicar con claridad y escuchar al cliente</strong>; <strong>sostener el conocimiento técnico</strong>; <strong>anticiparnos y dar seguimiento</strong>; <strong>ser transparentes en alcances y plazos</strong>, y <strong>brindar un trato personalizado a cada cliente</strong>.
+        </p>
+        <p class="servicios__extra servicios__proof">
+          El detalle de cada línea de trabajo está en las páginas de <a href="/soluciones/">soluciones</a>, <a href="/servicios/">servicios</a> y <a href="/clientes/">casos de nuestros clientes</a>.
+        </p>
+      </include>
+
+      <include src="partials/historia.html"></include>
+
+      <include src="partials/pagina/nosotros/equipo.html"></include>
+
+      <include
+        src="partials/pagina/bloque.html"
+        id="partners"
+        eyebrow="Partners"
+        titulo="Elegimos el fabricante según cada proyecto."
+        fondo="section--soft"
+      >
+        <template slot="bajada">
+          <p class="lead">No dependemos de un único fabricante. Somos Gold Partner de Huawei y de Hikvision, y nuestro equipo técnico tiene certificaciones vigentes de Hikvision, Dahua, Zyxel y Sangoma. Estas son las marcas con las que trabajamos, agrupadas por tipo de proyecto.</p>
+        </template>
+        <ul class="servicios__grid" role="list">
+          <li class="servicios__card card rv slow card-h clientes-sector" data-d="0">
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/nosotros/iconos/camara.html"></include></span>
+            <h3 class="servicios__title">Seguridad electrónica y ciberseguridad</h3>
+            <p class="servicios__text">Videovigilancia, biometría, control de acceso y seguridad de red.</p>
+            <ul class="logos__list clientes-sector__logos" role="list" aria-label="Marcas de seguridad">
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/hikvision.webp" width="378" height="48" alt="Hikvision" loading="lazy" decoding="async" /></li>
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/dahua.webp" width="161" height="48" alt="Dahua Technology" loading="lazy" decoding="async" /></li>
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/suprema.webp" width="344" height="48" alt="Suprema" loading="lazy" decoding="async" /></li>
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/fortinet.webp" width="418" height="48" alt="Fortinet" loading="lazy" decoding="async" /></li>
+            </ul>
+          </li>
+
+          <li class="servicios__card card rv slow card-h clientes-sector" data-d="0.35">
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/nosotros/iconos/red.html"></include></span>
+            <h3 class="servicios__title">Redes, fibra y comunicaciones</h3>
+            <p class="servicios__text">Fibra óptica GPON, cableado estructurado, redes inalámbricas y telefonía IP.</p>
+            <ul class="logos__list clientes-sector__logos" role="list" aria-label="Marcas de redes">
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/huawei.webp" width="220" height="48" alt="Huawei" loading="lazy" decoding="async" /></li>
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/furukawa.webp" width="310" height="48" alt="Furukawa Electric" loading="lazy" decoding="async" /></li>
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/cisco.webp" width="91" height="48" alt="Cisco" loading="lazy" decoding="async" /></li>
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/aruba.webp" width="212" height="48" alt="HPE Aruba Networking" loading="lazy" decoding="async" /></li>
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/ubiquiti.webp" width="48" height="48" alt="Ubiquiti" loading="lazy" decoding="async" /></li>
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/mikrotik.webp" width="279" height="48" alt="MikroTik" loading="lazy" decoding="async" /></li>
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/panduit.webp" width="218" height="48" alt="Panduit" loading="lazy" decoding="async" /></li>
+              <li class="logos__item"><include src="partials/pagina/nosotros/marcas/grandstream.html"></include></li>
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/commscope.webp" width="208" height="48" alt="CommScope" loading="lazy" decoding="async" /></li>
+            </ul>
+          </li>
+
+          <li class="servicios__card card rv slow card-h clientes-sector" data-d="0.7">
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/nosotros/iconos/servidor.html"></include></span>
+            <h3 class="servicios__title">Servidores, energía y software</h3>
+            <p class="servicios__text">Servidores, estaciones de trabajo, UPS y sistemas operativos.</p>
+            <ul class="logos__list clientes-sector__logos" role="list" aria-label="Marcas de servidores, energía y software">
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/dell.webp" width="48" height="48" alt="Dell" loading="lazy" decoding="async" /></li>
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/hp.webp" width="48" height="48" alt="HP" loading="lazy" decoding="async" /></li>
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/lenovo.webp" width="233" height="48" alt="Lenovo" loading="lazy" decoding="async" /></li>
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/apc.webp" width="101" height="48" alt="APC by Schneider Electric" loading="lazy" decoding="async" /></li>
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/eaton.webp" width="176" height="48" alt="Eaton" loading="lazy" decoding="async" /></li>
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/microsoft.webp" width="225" height="48" alt="Microsoft" loading="lazy" decoding="async" /></li>
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/red-hat.webp" width="204" height="48" alt="Red Hat" loading="lazy" decoding="async" /></li>
+              <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/suse.webp" width="265" height="48" alt="SUSE" loading="lazy" decoding="async" /></li>
+            </ul>
+          </li>
+        </ul>
+        <p class="servicios__extra">
+          <strong>Certificaciones vigentes del equipo técnico:</strong> Hikvision (HCSA y CGSA en control de acceso), Dahua (DHCA en videovigilancia IP y control de acceso), Zyxel (ZCNA en switching, redes inalámbricas, Nebula y seguridad de red) y Sangoma (Asterisk Certified Essentials, telefonía IP). El equipo completó además la formación de Suprema en control de acceso biométrico, la de Furukawa en redes ópticas pasivas y GPON, y cursos de Cisco, Fortinet y Avaya.
+        </p>
+        <p class="servicios__extra">
+          Adquirimos el equipamiento a través de los mayoristas que distribuyen cada marca en la Argentina, con la garantía del fabricante.
+        </p>
+      </include>
+
+      <include
+        src="partials/pagina/bloque.html"
+        id="trabaja-con-nosotros"
+        eyebrow="Trabajá con nosotros"
+        titulo="Búsquedas para nuestra sede y para servicios en clientes."
+      >
+        <template slot="bajada">
+          <p class="lead">Gran parte de nuestros técnicos y analistas presta servicio en las oficinas de los clientes, en nómina de Intellihelp. El proceso de selección tiene tres etapas.</p>
+        </template>
+        <ol class="pasos__grid" role="list">
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>1</span>
+            <h3 class="pasos__title">Envío del CV</h3>
+            <p class="pasos__text">Escribinos a <a href="mailto:{{site.emailRrhh}}">{{site.emailRrhh}}</a> con tu CV e indicá tu perfil o el área en la que te interesa trabajar.</p>
+          </li>
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>2</span>
+            <h3 class="pasos__title">Entrevistas</h3>
+            <p class="pasos__text">Si tu perfil coincide con una búsqueda abierta, coordinamos una entrevista telefónica o por videollamada y, luego, una entrevista presencial con analistas en psicodiagnóstico laboral.</p>
+          </li>
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>3</span>
+            <h3 class="pasos__title">Inducción y capacitación</h3>
+            <p class="pasos__text">Al ingresar, realizás una inducción en Intellihelp y otra en el cliente, y continuás tu capacitación en INTELLIHELP-Learning, nuestra plataforma de e-learning.</p>
+          </li>
+        </ol>
+        <p class="servicios__extra">
+          <a class="btn btn--primary" href="mailto:{{site.emailRrhh}}?subject=CV">Enviá tu CV por mail <span class="arr" aria-hidden="true">→</span></a>
+        </p>
+        <div class="nota"><b>Para Nico</b>Los tres pasos los saqué del PDF de outsourcing de 2022. ¿La selección sigue así y dónde publicamos hoy las búsquedas abiertas (antes era HiringRoom)? Si no me decís nada, queda así y sin link.</div>
+        <p class="servicios__extra">Utilizamos tu CV únicamente para nuestros procesos de selección. El detalle está en el <a href="/privacidad/">aviso de privacidad</a>.</p>
+      </include>
+
+      <include src="partials/pagina/faq.html" titulo="Origen, equipo, marcas y búsquedas laborales.">
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Intellihelp tiene relación con IntelliHelp SpA de Chile?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>No tiene ninguna relación. IntelliHelp SpA es una empresa chilena del mismo rubro y con el mismo nombre. Nosotros somos INTELLIHELP S.A., una sociedad argentina con sede en {{site.address}}, y nuestro mail de contacto es {{site.email}}.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Desde cuándo trabaja Intellihelp?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Desde {{site.since}}, año en que abrimos nuestra primera oficina en Puerto Madero. Sumamos {{site.years}} años de proyectos para empresas y organismos públicos, y hoy nuestra sede está en Palermo.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Quiénes forman el equipo de Intellihelp?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>El equipo de dirección y gestión trabaja en nuestra sede de Palermo: Carlos Baldelli, presidente y socio; Nicolás Baldelli, director de operaciones y socio; Laura Zaltron, marketing y comunicaciones; Lisandro Campos, preventa y servicios; Brian Sierra, sistemas y soporte técnico; Alejandro Ayala, instalaciones y posventa, y Raúl Nasif, administración. Completan el equipo los técnicos y analistas en nómina de Intellihelp que prestan servicio en las oficinas de nuestros clientes.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Con qué marcas trabajan?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Elegimos el fabricante según los requerimientos de cada proyecto. Entre otras, trabajamos con Huawei, Hikvision, Suprema, Dahua, Furukawa, Fortinet, Microsoft, Cisco, Aruba, Ubiquiti, MikroTik, Dell, HPE y Lenovo. Somos Gold Partner de Huawei y de Hikvision, y nuestro equipo técnico tiene certificaciones vigentes de Hikvision, Dahua, Zyxel y Sangoma.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Trabajan con organismos públicos?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Sí, con más de 20 contrataciones públicas adjudicadas. Hoy prestamos servicios a la Superintendencia de Riesgos del Trabajo, Parques Nacionales, el Consejo de la Magistratura y el INCUCAI. Anteriormente proveímos e instalamos un servidor Huawei para el Senado de la Nación y el storage Huawei OceanStor de Sedronar.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Dónde está Intellihelp?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>En {{site.address}}, en el barrio de Palermo. Desde allí atendemos a organizaciones con sede en Buenos Aires y a sus sedes del interior. Prestamos servicios en 12 provincias y, para LoJack, también en Chile y Uruguay, junto con socios locales.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Cómo hago para trabajar en Intellihelp?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Enviá tu CV a {{site.emailRrhh}} e indicá tu perfil. Incorporamos profesionales para nuestra sede y para los equipos que prestan servicio en las oficinas de clientes. El formulario de esta página está destinado solo a consultas comerciales.</p>
+          </div>
+        </details>
+
+        <!-- Borrador: sale cuando Carlos defina si se publica el rango. -->
+        <details name="faq" class="faq__item" data-draft>
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Cuántas personas trabajan en Intellihelp?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <div class="nota"><b>Para Carlos</b>En la oficina somos 7, pero no tengo cuántos técnicos trabajan en los clientes (LinkedIn dice de 11 a 50). ¿Publicamos un número? Si no, esta pregunta no sale.</div>
+          </div>
+        </details>
+      </include>
+
+      <include src="partials/pagina/cta.html" titulo="Coordinemos una reunión con nuestro equipo." cierre="Te recibimos en Palermo o visitamos tu oficina."></include>
+    </main>
+
+    <include src="partials/footer.html"></include>
+    <include src="partials/whatsapp.html"></include>
+  </body>
+</html>

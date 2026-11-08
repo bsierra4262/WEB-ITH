@@ -1,0 +1,57 @@
+# Sitio
+WEB/node_modules/
+WEB/dist/
+WEB/config/*
+!WEB/config/crm.example.php
+
+# Material interno o pesado que no se versiona
+DOCS/privado/
+DOCS/wordpress-anterior/
+
+*.log
+.DS_Store
+Thumbs.db
+.env
+.env.*
+
+# Configuración local del editor (su carpeta se ignora en .git/info/exclude, propio de cada PC)
+
+# Herramientas locales de esta PC (no forman parte del sitio)
+/.orion/
+
+# Caché del servidor de desarrollo (se genera al servir el template)
+.vite/
+
+# Configuración local del CRM para la home (TEMPLATE-NICO/api/_crm.php la busca en ../config): nunca se versiona
+/config/
+
+# WordPress local (WORDPRESS/): se versiona solo el tema propio y los scripts
+WORDPRESS/sitio/wp-admin/
+WORDPRESS/sitio/wp-includes/
+WORDPRESS/sitio/*.php
+WORDPRESS/sitio/*.html
+WORDPRESS/sitio/*.txt
+WORDPRESS/sitio/wp-config.php
+WORDPRESS/sitio/wp-content/uploads/
+WORDPRESS/sitio/wp-content/*
+!WORDPRESS/sitio/wp-content/themes/
+WORDPRESS/sitio/wp-content/themes/*
+!WORDPRESS/sitio/wp-content/themes/intellihelp/
+WORDPRESS/datos/
+WORDPRESS/herramientas/
+WORDPRESS/CREDENCIALES-LOCALES.txt
+
+# MemPalace per-project files (issue #185)
+mempalace.yaml
+entities.json
+
+# Perfil técnico personal de Brian (documentos personales: nunca se sube ni se publica)
+/Brian Perfil tecnico/
+/Estudio-*.zip
+/Secundaria-*.zip
+/TITULASIONES.zip
+/*.pdf
+
+# Verificación: dependencias y resultados locales (capturas y resumen de cada corrida)
+tools/verificacion/node_modules/
+tools/verificacion/resultados/

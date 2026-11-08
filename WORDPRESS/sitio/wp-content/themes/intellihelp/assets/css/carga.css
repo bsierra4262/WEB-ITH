@@ -1,0 +1,93 @@
+/* =========================================================
+   Intellihelp — animación de carga (componente único para todas las páginas)
+   Se incluye en el <head> de cualquier página con dos líneas, después de las hojas de estilo del sitio:
+     <link rel="stylesheet" href="/css/carga.css">
+     <script src="/js/carga.js"></script>
+   No necesita marcado en el <body>: el telón y el logo son ::before y ::after del <body>, así que se pintan desde el
+   primer cuadro sin esperar a ningún script diferido. js/carga.js pone html.m-intro en cada carga, en cada recarga y al
+   volver con Atrás, y la saca al terminar.
+
+   Qué se ve (1,05 s en total; se percibe como 1 s):
+     0 – .35 s    telón carbón y, en el centro exacto, el logo original completo (217 × 117, sin recortes ni máscaras)
+                  que aparece con un fundido y una escala mínima (96 % → 100 %), sin moverse de su centro.
+     .1 – .7 s    debajo del logo, una línea fina lima crece desde el centro hacia los dos lados sobre un riel lavanda:
+                  simétrica respecto del logo.
+     .7 – 1.05 s  salida: el logo se funde y crece apenas (100 % → 103 %) y el telón se desvanece hacia el contenido.
+   - El logo queda centrado con inset: 0 y margin: auto (sin translate -50 %): el centro de la caja coincide con el
+     centro de la pantalla. La caja deja el mismo aire arriba y abajo del logo (la línea va en el aire de abajo), así el
+     logo, y no el conjunto, es el que queda en el centro.
+   - El logo es img/logo-intellihelp.png (217 × 117, el original) embebido en base64: está desde el primer cuadro, sin
+     esperar otro pedido, y el archivo funciona igual desde cualquier carpeta (también copiado al tema del blog).
+   - Colores del sitio: carbón #2A2A2A, lima #98CC32, lavanda #F0EBF5 (sin variables: funciona también en páginas que
+     no cargan styles.css, como el tema del blog).
+   - pointer-events: none: nunca bloquea clics, scroll ni teclado.
+   - Con "reducir movimiento" (por ejemplo, Windows con los efectos de animación apagados) aparece igual, quieta: el
+     mismo telón con el logo entero y centrado, sin la línea, sin escalas ni desplazamientos, unos 0,6 s y salida solo
+     con fundido de opacidad.
+   ========================================================= */
+/* Telón y logo: siempre (también con "reducir movimiento"); lo que cambia según esa preferencia es solo la animación. */
+html.m-intro body::before,
+html.m-intro body::after {
+  content: "";
+  position: fixed;
+  z-index: 9990;
+  pointer-events: none;
+}
+/* Telón */
+html.m-intro body::before { inset: 0; background: #2A2A2A; }
+/* Logo y línea. --carga-w: ancho del logo (alto proporcional a 217 × 117); --carga-aire: aire entre el logo y la
+   línea, que se repite arriba para que el logo quede en el centro exacto. */
+html.m-intro body::after {
+  --carga-w: 217px;
+  --carga-h: calc(var(--carga-w) * 117 / 217);
+  --carga-aire: 30px;
+  inset: 0;
+  z-index: 9991;
+  width: var(--carga-w);
+  height: calc(var(--carga-h) + 2 * var(--carga-aire));
+  margin: auto;
+  --carga-logo: url("data:image/png;base64,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");
+  background: var(--carga-logo) 50% 50% / var(--carga-w) var(--carga-h) no-repeat;
+}
+@media (max-width: 600px) {
+  html.m-intro body::after { --carga-w: 160px; --carga-aire: 24px; }
+}
+
+/* Versión animada (1,05 s): fundido y escala mínima del logo, línea lima que crece desde el centro y salida. */
+@media (prefers-reduced-motion: no-preference) {
+  html.m-intro body::before { animation: ithCargaFondo .35s cubic-bezier(.22, 1, .36, 1) .7s forwards; }
+  html.m-intro body::after {
+    background:
+      linear-gradient(#98CC32, #98CC32) 50% 100% / 0 2px no-repeat,
+      linear-gradient(rgb(240 235 245 / .22), rgb(240 235 245 / .22)) 50% 100% / 100% 2px no-repeat,
+      var(--carga-logo) 50% 50% / var(--carga-w) var(--carga-h) no-repeat;
+    animation:
+      ithCargaLogo .35s cubic-bezier(.22, 1, .36, 1) both,
+      ithCargaLinea .6s cubic-bezier(.65, 0, .35, 1) .1s forwards,
+      ithCargaSale .35s cubic-bezier(.22, 1, .36, 1) .7s forwards;
+  }
+}
+
+/* Versión quieta ("reducir movimiento", por ejemplo con los efectos de animación de Windows apagados): el mismo telón
+   con el logo entero y centrado, sin la línea ni desplazamientos ni escalas; a los 0,3 s se funde (solo opacidad) y a
+   los 0,6 s ya no está. */
+@media (prefers-reduced-motion: reduce) {
+  html.m-intro body::before,
+  html.m-intro body::after { animation: ithCargaFondo .3s linear .3s forwards; }
+}
+
+/* Telón quieto: js/carga.js lo deja puesto al salir de la página (pagehide) para que, al volver con Atrás, lo primero
+   que se pinte sea el telón cerrado y no la página vieja; al volver la animación corre completa de nuevo. */
+html.carga-quieta body::before,
+html.carga-quieta body::after { animation-play-state: paused !important; }
+@media print {
+  html.m-intro body::before, html.m-intro body::after { content: none; }
+}
+
+@keyframes ithCargaLogo  { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: none; } }
+@keyframes ithCargaLinea {
+  from { background-size: 0 2px, 100% 2px, var(--carga-w) var(--carga-h); }
+  to   { background-size: 100% 2px, 100% 2px, var(--carga-w) var(--carga-h); }
+}
+@keyframes ithCargaSale  { from { opacity: 1; transform: none; } to { opacity: 0; transform: scale(1.03); visibility: hidden; } }
+@keyframes ithCargaFondo { from { opacity: 1; } to { opacity: 0; visibility: hidden; } }

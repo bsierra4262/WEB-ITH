@@ -1,0 +1,322 @@
+# ==================================================================================================================
+# .htaccess de la raíz de public_html de intellihelp.tech (Hostinger: LiteSpeed, compatible con Apache 2.4)
+# ==================================================================================================================
+#
+# Qué hace, en orden:
+#   1. Deja pasar sin tocar todo lo que no es el sitio principal: subdominios, apps y el blog.
+#   2. Redirecciones 301 de las URLs del sitio anterior a su equivalente en el sitio nuevo (una home con anclas, más
+#      /diagnostico-sin-cargo/, /postulate/, /privacidad/ y el blog en /novedades/). Así no se pierden los enlaces
+#      entrantes ni el posicionamiento.
+#   3. Dominio canónico: http y sin www van a https://www.intellihelp.tech en un solo salto.
+#   4. Página 404 propia, caché del navegador y tipos de archivo.
+#
+# public_html no es solo el sitio: también contiene las carpetas de los subdominios y de varias apps. Un .htaccess vale
+# para su carpeta y todas las de abajo, así que un subdominio cuya carpeta esté dentro de public_html también lee este
+# archivo (y con su propio host). Por eso la primera regla corta todo lo que no venga por www.intellihelp.tech o
+# intellihelp.tech, y la segunda deja afuera las carpetas de las apps.
+#
+# Dos detalles de cómo funciona mod_rewrite que conviene tener presentes:
+#   - Si una subcarpeta tiene su propio .htaccess con "RewriteEngine On" (el WordPress de /novedades/, el CRM y la
+#     mayoría de las apps), las reglas de este archivo NO se ejecutan para lo que cuelga de esa carpeta: valen las
+#     suyas. Las demás directivas (Options, DirectoryIndex, cabeceras, ErrorDocument) sí se heredan.
+#   - Toda 301 va directo a https://www.intellihelp.tech/<destino>: una URL vieja pedida por http o sin www llega al
+#     destino en un solo salto, sin pasar antes por la regla del dominio canónico.
+#
+# Origen de las redirecciones: redirecciones_301.csv del paquete de Marketing (03/11/2026), el capítulo 9 del informe
+# de visibilidad (DOCS/marketing/requisitos-marketing.md) y las URLs relevadas del respaldo del WordPress anterior.
+# Los destinos del CSV que eran páginas internas (/servicios/outsourcing-it/, /sectores/..., /quienes-somos/#...)
+# apuntan a la sección equivalente de la home, porque el sitio nuevo es una sola página.
+#
+# La misma lista está copiada en vite.config.js (RUTAS_VIEJAS) para que en local se comporte igual. Si se cambia
+# una, cambiar la otra.
+# ==================================================================================================================
+
+Options -Indexes
+# El index.html del sitio tiene prioridad sobre un index.php que pudiera quedar del WordPress anterior. Ojo: se hereda
+# en las carpetas de las apps; si alguna tiene index.html e index.php a la vez y necesita el .php, que lo diga en su
+# propio .htaccess.
+DirectoryIndex index.html index.php
+
+# ------------------------------------------------------------------------------------------------------------------
+# Tipos de archivo
+# ------------------------------------------------------------------------------------------------------------------
+<IfModule mod_mime.c>
+  # robots.txt y llms.txt: texto plano en UTF-8 (lo piden los lectores de llms.txt)
+  AddType 'text/plain; charset=UTF-8' .txt
+  AddType font/woff2 .woff2
+  AddType image/webp .webp
+  AddType image/avif .avif
+  AddType image/svg+xml .svg
+  AddType video/mp4 .mp4
+  AddType application/manifest+json .webmanifest
+</IfModule>
+
+# ------------------------------------------------------------------------------------------------------------------
+# Marca de "pedido del sitio principal" (ITH_SITIO) para las cabeceras de caché de más abajo: solo el host principal y
+# fuera de las apps, el blog y la API. Los subdominios y las apps no reciben ninguna cabecera de este archivo.
+# ------------------------------------------------------------------------------------------------------------------
+<IfModule mod_setenvif.c>
+  SetEnvIfNoCase Host "^(www\.)?intellihelp\.tech$" ITH_SITIO=1
+  SetEnvIf Request_URI "^/(crm|crm-pruebas|Desarrollo|desarrollo|GLPI|inventario|remitos|tickets|demo|learning|learningtest|comprobantes|marketing|servicios|landing-page-OLD|wp-snapshots|cgi-bin|novedades|api)(/|$)" !ITH_SITIO
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # ================================================================================================================
+  # 1. Lo que no es el sitio principal pasa sin tocar
+  # ================================================================================================================
+
+  # Subdominios (servicios., desarrollo., tickets., etc.): si su carpeta está dentro de public_html, este archivo
+  # también les aplica. Cualquier host que no sea www.intellihelp.tech o intellihelp.tech sale acá, antes de
+  # cualquier otra regla. NO BORRAR NI MOVER.
+  RewriteCond %{HTTP_HOST} !^(www\.)?intellihelp\.tech$ [NC]
+  RewriteRule ^ - [L]
+
+  # El blog (WordPress en /novedades/, con su propio .htaccess y RewriteBase /novedades/) y la API (/api/, con su
+  # propio .htaccess: solo contact.php y agenda.php). Ni /novedades/ ni nada de lo que cuelga de ahí se redirige; el
+  # dominio canónico del blog lo resuelve WordPress con su siteurl (https://www.intellihelp.tech/novedades).
+  RewriteRule ^(novedades|api)(/|$) - [L]
+
+  # /servicios/ ----------------------------------------------------------------------------------------------------
+  # En public_html hay una carpeta física servicios/: es la mini web que sirve servicios.intellihelp.tech y NO se
+  # borra. El subdominio ya salió con la primera regla, así que lo de acá vale solo para www/raíz, donde /servicios/
+  # era una página del sitio anterior indexada por Google. Decisión:
+  #   - /servicios, /servicios/ y cualquier /servicios/<algo> que NO sea un archivo físico -> /#servicios.
+  #     /servicios/ es un directorio, no un archivo, así que la condición !-f lo deja pasar a la 301: en www no se
+  #     muestra la portada de la mini web (sería contenido duplicado del subdominio). Se usa !-f y no !-d justamente
+  #     para eso.
+  #   - Los archivos físicos que no son páginas (estilos, imágenes, PDF de la mini web) se sirven igual en www, por si
+  #     algo los enlaza con la URL del dominio principal.
+  #   - Las tres páginas de la mini web que el CSV de Marketing manda redirigir (index.html, empresas.html y
+  #     home.html) van a /#servicios aunque existan, porque son las que estaban indexadas con www. En el subdominio
+  #     se siguen viendo igual.
+  # Si la carpeta servicios/ tiene su propio .htaccess con "RewriteEngine On", estas reglas no llegan a ejecutarse
+  # para /servicios/* y en www se vería la mini web. En ese caso, copiar este bloque al principio de ese .htaccess
+  # (cambiando "^servicios" por "^" en los patrones), siempre con la condición de host.
+  RewriteCond %{HTTP_HOST} ^(www\.)?intellihelp\.tech$ [NC]
+  RewriteCond %{QUERY_STRING} ^$
+  RewriteRule ^servicios/(index|empresas|home)\.html$ https://www.intellihelp.tech/#servicios [NC,NE,R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?intellihelp\.tech$ [NC]
+  RewriteRule ^servicios/(index|empresas|home)\.html$ https://www.intellihelp.tech/?%{QUERY_STRING}#servicios [NC,NE,R=301,L]
+
+  RewriteCond %{HTTP_HOST} ^(www\.)?intellihelp\.tech$ [NC]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{QUERY_STRING} ^$
+  RewriteRule ^servicios(/.*)?$ https://www.intellihelp.tech/#servicios [NE,R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?intellihelp\.tech$ [NC]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^servicios(/.*)?$ https://www.intellihelp.tech/?%{QUERY_STRING}#servicios [NE,R=301,L]
+
+  # Apps que viven en carpetas de public_html: ninguna regla de abajo las toca (ni www forzado, que rompe la vuelta
+  # del login con Google del CRM en intellihelp.tech/crm, ni barra final). La excepción de /desarrollo/ (y
+  # /Desarrollo/) es la de siempre: NO BORRAR. servicios/ queda acá para que sus archivos físicos se sirvan tal cual.
+  RewriteRule ^(crm|crm-pruebas|Desarrollo|desarrollo|GLPI|inventario|remitos|tickets|demo|learning|learningtest|comprobantes|marketing|servicios|landing-page-OLD|wp-snapshots|cgi-bin)(/|$) - [L]
+
+  # Archivos y carpetas ocultos (.git, .env, .user.ini...) -> 403, salvo .well-known (certificados SSL y
+  # verificaciones de dominio).
+  RewriteCond %{REQUEST_URI} !^/\.well-known/
+  RewriteRule (^|/)\. - [F,L]
+
+  # Archivos con versión (?v=... o nombre con hash en /assets/): se marcan para la caché de 1 año de más abajo.
+  RewriteCond %{QUERY_STRING} (^|&)v=[^&]+
+  RewriteRule \.(css|js|mjs|woff2?|avif|webp|png|jpe?g|gif|svg|ico)$ - [NC,E=ITH_VERSIONADO:1]
+  RewriteRule ^assets/.+-[A-Za-z0-9_-]{8}\.(css|js|mjs|woff2?|avif|webp|png|jpe?g|gif|svg)$ - [E=ITH_VERSIONADO:1]
+
+  # ================================================================================================================
+  # 2. URLs del sitio anterior -> sitio nuevo (301)
+  # ================================================================================================================
+  # Aceptan la barra final opcional y el prefijo /es/ del WordPress anterior. Los destinos con ancla van de a dos:
+  # sin consulta, a /#seccion; con consulta (las UTM de una campaña vieja), a /?consulta#seccion, para que la
+  # consulta no quede pegada después del ancla. NE evita que el "#" se codifique como %23. Los destinos sin ancla
+  # conservan la consulta solos.
+
+  # --- Blog anterior -> Novedades (conserva el resto de la ruta)
+  RewriteRule ^blog/?$ https://www.intellihelp.tech/novedades/ [NC,R=301,L]
+  RewriteRule ^blog/(.+)$ https://www.intellihelp.tech/novedades/$1 [NC,R=301,L]
+  # Novedades en inglés y las notas de 2018 (colgaban de la raíz)
+  RewriteRule ^(es/)?(news|la-ciudad-buenos-aires-contara-una-red-fibra-optica-unica|la-ciudad-de-buenos-aires-contara-con-una-red-de-fibra-optica-propia-y-unica|claves-que-hay-que-tener-en-cuenta-en-las-evaluaciones-de-desempeno)/?$ https://www.intellihelp.tech/novedades/ [NC,R=301,L]
+
+  # --- Contacto -> Diagnóstico sin cargo
+  # /?page_id=32 era el contacto del WordPress anterior. Se descarta la consulta (el "?" final), porque llevaría
+  # page_id al destino.
+  RewriteCond %{QUERY_STRING} (^|&)page_id=32(&|$)
+  RewriteRule ^$ https://www.intellihelp.tech/diagnostico-sin-cargo/? [R=301,L]
+  RewriteRule ^(es/)?(diagnostico|contacto)(/.*)?$ https://www.intellihelp.tech/diagnostico-sin-cargo/ [NC,R=301,L]
+  RewriteRule ^(es/)?(contacto-2|contacto-us|contact-us)/?$ https://www.intellihelp.tech/diagnostico-sin-cargo/ [NC,R=301,L]
+
+  # --- Búsquedas laborales -> Postulate
+  # Incluye los avisos de empleo de 2022 (analista-..., developer-..., desarrollador-..., arquitecto-de-soluciones).
+  RewriteRule ^(es/)?(trabaja-con-nosotros|nosotros/trabaja-con-nosotros)(/.*)?$ https://www.intellihelp.tech/postulate/ [NC,R=301,L]
+  RewriteRule ^(es/)?(busquedas|searches|rrhh|category/rrhh|dejanos-tu-cv|arquitecto-de-soluciones)/?$ https://www.intellihelp.tech/postulate/ [NC,R=301,L]
+  RewriteRule ^(es/)?(analista|developer|desarrollador)-[a-z0-9-]+/?$ https://www.intellihelp.tech/postulate/ [NC,R=301,L]
+
+  # --- Servicios -> /#servicios
+  # /servici0s/ (con cero, del menú anterior), versión vieja, inglés y las landings de outsourcing y del webinar 2022
+  # (el CSV las manda a Outsourcing IT, que en la home es la sección Servicios).
+  RewriteCond %{QUERY_STRING} ^$
+  RewriteRule ^(es/servicios(/.*)?|(es/)?(servici0s|servicios-antigua|services|outsourcing|webinar-claves-outsourcing-tecnologico-2022-yanina-brea)/?)$ https://www.intellihelp.tech/#servicios [NC,NE,R=301,L]
+  RewriteRule ^(es/servicios(/.*)?|(es/)?(servici0s|servicios-antigua|services|outsourcing|webinar-claves-outsourcing-tecnologico-2022-yanina-brea)/?)$ https://www.intellihelp.tech/?%{QUERY_STRING}#servicios [NC,NE,R=301,L]
+
+  # --- Soluciones -> /#soluciones
+  # Versiones viejas y las landings de control de accesos, videoseguridad y cloud Huawei.
+  RewriteCond %{QUERY_STRING} ^$
+  RewriteRule ^(es/)?(soluciones(/.*)?|(soluciones-antigua|soluciones-v1-antigua|solutions|control-de-accesos|videoseguridad|soluciones-cloud-huawei)/?)$ https://www.intellihelp.tech/#soluciones [NC,NE,R=301,L]
+  RewriteRule ^(es/)?(soluciones(/.*)?|(soluciones-antigua|soluciones-v1-antigua|solutions|control-de-accesos|videoseguridad|soluciones-cloud-huawei)/?)$ https://www.intellihelp.tech/?%{QUERY_STRING}#soluciones [NC,NE,R=301,L]
+
+  # --- Sectores y casos -> /#casos
+  # El CSV manda /outsourcing-bancos/ a Seguros y bancos y /universidades/ a Sector público: en la home, los dos
+  # sectores están en Casos de éxito.
+  RewriteCond %{QUERY_STRING} ^$
+  RewriteRule ^(es/)?((sectores|casos)(/.*)?|(outsourcing-bancos|universidades|universities)/?)$ https://www.intellihelp.tech/#casos [NC,NE,R=301,L]
+  RewriteRule ^(es/)?((sectores|casos)(/.*)?|(outsourcing-bancos|universidades|universities)/?)$ https://www.intellihelp.tech/?%{QUERY_STRING}#casos [NC,NE,R=301,L]
+
+  # --- Clientes -> /#clientes
+  # Versión vieja, tipos de cliente (/client-types/01/ y /02/), fichas de cliente y descargas de casos.
+  RewriteCond %{QUERY_STRING} ^$
+  RewriteRule ^(es/)?((clientes|clientes-antigua|clients)/?|(client-types|client|download)(/.*)?)$ https://www.intellihelp.tech/#clientes [NC,NE,R=301,L]
+  RewriteRule ^(es/)?((clientes|clientes-antigua|clients)/?|(client-types|client|download)(/.*)?)$ https://www.intellihelp.tech/?%{QUERY_STRING}#clientes [NC,NE,R=301,L]
+
+  # --- Quiénes somos -> /#quienes-somos
+  RewriteCond %{QUERY_STRING} ^$
+  RewriteRule ^(es/)?(quienes-somos|nosotros|who-we-are|who-we-are-2)/?$ https://www.intellihelp.tech/#quienes-somos [NC,NE,R=301,L]
+  RewriteRule ^(es/)?(quienes-somos|nosotros|who-we-are|who-we-are-2)/?$ https://www.intellihelp.tech/?%{QUERY_STRING}#quienes-somos [NC,NE,R=301,L]
+
+  # --- Partners y vendors -> /#socios (el CSV dice /quienes-somos/#partners; en la home es la sección Socios)
+  RewriteCond %{QUERY_STRING} ^$
+  RewriteRule ^(es/)?(partners-y-vendors|partners-and-vendors)/?$ https://www.intellihelp.tech/#socios [NC,NE,R=301,L]
+  RewriteRule ^(es/)?(partners-y-vendors|partners-and-vendors)/?$ https://www.intellihelp.tech/?%{QUERY_STRING}#socios [NC,NE,R=301,L]
+
+  # --- Historia -> /#historia (/history/ y sus hitos, incluida /history/primer-negocio/)
+  RewriteCond %{QUERY_STRING} ^$
+  RewriteRule ^(es/)?history(/.*)?$ https://www.intellihelp.tech/#historia [NC,NE,R=301,L]
+  RewriteRule ^(es/)?history(/.*)?$ https://www.intellihelp.tech/?%{QUERY_STRING}#historia [NC,NE,R=301,L]
+
+  # --- Preguntas frecuentes -> /#preguntas
+  RewriteCond %{QUERY_STRING} ^$
+  RewriteRule ^(es/)?preguntas-frecuentes/?$ https://www.intellihelp.tech/#preguntas [NC,NE,R=301,L]
+  RewriteRule ^(es/)?preguntas-frecuentes/?$ https://www.intellihelp.tech/?%{QUERY_STRING}#preguntas [NC,NE,R=301,L]
+
+  # --- A la home: home vieja, archivos de autor y de categoría, toda la versión en inglés y lo que quede de /es/
+  # (va al final para que /es/<página> conocida haya salido antes a su destino propio).
+  RewriteRule ^(es/)?(home|home-2|home-antigua)/?$ https://www.intellihelp.tech/ [NC,R=301,L]
+  RewriteRule ^(es/)?(author|category)(/.*)?$ https://www.intellihelp.tech/ [NC,R=301,L]
+  RewriteRule ^(en|es)(/.*)?$ https://www.intellihelp.tech/ [NC,R=301,L]
+
+  # ================================================================================================================
+  # 3. URLs duplicadas del sitio nuevo
+  # ================================================================================================================
+  # /index.html -> / y /postulate/index.html -> /postulate/. Se mira THE_REQUEST (lo que pidió el navegador) para no
+  # tocar el pedido interno que hace DirectoryIndex.
+  RewriteCond %{THE_REQUEST} ^[A-Z]+\s/+((?:[^/\s?]+/)*)index\.html[\s?]
+  RewriteRule ^ https://www.intellihelp.tech/%1 [R=301,L]
+  # Carpeta sin barra final (/postulate) -> con barra, en el mismo salto que https y www (si no, el servidor agrega la
+  # barra en un segundo salto).
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteCond %{REQUEST_URI} !/$
+  RewriteRule ^(.+)$ https://www.intellihelp.tech/$1/ [R=301,L]
+
+  # Restos del WordPress anterior en la raíz que ya no existen -> 410 (Google los da de baja antes que con un 404).
+  # Solo si no hay un archivo o carpeta real con ese nombre. No incluye wp-content: ahí queda el PDF de servicios.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(wp-admin|wp-includes|wp-json)(/|$) - [NC,G,L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^(wp-login|xmlrpc|wp-cron|wp-signup|wp-trackback)\.php$ - [NC,G,L]
+
+  # ================================================================================================================
+  # 4. Dominio canónico: https://www.intellihelp.tech, en un solo salto
+  # ================================================================================================================
+  # Sin www, por http o por https: directo a https://www (un solo salto, no dos).
+  RewriteCond %{HTTP_HOST} ^intellihelp\.tech$ [NC]
+  RewriteRule ^ https://www.intellihelp.tech%{REQUEST_URI} [R=301,L]
+  # Con www pero por http. Si el SSL lo termina el CDN de Hostinger, el pedido llega al servidor por http con la
+  # cabecera X-Forwarded-Proto (o con la variable HTTPS=on): en ese caso no se redirige, para no entrar en un bucle.
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{ENV:HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+  RewriteCond %{HTTP:X-Forwarded-SSL} !=on [NC]
+  RewriteRule ^ https://www.intellihelp.tech%{REQUEST_URI} [R=301,L]
+  # (Si el panel ofrece "forzar HTTPS", no hace falta activarlo: este bloque ya lo hace, y las dos cosas juntas pueden
+  # sumar un salto.)
+</IfModule>
+
+# ------------------------------------------------------------------------------------------------------------------
+# Página 404 propia, solo para el sitio principal
+# ------------------------------------------------------------------------------------------------------------------
+# Muestra /404.html (header, pie, GTM y CTA del sitio) con código 404. Va dentro de <If> para que los subdominios con
+# carpeta en public_html y las apps no hereden una página que no tienen: ellos siguen con la suya o con la del
+# hosting. LiteSpeed Enterprise entiende <If> con estas expresiones.
+# Alternativa si el servidor no respetara el <If> (se nota porque /no-existe/ responde 404 con la página genérica del
+# hosting): sacar el ErrorDocument del bloque y dejarlo suelto, y en el .htaccess de cada subdominio o app que
+# necesite la suya poner "ErrorDocument 404 default".
+<If "%{HTTP_HOST} =~ /^(www\.)?intellihelp\.tech$/i && %{REQUEST_URI} !~ m#^/(crm|crm-pruebas|Desarrollo|desarrollo|GLPI|inventario|remitos|tickets|demo|learning|learningtest|comprobantes|marketing|servicios|landing-page-OLD|wp-snapshots|cgi-bin|novedades|api)(/|$)#">
+  ErrorDocument 404 /404.html
+</If>
+
+# La página de error no se indexa (también lo dice su <meta name="robots">). "always" para que la cabecera salga
+# también cuando se muestra como respuesta 404.
+<Files "404.html">
+  <IfModule mod_headers.c>
+    Header always set X-Robots-Tag "noindex, follow"
+    Header always set Cache-Control "no-cache"
+  </IfModule>
+</Files>
+
+# ------------------------------------------------------------------------------------------------------------------
+# Caché del navegador (solo pedidos del sitio principal: ITH_SITIO)
+# ------------------------------------------------------------------------------------------------------------------
+#   - HTML, robots.txt, llms.txt, sitemap.xml: no-cache (se revalida siempre, así cada publicación se ve enseguida).
+#   - CSS y JS sin versión: 1 hora (el HTML los pide con el mismo nombre en cada publicación).
+#   - Imágenes, fuentes y video sin versión: 30 días. PDF: 1 día.
+#   - CSS, JS, fuentes e imágenes con versión (?v=... o hash en /assets/): 1 año, immutable. Al cambiar el archivo
+#     cambia la versión, así que el navegador nunca usa uno viejo.
+# Se hace con mod_headers y la marca ITH_SITIO (y no con mod_expires, que no se puede limitar a un host o a una
+# carpeta) para no mandarles estas cabeceras a los subdominios ni a las apps. El orden importa: la regla de versión
+# va al final y pisa a las anteriores.
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html?|txt|xml|webmanifest)$">
+    Header set Cache-Control "no-cache" env=ITH_SITIO
+  </FilesMatch>
+  <FilesMatch "\.(css|js|mjs)$">
+    Header set Cache-Control "public, max-age=3600" env=ITH_SITIO
+  </FilesMatch>
+  <FilesMatch "\.(avif|webp|png|jpe?g|gif|svg|ico|woff2?|mp4|webm)$">
+    Header set Cache-Control "public, max-age=2592000" env=ITH_SITIO
+  </FilesMatch>
+  <FilesMatch "\.pdf$">
+    Header set Cache-Control "public, max-age=86400" env=ITH_SITIO
+  </FilesMatch>
+  <FilesMatch "\.(css|js|mjs|woff2?|avif|webp|png|jpe?g|gif|svg|ico)$">
+    Header set Cache-Control "public, max-age=31536000, immutable" env=ITH_VERSIONADO
+  </FilesMatch>
+</IfModule>
+
+# Compresión (LiteSpeed ya comprime por su cuenta; esto es para Apache)
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml text/javascript application/javascript application/json application/xml image/svg+xml
+</IfModule>
+
+# ------------------------------------------------------------------------------------------------------------------
+# Wordfence (del WordPress anterior): DESACTIVADO A PROPÓSITO
+# ------------------------------------------------------------------------------------------------------------------
+# El WordPress anterior tenía el firewall de Wordfence, que se carga con auto_prepend_file antes de cada PHP. Con el
+# núcleo viejo movido a respaldo, wordfence-waf.php ya no está y si esta línea quedara activa todo PHP de public_html
+# (la API del formulario y la agenda, y también las apps) daría error 500. Por eso queda comentado. Revisar también
+# que el .user.ini de public_html no tenga la misma línea. Solo se vuelve a activar si se reinstala Wordfence en la
+# raíz, con la ruta real del archivo en el servidor.
+#
+# # Wordfence WAF
+# <IfModule LiteSpeed>
+#   php_value auto_prepend_file 'RUTA_DE_PUBLIC_HTML/wordfence-waf.php'
+# </IfModule>
+# <IfModule lsapi_module>
+#   php_value auto_prepend_file 'RUTA_DE_PUBLIC_HTML/wordfence-waf.php'
+# </IfModule>
+# <Files ".user.ini">
+#   <IfModule mod_authz_core.c>
+#     Require all denied
+#   </IfModule>
+# </Files>
+# # END Wordfence WAF

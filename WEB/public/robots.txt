@@ -1,0 +1,39 @@
+# Intellihelp: https://www.intellihelp.tech
+#
+# Todo el sitio está abierto a buscadores y a los robots de IA, salvo /api/
+# (el envío del formulario). El blog de WordPress (/blog/) también queda
+# abierto: genera su propio sitemap, que se suma abajo cuando esté instalado.
+
+# Buscadores y robots en general
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Robots de IA: permiso explícito.
+# Un robot que tiene su propio grupo ignora el de "*", por eso se repite
+# el Disallow de /api/.
+# OpenAI: entrenamiento, buscador de ChatGPT y visitas pedidas por un usuario.
+# Anthropic: entrenamiento, visitas pedidas por un usuario y buscador de Claude.
+# Perplexity: buscador y visitas pedidas por un usuario.
+# Google-Extended y Applebot-Extended: uso del contenido en Gemini y Apple Intelligence.
+# Bingbot: buscador de Bing, que también alimenta a Copilot y a ChatGPT.
+# CCBot: Common Crawl, base pública que usan muchos modelos de lenguaje.
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-User
+User-agent: Claude-SearchBot
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Applebot
+User-agent: Applebot-Extended
+User-agent: Bingbot
+User-agent: CCBot
+Allow: /
+Disallow: /api/
+
+Sitemap: https://www.intellihelp.tech/sitemap.xml
+# Cuando el WordPress de /blog/ esté instalado, sumar su sitemap, por ejemplo:
+# Sitemap: https://www.intellihelp.tech/blog/wp-sitemap.xml

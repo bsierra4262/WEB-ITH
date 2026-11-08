@@ -1,0 +1,479 @@
+/* ==========================================================================
+   Cierre "Hablemos" + formulario
+   Estructura del PDF: dos columnas; a la izquierda eyebrow, título, bajada y
+   filas de contacto (WhatsApp con su logo y el número, teléfono, mail y dirección) con el
+   ícono en un cuadrado redondeado; a la derecha el panel del formulario.
+   Colores del código original: carbón con fondo de luces, eyebrow y la
+   segunda frase del título (.agenda__mark) en lima, bajada cremita, íconos lima sobre
+   blanco al 10%, panel blanco y botón de envío en lima.
+   ========================================================================== */
+
+.agenda__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 48px;
+}
+
+/* Columna izquierda */
+.agenda__intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.agenda__h2 {
+  color: var(--text-on-dark);
+  font-size: clamp(2.25rem, 4.4vw, 3.375rem); /* 36 → 54px */
+}
+
+.agenda__mark {
+  color: var(--accent-on-dark);
+}
+
+.agenda__lead {
+  font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem); /* 17 → 19px */
+  line-height: var(--lh-body);
+  color: var(--text-2-on-dark);
+}
+
+.agenda__contact[role='list'] {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+/* Filas de contacto: ícono en cuadrado redondeado + texto */
+.agenda__row {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 44px;
+  color: var(--text-on-dark);
+  font-size: 1rem;
+  line-height: 1.4;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+/* La dirección va en cremita, como en el original */
+.agenda__row--addr {
+  color: var(--text-2-on-dark);
+}
+
+/* Dato secundario de una fila (el número debajo de "Escribinos por WhatsApp"),
+   en cremita como la dirección. */
+.agenda__row-sub {
+  display: block;
+  font-size: 0.9375rem;
+  color: var(--text-2-on-dark);
+}
+
+/* Hover y foco: el texto pasa a blanco (la dirección y el número también)
+   con subrayado lima. Pisa el a:hover global (carbón), que no se vería
+   sobre el fondo carbón. */
+.agenda__row:hover,
+.agenda__row:focus-visible,
+.agenda__row:hover .agenda__row-sub,
+.agenda__row:focus-visible .agenda__row-sub {
+  color: var(--c-white);
+}
+
+.agenda__row:hover .agenda__row-text,
+.agenda__row:focus-visible .agenda__row-text {
+  text-decoration: underline;
+  text-decoration-color: var(--accent-on-dark);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.25em;
+}
+
+.agenda__row:focus-visible {
+  outline: 2px solid var(--accent-on-dark);
+  outline-offset: 4px;
+  border-radius: 10px;
+}
+
+.agenda__ico {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--c-white) 10%, transparent);
+  color: var(--accent-on-dark);
+  transition: background-color var(--dur);
+}
+
+.agenda__row:hover .agenda__ico,
+.agenda__row:focus-visible .agenda__ico {
+  background: color-mix(in srgb, var(--c-white) 16%, transparent);
+}
+
+.agenda__ico svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Panel del formulario */
+.agenda__panel {
+  position: relative;
+  background: var(--surface);
+  color: var(--text);
+  border-radius: var(--radius-lg);
+  padding: clamp(24px, 5vw, 36px);
+}
+
+/* Los campos y la lista del desplegable tienen su propio anillo (components.css) */
+.agenda__panel :focus-visible:not(.field, .select__list) {
+  outline-color: var(--focus);
+}
+
+/* Links dentro del panel blanco (aviso legal, mail del error): violeta con
+   subrayado y hover carbón. Pisa el hover blanco de los bloques oscuros. */
+.agenda__panel a:not(.btn) {
+  color: var(--c-violet);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: color var(--dur), text-decoration-color var(--dur);
+}
+
+.agenda__panel a:not(.btn):hover {
+  color: var(--c-carbon);
+  text-decoration-color: var(--c-violet);
+  text-decoration-thickness: 2px;
+}
+
+/* Notas internas dentro del panel blanco: vuelven al estilo claro
+   (la regla .on-dark .nota las dejaría cremita sobre blanco). */
+.agenda__panel .nota {
+  margin-top: 10px;
+  background: var(--c-cream);
+  border-color: var(--c-violet);
+  color: var(--c-carbon);
+}
+
+.agenda__panel .nota b {
+  color: var(--c-violet);
+}
+
+.agenda__h3 {
+  margin-bottom: 6px;
+  font-size: clamp(1.625rem, 1.4rem + 0.8vw, 2rem); /* 26 → 32px */
+  font-weight: 700;
+}
+
+.agenda__sub {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--text-2);
+}
+
+.agenda__form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.agenda__form[hidden] {
+  display: none;
+}
+
+.agenda__row2 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+}
+
+.agenda__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.agenda__label {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text);
+}
+
+.agenda__req {
+  color: var(--accent);
+}
+
+/* Los campos usan .field (components.css). Acá solo lo propio del panel. */
+.agenda__required-note {
+  margin-top: -6px;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--text-2);
+}
+
+.agenda__textarea {
+  min-height: 120px;
+}
+
+.agenda__error {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--accent);
+}
+
+.agenda__error::before {
+  content: '!';
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: var(--c-violet);
+  color: var(--c-white);
+  font-size: 0.6875rem;
+  font-weight: 700;
+}
+
+/* Casilla de consentimiento (Ley 25.326): obligatoria y sin marcar. Casilla
+   nativa en violeta, alineada con la primera línea del texto. */
+.agenda__check {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 10px;
+}
+
+.agenda__check-input {
+  width: 20px;
+  height: 20px;
+  margin: 1px 0 0;
+  accent-color: var(--c-violet);
+  cursor: pointer;
+}
+
+.agenda__check-input:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.agenda__check-label {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--text-2);
+  cursor: pointer;
+}
+
+.agenda__check + .agenda__error {
+  margin-top: -6px;
+}
+
+/* Honeypot fuera de pantalla */
+.agenda__hp {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.agenda__submit {
+  margin-top: 4px;
+}
+
+/* Enviando: el botón queda quieto, sin brillo, y la flecha pasa a ser un
+   indicador de carga. */
+.agenda__submit[aria-disabled='true'] {
+  cursor: progress;
+  opacity: 0.8;
+  transform: none;
+  box-shadow: none;
+}
+
+.agenda__submit[aria-disabled='true']::after {
+  display: none;
+}
+
+.agenda__submit[aria-disabled='true'] .arr {
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  font-size: 0;
+  transform: none;
+  animation: agenda-spin 0.8s linear infinite;
+}
+
+@keyframes agenda-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .agenda__submit[aria-disabled='true'] .arr {
+    animation-duration: 2.4s;
+  }
+}
+
+/* Aviso de error del envío (role="status"), con el mail como alternativa */
+.agenda__status:empty {
+  display: none;
+}
+
+.agenda__status {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1px solid rgb(102 51 153 / 0.25);
+  border-left: 4px solid var(--c-violet);
+  border-radius: var(--radius);
+  background: var(--c-cream);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.agenda__status::before {
+  content: '!';
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: var(--c-violet);
+  color: var(--c-white);
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.agenda__status a {
+  overflow-wrap: anywhere;
+}
+
+/* Texto legal bajo el botón, con candado */
+.agenda__legal {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--c-cream);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--text-2);
+  text-wrap: pretty;
+}
+
+.agenda__legal-ico {
+  flex: none;
+  width: 15px;
+  height: 15px;
+  margin-top: 2px;
+  color: var(--c-violet);
+}
+
+/* Envío correcto: reemplaza al formulario. Violeta como el original, en una
+   tarjeta cremita con el check en círculo. */
+.agenda__done {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 4px 16px;
+  margin-top: 22px;
+  padding: 20px;
+  border: 1px solid rgb(102 51 153 / 0.2);
+  border-radius: 12px;
+  background: var(--c-cream);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--text);
+  animation: agenda-done-in 0.35s var(--ease-out);
+}
+
+.agenda__done[hidden] {
+  display: none;
+}
+
+.agenda__done:focus {
+  outline: none;
+}
+
+.agenda__done:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.agenda__done-ico {
+  grid-row: span 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--c-violet);
+  color: var(--c-white);
+  box-shadow: 0 0 0 6px rgb(102 51 153 / 0.14);
+}
+
+.agenda__done-ico svg {
+  width: 22px;
+  height: 22px;
+}
+
+.agenda__done-title {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--accent);
+}
+
+.agenda__done-text {
+  color: var(--text-2);
+}
+
+@keyframes agenda-done-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .agenda__done {
+    animation: none;
+  }
+}
+
+@media (min-width: 560px) {
+  .agenda__row2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 960px) {
+  .agenda__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}

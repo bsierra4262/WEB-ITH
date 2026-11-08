@@ -1,0 +1,76 @@
+/* ==========================================================================
+   Design tokens — Intellihelp
+   Colores del código original (DOCS/diseno/Home-html-referencia), que es
+   la referencia de diseño aprobada:
+     Blanco           #FFFFFF  base de la página, tarjetas, panel del formulario
+     Carbón           #2A2A2A  texto, hero, historia, cierre, paneles oscuros
+     Carbón header    #333333  header y pie (con borde #4A4A4A)
+     Violeta          #663399  marca, botón secundario sobre claro, íconos,
+                               eyebrows sobre claro
+     Violeta cremita  #F0EBF5  franjas suaves, chips, tarjetas, texto
+                               secundario sobre oscuro
+     Lima             #98CC32  acento sobre oscuro: botones principales (CTA),
+                               palabra destacada, eyebrows y años del timeline,
+                               checks, "7x24", WhatsApp, hover del menú
+     Gris de línea    #444444  divisores en bloques oscuros y texto secundario
+                               sobre claro
+   ========================================================================== */
+
+:root {
+  /* Paleta */
+  --c-white: #ffffff;
+  --c-carbon: #2a2a2a;
+  --c-violet: #663399;
+  --c-cream: #f0ebf5;
+  --c-lime: #98cc32;
+  --c-line: #444444;
+  --c-carbon-2: #333333;
+  --c-line-2: #4a4a4a;
+
+  /* Roles */
+  --text: var(--c-carbon);
+  --text-2: var(--c-line);
+  --text-on-dark: var(--c-white);
+  --text-2-on-dark: var(--c-cream);
+  --surface: var(--c-white);
+  --surface-soft: var(--c-cream);
+  --surface-dark: var(--c-carbon);
+  --surface-brand: var(--c-violet);
+  --accent: var(--c-violet);
+  --signal: var(--c-lime);
+  --accent-on-dark: var(--c-lime);
+  --divider-dark: var(--c-line);
+  --divider-light: var(--c-cream);
+  --focus: var(--c-violet);
+
+  /* Tipografía */
+  --font-display: 'Saira Variable', 'Saira Fallback', system-ui, sans-serif;
+  --font-body: 'Source Sans 3 Variable', 'Source Sans 3 Fallback', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --fs-body: 1.0625rem;          /* 17px */
+  --fs-small: 0.875rem;          /* 14px */
+  --fs-lead: clamp(1.125rem, 1rem + 0.5vw, 1.3125rem); /* 18 → 21px */
+  --fs-h1: clamp(2.5rem, 1.6rem + 4vw, 4.75rem);       /* 40 → 76px */
+  --fs-h2: clamp(2rem, 1.4rem + 2.6vw, 3.25rem);       /* 32 → 52px */
+  --fs-h3: clamp(1.375rem, 1.2rem + 0.8vw, 1.75rem);   /* 22 → 28px */
+  --lh-tight: 1.1;
+  --lh-body: 1.6;
+
+  /* Layout */
+  --wrap: 1180px;
+  --gutter: clamp(16px, 4vw, 32px);
+  --section-y: clamp(64px, 8vw, 104px);
+  --radius-sm: 6px;
+  --radius: 8px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+  --header-h: 72px;
+
+  /* Elevación (sombras en carbón translúcido: siguen la paleta) */
+  --shadow-sm: 0 2px 8px rgb(42 42 42 / 0.06);
+  --shadow: 0 18px 40px rgb(42 42 42 / 0.1);
+  --shadow-btn: 0 14px 28px rgb(42 42 42 / 0.18);
+
+  /* Movimiento */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 0.25s;
+}

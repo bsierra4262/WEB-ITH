@@ -1,0 +1,32 @@
+<!--
+  HERO DE PÁGINA INTERNA
+  Carbón con el fondo de luces difusas (partials/fondo.html), como el hero de la home, pero
+  más bajo y alineado a la izquierda. Lleva data-hero: mientras se ve, el
+  botón flotante de WhatsApp se oculta (wa-float.js).
+  Todo el contenido va en el slot. Orden recomendado y clases:
+    1. Migas: partials/pagina/migas.html (Inicio > Sección > Página) o
+       partials/pagina/migas-raiz.html (Inicio > Página). Ya traen "in d1".
+    2. <p class="eyebrow eyebrow--dash in d2">Servicio</p>
+    3. <h1 id="pagina-titulo" class="pagina-hero__title in d3">Keyword principal
+       <span class="pagina-hero__hl">en Buenos Aires</span></h1>
+       (id="pagina-titulo" es obligatorio: lo usa aria-labelledby; un solo h1).
+    4. <p class="lead pagina-hero__lead in d4">Bajada de una o dos frases.</p>
+    5. <div class="pagina-hero__actions in d5"> CTA lima a #agenda + WhatsApp
+       (btn btn--light con href site.whatsapp.url; el texto lo cambia
+       wa-texto.js según data-wa-texto del body) </div>
+    6. Opcional: <p class="hero__note in d6"> con el check (como la home).
+
+  Uso:
+    <include src="partials/pagina/hero.html">
+      <include src="partials/pagina/migas.html" seccion="Servicios" seccion-url="/servicios/" actual="Outsourcing IT y service desk"></include>
+      <p class="eyebrow eyebrow--dash in d2">Servicio</p>
+      <h1 id="pagina-titulo" class="pagina-hero__title in d3">…</h1>
+      …
+    </include>
+-->
+<section class="pagina-hero tech on-dark" data-hero aria-labelledby="pagina-titulo">
+  <include src="../fondo.html"></include>
+  <div class="wrap pagina-hero__inner">
+    <slot></slot>
+  </div>
+</section>

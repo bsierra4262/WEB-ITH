@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <include
+      src="partials/pagina/head.html"
+      titulo="Servicios IT para empresas en Buenos Aires | Intellihelp"
+      descripcion="Mesa de ayuda, outsourcing IT, selección y búsqueda de perfiles IT, desarrollo de software, capacitación y consultoría para empresas y organismos de CABA."
+    ></include>
+
+    <!--
+      ÍNDICE DE SERVICIOS (informe de visibilidad, cap. 9). Los 7 servicios del
+      brief (§2.2 y §4.1), que presta el staff de Intellihelp (§4). Fase 1 con
+      link: Outsourcing y Service Desk. Fase 2: los otros seis servicios, cada
+      uno con su página y su tarjeta como link.
+      Keyword: servicios IT para empresas (secundaria de la home, INF p.8).
+      Fuentes: brief §2.2, §3, §4.1, §6 y §13; fuentes-pdfs-old.md §2 y §6;
+      fuentes-web-actual.md §4 y §6.
+      Redacción: DOCS/contenido/guia-de-estilo.md (versión del 30/10/2026).
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "@id": "{{page.url}}#pagina",
+        "name": "Servicios IT de Intellihelp",
+        "description": "Servicios IT que presta el equipo de Intellihelp: outsourcing IT y service desk, reclutamiento y selección, búsqueda de recursos, desarrollo de aplicaciones, automatización con IA, capacitación y consultoría, para empresas y organismos públicos con sede en Buenos Aires.",
+        "url": "{{page.url}}",
+        "inLanguage": "es-AR",
+        "isPartOf": { "@type": "WebSite", "name": "{{site.name}}", "url": "{{site.url}}" },
+        "about": { "@type": "Organization", "@id": "{{site.url}}#organizacion", "name": "{{site.name}}" },
+        "mainEntity": {
+          "@type": "ItemList",
+          "name": "Servicios",
+          "numberOfItems": 7,
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Outsourcing IT y service desk", "url": "{{page.origin}}/servicios/outsourcing-y-service-desk/" },
+            { "@type": "ListItem", "position": 2, "name": "Reclutamiento y selección", "url": "{{page.origin}}/servicios/reclutamiento-y-seleccion/" },
+            { "@type": "ListItem", "position": 3, "name": "Búsqueda de recursos y executive search", "url": "{{page.origin}}/servicios/busqueda-de-recursos/" },
+            { "@type": "ListItem", "position": 4, "name": "Desarrollo de aplicaciones", "url": "{{page.origin}}/servicios/desarrollo-de-aplicaciones/" },
+            { "@type": "ListItem", "position": 5, "name": "Automatización con IA", "url": "{{page.origin}}/servicios/automatizacion/" },
+            { "@type": "ListItem", "position": 6, "name": "Capacitación", "url": "{{page.origin}}/servicios/capacitacion/" },
+            { "@type": "ListItem", "position": 7, "name": "Consultoría", "url": "{{page.origin}}/servicios/consultoria/" }
+          ]
+        }
+      }
+    </script>
+  </head>
+  <body data-wa-texto="Hola Intellihelp, quiero consultar por sus servicios IT para empresas.">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <include src="partials/header.html"></include>
+
+    <main id="contenido">
+      <include src="partials/pagina/hero.html">
+        <include src="partials/pagina/migas-raiz.html" actual="Servicios"></include>
+        <p class="eyebrow eyebrow--dash in d2">Servicios</p>
+        <h1 id="pagina-titulo" class="pagina-hero__title in d3">
+          Servicios IT para empresas <span class="pagina-hero__hl">y&nbsp;organismos de Buenos Aires.</span>
+        </h1>
+        <p class="lead pagina-hero__lead in d4">
+          Desde {{site.since}}, nuestro equipo presta a las áreas de sistemas de empresas y organismos públicos servicios de mesa de ayuda, incorporación de perfiles IT, desarrollo de software a medida, capacitación y consultoría.
+        </p>
+        <div class="pagina-hero__actions in d5">
+          <a class="btn btn--lime" href="/diagnostico/">Agendá una reunión <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn btn--light" href="{{site.whatsapp.url}}" target="_blank" rel="noopener">Escribinos por WhatsApp<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a>
+        </div>
+        <p class="hero__note in d6">
+          <svg class="hero__check" aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+          <span>Profesionales en nómina de Intellihelp o del cliente, con seguimiento durante todo el servicio.</span>
+        </p>
+      </include>
+
+      <include src="partials/pagina/respuesta.html" titulo="¿Qué servicios IT presta Intellihelp?">
+        <p>
+          En Intellihelp prestamos siete servicios IT: mesa de ayuda y outsourcing IT, reclutamiento y selección, búsqueda de recursos, desarrollo de aplicaciones, automatización con IA, capacitación y consultoría. Los ejecuta nuestro equipo, con profesionales que seleccionamos y acompañamos durante todo el servicio, para empresas medianas y grandes y organismos públicos con sede en Buenos Aires y sus sedes del interior.
+        </p>
+      </include>
+
+      <include
+        src="partials/pagina/bloque.html"
+        id="servicios"
+        eyebrow="Servicios"
+        titulo="Siete servicios a cargo de un mismo equipo."
+        fondo="section--soft"
+      >
+        <template slot="bajada">
+          <p class="lead">La trayectoria de Intellihelp comenzó con el outsourcing IT: en 2013 prestamos ese servicio a la Agencia de Sistemas de Información de la Ciudad de Buenos Aires, nuestro primer caso de éxito. Los proyectos que incluyen equipamiento de fabricantes, como videovigilancia, redes o data center, se presentan en <a href="/soluciones/">Soluciones</a>.</p>
+        </template>
+        <ul class="servicios__grid" role="list">
+          <li class="rv slow servicios-idx__destacado" data-d="0">
+            <a class="servicios__card card card-h pagina-link-card" href="/servicios/outsourcing-y-service-desk/">
+              <span class="servicios__num" aria-hidden="true">01</span>
+              <span class="servicios__icon icon-badge"><include src="partials/pagina/iconos/auriculares.html"></include></span>
+              <h3 class="servicios__title">Outsourcing IT y service desk</h3>
+              <p class="servicios__text">Atención a usuarios con un acuerdo de nivel de servicio (SLA) definido. Mesa de ayuda, soporte técnico y service desk de niveles 1 y 2 con procesos ITIL, en las oficinas del cliente o en las nuestras. Cuando incorporamos un equipo IT, asumimos la supervisión, el control y, si se requiere, el espacio físico.</p>
+              <span class="pagina-link-card__more">Ver alcance, casos y preguntas <span class="arr" aria-hidden="true">→</span></span>
+            </a>
+          </li>
+
+          <li class="rv slow" data-d="0">
+            <a class="servicios__card card card-h pagina-link-card" href="/servicios/reclutamiento-y-seleccion/">
+              <span class="servicios__num" aria-hidden="true">02</span>
+              <span class="servicios__icon icon-badge"><include src="partials/pagina/servicios-clientes/iconos/seleccion.html"></include></span>
+              <h3 class="servicios__title">Reclutamiento y selección</h3>
+              <p class="servicios__text">Buscamos y seleccionamos al profesional y, una vez incorporado a la empresa, continuamos el acompañamiento con actividades coordinadas con los líderes del cliente.</p>
+              <ul class="servicios__chips" role="list" aria-label="Incluye">
+                <li class="chip">En nómina del cliente</li>
+                <li class="chip">Seguimiento posterior</li>
+              </ul>
+              <span class="pagina-link-card__more">Ver el proceso de selección <span class="arr" aria-hidden="true">→</span></span>
+            </a>
+          </li>
+
+          <li class="rv slow" data-d="0.2">
+            <a class="servicios__card card card-h pagina-link-card" href="/servicios/busqueda-de-recursos/">
+              <span class="servicios__num" aria-hidden="true">03</span>
+              <span class="servicios__icon icon-badge"><include src="partials/pagina/servicios-clientes/iconos/lupa.html"></include></span>
+              <h3 class="servicios__title">Búsqueda de recursos</h3>
+              <p class="servicios__text">Perfiles IT y de otras áreas, y executive search para la alta dirección. Antes de presentarlo al cliente, preseleccionamos a cada candidato por teléfono o videollamada y lo evaluamos en una entrevista con analistas en psicodiagnóstico laboral.</p>
+              <ul class="servicios__chips" role="list" aria-label="Incluye">
+                <li class="chip">Perfiles IT</li>
+                <li class="chip">Executive search</li>
+                <li class="chip">Informe de entrevista</li>
+              </ul>
+              <span class="pagina-link-card__more">Ver perfiles y casos <span class="arr" aria-hidden="true">→</span></span>
+            </a>
+          </li>
+
+          <li class="rv slow" data-d="0.4">
+            <a class="servicios__card card card-h pagina-link-card" href="/servicios/desarrollo-de-aplicaciones/">
+              <span class="servicios__num" aria-hidden="true">04</span>
+              <span class="servicios__icon icon-badge"><include src="partials/pagina/servicios-clientes/iconos/codigo.html"></include></span>
+              <h3 class="servicios__title">Desarrollo de aplicaciones</h3>
+              <p class="servicios__text">Software a medida y aplicaciones mobile. Los sistemas transaccionales para alto volumen de operaciones financieras se someten a pruebas de estrés antes de su puesta en producción. Contratación por proyecto o en modalidad time &amp; material.</p>
+              <ul class="servicios__chips" role="list" aria-label="Incluye">
+                <li class="chip">Software factory</li>
+                <li class="chip">Mobile</li>
+                <li class="chip">Sistemas transaccionales</li>
+                <li class="chip">Time &amp; material</li>
+              </ul>
+              <span class="pagina-link-card__more">Ver qué desarrollamos <span class="arr" aria-hidden="true">→</span></span>
+            </a>
+          </li>
+
+          <li class="rv slow" data-d="0">
+            <a class="servicios__card card card-h pagina-link-card" href="/servicios/automatizacion/">
+              <span class="servicios__num" aria-hidden="true">05</span>
+              <span class="servicios__icon icon-badge"><include src="partials/pagina/servicios-clientes/iconos/bot.html"></include></span>
+              <h3 class="servicios__title">Automatización con IA</h3>
+              <p class="servicios__text">Agentes de IA, automatización de procesos y bots de atención, implementados sobre los sistemas del cliente.</p>
+              <ul class="servicios__chips" role="list" aria-label="Incluye">
+                <li class="chip">Agentes de IA</li>
+                <li class="chip">Automatización de procesos</li>
+                <li class="chip">Bots de atención</li>
+              </ul>
+              <span class="pagina-link-card__more">Ver qué automatizamos <span class="arr" aria-hidden="true">→</span></span>
+            </a>
+          </li>
+
+          <li class="rv slow" data-d="0.2">
+            <a class="servicios__card card card-h pagina-link-card" href="/servicios/capacitacion/">
+              <span class="servicios__num" aria-hidden="true">06</span>
+              <span class="servicios__icon icon-badge"><include src="partials/pagina/servicios-clientes/iconos/birrete.html"></include></span>
+              <h3 class="servicios__title">Capacitación</h3>
+              <p class="servicios__text">Formación para los equipos del cliente y para los profesionales que asignamos: training center, talleres prácticos y cursos presenciales y virtuales en INTELLIHELP-Learning, nuestra plataforma de e-learning.</p>
+              <ul class="servicios__chips" role="list" aria-label="Incluye">
+                <li class="chip">Training center</li>
+                <li class="chip">INTELLIHELP-Learning</li>
+                <li class="chip">Talleres prácticos</li>
+              </ul>
+              <span class="pagina-link-card__more">Ver cursos y modalidades <span class="arr" aria-hidden="true">→</span></span>
+            </a>
+          </li>
+
+          <li class="rv slow" data-d="0.4">
+            <a class="servicios__card card card-h pagina-link-card" href="/servicios/consultoria/">
+              <span class="servicios__num" aria-hidden="true">07</span>
+              <span class="servicios__icon icon-badge"><include src="partials/pagina/servicios-clientes/iconos/consultoria.html"></include></span>
+              <h3 class="servicios__title">Consultoría</h3>
+              <p class="servicios__text">Ordenamiento de procesos con ITIL y metodologías ágiles, gestión de proyectos y de oficinas de proyectos (PMO) según las prácticas del PMI, y calidad y certificación de procesos. Incluye planes de negocio, estratégicos y de IT, y proyectos de transformación digital.</p>
+              <ul class="servicios__chips" role="list" aria-label="Incluye">
+                <li class="chip">Transformación digital</li>
+                <li class="chip">ITIL</li>
+                <li class="chip">PMI/PMO</li>
+                <li class="chip">Planes de IT</li>
+              </ul>
+              <span class="pagina-link-card__more">Ver alcance y casos <span class="arr" aria-hidden="true">→</span></span>
+            </a>
+          </li>
+        </ul>
+      </include>
+
+      <include
+        src="partials/pagina/bloque.html"
+        id="como-empezamos"
+        eyebrow="Cómo comenzamos"
+        titulo="Cada servicio comienza con un relevamiento."
+      >
+        <ol class="pasos__grid" role="list">
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>1</span>
+            <h3 class="pasos__title">Relevamiento</h3>
+            <p class="pasos__text">Analizamos cómo opera hoy el área de sistemas del cliente y qué necesidades no están cubiertas.</p>
+          </li>
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>2</span>
+            <h3 class="pasos__title">Propuesta técnica y económica</h3>
+            <p class="pasos__text">La propuesta detalla el alcance, los perfiles asignados y el nivel de servicio. Si alguna de las alternativas evaluadas no conviene a la operación del cliente, lo dejamos indicado por escrito.</p>
+          </li>
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>3</span>
+            <h3 class="pasos__title">Inicio y seguimiento</h3>
+            <p class="pasos__text">Seleccionamos a cada profesional, que realiza la inducción en la empresa cliente y en Intellihelp. El servicio se controla con reuniones periódicas de seguimiento.</p>
+          </li>
+        </ol>
+      </include>
+
+      <include src="partials/pagina/datos.html" titulo="En las oficinas del cliente o en las nuestras, en CABA y en el interior.">
+        <include src="partials/pagina/dato.html" icono="empresa" titulo="Para quién">
+          <p>Empresas medianas y grandes, corporaciones y organismos nacionales, provinciales y municipales. Con pymes trabajamos según el servicio.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="equipo" titulo="Quién lo presta">
+          <p>El equipo estable de Intellihelp y los profesionales en nómina asignados a cada servicio.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="auriculares" titulo="Modalidad">
+          <p>En las oficinas del cliente o desde las nuestras. Los profesionales pueden estar en nómina de Intellihelp o del cliente.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="mapa" titulo="Cobertura">
+          <p>Operamos desde CABA y cubrimos sedes de nuestros clientes en 12 provincias y, junto con socios locales, en Chile y Uruguay.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="precio" titulo="Modelo de precio">
+          <p>Según el servicio: abono mensual por perfil en outsourcing, búsquedas a riesgo con garantía de reposición y desarrollos por proyecto cerrado o por hora.</p>
+        </include>
+      </include>
+
+      <include
+        src="partials/pagina/bloque.html"
+        id="casos"
+        eyebrow="Casos"
+        titulo="Servicios prestados a MSD, Huawei y dos entidades bancarias."
+      >
+        <ul class="casos__grid servicios-idx__casos" role="list">
+          <li class="casos__card card-h rv">
+            <p class="eyebrow">Outsourcing IT · Banca</p>
+            <h3 class="casos__name">Un banco internacional</h3>
+            <p class="casos__text">Más de 40 posiciones IT cubiertas en un año, desde analistas COBOL y .NET hasta Scrum Masters y testers.</p>
+          </li>
+          <li class="casos__card card-h rv">
+            <p class="eyebrow">Búsqueda IT · Banca y seguros</p>
+            <h3 class="casos__name">Un banco nacional</h3>
+            <p class="casos__text">Perfiles escasos y de alto seniority para el banco y su compañía de seguros, incorporados a la nómina del cliente.</p>
+          </li>
+          <li class="casos__card card-h rv">
+            <p class="eyebrow">Mesa de ayuda · Laboratorio</p>
+            <h3 class="casos__name">MSD</h3>
+            <p class="casos__text">Mesa de ayuda IT de niveles 1 y 2, con atención presencial en las oficinas del laboratorio en Argentina.</p>
+          </li>
+          <li class="casos__card card-h rv">
+            <p class="eyebrow">Preventa · Tecnología</p>
+            <h3 class="casos__name">Huawei Argentina</h3>
+            <p class="casos__text">Durante dos años prestamos soporte de preventa en la oficina del cliente para sus proyectos en organismos de gobierno.</p>
+          </li>
+        </ul>
+        <div class="nota"><b>Para Nico</b>No tengo el año de estos cuatro casos ni sé si MSD sigue como cliente, así que los dejé en pasado. ¿Me pasás los años? Si no me decís nada, quedan así.</div>
+        <p class="servicios-mas rv">
+          <a class="btn btn--ghost" href="/clientes/">Ver los casos por sector y servicio <span class="arr" aria-hidden="true">→</span></a>
+        </p>
+      </include>
+
+      <include src="partials/pagina/faq.html" titulo="Preguntas frecuentes antes de contratar un servicio.">
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Qué diferencia hay entre los servicios y las soluciones de Intellihelp?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Los servicios los presta nuestro equipo de profesionales: mesa de ayuda, outsourcing IT, selección, desarrollo, capacitación y consultoría. Las soluciones incorporan además equipamiento de fabricantes como Huawei, Hikvision o Fortinet, con Intellihelp como único responsable del proyecto.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Qué servicio conviene para tercerizar el soporte IT?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>El de <a href="/servicios/outsourcing-y-service-desk/">outsourcing IT y service desk</a>. Implementamos una mesa de ayuda de niveles 1 y 2 con SLA y procesos ITIL, en tus oficinas o en las nuestras. Entre otros clientes, la implementamos para MSD y para el grupo LoJack-Strix.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Pueden incorporar profesionales a mi área de sistemas?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>De dos formas: mediante búsquedas de perfiles IT y executive search, o con profesionales en nómina de Intellihelp que se integran a tu equipo. Para un banco internacional cubrimos más de 40 posiciones en un año.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Capacitan al personal de mi empresa?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Sí. Dictamos cursos presenciales y virtuales y talleres prácticos, y contamos con INTELLIHELP-Learning, nuestra plataforma de e-learning, que utilizan tanto nuestros profesionales como los equipos de nuestros clientes.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Trabajan con organismos públicos?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Sí. Ganamos más de 20 contrataciones públicas en organismos nacionales y de la Ciudad. Actualmente prestamos el mantenimiento integral de Parques Nacionales y el control de acceso de la Superintendencia de Riesgos del Trabajo. Entre nuestros clientes anteriores figuran el Senado de la Nación, Sedronar y la Agencia de Sistemas de Información de la Ciudad.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Cubren sedes fuera de Buenos Aires?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Prestamos servicios en 12 provincias y en la Ciudad de Buenos Aires. Desde julio de 2025, por ejemplo, brindamos soporte presencial en las agencias de una obra social en Neuquén, Bahía Blanca, Mendoza y Campana, con técnicos locales coordinados desde Buenos Aires. Para el grupo LoJack-Strix trabajamos también en Chile y Uruguay, junto con socios locales.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Hacen desarrollo de software a medida?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Desarrollamos software a medida, aplicaciones mobile y sistemas transaccionales, por proyecto o en modalidad time &amp; material. Entre otros, desarrollamos el sistema de administración del Boletín Oficial y el de gestión de dominios de NIC.ar. Nuestra área de sistemas también desarrolla las herramientas de gestión de la compañía, como el CRM y el inventario de activos IT.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Qué incluye la automatización con IA?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Tres líneas de trabajo: la automatización de tareas repetitivas que hoy trasladan datos de un sistema a otro, bots que dan la primera respuesta en tus canales de atención y agentes de IA que responden con la información de tu empresa. En nuestra propia mesa de ayuda, cada ticket se clasifica y se asigna en menos de un minuto. <a href="/servicios/automatizacion/">Ver el servicio de automatización</a>.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Cómo se cobran los servicios?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Cada servicio tiene su modalidad. El outsourcing se contrata con abono mensual por perfil, las búsquedas se realizan a riesgo y con garantía de reposición, y los desarrollos se cotizan por proyecto cerrado o por hora. No publicamos precios de lista: la propuesta se elabora después de conocer tu caso.</p>
+          </div>
+        </details>
+      </include>
+
+      <include
+        src="partials/pagina/cta.html"
+        titulo="Contanos qué servicio o qué perfil necesita tu área de sistemas."
+        cierre="El punto de partida es el relevamiento."
+      ></include>
+    </main>
+
+    <include src="partials/footer.html"></include>
+    <include src="partials/whatsapp.html"></include>
+  </body>
+</html>

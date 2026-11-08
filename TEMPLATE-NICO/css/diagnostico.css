@@ -1,0 +1,631 @@
+/* =========================================================
+   Intellihelp — diagnóstico sin cargo en dos pantallas (se carga después de styles.css):
+   1. /diagnostico-sin-cargo/: título y video, el bloque de reserva propio (calendario mensual y horarios, datos y
+      confirmación, con la agenda del CRM de styles.css), los casos en carrusel y un pie mínimo.
+   2. /gracias-reserva/: la confirmación después de reservar (qué esperar, qué tener a mano y la firma).
+   Estructura de la página, medidas y movimiento tomados de la página de la agencia (DOCS/diseno/diagnostico-sin-cargo.md);
+   el bloque de reserva es diseño propio. Colores, tipografía y logo de Intellihelp: Saira, carbón, violeta y lima, sin
+   colores nuevos. Ningún link lleva subrayado: se distinguen por color y peso. Ningún control nativo a la vista.
+   El bloque de reserva no se anima nunca. Lo que se mueve: el header que se compacta, la frase del título que se
+   escribe, los casos que entran escalonados y suben 4 px en hover. Con "reducir movimiento", todo quieto.
+   ========================================================= */
+
+.dx {
+  --dx-e: cubic-bezier(.23, 1, .32, 1);
+  --dx-filete: rgba(42, 42, 42, .12);
+  --dx-sombra: 0 26px 50px -18px rgba(42, 42, 42, .28);
+  --dx-bajo: rgba(240, 235, 245, .78); /* lavanda sobre carbón, para texto secundario */
+}
+/* El header es fijo: lo que recibe el foco o un ancla queda siempre debajo de él, nunca tapado. */
+html:has(body.dx) { scroll-padding-top: calc(var(--header-h) + 16px); }
+/* Barra de la página: la base (violeta sobre lavanda, sin destello al tocar) está en styles.css; acá solo la variante de
+   cada pantalla (en la carbón, gris sobre carbón). */
+html:has(body.dx--papel) { scrollbar-color: var(--purple) var(--lavender); }
+html:has(body.dx--noche) { scrollbar-color: var(--line-dark) var(--ink); }
+html:has(body.dx--noche)::-webkit-scrollbar { background: var(--ink); }
+html:has(body.dx--noche)::-webkit-scrollbar-thumb { border-color: var(--ink); background: var(--line-dark); }
+.dx a, .dx button, .dx label, .dx input { -webkit-tap-highlight-color: transparent; }
+.dx--papel { background: var(--lavender); color: var(--ink-2); }
+.dx--noche { background: var(--ink); color: var(--white); }
+
+/* Ningún subrayado, en ningún link ni botón (también los de la agenda de styles.css). */
+.dx a, .dx a:hover, .dx a:focus, .dx button { text-decoration: none !important; }
+.dx--papel main a:not([class]), .dx--papel .dx-pie a { color: var(--purple); font-weight: 600; }
+.dx--papel main a:not([class]):hover, .dx--papel .dx-pie a:hover { color: var(--ink); }
+.dx--noche main a:not([class]), .dx--noche .dx-pie a { color: var(--white); font-weight: 700; }
+.dx--noche main a:not([class]):hover, .dx--noche .dx-pie a:hover { color: var(--lavender); }
+
+.dx :focus-visible { outline: 2px solid var(--purple); outline-offset: 3px; }
+.dx--noche :focus-visible { outline-color: var(--lime); }
+
+/* ---------- Header ----------
+   Es el componente común de todas las páginas ("Header" en styles.css, comportamiento en main.js): no se redefine acá. */
+
+/* ---------- 1. Primera pantalla ---------- */
+.dx-scope { font-size: 17px; line-height: 1.6; }
+.dx-hero { padding: 130px 0 0; }
+.dx-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 600px);
+  column-gap: 56px;
+  align-items: center;
+  max-width: 1260px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.dx-titulo { position: relative; z-index: 3; }
+.dx-titulo h1 {
+  position: relative;
+  isolation: isolate;
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(30px, 4.8vw, 52px);
+  font-weight: 700;
+  line-height: 1.14;
+  letter-spacing: -.025em;
+}
+/* La frase clave: violeta, con la mancha difusa violeta y lima detrás (la del original, en nuestros colores). */
+.dx-ac { position: relative; display: inline-block; padding: 0 .04em .06em 0; color: var(--purple); white-space: nowrap; }
+.dx-ac::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 2%;
+  right: -10%;
+  bottom: 6%;
+  left: -4%;
+  background:
+    radial-gradient(48% 72% at 20% 52%, rgba(102, 51, 153, .30) 0%, rgba(102, 51, 153, 0) 72%),
+    radial-gradient(44% 70% at 56% 44%, rgba(152, 204, 50, .55) 0%, rgba(152, 204, 50, 0) 74%),
+    radial-gradient(40% 64% at 86% 58%, rgba(152, 204, 50, .35) 0%, rgba(152, 204, 50, 0) 76%);
+  filter: blur(26px);
+  pointer-events: none;
+}
+@keyframes dxEscribe {
+  from { clip-path: inset(-80% 100% -80% -20%); }
+  to { clip-path: inset(-80% -40% -80% -20%); }
+}
+html.anim .dx-ac { animation: dxEscribe .95s cubic-bezier(.42, .06, .28, 1) .2s backwards; }
+/* Mientras está el telón de la carga común (html.dx-espera, ver el <head>), la frase espera sin escribir. */
+html.anim.dx-espera .dx-ac { animation: none; clip-path: inset(-80% 100% -80% -20%); }
+.dx-lead { max-width: 48ch; margin: 18px 0 0; color: var(--ink-2); font-size: 18px; line-height: 1.6; }
+
+/* Video (16:9): marco reservado desde el primer pintado, sin saltos al cargar. */
+.dx-video { position: relative; z-index: 3; }
+.dx-video__marco {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 1.5px solid var(--ink);
+  background:
+    radial-gradient(60% 85% at 88% 12%, rgba(152, 204, 50, .30) 0%, rgba(152, 204, 50, 0) 70%),
+    radial-gradient(75% 95% at 8% 100%, rgba(102, 51, 153, .95) 0%, rgba(102, 51, 153, 0) 72%),
+    var(--ink);
+  box-shadow: 0 26px 50px -22px rgba(42, 42, 42, .35);
+}
+.dx-video__aviso { position: absolute; inset: 0; display: grid; place-items: center; color: var(--white); }
+.dx-video__play {
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  padding-left: 4px;
+  border-radius: 50%;
+  background: var(--lime);
+  color: var(--ink);
+  box-shadow: 0 0 0 10px rgba(152, 204, 50, .16);
+}
+.dx-video__logo { position: absolute; top: 16px; left: 16px; width: auto; height: 30px; }
+.dx-video__texto { position: absolute; right: 16px; bottom: 14px; left: 16px; margin: 0; color: var(--dx-bajo); font-size: 14px; font-weight: 500; }
+.dx-video__texto span { opacity: .8; }
+.dx-video video, .dx-video iframe { position: absolute; inset: 0; display: block; width: 100%; height: 100%; border: 0; background: var(--ink); object-fit: cover; }
+.dx-video__sonido {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 15px 10px 12px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(42, 42, 42, .84);
+  color: var(--white);
+  font: 700 14px/1 'Saira', sans-serif;
+  cursor: pointer;
+  box-shadow: 0 10px 24px -10px rgba(0, 0, 0, .6);
+  transition: background-color .2s ease, scale .16s var(--dx-e);
+}
+.dx-video__sonido:hover { background: rgba(42, 42, 42, .96); }
+.dx-video__sonido svg { width: 20px; height: 20px; color: var(--lime); }
+.dx-video__sonido.is-play { top: 50%; left: 50%; padding: 16px 22px 16px 18px; font-size: 16px; translate: -50% -50%; }
+.dx-video__sonido[hidden] { display: none; }
+
+/* ---------- Bloque de reserva ----------
+   Tarjeta de producto propio: a la izquierda, en carbón, qué es la reunión (y la salida discreta a la consulta); a la
+   derecha, en blanco, el indicador de pasos y la agenda del CRM (styles.css), con calendario mensual y horarios del
+   día lado a lado. La tira de cinco días de agenda.js queda en el DOM (guarda el día elegido) pero no se ve. Todo con
+   diseño propio: ningún control nativo a la vista (calendario, horarios, campos, opciones, casilla y estados).
+   La paleta del bloque va en variables (--r-* para la agenda, --i-* para la columna informativa). Quieto siempre. */
+.dx-reserva { position: relative; z-index: 4; max-width: 1260px; margin: 34px auto 0; padding: 0 24px; }
+.dx-reserva__card {
+  --r-bg: var(--white);
+  --r-fg: var(--ink);
+  --r-muted: var(--muted);
+  --r-line: rgba(42, 42, 42, .14);
+  --r-cell: var(--lavender);
+  --r-sel: var(--purple);
+  --r-sel-fg: var(--white);
+  --r-input: var(--white);
+  --r-input-line: rgba(42, 42, 42, .26);
+  --r-focus: var(--purple);
+  --r-ring: rgba(102, 51, 153, .16);
+  --r-link: var(--purple);
+  --r-ph: rgba(68, 68, 68, .62);
+  --i-bg: var(--ink);
+  --i-fg: var(--white);
+  --i-muted: var(--dx-bajo);
+  --i-line: rgba(255, 255, 255, .12);
+  --i-ico: var(--lime);
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
+  grid-template-areas: "info main" "alt main";
+  border: 1.5px solid var(--ink);
+  background: var(--r-bg);
+  color: var(--r-fg);
+  box-shadow: var(--dx-sombra);
+}
+/* Columna informativa */
+.dx-reserva__info { grid-area: info; padding: 32px 30px 12px; background: var(--i-bg); color: var(--i-fg); }
+.dx-reserva__alt { grid-area: alt; display: flex; align-items: flex-end; margin: 0; padding: 12px 30px 30px; background: var(--i-bg); }
+.dx-reserva__info, .dx-reserva__alt { border-right: 1px solid var(--i-line); }
+/* Sin la salida (en la consulta o confirmada), la columna carbón ocupa todo el alto. */
+@media (min-width: 961px) { .dx-reserva__card:has(.dx-reserva__alt[hidden]) .dx-reserva__info { grid-row: 1 / -1; } }
+.dx-reserva__rotulo { margin: 0 0 6px; color: var(--i-muted); font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+.dx-reserva__titulo { margin: 0 0 22px; color: var(--i-fg); font-size: 28px; font-weight: 700; line-height: 1.15; letter-spacing: -.02em; }
+.dx-reserva__datos li { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-top: 1px solid var(--i-line); font-size: 15.5px; font-weight: 500; line-height: 1.35; }
+.dx-reserva__ico { display: grid; flex: none; place-items: center; width: 36px; height: 36px; border: 1px solid var(--i-line); color: var(--i-ico); }
+.dx-reserva__alt-btn {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--i-muted);
+  font: inherit;
+  font-size: 14.5px;
+  line-height: 1.5;
+  text-align: left;
+  cursor: pointer;
+}
+.dx-reserva__alt-btn strong { display: inline-block; color: var(--i-fg); font-weight: 700; }
+.dx-reserva__alt-btn strong span { display: inline-block; transition: translate .2s var(--dx-e); }
+.dx-reserva__alt-btn:hover strong span { translate: 3px 0; }
+.dx-reserva__info :focus-visible, .dx-reserva__alt :focus-visible { outline-color: var(--i-ico); }
+
+/* Columna de la agenda */
+.dx-reserva__main { grid-area: main; min-width: 0; padding: 26px 32px 30px; }
+.dx-reserva :focus-visible { outline: 2px solid var(--r-focus); outline-offset: 2px; }
+
+/* Indicador de pasos: barra arriba y "01 Día y horario" alineado a la izquierda (los números no se centran). */
+.dx-pasos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 0 0 24px; }
+.dx-pasos__item { display: flex; align-items: baseline; gap: 8px; min-width: 0; padding-top: 10px; border-top: 3px solid var(--r-line); color: var(--r-muted); font-size: 13.5px; font-weight: 600; }
+.dx-pasos__num { flex: none; font-size: 12px; letter-spacing: .06em; font-variant-numeric: tabular-nums; }
+.dx-pasos__txt { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dx-pasos__item.is-hecho { border-top-color: var(--r-sel); }
+.dx-pasos__item[aria-current="step"] { border-top-color: var(--r-sel); color: var(--r-fg); }
+html:not(.js) .dx-pasos, html:not(.js) .dx-reserva__alt, .dx-pasos[hidden], .dx-reserva__alt[hidden] { display: none; }
+
+/* La agenda de styles.css, con la paleta del bloque */
+.dx-agenda { display: flex; flex-direction: column; color: var(--r-fg); }
+.dx-agenda > :is(.agenda-crm, .agenda-form, .agenda-done) { align-self: stretch; }
+.dx-agenda .is-entering { animation: none !important; } /* el bloque no se anima nunca */
+.dx-agenda .agenda-crm__titulo { margin: 0; color: var(--r-fg); font-size: 22px; font-weight: 700; line-height: 1.2; }
+.dx-agenda .agenda-crm__sub { margin: 4px 0 0; }
+.dx-agenda :is(.agenda-crm__sub, .agenda-crm__alt, .agenda-form__legal, .agenda-form__opc, .agenda-crm__cargando, .agenda-crm__elegido-texto, .agenda-done__texto) { color: var(--r-muted); }
+.dx-reserva .dx-agenda a:not([class]) { color: var(--r-link); font-weight: 700; }
+.dx-reserva .dx-agenda a:not([class]):hover { color: var(--r-fg); }
+.dx-paso-cab { margin: 0; }
+
+.dx-horario { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); align-items: start; gap: 32px; }
+.dx-tira { display: none; }
+
+/* Calendario mensual (lo arma diagnostico.js) */
+.dx-mes__cab { display: grid; grid-template-columns: 36px minmax(0, 1fr) 36px; align-items: center; gap: 8px; margin-bottom: 12px; }
+.dx-mes__titulo { margin: 0; font-size: 16px; font-weight: 700; text-align: center; }
+.dx-mes__titulo::first-letter { text-transform: uppercase; }
+.dx-mes__flecha, .dx-agenda .agenda-crm__flecha {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--r-line);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--r-fg);
+  cursor: pointer;
+  transition: border-color .15s ease, color .15s ease;
+}
+.dx-mes__flecha:not(:disabled):hover, .dx-agenda .agenda-crm__flecha:not(:disabled):hover { border-color: var(--r-sel); color: var(--r-sel); }
+.dx-mes__flecha:disabled, .dx-agenda .agenda-crm__flecha:disabled { cursor: default; opacity: .35; }
+.dx-mes__semana, .dx-mes__grilla { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
+.dx-mes__semana { margin-bottom: 4px; color: var(--r-muted); font-size: 12px; font-weight: 600; text-align: center; }
+.dx-mes__dia {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 44px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: none;
+  color: var(--r-muted);
+  font: inherit;
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+  opacity: .5;
+}
+button.dx-mes__dia { background: var(--r-cell); color: var(--r-fg); font-weight: 700; opacity: 1; cursor: pointer; transition: background-color .15s ease, border-color .15s ease, color .15s ease; }
+button.dx-mes__dia:hover { border-color: var(--r-sel); }
+button.dx-mes__dia[aria-pressed="true"] { border-color: var(--r-sel); background: var(--r-sel); color: var(--r-sel-fg); }
+.dx-mes__dia.is-hoy::after { content: ""; position: absolute; bottom: 5px; left: 50%; width: 4px; height: 4px; border-radius: 50%; background: currentColor; translate: -50% 0; }
+.dx-mes__nota { margin: 10px 0 0; color: var(--r-muted); font-size: 13px; }
+
+/* Horarios del día: sin scroll interno, en grilla */
+.dx-horas .agenda-crm__legend { margin-bottom: 12px; color: var(--r-fg); font-size: 15px; font-weight: 700; }
+.dx-agenda .agenda-crm__horas { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; min-height: 0; }
+.dx-agenda .agenda-crm__hora {
+  min-height: 44px;
+  border: 1px solid var(--r-line);
+  border-radius: 6px;
+  background: var(--r-bg);
+  color: var(--r-fg);
+  font-size: 15.5px;
+}
+.dx-agenda .agenda-crm__hora:hover { border-color: var(--r-sel); color: var(--r-fg); }
+.dx-agenda .agenda-crm__hora[aria-pressed="true"] { border-color: var(--r-sel); background: var(--r-sel); color: var(--r-sel-fg); }
+.dx-agenda .agenda-crm__cargando::before { border-color: var(--r-sel); border-right-color: transparent; }
+
+/* Turno elegido y "Cambiar" */
+.dx-agenda .agenda-crm__elegido { grid-template-columns: auto minmax(0, 1fr) auto; padding: 14px 16px; border: 1px solid var(--r-line); border-radius: 8px; background: var(--r-cell); }
+.dx-elegido__ico, .dx-ok__ico { display: grid; flex: none; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--r-sel); color: var(--r-sel-fg); }
+.dx-agenda .agenda-crm__elegido-texto strong { color: var(--r-fg); }
+.dx .agenda-crm__cambiar {
+  display: inline-flex;
+  grid-column: auto;
+  align-items: center;
+  gap: 6px;
+  min-height: 38px;
+  padding: 0 16px;
+  border: 1px solid var(--r-line);
+  border-radius: 999px;
+  background: var(--r-bg);
+  color: var(--r-fg);
+  font-size: 14.5px;
+  font-weight: 700;
+}
+.dx .agenda-crm__cambiar:hover { border-color: var(--r-sel); color: var(--r-fg); }
+
+/* Campos */
+.dx-agenda .agenda-form { gap: 18px; }
+.dx-agenda .agenda-form__fila { gap: 16px; }
+.dx-agenda .agenda-form__label { color: var(--r-fg); font-size: 13.5px; font-weight: 600; }
+.dx-agenda .agenda-form__input {
+  min-height: 48px;
+  padding: 11px 14px;
+  border: 1px solid var(--r-input-line);
+  border-radius: 6px;
+  background: var(--r-input);
+  color: var(--ink);
+  font-size: 16px;
+}
+.dx-agenda .agenda-form__input::placeholder { color: var(--r-ph); opacity: 1; }
+.dx-agenda .agenda-form__input:hover { border-color: var(--r-muted); }
+.dx-agenda .agenda-form__input:focus { outline: none; border-color: var(--r-focus); box-shadow: 0 0 0 3px var(--r-ring); }
+.dx-agenda .agenda-form__input[aria-invalid="true"] { border-color: var(--r-focus); box-shadow: inset 0 0 0 1px var(--r-focus); }
+/* Autocompletado del navegador: sin el fondo celeste ni amarillo */
+.dx-agenda .agenda-form__input:-webkit-autofill { -webkit-text-fill-color: var(--ink); caret-color: var(--ink); box-shadow: 0 0 0 100px var(--white) inset; }
+.dx-agenda .agenda-form__input:-webkit-autofill:focus { box-shadow: 0 0 0 100px var(--white) inset, 0 0 0 3px var(--r-ring); }
+.dx-agenda .agenda-form__textarea { min-height: 112px; resize: none; scrollbar-width: thin; scrollbar-color: var(--r-line) transparent; }
+.dx-agenda .agenda-form__textarea::-webkit-scrollbar { width: 8px; }
+.dx-agenda .agenda-form__textarea::-webkit-scrollbar-thumb { border-radius: 8px; background: var(--r-line); }
+.dx .agenda-form__error { display: flex; align-items: baseline; gap: 8px; margin: 0; color: var(--r-fg); font-size: 14px; line-height: 1.45; }
+.dx .agenda-form__error::before { background: var(--r-sel); color: var(--r-sel-fg); }
+
+/* "¿Cómo nos conociste?": chips */
+.dx-chips { min-width: 0; margin: 0; padding: 0; border: 0; }
+.dx-chips legend { margin-bottom: 8px; padding: 0; }
+.dx-chips__lista { display: flex; flex-wrap: wrap; gap: 8px; }
+.dx-chip { position: relative; display: inline-flex; cursor: pointer; }
+.dx-chip input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.dx-chip span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0 14px;
+  border: 1px solid var(--r-input-line);
+  border-radius: 999px;
+  background: var(--r-bg);
+  color: var(--r-fg);
+  font-size: 14.5px;
+  font-weight: 500;
+  transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+}
+.dx-chip:hover span { border-color: var(--r-sel); }
+.dx-chip input:checked + span { border-color: var(--r-sel); background: var(--r-sel); color: var(--r-sel-fg); font-weight: 600; }
+.dx-chip input:focus-visible + span { outline: 2px solid var(--r-focus); outline-offset: 2px; }
+
+/* Casilla de consentimiento propia */
+.dx .agenda-form__check.dx-check { position: relative; display: block; color: var(--r-muted); font-size: 14px; line-height: 1.5; }
+.dx .dx-check .dx-check__input { position: absolute; top: 0; left: 0; width: 22px; height: 22px; margin: 0; opacity: 0; cursor: pointer; }
+.dx-check label { display: grid; grid-template-columns: 22px minmax(0, 1fr); align-items: start; gap: 12px; cursor: pointer; }
+.dx-check__caja {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border: 1.5px solid var(--r-input-line);
+  border-radius: 5px;
+  background: var(--r-input);
+  color: transparent;
+  transition: background-color .15s ease, border-color .15s ease;
+}
+.dx-check:hover .dx-check__caja { border-color: var(--r-sel); }
+.dx-check__input:checked + label .dx-check__caja { border-color: var(--r-sel); background: var(--r-sel); color: var(--r-sel-fg); }
+.dx-check__input:focus-visible + label .dx-check__caja { outline: 2px solid var(--r-focus); outline-offset: 2px; }
+.dx-check__input[aria-invalid="true"] + label .dx-check__caja { border-color: var(--r-focus); box-shadow: 0 0 0 3px var(--r-ring); }
+.dx .dx-check + .agenda-form__error { margin-top: -8px; padding-left: 34px; }
+
+/* Botón y estados */
+.dx-enviar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; }
+.dx-enviar .agenda-form__legal { flex: 1 1 260px; margin: 0; font-size: 13px; }
+.dx-agenda .agenda-form__enviar { align-self: auto; }
+.dx .agenda-status { padding: 12px 14px; border-left: 3px solid var(--r-sel); border-radius: 4px; background: var(--r-cell); color: var(--r-fg); }
+.dx .agenda-done { gap: 12px; padding: 24px; border: 1px solid var(--r-line); border-radius: 8px; background: var(--r-cell); color: var(--r-fg); }
+.dx .agenda-done__titulo { color: var(--r-fg); }
+.dx .agenda-done__texto strong { color: var(--r-fg); }
+.dx-consulta__volver { margin: 0; }
+.dx-agenda .agenda-status--nota { margin: 0; }
+
+/* Recibido sin JS (api/contact.php vuelve con #contact-success) */
+.dx-agenda #contact-success:target { display: flex !important; }
+.dx-agenda:has(#contact-success:target) #contact-form { display: none !important; }
+
+/* ---------- Casos ---------- */
+.dx-casos { padding: 62px 0 0; }
+.dx-casos__in { max-width: 1360px; margin: 0 auto; padding: 0 24px; }
+.dx-casos__rotulo { margin: 0 0 8px; color: var(--muted); font-size: 13px; }
+.dx-casos__titulo { margin: 0 0 8px; color: var(--ink); font-size: 26px; font-weight: 700; line-height: 1.25; letter-spacing: -.02em; }
+.dx-casos__sub { max-width: 62ch; margin: 0 0 26px; color: var(--muted); }
+.dx-casos__nota { margin: 16px 0 0; color: var(--muted); font-size: 14px; }
+
+.dx-carrusel { position: relative; margin: 0 24px; }
+.dx-casos__pista {
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin-bottom: -26px;
+  padding: 8px 0 40px;
+  scrollbar-width: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 3%, #000 97%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 3%, #000 97%, transparent 100%);
+}
+.dx-casos__pista::-webkit-scrollbar { display: none; }
+.dx-casos__pista:focus-visible { outline-offset: -2px; }
+/* Sin el avance automático (sin JS o con "reducir movimiento"): pasa de a una tarjeta, con imán. */
+html:not(.anim) .dx-casos__pista { scroll-snap-type: x mandatory; }
+html:not(.anim) .dx-caso { scroll-snap-align: start; }
+.dx-casos__rail { display: flex; align-items: stretch; width: max-content; }
+.dx-caso {
+  position: relative;
+  display: flex;
+  flex: 0 0 clamp(272px, 80vw, 360px);
+  flex-direction: column;
+  margin-right: 20px;
+  padding: 26px 24px;
+  border: 1px solid rgba(42, 42, 42, .13);
+  background: var(--white);
+  box-shadow: 0 18px 38px -22px rgba(42, 42, 42, .22);
+}
+/* Número de fondo arriba a la derecha y contador a la izquierda: ninguno centrado. El ícono, centrado en su cuadro. */
+.dx-caso__fondo { position: absolute; top: 10px; right: 16px; color: rgba(42, 42, 42, .06); font-size: 56px; font-weight: 700; line-height: 1; pointer-events: none; }
+.dx-caso__cabeza { position: relative; display: flex; flex-direction: column; align-items: flex-start; }
+.dx-caso__ico { display: flex; flex: none; align-items: center; justify-content: center; width: 44px; height: 44px; margin-bottom: 18px; border: 1px solid rgba(42, 42, 42, .14); color: var(--purple); }
+.dx-caso__ico svg { width: 22px; height: 22px; }
+.dx-caso__idx { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; letter-spacing: .06em; }
+.dx-caso__rubro { margin: 14px 0 6px; color: var(--purple); font-size: 12.5px; font-weight: 700; }
+.dx-caso__marca {
+  position: relative;
+  isolation: isolate;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 0 4px;
+  color: var(--ink);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -.02em;
+}
+.dx-caso__marca::before, .dx-caso__hoy::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(52% 74% at 26% 52%, rgba(102, 51, 153, .24) 0%, rgba(102, 51, 153, 0) 72%),
+    radial-gradient(46% 70% at 66% 46%, rgba(152, 204, 50, .34) 0%, rgba(152, 204, 50, 0) 74%);
+}
+.dx-caso__marca::before { top: -10px; right: -18px; bottom: -12px; left: -10px; filter: blur(14px); }
+.dx-caso__lugar { margin: 0 0 16px; color: var(--muted); font-size: 13px; letter-spacing: .03em; }
+.dx-caso__lbl { display: block; margin: 16px 0 6px; color: var(--muted); font-size: 11.5px; font-weight: 700; }
+.dx-caso__bloque p:not(.dx-caso__lbl) { margin: 0; color: var(--ink-2); font-size: 15.5px; line-height: 1.5; }
+.dx-caso__bloque:has(+ .dx-caso__hoy) { margin-bottom: 30px; }
+.dx-caso__hoy {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  min-height: 92px;
+  margin: auto 0 4px;
+  padding: 20px 0 0;
+  border-top: 1px solid var(--dx-filete);
+}
+.dx-caso__hoy::before { top: 30px; right: -12px; bottom: -2px; left: -12px; filter: blur(18px); }
+.dx-caso__hoy .dx-caso__lbl { margin: 0 0 6px; }
+.dx-caso__hoy p:not(.dx-caso__lbl) { margin: 0; color: var(--ink); font-size: 16px; font-weight: 700; line-height: 1.45; }
+
+/* Flechas: una a cada lado, centradas respecto de las tarjetas. */
+.dx-carrusel__flecha {
+  position: absolute;
+  top: calc(50% - 3px);
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid rgba(42, 42, 42, .18);
+  background: var(--white);
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: 0 8px 18px -10px rgba(42, 42, 42, .4);
+  translate: 0 -50%;
+  transition: border-color .15s ease, color .15s ease, scale .16s var(--dx-e);
+}
+.dx-carrusel__flecha--ant { left: 0; }
+.dx-carrusel__flecha--sig { right: 0; }
+.dx-carrusel__flecha:hover { border-color: var(--purple); color: var(--purple); }
+html.anim .dx-carrusel__flecha:active { scale: .94; }
+
+/* Entrada escalonada (solo lo que está debajo del pliegue; lo marca diagnostico.js) */
+html.anim [data-dx-entra="espera"] { opacity: 0; translate: 0 18px; }
+html.anim [data-dx-entra="in"] {
+  opacity: 1;
+  translate: 0 0;
+  transition: opacity .7s var(--dx-e) var(--dx-d, 0s), translate .9s var(--dx-e) var(--dx-d, 0s);
+}
+@media (hover: hover) and (pointer: fine) {
+  html.anim .dx-caso:not([data-dx-entra]) { transition: translate .35s var(--dx-e), box-shadow .35s var(--dx-e); }
+  html.anim .dx-caso:not([data-dx-entra]):hover { translate: 0 -4px; box-shadow: 0 28px 48px -24px rgba(42, 42, 42, .32); }
+}
+
+/* ---------- Pie mínimo ---------- */
+.dx-pie {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 26px;
+  max-width: 960px;
+  margin: 70px auto 0;
+  padding: 26px 24px 84px;
+  border-top: 1px solid var(--dx-filete);
+  color: var(--muted);
+  font-size: 14px;
+}
+.dx-pie__marca { align-self: flex-start; }
+.dx-pie__marca img { display: block; width: auto; height: 28px; }
+.dx-pie__legal { max-width: 78ch; margin: 0; line-height: 1.55; }
+.dx--noche .dx-pie { border-top-color: rgba(255, 255, 255, .1); color: var(--dx-bajo); }
+
+/* Botones: el .btn común del sitio (styles.css), con la misma animación de hover, foco y clic que la home. */
+
+/* ---------- 2. /gracias-reserva/ ---------- */
+html:not(.dx-con-datos) .gx [data-si] { display: none; }
+html.dx-con-datos .gx [data-no] { display: none; }
+.gx { padding: 92px 24px 0; }
+.gx__in { max-width: 700px; margin: 0 auto; }
+.gx-rotulo {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0;
+  padding: 7px 13px;
+  border: 1px solid rgba(152, 204, 50, .45);
+  border-radius: 6px;
+  background: rgba(152, 204, 50, .08);
+  color: var(--lavender);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.gx-rotulo span { width: 7px; height: 7px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 8px rgba(152, 204, 50, .8); }
+.gx-titulo {
+  margin: 22px 0 18px;
+  color: var(--white);
+  font-size: clamp(36px, 5.6vw, 76px);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -.01em;
+  text-transform: uppercase;
+}
+.gx-nombre { color: var(--lime); font-weight: 600; text-shadow: 0 0 26px rgba(152, 204, 50, .45); }
+.gx-texto { margin: 0 0 14px; color: var(--dx-bajo); font-size: 17px; line-height: 1.65; }
+.gx-texto--grande { color: var(--white); font-size: 20px; }
+.gx-texto strong { color: var(--white); }
+.gx-card { margin-top: 28px; padding: 22px 20px; border: 1px solid var(--line-dark); border-radius: 10px; background: var(--ink-2); }
+.gx-card .gx-texto { margin: 0; font-size: 16px; }
+.gx-card__rotulo { margin: 0 0 8px; color: var(--dx-bajo); font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+.gx-rinde__lista li { display: grid; grid-template-columns: 32px minmax(0, 1fr); align-items: baseline; padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, .08); color: var(--white); font-size: 15.5px; font-weight: 600; line-height: 1.45; }
+.gx-rinde__lista li:last-child { border-bottom: 0; padding-bottom: 2px; }
+.gx-rinde__num { color: var(--dx-bajo); font-size: 11px; font-weight: 600; letter-spacing: .08em; font-variant-numeric: tabular-nums; }
+.gx-firma { margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, .1); }
+.gx-firma__rotulo { margin: 0 0 10px; color: var(--dx-bajo); font-size: 10.5px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
+.gx-firma__fila { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 22px; }
+.gx-firma__nombre { margin: 0; color: var(--lavender); font-size: 28px; font-weight: 500; letter-spacing: -.01em; text-shadow: 0 0 22px rgba(102, 51, 153, .9); }
+.gx-firma__datos { margin: 0; color: var(--dx-bajo); font-size: 10.5px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
+
+/* ---------- Celular y tablet ---------- */
+@media (max-width: 1180px) {
+  .dx-reserva__card { grid-template-columns: 280px minmax(0, 1fr); }
+  .dx-reserva__info { padding: 28px 24px 12px; }
+  .dx-reserva__alt { padding: 12px 24px 26px; }
+  .dx-reserva__main { padding: 24px 26px 28px; }
+  .dx-horario { gap: 24px; }
+}
+@media (max-width: 960px) {
+  .dx-reserva__card { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; grid-template-areas: "info" "main" "alt"; }
+  .dx-reserva__info, .dx-reserva__alt { border-right: 0; }
+  .dx-reserva__info { padding: 24px 24px 20px; }
+  .dx-reserva__titulo { margin-bottom: 14px; font-size: 24px; }
+  .dx-reserva__datos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; }
+  .dx-reserva__alt { padding: 18px 24px; }
+}
+@media (max-width: 880px) {
+  .dx-hero { padding: 74px 0 0; }
+  .dx-hero__grid { grid-template-columns: minmax(0, 1fr); }
+  .dx-video { margin-top: 22px; }
+  .dx-reserva { margin-top: 22px; }
+  .dx-video__sonido { top: 10px; left: 10px; padding: 8px 13px 8px 10px; font-size: 13px; }
+  .dx-video__play { width: 60px; height: 60px; }
+  .gx { padding-top: 64px; }
+}
+@media (max-width: 720px) {
+  .dx-horario { grid-template-columns: minmax(0, 1fr); }
+  .dx-agenda .agenda-form__fila { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 600px) {
+  .dx-reserva__info { padding: 22px 18px 18px; }
+  .dx-reserva__titulo { margin-bottom: 10px; font-size: 22px; }
+  .dx-reserva__datos { column-gap: 12px; }
+  .dx-reserva__datos li { gap: 8px; padding: 8px 0; font-size: 13.5px; }
+  .dx-reserva__ico { width: 28px; height: 28px; }
+  .dx-reserva__ico svg { width: 16px; height: 16px; }
+  .dx-reserva__alt { padding: 16px 18px 20px; }
+  .dx-reserva__main { padding: 20px 16px 22px; }
+  .dx-pasos { gap: 8px; margin-bottom: 20px; }
+  .dx-pasos__item { flex-direction: column; gap: 2px; font-size: 12.5px; }
+  .dx-pasos__txt { white-space: normal; }
+  .dx-agenda .agenda-crm__elegido { grid-template-columns: auto minmax(0, 1fr); }
+  .dx .agenda-crm__elegido .agenda-crm__cambiar { grid-column: 1 / -1; justify-self: start; }
+  .dx-enviar .btn { width: 100%; }
+  .gx-card { padding: 20px 16px; }
+  .dx-carrusel__flecha { width: 40px; height: 40px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dx *, .dx *::before, .dx *::after { transition: none !important; }
+  .dx-ac { animation: none !important; }
+}

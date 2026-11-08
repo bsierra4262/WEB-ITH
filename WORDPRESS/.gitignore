@@ -1,0 +1,23 @@
+# WordPress local de Intellihelp
+# Solo se versiona el tema propio (sitio/wp-content/themes/intellihelp) y los
+# scripts/config de desarrollo. El núcleo se baja con wp-cli.
+
+# Núcleo de WordPress y configuración con claves
+/sitio/wp-admin/
+/sitio/wp-includes/
+/sitio/*.php
+/sitio/*.html
+/sitio/*.txt
+/sitio/wp-config.php
+/sitio/wp-content/uploads/
+
+# Todo lo demás de wp-content salvo el tema propio
+/sitio/wp-content/*
+!/sitio/wp-content/themes/
+/sitio/wp-content/themes/*
+!/sitio/wp-content/themes/intellihelp/
+
+# Base de datos local, herramientas y claves
+/datos/
+/herramientas/
+/CREDENCIALES-LOCALES.txt

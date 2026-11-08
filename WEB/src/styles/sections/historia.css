@@ -1,0 +1,195 @@
+/* ==========================================================================
+   Historia — "Clientes que llegaron por un servicio y sumaron otros"
+   Estructura del PDF: dos columnas; izquierda fija (sticky) con el gran
+   número de años + cuadradito y "años / desde año de inicio"; el mismo número gigante muy sutil
+   de fondo; derecha, línea de tiempo con AÑO GRANDE, título y descripción.
+   Colores y animación del original: carbón con luces difusas, eyebrow, años
+   y cuadradito en lima, títulos blancos, textos cremita; el nodo es el
+   anillo del original (.ring-p se dibuja, .ring-c hace pop), alineado al año.
+   ========================================================================== */
+
+/* overflow: clip recorta el "14" de fondo sin crear un contenedor de scroll,
+   así el sticky de la columna izquierda funciona contra la ventana. */
+@supports (overflow: clip) {
+  .historia.tech {
+    overflow: clip;
+  }
+}
+
+.historia__bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: -1;
+  font-family: var(--font-display);
+  font-size: min(40vw, 560px);
+  font-weight: 700;
+  line-height: 0.74;
+  letter-spacing: -0.04em;
+  color: color-mix(in srgb, var(--c-white) 3%, transparent);
+  transform: translate(6%, -2%);
+  pointer-events: none;
+  user-select: none;
+}
+
+.historia__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 48px;
+}
+
+/* Columna izquierda */
+.historia__intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+.historia__h2 {
+  color: var(--text-on-dark);
+}
+
+.historia__lead {
+  font-size: 1.125rem;
+  color: var(--text-2-on-dark);
+}
+
+.historia__big {
+  --big: clamp(7rem, 3.5rem + 9vw, 11rem); /* 112 → 176px */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 8px 16px;
+  margin-top: 20px;
+  font-family: var(--font-display);
+}
+
+.historia__num {
+  font-size: var(--big);
+  font-weight: 700;
+  line-height: 0.9;
+  color: var(--text-on-dark);
+}
+
+.historia__sq {
+  flex: none;
+  width: clamp(22px, 1.4rem + 0.6vw, 30px);
+  aspect-ratio: 1;
+  /* Hace de punto del "14." (el punto real queda para lectores de pantalla) */
+  margin-left: -10px;
+  margin-bottom: calc(var(--big) * 0.08);
+  background: var(--c-lime);
+}
+
+.historia__label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-bottom: calc(var(--big) * 0.08);
+  font-size: 0.9375rem;
+  line-height: 1.3;
+  color: var(--text-2-on-dark);
+}
+
+.historia__label-main {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-on-dark);
+}
+
+.historia__label-sub {
+  font-weight: 600;
+}
+
+/* Línea de tiempo ([role] para ganarle al reset de listas de base.css).
+   Como el original: borde de 2px y nodo de 32px que pisa la línea. */
+.historia__timeline[role='list'] {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  /* margin: el nodo de 32px sobresale 14px a la izquierda de la línea */
+  margin-left: 14px;
+  padding-left: 34px;
+  border-left: 2px solid var(--c-line);
+}
+
+.historia__item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.historia__node {
+  position: absolute;
+  /* Centrado sobre la línea de 2px (34px de padding + 16px de medio nodo + 1px) */
+  top: 0;
+  left: -51px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--c-carbon);
+}
+
+.historia__ring-track {
+  stroke: color-mix(in srgb, var(--c-white) 28%, transparent);
+}
+
+.historia__ring-arc {
+  stroke: var(--c-lime);
+}
+
+.historia__ring-dot {
+  fill: var(--c-white);
+}
+
+.historia__year {
+  /* Año grande del PDF; 32px de alto para quedar alineado con el anillo */
+  font-family: var(--font-display);
+  font-size: 1.75rem; /* 28px */
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: 0.01em;
+  color: var(--accent-on-dark);
+}
+
+.historia__title {
+  margin-top: 2px;
+  font-size: clamp(1.1875rem, 1.1rem + 0.25vw, 1.3125rem); /* 19 → 21px */
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text-on-dark);
+}
+
+.historia__text {
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--text-2-on-dark);
+  max-width: 60ch;
+}
+
+/* Notas internas de revisión (solo en desarrollo o con ?notas) */
+.historia__nota {
+  max-width: 60ch;
+}
+
+.historia__item .historia__nota {
+  margin-top: 8px;
+}
+
+@media (min-width: 960px) {
+  .historia__grid {
+    grid-template-columns: minmax(0, 38fr) minmax(0, 62fr);
+    align-items: start;
+  }
+
+  .historia__intro {
+    position: sticky;
+    top: calc(var(--header-h) + 32px);
+  }
+}

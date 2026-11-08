@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <include
+      src="partials/pagina/head.html"
+      titulo="Cableado estructurado y redes LAN en CABA | Intellihelp"
+      descripcion="Cableado estructurado, redes LAN y wifi para empresas y organismos de CABA, con Furukawa Laserway, Huawei y Zyxel. Diseño, instalación y mantenimiento."
+    ></include>
+
+    <!--
+      SOLUCIÓN: redes indoor (estructura del informe de visibilidad, cap. 9).
+      Keyword principal: cableado estructurado. Secundarias: redes LAN, wifi
+      para empresas, Furukawa Laserway GPON.
+      Fuentes: brief §2.1.2 (Huawei networking), §2.1.6 (Furukawa Laserway),
+      §2.2.2.1 (llave en mano), §5.1 (fabricantes), §6 y §13 (público y
+      cobertura); fuentes-pdfs-old.md §3 (LAN switching, wireless LAN) y §5
+      (switches Huawei para la Red de Hospitales); fuentes-web-actual.md §6;
+      fuentes-drive-clientes.md §2 y §4 puntos 14 y 34 (Consejo de la
+      Magistratura: cableado Cat 6 certificado, UPS, 36 meses, 8x5, 6 y 24 h).
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "@id": "{{page.url}}#servicio",
+        "name": "Cableado estructurado y redes LAN",
+        "serviceType": "Cableado estructurado",
+        "alternateName": ["Redes LAN", "Wifi para empresas", "Furukawa Laserway GPON"],
+        "description": "Diseño, instalación y mantenimiento de cableado estructurado, redes LAN y wifi para empresas medianas y grandes y organismos públicos con sede en Buenos Aires, con la LAN óptica pasiva Furukawa Laserway (POL, basada en GPON) y switches y access points de Huawei, Zyxel, Cisco, Aruba y Ubiquiti.",
+        "url": "{{page.url}}",
+        "provider": {
+          "@type": "Organization",
+          "@id": "{{site.url}}#organizacion",
+          "name": "{{site.name}}",
+          "url": "{{site.url}}",
+          "telephone": "{{site.phone.display}}",
+          "email": "{{site.email}}"
+        },
+        "brand": [
+          { "@type": "Brand", "name": "Furukawa" },
+          { "@type": "Brand", "name": "Huawei" }
+        ],
+        "areaServed": [
+          { "@type": "City", "name": "Ciudad Autónoma de Buenos Aires" },
+          { "@type": "Country", "name": "Argentina" }
+        ],
+        "audience": {
+          "@type": "BusinessAudience",
+          "audienceType": "Empresas medianas y grandes, corporaciones y organismos públicos"
+        }
+      }
+    </script>
+  </head>
+  <body data-wa-texto="Hola Intellihelp, quiero consultar por cableado estructurado y redes para mi empresa.">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <include src="partials/header.html"></include>
+
+    <main id="contenido">
+      <include src="partials/pagina/hero.html">
+        <include
+          src="partials/pagina/migas.html"
+          seccion="Soluciones"
+          seccion-url="/soluciones/"
+          actual="Cableado estructurado y redes LAN"
+        ></include>
+        <p class="eyebrow eyebrow--dash in d2">Solución · Cableado y redes LAN</p>
+        <h1 id="pagina-titulo" class="pagina-hero__title in d3">
+          Cableado estructurado y redes LAN <span class="pagina-hero__hl">en Buenos Aires.</span>
+        </h1>
+        <p class="lead pagina-hero__lead in d4">
+          Diseñamos, instalamos y mantenemos la red de oficinas, plantas y edificios corporativos, desde el cableado estructurado hasta los access points. Trabajamos con Furukawa Laserway, Huawei, Zyxel, Cisco, Aruba y Ubiquiti.
+        </p>
+        <div class="pagina-hero__actions in d5">
+          <a class="btn btn--lime" href="#agenda">Solicitá una visita técnica <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn btn--light" href="{{site.whatsapp.url}}" target="_blank" rel="noopener">Escribinos por WhatsApp<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a>
+        </div>
+        <p class="hero__note in d6">
+          <svg class="hero__check" aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+          <span>Un único proveedor para el cableado, el equipamiento y el mantenimiento, aunque intervengan varias marcas.</span>
+        </p>
+      </include>
+
+      <include src="partials/pagina/respuesta.html" titulo="¿Qué hace Intellihelp en cableado estructurado?">
+        <p>
+          Diseñamos, instalamos y mantenemos el cableado estructurado, la red LAN y el wifi de empresas medianas y grandes y de organismos públicos con sede en Buenos Aires. Trabajamos con Furukawa Laserway, una solución de LAN óptica pasiva (POL) basada en GPON, y con switches y access points de Huawei, Zyxel, Cisco, Aruba y Ubiquiti.
+        </p>
+      </include>
+
+      <include
+        src="partials/pagina/bloque.html"
+        id="incluye"
+        eyebrow="Qué incluye"
+        titulo="El servicio se contrata completo o por componentes."
+        fondo="section--soft"
+      >
+        <template slot="bajada">
+          <p class="lead">Trabajamos en sedes nuevas y sobre redes en funcionamiento. Nuestro equipo técnico tiene certificaciones vigentes de Zyxel en switching y redes inalámbricas, y completó la formación de Furukawa en redes ópticas pasivas y la de Cisco y Grandstream en networking.</p>
+        </template>
+        <ul class="servicios__grid" role="list">
+          <li class="servicios__card card rv slow card-h" data-d="0">
+            <span class="servicios__num" aria-hidden="true">01</span>
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/redes-dc/iconos/cable.html"></include></span>
+            <h3 class="servicios__title">Cableado estructurado</h3>
+            <p class="servicios__text">Cableado horizontal de cobre categoría 6 o 6A y troncales de fibra óptica hasta cada puesto de trabajo, cámara o lector de acceso. Entregamos cada enlace certificado, con racks, patcheras y la documentación del tendido.</p>
+            <ul class="servicios__chips" role="list" aria-label="Incluye">
+              <li class="chip">Obra nueva</li>
+              <li class="chip">Redes existentes</li>
+              <li class="chip">Furukawa</li>
+              <li class="chip">Panduit</li>
+            </ul>
+          </li>
+
+          <li class="servicios__card card rv slow card-h" data-d="0.35">
+            <span class="servicios__num" aria-hidden="true">02</span>
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/redes-dc/iconos/fibra.html"></include></span>
+            <h3 class="servicios__title">Furukawa Laserway (POL)</h3>
+            <p class="servicios__text">Conectividad IP para todo el edificio sobre una LAN óptica pasiva (POL), con menos equipos activos y menos espacio en racks. Admite terminación en campo o cables ópticos preconectorizados.</p>
+            <ul class="servicios__chips" role="list" aria-label="Características">
+              <li class="chip">GPON</li>
+              <li class="chip">LAN óptica pasiva</li>
+              <li class="chip">Modular</li>
+            </ul>
+          </li>
+
+          <li class="servicios__card card rv slow card-h" data-d="0.7">
+            <span class="servicios__num" aria-hidden="true">03</span>
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/redes-dc/iconos/wifi.html"></include></span>
+            <h3 class="servicios__title">Switches y wifi para empresas</h3>
+            <p class="servicios__text">Switches de núcleo y de acceso, routers y wifi empresarial de la marca más adecuada para cada proyecto, entregados configurados y en funcionamiento.</p>
+            <ul class="servicios__chips" role="list" aria-label="Marcas">
+              <li class="chip">Huawei</li>
+              <li class="chip">Zyxel</li>
+              <li class="chip">Cisco</li>
+              <li class="chip">Aruba</li>
+              <li class="chip">Ubiquiti</li>
+              <li class="chip">MikroTik</li>
+            </ul>
+          </li>
+        </ul>
+        <div class="clientes-sector card card-h rv servicios-mas soluciones-marcas">
+          <p class="eyebrow">Marcas con las que trabajamos</p>
+          <ul class="logos__list clientes-sector__logos" role="list" aria-label="Marcas">
+            <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/furukawa.webp" width="310" height="48" alt="Furukawa Electric" loading="lazy" decoding="async" /></li>
+            <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/panduit.webp" width="218" height="48" alt="Panduit" loading="lazy" decoding="async" /></li>
+            <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/huawei.webp" width="220" height="48" alt="Huawei" loading="lazy" decoding="async" /></li>
+            <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/cisco.webp" width="91" height="48" alt="Cisco" loading="lazy" decoding="async" /></li>
+            <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/aruba.webp" width="212" height="48" alt="HPE Aruba Networking" loading="lazy" decoding="async" /></li>
+            <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/ubiquiti.webp" width="48" height="48" alt="Ubiquiti" loading="lazy" decoding="async" /></li>
+            <li class="logos__item"><img class="logos__img" src="/src/assets/img/marcas/mikrotik.webp" width="279" height="48" alt="MikroTik" loading="lazy" decoding="async" /></li>
+          </ul>
+          <div class="nota"><b>Pendiente mío</b>Sumé Zyxel en los textos porque tenemos las ZCNA vigentes. Falta su logo en esta fila; lo agrego cuando consiga el archivo.</div>
+        </div>
+      </include>
+
+      <include
+        src="partials/pagina/bloque.html"
+        id="como-trabajamos"
+        eyebrow="Cómo trabajamos"
+        titulo="De la visita técnica a la red en producción, con el mismo equipo."
+      >
+        <ol class="pasos__grid" role="list">
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>1</span>
+            <h3 class="pasos__title">Relevamiento</h3>
+            <p class="pasos__text">Visitamos la sede y relevamos los puestos, las cámaras y los equipos que la red debe conectar. Sobre esa base, enviamos la propuesta.</p>
+          </li>
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>2</span>
+            <h3 class="pasos__title">Instalación</h3>
+            <p class="pasos__text">Proveemos el equipamiento, ejecutamos el tendido, configuramos switches y wifi, y entregamos la red en funcionamiento con su documentación.</p>
+          </li>
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>3</span>
+            <h3 class="pasos__title">Mantenimiento</h3>
+            <p class="pasos__text">Prestamos el mantenimiento correctivo y preventivo, y ejecutamos las ampliaciones que requiera el crecimiento de la empresa.</p>
+          </li>
+        </ol>
+      </include>
+
+      <include src="partials/pagina/datos.html" titulo="Condiciones del servicio de cableado y redes.">
+        <include src="partials/pagina/dato.html" icono="empresa" titulo="Para quién">
+          <p>Empresas medianas y grandes, corporaciones y organismos nacionales, provinciales y municipales. Pymes, según el alcance del proyecto.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="check" titulo="Modalidad">
+          <p>Proyecto llave en mano: relevamiento, provisión de equipos, instalación y puesta en marcha, con los puestos certificados y la documentación del cableado, y mantenimiento correctivo y preventivo posterior.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="reloj" titulo="SLA y horario">
+          <p>Se define en cada contrato. En el Consejo de la Magistratura, el mantenimiento se presta de lunes a viernes, con respuesta en 6 horas y resolución en 24.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="mapa" titulo="Cobertura">
+          <p>Casa central en CABA. También ejecutamos obras en sedes del interior, como Neuquén y Bahía Blanca.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="precio" titulo="Modelo de precio">
+          <p>La instalación se cotiza como proyecto llave en mano, según la cantidad de puestos y el recorrido del tendido. El mantenimiento se contrata por abono mensual o bolsa de horas.</p>
+        </include>
+      </include>
+
+      <include
+        src="partials/pagina/caso.html"
+        titulo="Cableado categoría 6 certificado y 36 meses de mantenimiento en un edificio de tribunales."
+        cliente="Consejo de la Magistratura del Poder Judicial de la Nación"
+        detalle="Poder Judicial · 2026"
+      >
+        <div class="casos__row">
+          <dt class="eyebrow">El proyecto</dt>
+          <dd>Ampliar el sistema de videovigilancia de un edificio de tribunales, con la infraestructura de red y de energía que lo soporta. El contrato se adjudicó en una licitación con 12 oferentes.</dd>
+        </div>
+        <div class="casos__row">
+          <dt class="eyebrow">Qué hicimos</dt>
+          <dd>Ejecutamos el cableado estructurado categoría 6 con certificación de cada puesto, instalamos el switch PoE Huawei y las UPS Eaton, y entregamos la obra con actas de recepción.</dd>
+        </div>
+        <div class="casos__row">
+          <dt class="eyebrow">Soporte</dt>
+          <dd>Prestamos el mantenimiento de lunes a viernes, con respuesta en 6 horas y resolución en 24, durante 36 meses.</dd>
+        </div>
+        <template slot="panel">
+          <p class="casos__sla">
+            <span class="casos__big"><span data-count="36" data-count-delay="300">36</span></span>
+            <span class="casos__sla-text">meses de mantenimiento, con respuesta en 6 horas y resolución en 24</span>
+          </p>
+          <p class="eyebrow">Tecnologías</p>
+          <ul class="pagina-caso__tecs" role="list">
+            <li class="chip">Categoría 6</li>
+            <li class="chip">Certificación de puestos</li>
+            <li class="chip">Huawei PoE</li>
+            <li class="chip">Eaton</li>
+          </ul>
+        </template>
+        <template slot="extra">
+          <ul class="casos__grid pagina-casos soluciones-casos" role="list">
+            <li class="casos__card card-h rv">
+              <p class="eyebrow">Networking · Sector público</p>
+              <h3 class="casos__name">Gobierno de la Ciudad de Buenos Aires</h3>
+              <p class="casos__text">Implementamos la red de núcleo de la Agencia de Sistemas de Información y proveímos los switches Huawei de núcleo y de borde de la Red de Hospitales de la Ciudad.</p>
+            </li>
+            <li class="casos__card card-h rv">
+              <p class="eyebrow">Wifi · Cultura · 2022</p>
+              <h3 class="casos__name">Museo de Arte Moderno de Buenos Aires</h3>
+              <p class="casos__text">Instalamos un switch PoE Huawei y 9 access points con balanceo de carga.</p>
+            </li>
+            <li class="casos__card card-h rv">
+              <p class="eyebrow">Cableado · Salud · 2025</p>
+              <h3 class="casos__name">Agencias de una obra social</h3>
+              <p class="casos__text">En Neuquén, Bahía Blanca y Campana reorganizamos racks, UPS y puesta a tierra, e incorporamos puestos dobles y switches PoE, con informe final firmado.</p>
+            </li>
+          </ul>
+          <div class="nota pagina-caso__nota"><b>Para Nico</b>Pasé la Magistratura a caso principal porque es el único cableado con certificación, SLA y plazo documentados. Los hospitales del GCBA quedaron en la tarjeta de la Ciudad: ¿de qué año es ese proyecto y cuántos hospitales abarcó? Con eso puede volver a ser caso principal.</div>
+        </template>
+      </include>
+
+      <include src="partials/pagina/faq.html" titulo="Preguntas frecuentes sobre cableado estructurado y redes LAN.">
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Qué es el cableado estructurado?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Es el sistema de cableado normalizado de un edificio, diseñado según la norma ANSI/TIA-568: cableado horizontal y troncal, racks y puestos de trabajo que transportan datos, telefonía IP y video. Sobre esa base funcionan la red LAN, el wifi, las cámaras y el control de acceso.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Qué es Furukawa Laserway?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Es la solución de LAN óptica pasiva (POL) de Furukawa, basada en GPON: brinda conectividad IP a todo el edificio sobre fibra, se instala por módulos y requiere menos infraestructura que una red de cobre. La diseñamos, la instalamos y la mantenemos, y nuestro equipo técnico se capacitó con Furukawa en su planificación y puesta en marcha.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Pueden trabajar sobre una red que ya existe?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Sí. Trabajamos en obra nueva y en edificios con la red en funcionamiento. Laserway, por ejemplo, admite terminación en campo o cables ópticos preconectorizados, según las condiciones del sitio.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Con qué marcas de switches y wifi trabajan?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Trabajamos con Huawei, Zyxel (con gestión en la nube Nebula), Cisco, Aruba, Ubiquiti y MikroTik en switching y wifi, y con Furukawa y Panduit en cableado. No dependemos de una sola marca: seleccionamos la más adecuada para cada proyecto.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿El cableado sirve también para cámaras y control de acceso?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Sí. Cuando instalamos cámaras o control de acceso, el cableado y los switches forman parte del mismo proyecto. El detalle está en <a href="/soluciones/seguridad/">cámaras de seguridad y control de acceso</a>.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Se encargan del mantenimiento de la red?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Después de la instalación prestamos el mantenimiento correctivo y preventivo, con condiciones y tiempos de respuesta definidos en cada contrato.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Instalan fuera de Buenos Aires?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Sí. Coordinamos la obra desde nuestra sede de CABA y la ejecutamos en el sitio. En 2025, por ejemplo, normalizamos el cableado, los racks, las UPS y la puesta a tierra de las agencias de una obra social en Neuquén, Bahía Blanca y Campana.</p>
+          </div>
+        </details>
+
+        <!-- Borradores: no se publican hasta tener la respuesta. Al cargarla,
+             sacar data-draft: el schema FAQPage la suma solo. -->
+        <details name="faq" class="faq__item" data-draft>
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Cuánto tarda cablear una oficina?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <div class="nota"><b>Para Nico</b>¿Le preguntás a Alejandro cuánto tarda cablear una oficina de unos 50 puestos? Con ese plazo publico la pregunta; hasta entonces no sale.</div>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item" data-draft>
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Cuánto cuesta el cableado estructurado?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <div class="nota"><b>Para Carlos</b>¿Explicamos si el cableado se cotiza por puesto o por proyecto, sin montos? Hasta que me digas, la pregunta no sale.</div>
+          </div>
+        </details>
+      </include>
+
+      <include
+        src="partials/pagina/bloque.html"
+        id="relacionadas"
+        eyebrow="Más soluciones"
+        titulo="Más allá del cableado: fibra, data center y ciberseguridad."
+        >
+        <ul class="servicios__grid" role="list">
+          <li class="rv slow" data-d="0">
+            <a class="servicios__card card card-h pagina-link-card" href="/soluciones/redes-ftth/">
+              <span class="servicios__icon icon-badge"><include src="partials/pagina/redes-dc/iconos/fibra.html"></include></span>
+              <span class="servicios__title">Redes FTTH y fibra óptica</span>
+              <span class="servicios__text">Fibra entre sedes y redes de acceso GPON con Huawei, para organismos, empresas y proveedores de internet.</span>
+              <span class="pagina-link-card__more">Ver redes FTTH <span class="arr" aria-hidden="true">→</span></span>
+            </a>
+          </li>
+          <li class="rv slow" data-d="0.35">
+            <a class="servicios__card card card-h pagina-link-card" href="/soluciones/data-center/">
+              <span class="servicios__icon icon-badge"><include src="partials/pagina/redes-dc/iconos/servidor.html"></include></span>
+              <span class="servicios__title">Data center</span>
+              <span class="servicios__text">Servidores, almacenamiento, switches de data center y nube privada, con Huawei y otras marcas.</span>
+              <span class="pagina-link-card__more">Ver data center <span class="arr" aria-hidden="true">→</span></span>
+            </a>
+          </li>
+          <li class="rv slow" data-d="0.7">
+            <a class="servicios__card card card-h pagina-link-card" href="/soluciones/ciberseguridad/">
+              <span class="servicios__icon icon-badge"><include src="partials/pagina/iconos/escudo.html"></include></span>
+              <span class="servicios__title">Ciberseguridad</span>
+              <span class="servicios__text">Redes seguras con Fortinet, incluida la seguridad de entornos industriales (OT).</span>
+              <span class="pagina-link-card__more">Ver ciberseguridad <span class="arr" aria-hidden="true">→</span></span>
+            </a>
+          </li>
+        </ul>
+      </include>
+
+      <include
+        src="partials/pagina/cta.html"
+        titulo="¿Necesitás cablear una sede o renovar la red?"
+        cierre="Relevamos los puestos antes de cotizar."
+        necesidad="Redes, fibra o data center"
+      ></include>
+    </main>
+
+    <include src="partials/footer.html"></include>
+    <include src="partials/whatsapp.html"></include>
+  </body>
+</html>

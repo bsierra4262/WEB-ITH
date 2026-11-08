@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <include
+      src="partials/pagina/head.html"
+      titulo="Selección de personal IT en Buenos Aires | Intellihelp"
+      descripcion="Selección de personal IT para empresas de Buenos Aires: relevamiento del puesto, entrevista con psicodiagnóstico laboral, assessment e informe por candidato."
+    ></include>
+
+    <!--
+      SERVICIO (fase 2): RECLUTAMIENTO Y SELECCIÓN. Estructura del informe:
+      hero · respuesta corta · qué incluye · cómo trabajamos · datos clave ·
+      caso real · FAQ con schema · formulario + WhatsApp propio.
+      Fuentes: brief §2 y §4.1 (recursos en nómina del cliente, coaching
+      proactivo); fuentes-drive-clientes.md §2 "Reclutamiento y selección"
+      (proceso de 9 etapas, volumen 2022 y 2026, casos publicables, garantía),
+      §3 (+400 candidatos para +25 empresas) y §4 punto 16 (cómo se cobra);
+      fuentes-pdfs-old.md §2 (assessment centers, psicodiagnóstico laboral).
+      Keyword principal: selección de personal.
+      Secundarias: reclutamiento IT, assessment center, selección de personal IT.
+      La búsqueda de perfiles escasos y el executive search tienen su página:
+      /servicios/busqueda-de-recursos/.
+      Redacción: DOCS/contenido/guia-de-estilo.md (versión del 30/10/2026).
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "@id": "{{page.url}}#servicio",
+        "name": "Reclutamiento y selección de personal IT",
+        "serviceType": "Selección de personal",
+        "alternateName": ["Reclutamiento IT", "Selección de personal IT", "Assessment center"],
+        "description": "Búsqueda y evaluación de profesionales IT para que entren a la nómina de la empresa cliente: relevamiento del puesto, búsqueda en LinkedIn, referidos y red de reclutadores, entrevista con grilla técnica y psicodiagnóstico laboral, informe de cada candidato y seguimiento hasta el ingreso, para empresas con sede en Buenos Aires.",
+        "url": "{{page.url}}",
+        "provider": {
+          "@type": "Organization",
+          "@id": "{{site.url}}#organizacion",
+          "name": "{{site.name}}",
+          "url": "{{site.url}}",
+          "telephone": "{{site.phone.display}}",
+          "email": "{{site.email}}"
+        },
+        "areaServed": [
+          { "@type": "City", "name": "Ciudad Autónoma de Buenos Aires" },
+          { "@type": "Country", "name": "Argentina" }
+        ],
+        "audience": {
+          "@type": "BusinessAudience",
+          "audienceType": "Empresas medianas y grandes con área de sistemas"
+        }
+      }
+    </script>
+  </head>
+  <body data-wa-texto="Hola Intellihelp, quiero consultar por una selección de personal IT.">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <include src="partials/header.html"></include>
+
+    <main id="contenido">
+      <include src="partials/pagina/hero.html">
+        <include
+          src="partials/pagina/migas.html"
+          seccion="Servicios"
+          seccion-url="/servicios/"
+          actual="Reclutamiento y selección"
+        ></include>
+        <p class="eyebrow eyebrow--dash in d2">Servicio</p>
+        <h1 id="pagina-titulo" class="pagina-hero__title in d3">
+          Reclutamiento y selección de personal IT <span class="pagina-hero__hl">en Buenos Aires.</span>
+        </h1>
+        <p class="lead pagina-hero__lead in d4">
+          Buscamos, entrevistamos y presentamos candidatos para el área de sistemas del cliente, que se incorporan directamente a su nómina. Desde 2022 evaluamos más de 400 candidatos IT para más de 25 empresas.
+        </p>
+        <div class="pagina-hero__actions in d5">
+          <a class="btn btn--lime" href="#agenda">Contanos qué puesto buscás <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn btn--light" href="{{site.whatsapp.url}}" target="_blank" rel="noopener">Escribinos por WhatsApp<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a>
+        </div>
+        <p class="hero__note in d6">
+          <svg class="hero__check" aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+          <span>Cada candidato se presenta con su informe de entrevista.</span>
+        </p>
+      </include>
+
+      <include src="partials/pagina/respuesta.html" titulo="¿Cómo es la selección de personal de Intellihelp?">
+        <p>
+          Buscamos y evaluamos profesionales IT para su incorporación a la nómina de la empresa cliente. Relevamos el puesto con el área solicitante, realizamos la búsqueda en LinkedIn, por referidos y a través de nuestra red de reclutadores, entrevistamos con una grilla técnica y psicodiagnóstico laboral, y presentamos cada candidato con su informe. Trabajamos para empresas con sede en Buenos Aires.
+        </p>
+      </include>
+
+      <include
+        src="partials/pagina/bloque.html"
+        id="incluye"
+        eyebrow="Qué incluye"
+        titulo="Tres formas de incorporar profesionales al área de sistemas."
+        fondo="section--soft"
+      >
+        <ul class="servicios__grid" role="list">
+          <li class="servicios__card card rv slow card-h" data-d="0">
+            <span class="servicios__num" aria-hidden="true">01</span>
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/servicios-clientes/iconos/seleccion.html"></include></span>
+            <h3 class="servicios__title">Selección de personal IT</h3>
+            <p class="servicios__text">Cubrimos un puesto específico, desde mesa de ayuda hasta desarrollo o análisis funcional. El cliente entrevista solo a los candidatos que superaron nuestra evaluación.</p>
+            <ul class="servicios__chips" role="list" aria-label="Incluye">
+              <li class="chip">Grilla técnica</li>
+              <li class="chip">Psicodiagnóstico laboral</li>
+              <li class="chip">Informe por candidato</li>
+            </ul>
+          </li>
+
+          <li class="servicios__card card rv slow card-h" data-d="0.35">
+            <span class="servicios__num" aria-hidden="true">02</span>
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/iconos/equipo.html"></include></span>
+            <h3 class="servicios__title">Assessment center</h3>
+            <p class="servicios__text">Evaluamos a varios candidatos en simultáneo, con ejercicios y dinámicas que muestran cómo resuelven problemas, se comunican y trabajan en equipo. Se aplica cuando hay que cubrir varios puestos o conformar un equipo nuevo.</p>
+            <ul class="servicios__chips" role="list" aria-label="Sirve para">
+              <li class="chip">Varios puestos</li>
+              <li class="chip">Equipos nuevos</li>
+            </ul>
+            <div class="nota"><b>Para Nico</b>El assessment center está en el catálogo pero no encontré ninguno hecho. ¿Cómo lo organizamos (presencial o virtual, cuánto dura)? Si hay un caso para contar, pasámelo.</div>
+          </li>
+
+          <li class="servicios__card card rv slow card-h" data-d="0.7">
+            <span class="servicios__num" aria-hidden="true">03</span>
+            <span class="servicios__icon icon-badge"><include src="partials/pagina/iconos/check.html"></include></span>
+            <h3 class="servicios__title">Acompañamiento después del ingreso</h3>
+            <p class="servicios__text">Una vez incorporada la persona, mantenemos actividades de seguimiento coordinadas con los líderes del cliente: reuniones periódicas y acompañamiento en la adaptación al puesto.</p>
+            <ul class="servicios__chips" role="list" aria-label="Incluye">
+              <li class="chip">Seguimiento posterior</li>
+              <li class="chip">En nómina del cliente</li>
+            </ul>
+          </li>
+        </ul>
+      </include>
+
+      <include
+        src="partials/pagina/bloque.html"
+        id="como-trabajamos"
+        eyebrow="Cómo trabajamos"
+        titulo="De la primera reunión al primer día de trabajo."
+      >
+        <ol class="pasos__grid" role="list">
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>1</span>
+            <h3 class="pasos__title">Relevamiento del puesto</h3>
+            <p class="pasos__text">Definimos con el cliente el perfil real del puesto: seniority, tecnologías, modalidad, zona y etapas del proceso interno. Con esa información redactamos la descripción del puesto.</p>
+          </li>
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>2</span>
+            <h3 class="pasos__title">Búsqueda</h3>
+            <p class="pasos__text">Publicamos en LinkedIn y realizamos búsqueda activa por referidos y a través de nuestra red de reclutadores.</p>
+          </li>
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>3</span>
+            <h3 class="pasos__title">Entrevista y evaluación</h3>
+            <p class="pasos__text">Cada candidato realiza una entrevista con grilla técnica y otra con analistas en psicodiagnóstico laboral.</p>
+          </li>
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>4</span>
+            <h3 class="pasos__title">Informe y presentación</h3>
+            <p class="pasos__text">Presentamos a los candidatos que superaron la evaluación, cada uno con su informe: experiencia, tecnologías, competencias y motivaciones. Luego solicitamos la devolución del cliente.</p>
+          </li>
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>5</span>
+            <h3 class="pasos__title">Entrevistas con el cliente</h3>
+            <p class="pasos__text">Coordinamos las entrevistas y las pruebas técnicas que el cliente quiera incorporar, y acompañamos al candidato en cada instancia.</p>
+          </li>
+          <li class="pasos__card card-h rv">
+            <span class="pasos__num num"><span class="visually-hidden">Paso </span>6</span>
+            <h3 class="pasos__title">Exámenes e ingreso</h3>
+            <p class="pasos__text">Psicotécnico, examen preocupacional y carta de oferta. La persona ingresa a la nómina del cliente y mantenemos el contacto posterior.</p>
+          </li>
+        </ol>
+      </include>
+
+      <include src="partials/pagina/datos.html" titulo="Condiciones para abrir una búsqueda.">
+        <include src="partials/pagina/dato.html" icono="empresa" titulo="Para quién">
+          <p>Empresas medianas y grandes con área de sistemas, de los sectores de salud, banca, retail, logística y tecnología, entre otros.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="equipo" titulo="Perfiles">
+          <p>Mesa de ayuda, infraestructura, redes, desarrollo, análisis funcional, BI, QA y liderazgo técnico. Los perfiles escasos se cubren mediante <a href="/servicios/busqueda-de-recursos/">headhunting</a>.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="mapa" titulo="Cobertura">
+          <p>Puestos en CABA, en el interior o remotos, para la casa central o para otras sedes.</p>
+        </include>
+        <include src="partials/pagina/dato.html" icono="precio" titulo="Cómo se cobra">
+          <p>Cada búsqueda se cotiza por separado, en modalidad a riesgo y con garantía de reposición.</p>
+          <div class="nota"><b>Para Carlos</b>En los acuerdos la garantía de reposición es de 3 meses. ¿Sigue así? Si me confirmás, sumo el plazo acá y en la pregunta de cómo se cobra.</div>
+        </include>
+      </include>
+
+      <include
+        src="partials/pagina/caso.html"
+        titulo="Más de 270 candidatos evaluados en un año."
+        cliente="Empresas de distintos rubros"
+        detalle="Selección IT · 2022"
+      >
+        <div class="casos__row">
+          <dt class="eyebrow">El desafío</dt>
+          <dd>Búsquedas simultáneas para empresas de distintos rubros, con perfiles desde mesa de ayuda hasta análisis de datos.</dd>
+        </div>
+        <div class="casos__row">
+          <dt class="eyebrow">Qué hicimos</dt>
+          <dd>Relevamos cada puesto con el cliente, entrevistamos a cada candidato con grilla técnica y psicodiagnóstico laboral, y presentamos solo a quienes superaron la evaluación, con su informe.</dd>
+        </div>
+        <div class="casos__row">
+          <dt class="eyebrow">El resultado</dt>
+          <dd>Entre otros ingresos, Grupo Libertad incorporó un analista funcional y un analista de BI, y Avalian, un analista funcional.</dd>
+        </div>
+        <template slot="panel">
+          <p class="casos__sla">
+            <span class="casos__big">+<span data-count="270" data-count-delay="300">270</span></span>
+            <span class="casos__sla-text">candidatos IT evaluados en 2022, con búsquedas simultáneas para distintos clientes</span>
+          </p>
+          <p class="eyebrow">Perfiles</p>
+          <ul class="pagina-caso__tecs" role="list">
+            <li class="chip">Mesa de ayuda</li>
+            <li class="chip">Análisis funcional</li>
+            <li class="chip">BI</li>
+            <li class="chip">Desarrollo</li>
+          </ul>
+        </template>
+        <template slot="extra">
+          <ul class="casos__grid pagina-casos" role="list">
+            <li class="casos__card card-h rv">
+              <p class="eyebrow">Selección IT · Tecnología</p>
+              <h3 class="casos__name">Beilox</h3>
+              <p class="casos__text">Seleccionamos desarrolladores .NET full stack para su factoría digital.</p>
+            </li>
+            <li class="casos__card card-h rv">
+              <p class="eyebrow">Selección IT · Tecnología</p>
+              <h3 class="casos__name">Mymtec</h3>
+              <p class="casos__text">Seleccionamos dos analistas de mesa de ayuda en 2023.</p>
+            </li>
+            <li class="casos__card card-h rv">
+              <p class="eyebrow">Selección IT · Servicios</p>
+              <h3 class="casos__name">Gestión Compartida</h3>
+              <p class="casos__text">Búsquedas de perfiles IT con ingreso directo a su nómina.</p>
+            </li>
+          </ul>
+          <div class="nota"><b>Para Nico</b>Me faltan el año y los perfiles de las búsquedas de Gestión Compartida. ¿Grupo Libertad, Avalian, Beilox y Mymtec siguen como clientes?</div>
+          <p class="servicios-mas rv">
+            <a class="btn btn--ghost" href="/clientes/">Ver más clientes por sector <span class="arr" aria-hidden="true">→</span></a>
+          </p>
+        </template>
+      </include>
+
+      <include src="partials/pagina/faq.html" titulo="Preguntas frecuentes sobre selección de personal IT.">
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Qué es la selección de personal IT?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Es la delegación de la búsqueda y la evaluación de un profesional de sistemas en una consultora especializada en el mercado IT. Relevamos el puesto, buscamos, entrevistamos y presentamos candidatos evaluados, que luego ingresan a tu nómina.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Qué recibo de cada candidato?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Un informe de entrevista con su experiencia, las tecnologías que maneja, sus competencias y sus motivaciones. Lo elaboramos después de la entrevista técnica y de la de psicodiagnóstico laboral, para que tu empresa entreviste solo a los candidatos adecuados.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Qué es un assessment center y cuándo conviene?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Es una evaluación simultánea de varios candidatos, con ejercicios y dinámicas grupales que muestran cómo resuelven problemas y trabajan en equipo. Conviene cuando hay varios puestos similares para cubrir o cuando se conforma un equipo nuevo.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿En qué se diferencia del outsourcing IT?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>En la nómina. Con la selección, la persona ingresa a tu empresa. En el <a href="/servicios/outsourcing-y-service-desk/">outsourcing IT</a> queda en nómina de Intellihelp, y nos ocupamos de la supervisión, los reemplazos y la capacitación.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Buscan perfiles que no sean de sistemas?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>En algunos casos. Nuestra especialidad es IT, pero también cubrimos puestos administrativos, contables y comerciales. Por ejemplo, realizamos búsquedas para distintas áreas de Laboratorio Bagó y de Tarjeta Naranja.</p>
+          </div>
+        </details>
+
+        <details name="faq" class="faq__item">
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Cómo se cobra una búsqueda?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <p>Cada búsqueda se cotiza por separado, en modalidad a riesgo y con garantía de reposición durante el plazo que establece la propuesta. Enviamos la propuesta después del relevamiento.</p>
+            <div class="nota"><b>Para Carlos</b>En los acuerdos la garantía es de 3 meses. Si sigue así, escribo el plazo exacto: "garantía de reposición durante los primeros 3 meses".</div>
+          </div>
+        </details>
+
+        <!-- Borradores: no se publican hasta tener la respuesta. Al cargarla,
+             sacar data-draft: el schema FAQPage la suma solo. -->
+        <details name="faq" class="faq__item" data-draft>
+          <summary class="faq__q">
+            <span class="faq__q-text">¿Cuánto tarda una búsqueda?</span>
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a">
+            <div class="nota"><b>Para Nico</b>¿Cuánto tarda en promedio desde el relevamiento hasta la primera terna y hasta el ingreso? Hasta saberlo, la pregunta no sale.</div>
+          </div>
+        </details>
+      </include>
+
+      <include
+        src="partials/pagina/cta.html"
+        titulo="Contanos qué puesto querés cubrir y para cuándo."
+        cierre="El proceso comienza con el relevamiento del perfil."
+        necesidad="Búsqueda de perfiles IT"
+      ></include>
+    </main>
+
+    <include src="partials/footer.html"></include>
+    <include src="partials/whatsapp.html"></include>
+  </body>
+</html>

@@ -1,0 +1,106 @@
+/* =========================================================
+   Política de privacidad (/privacidad/). Se carga después de styles.css solo en esa página.
+   Usa los tokens y las piezas de styles.css (.page-head, .page-body, .prose, rótulos y títulos); acá van solo las piezas
+   propias de un texto legal largo: índice navegable (fijo al costado en escritorio, recuadro arriba en celular; fijo solo si entra completo),
+   recuadro de resumen, numeración de secciones, tabla de cookies con desplazamiento propio y recuadro de la leyenda
+   de la AAIP. Sin colores nuevos: carbón, violeta, lila y gris del sitio.
+   ========================================================= */
+
+.legal { display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; }
+@media (min-width: 1024px) {
+  .legal { grid-template-columns: 272px minmax(0, 760px); justify-content: space-between; gap: 64px; align-items: start; }
+}
+
+/* ---------- Índice ---------- */
+.legal-toc { padding: 24px 24px 20px; border-radius: var(--radius); background: var(--lavender); }
+/* Sin caja con scroll interno: el índice acompaña al texto (sticky) solo cuando entra completo en la pantalla; en
+   notebooks de 768–800 px de alto queda estático, arriba de la columna. */
+@media (min-width: 1024px) and (min-height: 900px) {
+  .legal-toc { position: sticky; top: calc(var(--header-h) + 24px); }
+}
+.legal-toc__title { display: block; margin: 0 0 14px; }
+.legal-toc ol { margin: 0; padding: 0; list-style: none; counter-reset: toc; }
+.legal-toc li { counter-increment: toc; }
+.legal-toc li + li { margin-top: 2px; }
+.section--alt .legal-toc a {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  gap: 4px;
+  padding: 6px 8px;
+  border-radius: var(--radius-sm);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.35;
+  text-decoration: none;
+  transition: background-color var(--t-fast) var(--ease-out), color var(--t-fast) var(--ease-out);
+}
+.legal-toc a::before { content: counter(toc) "."; color: var(--purple); font-weight: 600; font-variant-numeric: tabular-nums; }
+.section--alt .legal-toc a:hover { background: var(--white); color: var(--purple); }
+.section--alt .legal-toc a[aria-current="true"] { background: var(--white); color: var(--purple); font-weight: 600; }
+@media (max-width: 1023px) {
+  .legal-toc ol { columns: 2 280px; column-gap: 16px; }
+  .legal-toc li { break-inside: avoid; }
+}
+
+/* ---------- Texto ---------- */
+.legal-body { counter-reset: sec; }
+.legal-body.prose { max-width: 760px; }
+.legal-body h2 { counter-increment: sec; scroll-margin-top: calc(var(--header-h) + 24px); }
+.legal-body h2::before { content: counter(sec) ". "; color: var(--purple); }
+.legal-body h3 { font-size: 21px; margin-top: 1.5em; }
+.legal-body > h2:first-of-type { margin-top: 1.2em; }
+.legal-body .legal-meta { color: var(--muted); font-size: 16px; }
+
+/* Resumen inicial */
+.legal-resumen { padding: 28px 28px 24px; border-left: 4px solid var(--purple); border-radius: var(--radius-sm); background: var(--lavender); font-size: 17px; }
+.legal-resumen > * { margin: 0 0 .7em; }
+.legal-resumen > :last-child { margin-bottom: 0; }
+.legal-resumen__title { font-weight: 700; font-size: 19px; }
+.legal-resumen ul { padding-left: 1.2em; }
+
+/* Ficha del responsable */
+.legal-ficha { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; padding: 0; border-top: 1px solid var(--gray-bg); font-size: 17px; }
+.legal-ficha > div { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2px 24px; padding: 12px 0; border-bottom: 1px solid var(--gray-bg); }
+@media (min-width: 640px) { .legal-ficha > div { grid-template-columns: 200px minmax(0, 1fr); } }
+.legal-ficha dt { font-weight: 600; }
+.legal-ficha dd { margin: 0; overflow-wrap: anywhere; }
+
+/* Tabla de cookies: ocupa el ancho de la columna de texto y nunca se desplaza (sin barra de scroll en ningún ancho).
+   Columnas fijas: el texto largo hace salto de línea dentro de su celda. Hasta 600 px pasa a fichas (ver abajo). */
+.legal-tabla { overflow: hidden; border: 1px solid var(--gray-bg); border-radius: var(--radius-sm); }
+.legal-tabla table { width: 100%; min-width: 0; margin: 0; table-layout: fixed; font-size: 15px; line-height: 1.5; }
+.legal-tabla col:nth-child(1) { width: 24%; }
+.legal-tabla col:nth-child(2) { width: 19%; }
+.legal-tabla col:nth-child(3) { width: 41%; }
+.legal-tabla col:nth-child(4) { width: 16%; }
+.legal-tabla th { background: var(--lavender); font-weight: 600; }
+.legal-tabla :is(th, td) { vertical-align: top; overflow-wrap: break-word; }
+.legal-tabla tr:last-child td { border-bottom: 0; }
+.legal-tabla code { white-space: nowrap; }
+
+/* Leyendas obligatorias (Ley 25.326 y Resolución AAIP 14/2018) */
+.legal-leyenda { padding: 22px 24px; border: 2px solid var(--purple); border-radius: var(--radius-sm); font-size: 17px; }
+.legal-leyenda > * { margin: 0 0 .7em; }
+.legal-leyenda > :last-child { margin-bottom: 0; }
+
+.legal-body a { overflow-wrap: anywhere; }
+
+@media (max-width: 600px) {
+  .legal-body.prose { font-size: 17px; }
+  .legal-resumen, .legal-leyenda { padding: 20px 18px; }
+  .legal-toc { padding: 20px 16px 16px; }
+}
+
+/* Celular: cada fila de la tabla de cookies pasa a ser una ficha, con el nombre de la columna adelante. */
+@media (max-width: 600px) {
+  .legal-tabla { overflow: visible; border: 0; border-radius: 0; }
+  .legal-tabla table { display: block; min-width: 0; table-layout: auto; }
+  .legal-tabla colgroup { display: none; }
+  .legal-tabla thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .legal-tabla :is(tbody, tr, td) { display: block; }
+  .legal-tabla tr { margin-bottom: 12px; padding: 6px 16px; border: 1px solid var(--gray-bg); border-radius: var(--radius-sm); }
+  .legal-tabla td { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 12px; padding: 8px 0; }
+  .legal-tabla tr td:last-child { border-bottom: 0; }
+  .legal-tabla td::before { content: attr(data-label); color: var(--purple); font-weight: 600; }
+  .legal-tabla code { white-space: normal; }
+}

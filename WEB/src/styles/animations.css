@@ -1,0 +1,387 @@
+/* ==========================================================================
+   Animaciones — mismas que el código original (DOCS/diseno/Home-html-referencia)
+   - .rv: aparece al entrar en pantalla y se vuelve a animar cada vez que
+     vuelve a entrar (el JS alterna .pre / .show).
+   - .ico: íconos SVG que hacen "pop" y se dibujan; .ic-ok / .ic-no: círculo
+     con onda; .svc-ico: pop + flotación; .ring-p / .ring-c: anillos del timeline.
+   - .fondo: luces difusas que se desplazan muy lento en secciones oscuras.
+   Sin JS todo queda visible.
+   ========================================================================== */
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pop {
+  from { opacity: 0; transform: scale(0.4); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes ring {
+  from { stroke-dashoffset: 75.4; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes rippleOk {
+  0% { box-shadow: 0 0 0 0 rgb(152 204 50 / 0.6); }
+  100% { box-shadow: 0 0 0 16px rgb(152 204 50 / 0); }
+}
+
+@keyframes rippleNo {
+  0% { box-shadow: 0 0 0 0 rgb(42 42 42 / 0.35); }
+  100% { box-shadow: 0 0 0 16px rgb(42 42 42 / 0); }
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgb(152 204 50 / 0.55); }
+  70% { box-shadow: 0 0 0 10px rgb(152 204 50 / 0); }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Entrada al cargar (hero) */
+.in {
+  animation: rise 0.9s var(--ease-out) both;
+}
+
+.d1 { animation-delay: 0.1s; }
+.d2 { animation-delay: 0.25s; }
+.d3 { animation-delay: 0.4s; }
+.d4 { animation-delay: 0.55s; }
+.d5 { animation-delay: 0.7s; }
+.d6 { animation-delay: 0.85s; }
+.d7 { animation-delay: 1s; }
+.d8 { animation-delay: 1.15s; }
+.d9 { animation-delay: 1.3s; }
+
+/* Aparición al hacer scroll */
+.rv.pre {
+  opacity: 0;
+  transform: translateY(26px);
+}
+
+.rv.show {
+  animation: rise 0.9s var(--ease-out) both;
+}
+
+.rv.slow.show {
+  animation-duration: 1.6s;
+}
+
+/* Íconos que hacen pop y se dibujan */
+.ico {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.rv.pre .ico,
+.rv.pre .num,
+.rv.pre .ic {
+  opacity: 0;
+  transform: scale(0.4);
+}
+
+.rv.show .ico,
+.rv.show .num {
+  animation: pop 0.6s 0.22s var(--ease-out) both;
+}
+
+.rv.show .ico :is(path, circle, rect) {
+  stroke-dasharray: 64;
+  stroke-dashoffset: 64;
+  animation: draw 0.9s 0.32s ease-out forwards;
+}
+
+/* Círculos de ✓ / ✗ con onda */
+.rv.show .ic-ok {
+  animation: pop 0.5s 0.15s var(--ease-out) both, rippleOk 1s 0.55s ease-out both;
+}
+
+.rv.show .ic-no {
+  animation: pop 0.5s 0.15s var(--ease-out) both, rippleNo 1s 0.55s ease-out both;
+}
+
+.rv.show .ic .ico {
+  animation: pop 0.4s 0.45s var(--ease-out) both;
+}
+
+/* Íconos de servicio: pop + flotación */
+.float,
+.svc-ico {
+  animation: float 4s ease-in-out infinite;
+}
+
+.rv.show .svc-ico {
+  animation: pop 0.6s 0.2s var(--ease-out) both, float 4s 1s ease-in-out infinite;
+}
+
+.rv.slow.show .svc-ico {
+  animation: pop 1.1s 0.7s var(--ease-out) both, float 4s 2s ease-in-out infinite;
+}
+
+.rv.slow.show .ico :is(path, circle, rect) {
+  animation-duration: 1.4s;
+  animation-delay: 0.9s;
+}
+
+.rv.slow.pre .num,
+.rv.slow.show .num {
+  animation-duration: 1s;
+  animation-delay: 0.5s;
+}
+
+/* Anillos del timeline: se dibuja el arco y aparece el centro */
+.ring-p {
+  stroke-dasharray: 75.4;
+  stroke-dashoffset: 0;
+}
+
+.rv.pre .ring-p {
+  stroke-dashoffset: 75.4;
+}
+
+.rv.show .ring-p {
+  animation: ring 1.1s 0.15s var(--ease-out) both;
+}
+
+.ring-c {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.rv.pre .ring-c {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.rv.show .ring-c {
+  animation: pop 0.5s 1.05s var(--ease-out) both;
+}
+
+/* Fondo de luces difusas en secciones oscuras (partials/fondo.html).
+   Probado y descartado (oct. 2026): content-visibility: auto en las
+   secciones de la home corre los saltos a anclas (#agenda quedaba miles de
+   px desplazada en el celular), y en el fondo / el pie deja sin dibujar las
+   capturas de página completa (scripts/shot.mjs full) y corre 1-2 px el texto
+   del pie. */
+.tech {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Capa detrás del contenido. contain: strict aísla el pintado del resto de
+   la sección. El ::after es un grano muy fino y fijo (ruido SVG en mosaico)
+   que disimula las bandas de los degradados sobre el carbón. */
+.fondo {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  contain: strict;
+  pointer-events: none;
+}
+
+.fondo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  opacity: 0.045;
+}
+
+/* Cada luz es un círculo con un degradado radial de perfil gaussiano
+   (exp(-4.6·r²): se desvanece sin borde, como un desenfoque, pero sin
+   filter: blur). --c es el color en RGB y --a la intensidad en el centro.
+   El movimiento usa solo translate / rotate / scale (los mueve el compositor,
+   sin repintar): una órbita lenta alrededor de un punto corrido del centro
+   (transform-origin), una deriva de ida y vuelta y una "respiración" de
+   escala, cada una con su duración, así la combinación nunca se repite igual. */
+.fondo__luz {
+  --c: 102 51 153;
+  --a: 0.5;
+  position: absolute;
+  width: var(--d);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    rgb(var(--c) / var(--a)) 0%,
+    rgb(var(--c) / calc(var(--a) * 0.9)) 15%,
+    rgb(var(--c) / calc(var(--a) * 0.66)) 30%,
+    rgb(var(--c) / calc(var(--a) * 0.39)) 45%,
+    rgb(var(--c) / calc(var(--a) * 0.19)) 60%,
+    rgb(var(--c) / calc(var(--a) * 0.075)) 75%,
+    rgb(var(--c) / calc(var(--a) * 0.024)) 90%,
+    rgb(var(--c) / 0) 100%
+  );
+  transform-origin: 45% 56%;
+  animation:
+    fondo-orbita var(--t1) linear infinite,
+    var(--deriva) var(--t2) ease-in-out infinite alternate,
+    fondo-respira var(--t3) ease-in-out infinite alternate;
+  animation-delay: var(--retraso, 0s);
+}
+
+/* Violeta principal, arriba a la izquierda */
+.fondo__luz--1 {
+  --d: clamp(560px, 80vw, 1200px);
+  --a: 0.5;
+  --deriva: fondo-deriva-1;
+  --t1: 58s;
+  --t2: 41s;
+  --t3: 33s;
+  --retraso: -17s;
+  top: calc(var(--d) * -0.38);
+  left: calc(var(--d) * -0.3);
+}
+
+/* Violeta secundario, abajo a la derecha (gira al revés) */
+.fondo__luz--2 {
+  --d: clamp(480px, 64vw, 980px);
+  --a: 0.4;
+  --deriva: fondo-deriva-2;
+  --t1: 52s;
+  --t2: 37s;
+  --t3: 46s;
+  --retraso: -29s;
+  right: calc(var(--d) * -0.3);
+  bottom: calc(var(--d) * -0.36);
+  transform-origin: 56% 43%;
+  animation-direction: reverse, alternate, alternate;
+}
+
+/* Lima: solo un toque, arriba a la derecha */
+.fondo__luz--3 {
+  --c: 152 204 50;
+  --d: clamp(300px, 38vw, 620px);
+  --a: 0.1;
+  --deriva: fondo-deriva-3;
+  --t1: 47s;
+  --t2: 31s;
+  --t3: 39s;
+  --retraso: -8s;
+  top: 6%;
+  right: 6%;
+}
+
+/* Cremita casi imperceptible, abajo al centro */
+.fondo__luz--4 {
+  --c: 240 235 245;
+  --d: clamp(360px, 48vw, 760px);
+  --a: 0.05;
+  --deriva: fondo-deriva-4;
+  --t1: 60s;
+  --t2: 44s;
+  --t3: 30s;
+  --retraso: -36s;
+  bottom: -14%;
+  left: 20%;
+  transform-origin: 54% 46%;
+  animation-direction: reverse, alternate, alternate;
+}
+
+/* Celular: las secciones son altas y angostas; la luz lima baja hacia el
+   medio para que no se junte con la violeta de arriba. */
+@media (max-width: 767.98px) {
+  .fondo__luz--3 {
+    top: 38%;
+    right: -18%;
+  }
+
+  .fondo__luz--4 {
+    bottom: 22%;
+    left: -20%;
+  }
+}
+
+@keyframes fondo-orbita {
+  to { rotate: 1turn; }
+}
+
+@keyframes fondo-respira {
+  from { scale: 1; }
+  to { scale: 1.14; }
+}
+
+@keyframes fondo-deriva-1 {
+  from { translate: 0 0; }
+  to { translate: 90px 60px; }
+}
+
+@keyframes fondo-deriva-2 {
+  from { translate: 0 0; }
+  to { translate: -80px -70px; }
+}
+
+@keyframes fondo-deriva-3 {
+  from { translate: 0 0; }
+  to { translate: -110px 80px; }
+}
+
+@keyframes fondo-deriva-4 {
+  from { translate: 0 0; }
+  to { translate: 100px -50px; }
+}
+
+/* Movimiento reducido (Windows con "Efectos de animación" apagados, etc.):
+   se mantienen las apariciones como fundido, los contadores y los dibujos de
+   íconos/anillos; se frena la flotación de íconos, el pulso, los hover que
+   desplazan y el fondo de luces (quedan las mismas manchas, quietas). */
+@media (prefers-reduced-motion: reduce) {
+  .rv.pre {
+    transform: none;
+  }
+
+  .rv.show,
+  .in {
+    animation-name: fade;
+  }
+
+  .rv.show .ico,
+  .rv.show .num,
+  .rv.show .ic-ok,
+  .rv.show .ic-no,
+  .rv.show .ic .ico,
+  .rv.show .svc-ico,
+  .rv.slow.show .svc-ico,
+  .rv.show .ring-c {
+    animation: fade 0.8s 0.3s var(--ease-out) both;
+  }
+
+  .float,
+  .svc-ico,
+  .dot-live,
+  .fondo__luz {
+    animation: none;
+  }
+
+  .card-h,
+  .btn {
+    transition-property: background-color, color, border-color, box-shadow;
+  }
+
+  .card-h:hover,
+  .btn:hover {
+    transform: none;
+  }
+}

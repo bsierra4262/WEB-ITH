@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Google Tag Manager (GTM-54S82VL3). La reserva ya se midió en /diagnostico-sin-cargo/ (schedule_meeting, en
+       js/agenda.js); acá solo cta_click (main.js). -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-54S82VL3');</script>
+  <!-- End Google Tag Manager -->
+
+  <title>Reunión confirmada | Intellihelp</title>
+  <!-- Confirmación del diagnóstico sin cargo: se llega después de reservar en /diagnostico-sin-cargo/. Fuera de
+       buscadores y del sitemap. -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#2A2A2A">
+  <link rel="icon" href="../favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+
+  <link rel="preload" href="../fonts/saira-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/diagnostico.css">
+
+  <script>
+    // Antes del primer pintado: "js", "anim" (ver /diagnostico-sin-cargo/) y "dx-con-datos" si en esta pestaña se acaba
+    // de confirmar una reunión (sessionStorage "ith_reserva", lo guarda diagnostico.js): así el título y los textos
+    // salen personalizados desde el primer cuadro, sin parpadeo.
+    (function (root) {
+      root.classList.add('js');
+      if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) root.classList.add('anim');
+      try { if (JSON.parse(sessionStorage.getItem('ith_reserva') || 'null')) root.classList.add('dx-con-datos'); } catch (e) {}
+    })(document.documentElement);
+  </script>
+  <!-- main.js: años, menú en celular y cta_click. diagnostico.js: header que se compacta y los datos de la reunión. -->
+  <script src="../js/main.js" defer></script>
+  <script src="../js/diagnostico.js" defer></script>
+  <!-- Animación de carga común a todas las páginas (componente único: no se toca acá). Después de las hojas de estilo y
+       sin defer. Esta página no tiene preloader propio. -->
+  <link rel="stylesheet" href="/css/carga.css">
+  <script src="/js/carga.js"></script>
+</head>
+<body class="dx dx--noche">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-54S82VL3"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+<!-- header:inicio
+     Encabezado común a todas las páginas del sitio (home, /diagnostico-sin-cargo/, /gracias-reserva/, /postulate/,
+     /privacidad/, 404 y el tema del blog). Se copia igual, completo, entre header:inicio y header:fin; solo cambian los
+     atributos del CTA (href, data-cta y, en el diagnóstico, data-dx-ir). Estilos: "Header" en css/styles.css;
+     comportamiento (compactarse, esconderse al bajar, panel del menú y sección activa): js/main.js.
+     Las anclas van como /#seccion para que funcionen desde cualquier página. En una página interna, al link del menú que
+     corresponda (Blog o Postulate) se le agrega aria-current="page" (main.js lo hace solo si falta). -->
+<header id="inicio" class="site-header">
+  <div class="wrap site-header__inner">
+    <a href="/" class="brand" aria-label="Intellihelp, volver al inicio">
+      <img src="/img/logo-intellihelp.png" alt="ITH, Intellihelp" width="74" height="40">
+      <span class="brand__tag"><span>Servicios IT</span><span>desde 2010</span></span>
+    </a>
+    <nav id="menu" class="nav" aria-label="Principal">
+      <ul class="list-reset">
+        <li><a href="/#que-ofrecemos">Qué ofrecemos</a></li>
+        <li><a href="/#quienes-somos">Quiénes somos</a></li>
+        <li><a href="/#casos">Casos</a></li>
+        <li><a href="/novedades/">Blog</a></li>
+        <li><a href="/#preguntas">FAQ</a></li>
+        <li><a href="/postulate/">Postulate</a></li>
+      </ul>
+      <a id="cta-header" data-cta="gracias-header" href="/diagnostico-sin-cargo/#agendar" class="btn btn-lime btn-sm site-header__cta">Agendá reunión <span class="arr" aria-hidden="true">→</span></a>
+    </nav>
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="menu" data-nav-toggle>
+      <span class="nav-toggle__bars" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span class="sr-only">Menú</span>
+    </button>
+  </div>
+</header>
+<!-- header:fin -->
+
+<main id="contenido" class="gx">
+  <div class="gx__in rv rv-seq">
+    <!-- Con reunión confirmada en esta pestaña (html.dx-con-datos) se ven los textos [data-si]; si alguien entra directo,
+         los [data-no], que lo llevan a la agenda. -->
+    <p class="gx-rotulo" data-si><span aria-hidden="true"></span>Reunión confirmada</p>
+    <h1 class="gx-titulo"><span data-si>Listo, <span class="gx-nombre" data-dx-nombre>gracias</span>.</span><span data-no>Reservá tu <span class="gx-nombre">diagnóstico</span>.</span></h1>
+    <script>
+      // Nombre de pila, horario y mail de la reunión, antes de pintar (los guardó /diagnostico-sin-cargo/ al confirmar).
+      (function () {
+        try {
+          var d = JSON.parse(sessionStorage.getItem('ith_reserva') || 'null');
+          if (!d) return;
+          var nombre = String(d.nombre || '').trim().split(/\s+/)[0];
+          if (nombre) document.querySelector('[data-dx-nombre]').textContent = nombre.slice(0, 40);
+        } catch (e) {}
+      })();
+    </script>
+    <p class="gx-texto gx-texto--grande" data-si>Nos vemos el <strong data-dx-cuando>día que elegiste</strong> (hora de Argentina), por videollamada.</p>
+    <p class="gx-texto" data-si>Te enviamos <span data-dx-mail-wrap>a <strong data-dx-mail></strong> </span>la invitación de Google Calendar con el enlace de Meet: aceptala y la reunión queda en tu calendario. Si no la ves en unos minutos, revisá la carpeta de correo no deseado.</p>
+    <p class="gx-texto" data-no>Todavía no hay una reunión agendada en esta pestaña. Elegí día y horario en la agenda: lleva menos de un minuto.</p>
+    <p data-no><a class="btn btn-lime" href="/diagnostico-sin-cargo/#agendar">Ir a la agenda <span class="arr" aria-hidden="true">→</span></a></p>
+    <p class="gx-texto">Son <strong><span data-duracion>30</span>&nbsp;minutos</strong> y salís con un panorama claro de tu soporte, tu infraestructura o tu seguridad, y con los próximos pasos. No es una presentación comercial: la propuesta viene después, y solo si tiene sentido.</p>
+
+    <!-- Tres cosas para tener a mano. Números a la izquierda, sin centrar. -->
+    <div class="gx-card gx-rinde">
+      <p class="gx-card__rotulo">Para que la reunión rinda, tené a mano</p>
+      <ol class="gx-rinde__lista list-reset">
+        <li><span class="gx-rinde__num" aria-hidden="true">01</span><span>Cuántos puestos, usuarios y sedes abarca.</span></li>
+        <li><span class="gx-rinde__num" aria-hidden="true">02</span><span>Cómo se resuelve hoy el soporte: equipo propio, un proveedor o un esquema mixto.</span></li>
+        <li><span class="gx-rinde__num" aria-hidden="true">03</span><span>Los dos o tres problemas que más se repitieron en los últimos meses.</span></li>
+      </ol>
+    </div>
+
+    <div class="gx-card gx-cambios" data-si>
+      <p class="gx-card__rotulo">¿Necesitás cambiar el horario?</p>
+      <p class="gx-texto">Respondé el mail de la invitación o escribinos por <a href="https://wa.me/5491150274827?text=Hola%2C%20reserv%C3%A9%20un%20diagn%C3%B3stico%20sin%20cargo%20y%20quiero%20hacer%20una%20consulta%20sobre%20la%20reuni%C3%B3n." target="_blank" rel="noopener">WhatsApp<span class="sr-only"> (se abre en una pestaña nueva)</span></a> o a <a href="mailto:info@intellihelp.tech">info@intellihelp.tech</a>, y la pasamos a otro día.</p>
+    </div>
+
+    <!-- Firma -->
+    <div class="gx-firma">
+      <p class="gx-firma__rotulo">Hablamos</p>
+      <div class="gx-firma__fila">
+        <p class="gx-firma__nombre">El equipo de Intellihelp</p>
+        <p class="gx-firma__datos"><span data-duracion>30</span> minutos · Sin cargo · Sin compromiso</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="dx-pie">
+  <a href="/" class="dx-pie__marca" aria-label="Intellihelp, volver al inicio"><img src="../img/logo-intellihelp.png" alt="ITH, Intellihelp" width="52" height="28" loading="lazy"></a>
+  <p class="dx-pie__legal">© <span data-anio>2026</span> Intellihelp S.A. · <a href="/privacidad/">Aviso de privacidad</a><br>Tus datos se tratan conforme a la Ley 25.326 de Protección de los Datos Personales. Podés pedir acceso, rectificación o supresión cuando quieras, escribiendo a <a href="mailto:info@intellihelp.tech">info@intellihelp.tech</a>.</p>
+</footer>
+
+</body>
+</html>

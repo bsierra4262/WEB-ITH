@@ -1,0 +1,23 @@
+<!--
+  TARJETA DE DATO CLAVE (va dentro de partials/pagina/datos.html)
+  Tarjeta blanca con ícono en badge (.icon-badge + .svc-ico: pop, dibujo y
+  flotación como en la home), título (h3) y texto.
+
+  Uso:
+    <include src="partials/pagina/dato.html" icono="reloj" titulo="SLA y horario">
+      <p>Texto corto con el dato.</p>
+    </include>
+
+  Props:
+    icono    obligatoria. Nombre de un archivo de partials/pagina/iconos/:
+             empresa, auriculares, reloj, mapa, precio, equipo, escudo, check.
+    titulo   obligatoria. Dos a cuatro palabras.
+  Slot: párrafos cortos y, si falta el dato, una .nota.
+-->
+<article class="pagina-dato card card-h rv slow">
+  <span class="pagina-dato__icon icon-badge"><include src="iconos/{{props.icono}}.html"></include></span>
+  <h3 class="pagina-dato__titulo">{{props.titulo}}</h3>
+  <div class="pagina-dato__texto">
+    <slot></slot>
+  </div>
+</article>

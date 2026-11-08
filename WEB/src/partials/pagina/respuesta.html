@@ -1,0 +1,28 @@
+<!--
+  RESPUESTA CORTA (informe: "una respuesta de 40 a 60 palabras arriba")
+  Primera sección después del hero. Contesta en un párrafo qué es el servicio,
+  para quién y dónde. Es el texto que más citan Google y los asistentes de
+  búsqueda: datos concretos, sin adjetivos de relleno. Conviene repetirlo en la "description"
+  del JSON-LD Service de la página.
+
+  Uso:
+    <include src="partials/pagina/respuesta.html" titulo="¿Qué es el outsourcing IT de Intellihelp?">
+      <p>Entre 40 y 60 palabras: qué es, para quién y dónde.</p>
+    </include>
+
+  Props:
+    titulo    obligatoria. Pregunta o frase con la keyword (h2).
+    eyebrow   opcional (por defecto "En pocas palabras").
+  Slot: uno o dos párrafos <p>. Puede llevar una .nota.
+-->
+<section id="resumen" class="section pagina-respuesta" aria-labelledby="resumen-titulo">
+  <div class="wrap pagina-respuesta__grid">
+    <header class="section-head pagina-respuesta__head rv">
+      <p class="eyebrow eyebrow--dash">{{props.eyebrow|En pocas palabras}}</p>
+      <h2 id="resumen-titulo" class="h2">{{props.titulo}}</h2>
+    </header>
+    <div class="pagina-respuesta__texto rv" data-d="0.12">
+      <slot></slot>
+    </div>
+  </div>
+</section>

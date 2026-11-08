@@ -1,0 +1,23 @@
+# /api: solo se puede acceder a contact.php (formulario) y agenda.php (horarios
+# y reserva de la agenda de #agenda). Todo lo demás (_crm.php, listados,
+# archivos sueltos, este mismo .htaccess) devuelve 403.
+Options -Indexes
+DirectoryIndex disabled
+
+# Apache 2.4 / LiteSpeed
+<IfModule mod_authz_core.c>
+  Require all denied
+  <FilesMatch "^(contact|agenda)\.php$">
+    Require all granted
+  </FilesMatch>
+</IfModule>
+
+# Apache 2.2 (por compatibilidad)
+<IfModule !mod_authz_core.c>
+  Order allow,deny
+  Deny from all
+  <FilesMatch "^(contact|agenda)\.php$">
+    Order deny,allow
+    Allow from all
+  </FilesMatch>
+</IfModule>

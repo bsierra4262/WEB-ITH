@@ -1,0 +1,361 @@
+/* ==========================================================================
+   Equipo — "Quiénes somos" + cita de la empresa
+   Estructura del PDF (pág. 04-05): grilla de tarjetas con placeholder de
+   foto 4:5 rayado (.photo-ph) con ícono de cámara y leyenda abajo; rol,
+   nombre y texto; cita en tarjeta con comillas grandes a la izquierda.
+   Colores y animaciones del código original: placeholder cremita, rol en
+   eyebrow violeta, cita en tarjeta cremita con la comilla violeta que hace
+   "pop" (.num) al aparecer; cada tarjeta entra con .rv.
+   Con los textos reales son 8 tarjetas (7 personas + equipo técnico):
+   1 → 2 → 4 columnas (4 × 2 en escritorio).
+   ========================================================================== */
+
+.equipo__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 40px 24px;
+}
+
+.equipo__card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+/* Foto (placeholder o <img> real): misma caja 4:5 */
+.equipo__media {
+  order: -2;
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--c-cream);
+}
+
+.equipo__photo,
+.equipo__img {
+  width: 100%;
+  height: 100%;
+}
+
+.equipo__img {
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-out);
+}
+
+.equipo__card:hover .equipo__img {
+  transform: scale(1.03);
+}
+
+/* Sin foto real todavía: en producción (fuera del modo notas) no se muestra
+   el placeholder rayado; la tarjeta queda con rol, nombre y texto. Cuando
+   una tarjeta tiene su <img class="equipo__img">, se ve siempre. */
+html:not(.show-notes) .equipo__media:has(> .photo-ph) {
+  display: none;
+}
+
+/* Placeholder rayado (.photo-ph): leyenda "Foto real" abajo, sin caja */
+.equipo__photo {
+  padding: 16px 18px;
+}
+
+.equipo__photo .nota {
+  border: 0;
+  background: none;
+  padding: 0;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+/* Rol arriba del nombre (en el DOM va después, para que se lea nombre → rol) */
+.equipo__role {
+  order: -1;
+}
+
+.equipo__name {
+  font-size: clamp(1.375rem, 1.2rem + 0.6vw, 1.625rem); /* 22 → 26px */
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--text);
+}
+
+.equipo__text {
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--text-2);
+}
+
+/* Certificaciones bajo el texto (tarjeta de Brian): línea chica, mismo gris */
+.equipo__certs {
+  font-size: var(--fs-small);
+  line-height: 1.5;
+  color: var(--text-2);
+}
+
+/* Especialidades en chips (mismo .chip del sitio, un poco más chico para
+   que entren en la columna de 4) */
+.equipo__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.equipo__chips .chip {
+  font-size: 0.8125rem;
+  padding: 5px 10px;
+}
+
+/* "Ver perfil completo" (home → /nosotros/#persona), como "Ver el servicio" */
+.equipo__more {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 6px;
+  min-height: 44px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--c-violet);
+  text-decoration: none;
+}
+
+.equipo__more .arr {
+  transition: transform 0.3s var(--ease-out);
+}
+
+.equipo__more:hover .arr {
+  transform: translateX(5px);
+}
+
+/* Perfil completo (/nosotros/): bloques cortos con un rótulo chico
+   (Especialidades, Certificaciones, Formación, Idiomas) */
+.equipo__perfil {
+  display: grid;
+  gap: 18px;
+  margin-top: 4px;
+  padding-top: 18px;
+  border-top: 1px solid var(--divider-light);
+}
+
+.equipo__bloque {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-width: 0;
+}
+
+/* Dos bloques apilados en una misma columna (Formación + Idiomas) */
+.equipo__columna {
+  display: grid;
+  align-content: start;
+  gap: 18px;
+  min-width: 0;
+}
+
+.equipo__bloque-titulo {
+  font-family: var(--font-display);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+.equipo__lista {
+  display: grid;
+  gap: 8px;
+  font-size: var(--fs-small);
+  line-height: 1.45;
+  color: var(--text-2);
+}
+
+.equipo__lista li {
+  padding-left: 14px;
+  position: relative;
+}
+
+.equipo__lista li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c-violet);
+}
+
+/* El emisor va primero y en negrita: se escanea por marca */
+.equipo__emisor {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.equipo__fecha {
+  white-space: nowrap;
+}
+
+/* Tecnicatura de Brian: una línea de resumen y las materias en dos listas
+   (aprobadas / cursadas), lado a lado desde tablet */
+.equipo__bloque-texto {
+  font-size: var(--fs-small);
+  line-height: 1.5;
+  color: var(--text-2);
+}
+
+.equipo__materias {
+  display: grid;
+  gap: 18px;
+  margin-top: 4px;
+}
+
+.equipo__subtitulo {
+  margin: 0;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--text);
+}
+
+@media (min-width: 600px) {
+  .equipo__materias {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 32px;
+  }
+}
+
+/* Nota general debajo de la grilla (solo en desarrollo) */
+.equipo__grid + .nota {
+  margin-top: 24px;
+}
+
+/* Nota de revisión de la cita (solo en desarrollo) */
+.equipo__quote-nota {
+  margin-top: 12px;
+}
+
+/* Cita: comillas a la izquierda, texto y firma a la derecha */
+.equipo__quote {
+  margin: clamp(48px, 6vw, 64px) 0 0;
+  padding: clamp(28px, 3.5vw, 44px) clamp(24px, 4vw, 48px);
+  border-radius: var(--radius-lg);
+  background: var(--surface-soft);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+}
+
+/* La comilla hace "pop" con .num: necesita ser bloque para escalar */
+.equipo__quote-mark {
+  display: block;
+  justify-self: start;
+  height: 0.5em;
+  font-family: var(--font-display);
+  font-size: 7rem; /* 112px */
+  font-weight: 800;
+  line-height: 0.95;
+  color: var(--c-violet);
+  user-select: none;
+}
+
+.equipo__quote-text {
+  margin: 0;
+  max-width: 960px;
+  font-family: var(--font-display);
+  font-size: clamp(1.375rem, 1rem + 1.6vw, 2rem); /* 22 → 32px */
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text);
+}
+
+.equipo__quote-cite {
+  font-size: 0.9375rem;
+  color: var(--text-2);
+}
+
+@media (min-width: 600px) {
+  .equipo__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .equipo__quote {
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: clamp(24px, 4vw, 48px);
+    align-items: center;
+  }
+
+  .equipo__quote-mark {
+    grid-row: 1 / span 2;
+  }
+
+  .equipo__quote-text,
+  .equipo__quote-cite {
+    grid-column: 2;
+  }
+}
+
+@media (min-width: 1024px) {
+  .equipo__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  /* Con 4 columnas, los roles largos ocupan dos renglones: el rol reserva
+     ese alto y se pega abajo, junto al nombre, para que todos los nombres
+     de una fila queden en la misma línea. */
+  .equipo__role {
+    align-items: flex-end;
+    min-height: 3.2em; /* respaldo de 2lh (line-height 1.6) */
+    min-height: 2lh;
+  }
+}
+
+/* Entre 1024 y 1100 px la columna es tan angosta que algún rol llega a
+   tres renglones. */
+@media (min-width: 1024px) and (max-width: 1099.98px) {
+  .equipo__role {
+    min-height: 4.8em;
+    min-height: 3lh;
+  }
+}
+
+/* /nosotros/: perfiles completos (.equipo__grid--perfiles).
+   La tarjeta de Brian (.equipo__card--ancha) trae certificaciones, formación
+   e idiomas: ocupa dos columnas y reparte sus bloques en dos. En escritorio
+   la grilla pasa a 3 columnas: Carlos, Nicolás y Laura / Lisandro y Brian
+   (doble) / Alejandro, Raúl y el equipo técnico, sin huecos. */
+@media (min-width: 600px) {
+  .equipo__grid--perfiles .equipo__card--ancha {
+    grid-column: 1 / -1;
+  }
+
+  .equipo__card--ancha .equipo__perfil {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 32px;
+  }
+
+  /* Especialidades a lo ancho, arriba de los otros bloques */
+  .equipo__card--ancha .equipo__bloque--ancho {
+    grid-column: 1 / -1;
+  }
+
+  /* Con la foto real, que no ocupe todo el ancho de la tarjeta doble */
+  .equipo__card--ancha .equipo__media {
+    max-width: calc(50% - 12px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .equipo__grid--perfiles {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .equipo__grid--perfiles .equipo__card--ancha {
+    grid-column: span 2;
+  }
+
+  /* En 3 columnas los roles entran en un renglón o dos: se mantiene 2lh */
+  .equipo__grid--perfiles .equipo__role {
+    min-height: 3.2em;
+    min-height: 2lh;
+  }
+}

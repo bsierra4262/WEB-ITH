@@ -1,0 +1,4 @@
+Íconos para partials/pagina/dato.html (prop icono="nombre-del-archivo").
+Trazo de 1.8 en un cuadro de 24x24 con clases "ico svc-ico": hacen pop, se
+dibujan y flotan como los de la home (animations.css). Para sumar uno, copiá
+uno de estos archivos y cambiá solo los <path>/<circle>/<rect>.

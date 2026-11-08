@@ -1,0 +1,216 @@
+/* ==========================================================================
+   Logos de clientes
+   Base (sin JS o con movimiento reducido): grilla centrada dentro del wrap.
+   Con JS, marquee.js agrega .is-running al .logos__belt, duplica la lista
+   y la cinta corre a velocidad constante (--marquee-dur).
+   Estructura del PDF: eyebrow centrado, logos reales sueltos sobre blanco
+   (sin fichas), fila de sectores con puntitos y nota.
+   Colores y animación del código original: eyebrow violeta, cinta continua
+   con máscara de fundido en los bordes que se detiene con el cursor encima
+   o con un logo enfocado (sin botón), logos en gris que pasan a color al
+   hover/foco, sectores en #444. Los puntitos van en violeta (el
+   lima del PDF no contrasta sobre blanco).
+   ========================================================================== */
+
+.logos {
+  --logo-h: 30px;
+  --logo-max-w: 120px;
+  --logo-gap: 40px;
+
+  background: var(--surface);
+  padding-block: 16px clamp(48px, 6vw, 64px);
+}
+
+.logos__title {
+  display: block;
+  margin-bottom: 22px;
+  text-align: center;
+  line-height: 1.5;
+  text-wrap: balance;
+}
+
+/* --- Grilla (estado base) ------------------------------------------------ */
+.logos__belt {
+  position: relative;
+}
+
+.logos__viewport {
+  width: 100%;
+  max-width: calc(var(--wrap) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.logos__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px var(--logo-gap);
+}
+
+.logos__item {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+}
+
+.logos__img {
+  width: auto;
+  height: var(--logo-h);
+  max-width: var(--logo-max-w);
+  object-fit: contain;
+  /* Varios logos traen fondo blanco: "multiply" lo funde con la superficie */
+  mix-blend-mode: multiply;
+  filter: grayscale(1);
+  opacity: 0.75;
+  transition:
+    filter 0.35s var(--ease-out),
+    opacity 0.35s var(--ease-out);
+}
+
+/* Logos cuadrados o compactos (Dell, HP, Ubiquiti, Senado, Parques): al
+   mismo alto que un logotipo horizontal quedan como un punto, así que van
+   un 40 % más altos. Se reconocen solos por el tamaño del <img> (48 de alto
+   y 48 a 50 de ancho, según la receta de arriba); la clase sirve para
+   marcar a mano otro logo compacto. */
+.logos__img--square,
+.logos__img:is([width='48'], [width='50'])[height='48'] {
+  height: calc(var(--logo-h) * 1.4);
+}
+
+.logos__item:hover .logos__img,
+.logos__item:focus-within .logos__img {
+  filter: none;
+  opacity: 1;
+}
+
+/* Logos que solo existen en gris claro (hoy ninguno; era Gendarmería): se oscurecen para
+   que no queden lavados frente al resto */
+.logos__img--faint,
+.logos__item:hover .logos__img--faint,
+.logos__item:focus-within .logos__img--faint {
+  filter: grayscale(1) brightness(0.55);
+}
+
+/* --- Cinta en movimiento (con JS) --------------------------------------- */
+.logos__belt.is-running .logos__viewport {
+  max-width: none;
+  /* Espacio arriba y abajo para el contorno de foco (se compensa con el margen) */
+  padding: 6px 0;
+  margin-block: -6px;
+  overflow: hidden;
+  /* clip: además de recortar, no deja que el foco desplace la cinta por dentro */
+  overflow: clip;
+  -webkit-mask-image: linear-gradient(90deg, transparent, var(--c-carbon) 10%, var(--c-carbon) 90%, transparent);
+  mask-image: linear-gradient(90deg, transparent, var(--c-carbon) 10%, var(--c-carbon) 90%, transparent);
+}
+
+/* La pista se corre el ancho exacto de una lista (--marquee-shift, en px, lo
+   mide marquee.js) y vuelve a 0: en ese instante la copia ocupa el lugar
+   exacto del original, así que la vuelta no se ve. */
+.logos__track {
+  display: flex;
+  width: max-content;
+  animation: logos-marquee var(--marquee-dur, 60s) linear infinite;
+  will-change: transform;
+}
+
+@keyframes logos-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(calc(-1 * var(--marquee-shift, 50%)), 0, 0);
+  }
+}
+
+.logos__belt.is-running .logos__list {
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  /* El hueco final iguala al gap: así cada lista mide lo mismo que lo que se
+     corre la pista y la vuelta no tiene salto */
+  padding-inline-end: var(--logo-gap);
+}
+
+/* Se detiene con el cursor encima o con un logo enfocado (teclado), y cuando
+   está fuera de pantalla. Al salir el cursor o el foco, sigue sola. */
+.logos__belt.is-offscreen .logos__track,
+.logos__viewport:hover .logos__track,
+.logos__viewport:focus-within .logos__track {
+  animation-play-state: paused;
+}
+
+.logos__belt.is-running .logos__item {
+  cursor: default;
+}
+
+/* --- Sectores + nota ---------------------------------------------------- */
+.logos__foot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  margin-top: 22px;
+}
+
+.logos__sectors {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 24px;
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.5;
+  color: var(--text-2);
+}
+
+.logos__sectors > li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Puntito violeta antes de cada sector (PDF) */
+.logos__sectors > li::before {
+  content: '';
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c-violet);
+}
+
+/* Línea de clientes en texto (misma tipografía y color que los sectores) */
+.logos__clients {
+  max-width: 760px;
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.6;
+  text-align: center;
+  text-wrap: balance;
+  color: var(--text-2);
+}
+
+.logos__nota {
+  max-width: 760px;
+}
+
+@media (max-width: 767.98px) {
+  .logos {
+    --logo-gap: 28px;
+  }
+}
+
+@media (min-width: 768px) {
+  .logos {
+    --logo-h: 36px;
+    --logo-max-w: 150px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logos__track {
+    animation: none;
+  }
+}

@@ -1,0 +1,537 @@
+/* ==========================================================================
+   Páginas internas (src/partials/pagina/*): solo lo que no existe en la home.
+   Todo lo demás se reutiliza: section-head, eyebrow, lead, btn, chip, card,
+   card-h, icon-badge, servicios__*, pasos__*, casos__*, faq__*, agenda__*.
+   Mismos tokens y énfasis que la home: lima sobre carbón, violeta sobre claro.
+   ========================================================================== */
+
+/* Hero de página ------------------------------------------------------------
+   Carbón con fondo de luces (.tech + .fondo, como el hero de la home), más bajo
+   y alineado a la izquierda. Entrada con .in/.dN (está sobre el pliegue). */
+.pagina-hero {
+  padding-block: clamp(28px, 3.5vw, 44px) clamp(56px, 7vw, 88px);
+}
+
+.pagina-hero__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.pagina-hero .eyebrow {
+  margin-top: clamp(28px, 4vw, 48px);
+}
+
+.pagina-hero__title {
+  max-width: 22ch;
+  margin-top: 16px;
+  font-size: min(var(--fs-h1), 3.5rem); /* 40 → 56px */
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.005em;
+  color: var(--text-on-dark);
+}
+
+.pagina-hero__hl {
+  color: var(--c-lime);
+}
+
+.pagina-hero__lead {
+  max-width: 760px;
+  margin-top: clamp(20px, 3vw, 32px);
+  font-size: clamp(1.125rem, 0.95rem + 0.8vw, 1.375rem); /* 18 → 22px, como la home */
+}
+
+.pagina-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: clamp(28px, 4vw, 48px);
+}
+
+/* Mobile chico: botones a ancho completo e iguales, como en el hero de la home */
+@media (max-width: 479.98px) {
+  .pagina-hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 360px;
+  }
+}
+
+/* El check de la home (.hero__note) pegado a la izquierda */
+.pagina-hero .hero__note {
+  margin-top: clamp(24px, 3vw, 36px);
+}
+
+.pagina-hero .nota {
+  max-width: 640px;
+  margin-top: 20px;
+}
+
+/* Migas de pan ---------------------------------------------------------------
+   La barra va al final de cada ítem (no al principio del siguiente): si la
+   ruta se parte en dos renglones, la "/" queda arriba y no colgando abajo. */
+.migas__list[role='list'] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 0;
+  font-size: var(--fs-small);
+  line-height: 1.4;
+  color: var(--text-2-on-dark);
+}
+
+.migas__item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.migas__item:not(:last-child)::after {
+  content: '/';
+  margin-inline: 10px;
+  color: var(--text-2-on-dark);
+  opacity: 0.5;
+}
+
+.migas__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  color: var(--text-2-on-dark);
+  text-decoration: none;
+  transition: color var(--dur);
+}
+
+.migas__link:hover {
+  color: var(--c-lime);
+}
+
+.migas [aria-current='page'] {
+  color: var(--text-on-dark);
+  font-weight: 600;
+}
+
+/* Respuesta corta ------------------------------------------------------------
+   Párrafo grande con la barra lima de la home (.problema__lead). */
+.pagina-respuesta__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px 64px;
+  align-items: start;
+}
+
+.pagina-respuesta__head {
+  margin-bottom: 0;
+}
+
+.pagina-respuesta__texto {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 720px;
+  padding-left: clamp(16px, 1.6vw, 20px);
+  border-left: 4px solid var(--c-lime);
+  font-size: var(--fs-lead);
+  line-height: var(--lh-body);
+  color: var(--text);
+}
+
+.pagina-respuesta__texto .nota {
+  font-size: 0.8125rem;
+}
+
+@media (min-width: 960px) {
+  .pagina-respuesta__grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  }
+
+  .pagina-respuesta__texto {
+    margin-top: 30px; /* alineado con el h2, debajo del eyebrow */
+  }
+}
+
+/* Datos clave ----------------------------------------------------------------
+   Tarjetas blancas como las de "Qué hacemos" (servicios.css). */
+.pagina-datos__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+}
+
+/* Un dato en borrador va envuelto en <div data-draft>: la tarjeta lo llena. */
+.pagina-datos__grid > [data-draft] {
+  display: grid;
+}
+
+.pagina-dato {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: clamp(24px, 2.4vw, 28px);
+  border: 1px solid color-mix(in srgb, var(--c-violet) 14%, var(--c-cream));
+  min-width: 0;
+}
+
+.pagina-dato__icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+}
+
+.pagina-dato__titulo {
+  font-size: 1.375rem; /* 22px */
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.pagina-dato__texto {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--text-2);
+}
+
+@media (min-width: 640px) {
+  .pagina-datos__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1100px) {
+  .pagina-datos__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Movimiento reducido: igual que servicios.css, el ícono queda en fundido */
+@media (prefers-reduced-motion: reduce) {
+  .pagina-datos .rv.slow.show .svc-ico {
+    animation: fade 1.1s 0.7s var(--ease-out) both;
+  }
+}
+
+/* Caso real -------------------------------------------------------------------
+   Reutiliza casos__featured; acá solo el panel y la grilla de casos chicos. */
+.pagina-caso .casos__stats {
+  justify-content: flex-start;
+}
+
+.pagina-caso .casos__sla {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.pagina-caso__tecs[role='list'] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: -14px;
+}
+
+.pagina-caso__nota,
+.pagina-caso .casos__grid + .nota,
+.pagina-bloque .wrap > .nota {
+  margin-top: 20px;
+}
+
+/* Casos chicos debajo del destacado: hasta 3 por fila */
+@media (min-width: 1024px) {
+  .pagina-casos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Tarjetas de servicio (servicios__card) usadas como links ------------------- */
+.pagina-link-card {
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Dentro de un link los textos son <span>: toman la tipografía del h3 */
+.pagina-link-card .servicios__title {
+  font-family: var(--font-display);
+}
+
+.pagina-link-card:hover {
+  color: inherit;
+}
+
+.pagina-link-card .servicios__title {
+  transition: color var(--dur);
+}
+
+.pagina-link-card:hover .servicios__title {
+  color: var(--c-violet);
+}
+
+.pagina-link-card__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 6px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--c-violet);
+}
+
+.pagina-link-card__more .arr {
+  transition: transform 0.3s var(--ease-out);
+}
+
+.pagina-link-card:hover .pagina-link-card__more .arr {
+  transform: translateX(5px);
+}
+
+/* ==========================================================================
+   Páginas Nosotros y Contacto (/nosotros/ y /contacto/)
+   ========================================================================== */
+
+/* Métricas de la home (.hero__stats) dentro del hero de página: alineadas a
+   la izquierda, como el resto del hero interno. */
+.pagina-hero ul.pagina-hero__stats {
+  justify-content: flex-start;
+  margin-top: clamp(32px, 4vw, 48px);
+}
+
+.pagina-hero__stats .hero__stat {
+  align-items: flex-start;
+}
+
+/* Links de los datos de contacto: legibles y con área de toque cómoda */
+.pagina-dato__texto a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+/* /nosotros/#partners: logos que son solo una palabra larga (Grandstream, SVG
+   en línea). Van por ancho y no por alto, así las letras quedan del tamaño
+   de las de Hikvision o Furukawa. */
+.clientes-sector .logos__img--palabra {
+  width: 160px;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ==========================================================================
+   Páginas Servicios y Clientes (/servicios/ y /clientes/)
+   Solo acomodos de grilla sobre componentes de la home: servicios__*,
+   casos__*, logos__*, hero__stats. Sin colores ni efectos nuevos.
+   ========================================================================== */
+
+/* /servicios/: la tarjeta del servicio principal ocupa la fila completa */
+@media (min-width: 960px) {
+  .servicios-idx__destacado {
+    grid-column: 1 / -1;
+  }
+
+  .servicios-idx__destacado .servicios__text {
+    max-width: 820px;
+  }
+}
+
+.servicios-mas {
+  margin-top: 28px;
+}
+
+/* /servicios/: casos chicos con eyebrow, nombre y texto alineados entre
+   tarjetas de la misma fila, aunque algún eyebrow ocupe dos renglones. */
+@supports (grid-template-rows: subgrid) {
+  .servicios-idx__casos > .casos__card {
+    display: grid;
+    grid-row: span 3;
+    grid-template-rows: subgrid;
+    row-gap: 6px;
+    align-content: start;
+  }
+
+  .servicios-idx__casos > .casos__card > .eyebrow {
+    align-self: start;
+  }
+}
+
+/* /clientes/: contadores del hero alineados a la izquierda, como el texto */
+.pagina-hero ul.clientes-hero__stats {
+  justify-content: flex-start;
+  gap: 24px clamp(32px, 5vw, 64px);
+}
+
+.clientes-hero__stats .hero__stat {
+  align-items: flex-start;
+}
+
+/* /clientes/: sectores con sus logos (logos__* de la home, en grilla fija) */
+.clientes-sectores[role='list'] {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+}
+
+.clientes-sector {
+  --logo-h: 32px;
+  --logo-max-w: 128px;
+  --logo-gap: 24px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: clamp(24px, 2.4vw, 28px);
+  border: 1px solid color-mix(in srgb, var(--c-violet) 14%, var(--c-cream));
+  min-width: 0;
+}
+
+.clientes-sector__titulo {
+  font-size: 1.375rem; /* 22px, como pagina-dato__titulo */
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.clientes-sector__sub {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--text-2);
+}
+
+.clientes-sector .logos__list.clientes-sector__logos {
+  justify-content: flex-start;
+  gap: 8px var(--logo-gap);
+}
+
+.clientes-sector__nombres {
+  margin-top: auto;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--text-2);
+}
+
+@media (min-width: 640px) {
+  .clientes-sectores[role='list'] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1100px) {
+  .clientes-sectores[role='list'] {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* /clientes/: casos agrupados por servicio. Siguen al caso destacado (mismo
+   fondo blanco): sin el padding de arriba para que no quede un hueco doble. */
+.pagina-caso + .clientes-casos {
+  padding-top: 0;
+}
+
+.clientes-grupo + .clientes-grupo {
+  margin-top: clamp(40px, 5vw, 64px);
+}
+
+.clientes-grupo__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--divider-light);
+}
+
+.clientes-grupo__titulo {
+  font-size: clamp(1.375rem, 1.2rem + 0.6vw, 1.625rem); /* 22 → 26px */
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.clientes-grupo__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--c-violet);
+  text-decoration: none;
+}
+
+.clientes-grupo__link .arr {
+  transition: transform 0.3s var(--ease-out);
+}
+
+.clientes-grupo__link:hover .arr {
+  transform: translateX(5px);
+}
+
+.clientes-casos__grid.casos__grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.clientes-caso__rows {
+  margin-top: 8px;
+  gap: 10px;
+}
+
+.clientes-caso__rows .casos__row dd {
+  font-size: 1rem;
+}
+
+.clientes-casos .casos__card .servicios__chips {
+  padding-top: 12px;
+}
+
+.clientes-grupo > .nota,
+.clientes-casos .wrap > .nota {
+  margin-top: 20px;
+}
+
+@media (min-width: 1024px) {
+  .clientes-casos__grid.casos__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ==========================================================================
+   Páginas de Soluciones (/soluciones/ y sus cinco páginas)
+   Solo acomodos sobre componentes existentes (clientes-sector, logos__*,
+   casos__grid). Sin colores ni efectos nuevos.
+   ========================================================================== */
+
+/* Tarjeta de marcas de cada solución: toma el ancho de sus logos en vez de
+   estirarse a todo el contenedor. Eyebrow y logos en la misma línea. */
+.clientes-sector.soluciones-marcas {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 28px;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.soluciones-marcas > .nota {
+  flex-basis: 100%;
+}
+
+/* /soluciones/data-center/: "Qué incluye" va en blanco justo después de la
+   respuesta corta (también blanca). Sin el padding de arriba para que no
+   quede un hueco doble, igual que .pagina-caso + .clientes-casos. Se activa
+   con fondo="soluciones-pegado" en el include del bloque. */
+.pagina-respuesta + .pagina-bloque.soluciones-pegado {
+  padding-top: 0;
+}
+
+/* Casos chicos en 2 columnas (600 a 1023 px): si quedan en número impar, el
+   último ocupa la fila entera en vez de dejar media fila vacía. */
+@media (min-width: 600px) and (max-width: 1023px) {
+  .soluciones-casos > :last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}

@@ -1,0 +1,202 @@
+<section id="equipo" class="section equipo" aria-labelledby="equipo-titulo">
+  <div class="wrap">
+    <header class="section-head rv">
+      <p class="eyebrow eyebrow--dash">Quiénes somos</p>
+      <h2 id="equipo-titulo" class="h2">Las personas a cargo de cada proyecto y de cada contrato de servicio.</h2>
+      <p class="lead">Nuestro equipo de gestión trabaja en la sede de Palermo: dirección, área comercial, marketing, preventa, sistemas, instalaciones y administración. Los técnicos y analistas en nómina de Intellihelp prestan servicio en las oficinas de cada cliente.</p>
+    </header>
+
+    <!--
+      FOTOS DEL EQUIPO
+      Cada tarjeta tiene un placeholder (.equipo__photo.photo-ph: rayado cremita con ícono de cámara)
+      dentro de .equipo__media. El pedido de cada foto es una .nota: no se ve en producción.
+      Para publicar la foto real, reemplazá el <div class="equipo__photo">…</div>
+      completo por la imagen (proporción 4:5, idealmente 640×800 en .webp):
+
+      <img class="equipo__img" src="/src/assets/img/equipo/carlos.webp" width="640" height="800" alt="Carlos Baldelli, presidente y socio de Intellihelp" loading="lazy" decoding="async">
+
+      Grilla: 7 personas del staff + el equipo técnico = 8 tarjetas (4 columnas × 2 filas en escritorio).
+
+      PERFILES
+      Acá va la versión corta: cargo, qué hace y las especialidades en chips.
+      El perfil completo (certificaciones con emisor, formación e idiomas)
+      está en /nosotros/ (partials/pagina/nosotros/equipo.html), con un ancla
+      por persona (#brian-sierra, #alejandro-ayala…). Solo las tarjetas de Brian
+      y de Alejandro llevan "Ver perfil completo", porque son las únicas con
+      certificaciones y formación cargadas allá. Las certificaciones salen de
+      DOCS/contenido/fuentes/fuentes-certificaciones-equipo.md (corte 30/10/2026).
+      Registro: tercera persona, cargo, alcance y logros (guía de estilo, §6).
+      Si cambia un cargo o una descripción, cambiarlo en los dos archivos.
+    -->
+    <ul class="equipo__grid" role="list">
+      <li class="equipo__card rv">
+        <div class="equipo__media">
+          <!-- <img class="equipo__img" src="/src/assets/img/equipo/carlos.webp" width="640" height="800" alt="Carlos Baldelli, presidente y socio de Intellihelp" loading="lazy" decoding="async"> -->
+          <div class="equipo__photo photo-ph">
+            <svg class="photo-ph__icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h2.6l1.6-2.2h6.6L16.9 7h2.6A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z"/><circle cx="12" cy="12.8" r="3.6"/></svg>
+            <p class="nota"><b>Para Carlos</b>Para tu tarjeta necesito una foto tuya en la oficina, plano medio y sonriendo. ¿La sacamos el mismo día que la del equipo?</p>
+          </div>
+        </div>
+        <h3 class="equipo__name">Carlos Baldelli</h3>
+        <p class="equipo__role eyebrow">Presidente y socio</p>
+        <p class="equipo__text">Preside Intellihelp y conduce su dirección comercial. Es responsable de la relación con los clientes corporativos y del sector público, y encabeza la participación de la empresa en proyectos nuevos y licitaciones.</p>
+        <ul class="equipo__chips" role="list" aria-label="Especialidades">
+          <li class="chip">Dirección comercial</li>
+          <li class="chip">Proyectos nuevos</li>
+          <li class="chip">Licitaciones</li>
+        </ul>
+      </li>
+
+      <li class="equipo__card rv">
+        <div class="equipo__media">
+          <!-- <img class="equipo__img" src="/src/assets/img/equipo/nicolas.webp" width="640" height="800" alt="Nicolás Baldelli, director de operaciones y socio de Intellihelp" loading="lazy" decoding="async"> -->
+          <div class="equipo__photo photo-ph">
+            <svg class="photo-ph__icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h2.6l1.6-2.2h6.6L16.9 7h2.6A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z"/><circle cx="12" cy="12.8" r="3.6"/></svg>
+            <p class="nota"><b>Para Nico</b>Para tu tarjeta quiero una foto tuya trabajando con un equipo o en un rack. ¿La sacamos el mismo día que la del equipo?</p>
+          </div>
+        </div>
+        <h3 class="equipo__name">Nicolás Baldelli</h3>
+        <p class="equipo__role eyebrow">Director de operaciones y socio</p>
+        <p class="equipo__text">Dirige las operaciones de Intellihelp y supervisa la ejecución de los proyectos y la prestación de los servicios en curso. Combina la gestión técnica con la comercial y, junto con la presidencia, atiende la relación con los clientes.</p>
+        <ul class="equipo__chips" role="list" aria-label="Especialidades">
+          <li class="chip">Operaciones</li>
+          <li class="chip">Gestión de servicios</li>
+          <li class="chip">Gestión comercial</li>
+        </ul>
+      </li>
+
+      <li class="equipo__card rv">
+        <div class="equipo__media">
+          <!-- <img class="equipo__img" src="/src/assets/img/equipo/laura.webp" width="640" height="800" alt="Laura Zaltron, responsable de marketing y comunicaciones de Intellihelp" loading="lazy" decoding="async"> -->
+          <div class="equipo__photo photo-ph">
+            <svg class="photo-ph__icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h2.6l1.6-2.2h6.6L16.9 7h2.6A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z"/><circle cx="12" cy="12.8" r="3.6"/></svg>
+            <p class="nota"><b>Pendiente mío</b>Foto de Laura en la oficina o con un cliente.</p>
+          </div>
+        </div>
+        <h3 class="equipo__name">Laura Zaltron</h3>
+        <p class="equipo__role eyebrow">Responsable de marketing y comunicaciones</p>
+        <p class="equipo__text">Conduce el marketing y la comunicación institucional de Intellihelp, incluida la gestión de la reputación digital de la compañía, y colabora con las áreas de preventa y posventa en el seguimiento de cada cuenta.</p>
+        <ul class="equipo__chips" role="list" aria-label="Especialidades">
+          <li class="chip">Marketing</li>
+          <li class="chip">Comunicación</li>
+          <li class="chip">Preventa y posventa</li>
+        </ul>
+      </li>
+
+      <li class="equipo__card rv">
+        <div class="equipo__media">
+          <!-- <img class="equipo__img" src="/src/assets/img/equipo/lisandro.webp" width="640" height="800" alt="Lisandro Campos, responsable de preventa y servicios de Intellihelp" loading="lazy" decoding="async"> -->
+          <div class="equipo__photo photo-ph">
+            <svg class="photo-ph__icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h2.6l1.6-2.2h6.6L16.9 7h2.6A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z"/><circle cx="12" cy="12.8" r="3.6"/></svg>
+            <p class="nota"><b>Pendiente mío</b>Foto de Lisandro en la oficina, plano medio.</p>
+          </div>
+        </div>
+        <h3 class="equipo__name">Lisandro Campos</h3>
+        <p class="equipo__role eyebrow">Responsable de preventa y servicios</p>
+        <p class="equipo__text">Realiza los relevamientos técnicos y elabora las propuestas de cada proyecto: análisis de requerimientos, especificación del equipamiento y definición del alcance del servicio.</p>
+        <ul class="equipo__chips" role="list" aria-label="Especialidades">
+          <li class="chip">Preventa</li>
+          <li class="chip">Relevamiento</li>
+          <li class="chip">Propuestas técnicas</li>
+        </ul>
+        <p class="nota"><b>Pendiente mío</b>Pasarle este texto a Lisandro para que apruebe el cargo y la descripción.</p>
+      </li>
+
+      <li class="equipo__card rv">
+        <div class="equipo__media">
+          <!-- <img class="equipo__img" src="/src/assets/img/equipo/brian.webp" width="640" height="800" alt="Brian Sierra, jefe de sistemas y soporte técnico de Intellihelp" loading="lazy" decoding="async"> -->
+          <div class="equipo__photo photo-ph">
+            <svg class="photo-ph__icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h2.6l1.6-2.2h6.6L16.9 7h2.6A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z"/><circle cx="12" cy="12.8" r="3.6"/></svg>
+            <p class="nota"><b>Pendiente mío</b>Mi foto en la oficina, con equipos de red.</p>
+          </div>
+        </div>
+        <h3 class="equipo__name">Brian Sierra</h3>
+        <p class="equipo__role eyebrow">Jefe de sistemas y soporte técnico</p>
+        <p class="equipo__text">Dirige el área de sistemas y el equipo de soporte técnico de Intellihelp, y es responsable de la red corporativa, los servidores, el acceso remoto y la automatización de la infraestructura. Lidera el desarrollo de los sistemas internos de gestión (CRM comercial, gestión de tickets, inventario de activos y comprobantes integrados con ARCA). En clientes, implementó la mesa de ayuda sobre GLPI de una obra social y participa en proyectos de control de acceso biométrico y videovigilancia.</p>
+        <ul class="equipo__chips" role="list" aria-label="Especialidades">
+          <li class="chip">Administración de sistemas</li>
+          <li class="chip">Redes y servidores</li>
+          <li class="chip">Mesa de ayuda</li>
+          <li class="chip">Sistemas internos</li>
+          <li class="chip">Control de acceso</li>
+        </ul>
+        <!-- Certificaciones vigentes con examen (Hikvision, Dahua, Zyxel, Sangoma Asterisk) y formación de Suprema sin vencimiento. Hikvision y Zyxel vencen en enero de 2027; Asterisk, en junio de 2027. Furukawa y Grandstream no figuran porque vencieron. -->
+        <p class="equipo__certs"><span class="visually-hidden">Certificaciones y cursos: </span>Hikvision HCSA · Dahua DHCA · Zyxel ZCNA · Asterisk Certified Essentials · Suprema BioStar 2</p>
+        <p class="equipo__text">Cursa la Tecnicatura Superior en Redes Informáticas en Teclab.</p>
+        <a class="equipo__more" href="/nosotros/#brian-sierra">Ver perfil completo<span class="visually-hidden"> de Brian Sierra</span> <span class="arr" aria-hidden="true">→</span></a>
+      </li>
+
+      <li class="equipo__card rv">
+        <div class="equipo__media">
+          <!-- <img class="equipo__img" src="/src/assets/img/equipo/alejandro.webp" width="640" height="800" alt="Alejandro Ayala, responsable de instalaciones y posventa de Intellihelp" loading="lazy" decoding="async"> -->
+          <div class="equipo__photo photo-ph">
+            <svg class="photo-ph__icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h2.6l1.6-2.2h6.6L16.9 7h2.6A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z"/><circle cx="12" cy="12.8" r="3.6"/></svg>
+            <p class="nota"><b>Pendiente mío</b>Foto de Alejandro en una instalación.</p>
+          </div>
+        </div>
+        <h3 class="equipo__name">Alejandro Ayala</h3>
+        <p class="equipo__role eyebrow">Responsable de instalaciones y posventa</p>
+        <p class="equipo__text">Coordina la ejecución de las obras de videovigilancia, control de acceso y cableado estructurado, y es responsable del servicio de posventa de cada proyecto. Presta además soporte en las sedes de los clientes: enrolamiento biométrico del personal y mantenimiento correctivo de cámaras y grabadores.</p>
+        <ul class="equipo__chips" role="list" aria-label="Especialidades">
+          <li class="chip">Instalaciones</li>
+          <li class="chip">Posventa</li>
+          <li class="chip">Control de acceso</li>
+          <li class="chip">Videovigilancia</li>
+        </ul>
+        <!-- Certificaciones vigentes con examen: Hikvision CGSA Access Control (hasta sept. 2029) y Sangoma Asterisk Certified Essentials (hasta mayo 2027). Suprema: formación sin vencimiento. Fuente: fuentes-certificaciones-equipo.md. -->
+        <p class="equipo__certs"><span class="visually-hidden">Certificaciones y cursos: </span>Hikvision CGSA · Asterisk Certified Essentials · Suprema BioStar 2</p>
+        <a class="equipo__more" href="/nosotros/#alejandro-ayala">Ver perfil completo<span class="visually-hidden"> de Alejandro Ayala</span> <span class="arr" aria-hidden="true">→</span></a>
+        <p class="nota"><b>Pendiente mío</b>Pasarle la tarjeta a Alejandro para que revise el texto.</p>
+      </li>
+
+      <li class="equipo__card rv">
+        <div class="equipo__media">
+          <!-- <img class="equipo__img" src="/src/assets/img/equipo/raul.webp" width="640" height="800" alt="Raúl Nasif, responsable de administración de Intellihelp" loading="lazy" decoding="async"> -->
+          <div class="equipo__photo photo-ph">
+            <svg class="photo-ph__icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h2.6l1.6-2.2h6.6L16.9 7h2.6A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z"/><circle cx="12" cy="12.8" r="3.6"/></svg>
+            <p class="nota"><b>Pendiente mío</b>Foto de Raúl en la oficina, plano medio.</p>
+          </div>
+        </div>
+        <h3 class="equipo__name">Raúl Nasif</h3>
+        <p class="equipo__role eyebrow">Responsable de administración</p>
+        <p class="equipo__text">Está a cargo de la administración de Intellihelp: facturación, seguimiento de cobranzas y documentación administrativa de cada contrato de servicio.</p>
+        <ul class="equipo__chips" role="list" aria-label="Especialidades">
+          <li class="chip">Facturación</li>
+          <li class="chip">Documentación</li>
+          <li class="chip">Cobranzas</li>
+        </ul>
+        <p class="nota"><b>Pendiente mío</b>Pasarle este texto a Raúl para que apruebe el cargo y la descripción.</p>
+      </li>
+
+      <li class="equipo__card rv">
+        <div class="equipo__media">
+          <!-- <img class="equipo__img" src="/src/assets/img/equipo/equipo-tecnico.webp" width="640" height="800" alt="Técnicos de Intellihelp trabajando en las oficinas de un cliente" loading="lazy" decoding="async"> -->
+          <div class="equipo__photo photo-ph">
+            <svg class="photo-ph__icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h2.6l1.6-2.2h6.6L16.9 7h2.6A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z"/><circle cx="12" cy="12.8" r="3.6"/></svg>
+            <p class="nota"><b>Para Nico</b>Acá va una foto del equipo técnico trabajando en un cliente. ¿Qué cliente nos daría permiso para sacarla?</p>
+          </div>
+        </div>
+        <h3 class="equipo__name">Nuestro equipo técnico</h3>
+        <p class="equipo__role eyebrow">En las oficinas de nuestros clientes</p>
+        <p class="equipo__text">Técnicos y analistas en nómina de Intellihelp que trabajan dentro de la operación del cliente, con el respaldo de nuestra sede de Palermo. Prestan el servicio de mesa de ayuda de nivel 1 y 2 y se integran al área de sistemas del cliente.</p>
+        <ul class="equipo__chips" role="list" aria-label="Especialidades">
+          <li class="chip">Service desk N1 y N2</li>
+          <li class="chip">Soporte técnico</li>
+          <li class="chip">Outsourcing IT</li>
+        </ul>
+        <p class="nota"><b>Para Nico</b>Las certificaciones que junté son de Alejandro y mías. ¿Me pasás las del equipo de outsourcing? Las sumo en esta tarjeta.</p>
+      </li>
+    </ul>
+    <p class="nota"><b>Pendiente mío</b>En /nosotros/ faltan formación, idiomas y certificaciones de Carlos, Nico, Laura, Lisandro y Raúl. Se los pido a cada uno y no cargo nada que no me pasen.</p>
+
+    <!-- Cita: comillas grandes a la izquierda y texto a la derecha (estructura del PDF) -->
+    <figure class="equipo__quote rv">
+      <span class="equipo__quote-mark num" aria-hidden="true">“</span>
+      <blockquote class="equipo__quote-text">
+        <p>Construimos relaciones de largo plazo con nuestros clientes, basadas en el cumplimiento de cada compromiso asumido.</p>
+      </blockquote>
+      <figcaption class="equipo__quote-cite">Intellihelp</figcaption>
+    </figure>
+    <p class="nota equipo__quote-nota"><b>Para Carlos</b>La frase sale del brief y va firmada por Intellihelp. Si querés, la firmo con tu nombre y cargo; cuando tengamos el primer testimonio de un cliente, lo pongo en este lugar. Si no me decís nada, queda así.</p>
+  </div>
+</section>

@@ -1,0 +1,346 @@
+<!--
+  EQUIPO DE /nosotros/
+  Versión completa de partials/equipo.html, con las mismas clases (equipo__*):
+  7 personas del staff + el equipo técnico y la cita de la empresa.
+  Diferencia con la home: acá va el perfil completo de cada persona
+  (descripción, especialidades y, cuando hay datos, certificaciones con
+  emisor, formación e idiomas). Cada tarjeta tiene un id para enlazarla
+  desde la home: /nosotros/#brian-sierra, #alejandro-ayala, etc.
+  La de Brian tiene certificaciones, formación e idiomas: ocupa dos columnas
+  (.equipo__card--ancha). La de Alejandro
+  suma certificaciones y formación de fabricante. Fuente de ambas:
+  DOCS/contenido/fuentes/fuentes-certificaciones-equipo.md (corte 30/10/2026).
+  "Certificaciones" = credencial con examen y vigente; el resto va en "Formación".
+  Sin datos personales (pedido de la empresa).
+  Lo que falta de cada persona va en una .nota (no se publica).
+  Registro (DOCS/contenido/guia-de-estilo.md, §6): tercera persona, cargo,
+  alcance, áreas a cargo, logros, formación. Sin segunda persona ni antigüedad.
+  Los sistemas internos se presentan como desarrollo de Intellihelp; la
+  tarjeta de sistemas indica quién lidera su desarrollo (aprobado por
+  Dirección, oct. 2026). Sin IPs, hostnames, versiones ni proveedores de la
+  infraestructura interna.
+  Si cambia un cargo o una descripción, cambiarlo también en partials/equipo.html.
+-->
+<section id="equipo" class="section equipo" aria-labelledby="equipo-titulo">
+  <div class="wrap">
+    <header class="section-head rv">
+      <p class="eyebrow eyebrow--dash">El equipo</p>
+      <h2 id="equipo-titulo" class="h2">Dirección, gestión y soporte técnico de Intellihelp.</h2>
+      <p class="lead">Desde nuestra sede de Palermo, el equipo de dirección y gestión coordina cada proyecto y cada contrato de servicio. Los técnicos y analistas en nómina de Intellihelp prestan servicio en las oficinas de cada cliente.</p>
+    </header>
+
+    <!--
+      FOTOS DEL EQUIPO
+      Cada tarjeta tiene un placeholder (.equipo__photo.photo-ph: rayado cremita con ícono de cámara)
+      dentro de .equipo__media. La leyenda "Foto real" es una .nota: no se ve en producción.
+      Para publicar la foto real, reemplazá el <div class="equipo__photo">…</div>
+      completo por la imagen (proporción 4:5, idealmente 640×800 en .webp):
+
+      <img class="equipo__img" src="/src/assets/img/equipo/carlos.webp" width="640" height="800" alt="Carlos Baldelli, presidente y socio de Intellihelp" loading="lazy" decoding="async">
+
+      Grilla: 7 personas del staff + el equipo técnico. En escritorio son 3 columnas
+      y la tarjeta de Brian ocupa dos (ver .equipo__grid--perfiles en equipo.css).
+    -->
+    <ul class="equipo__grid equipo__grid--perfiles" role="list">
+      <li id="carlos-baldelli" class="equipo__card rv">
+        <div class="equipo__media">
+          <!-- <img class="equipo__img" src="/src/assets/img/equipo/carlos.webp" width="640" height="800" alt="Carlos Baldelli, presidente y socio de Intellihelp" loading="lazy" decoding="async"> -->
+          <div class="equipo__photo photo-ph">
+            <svg class="photo-ph__icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h2.6l1.6-2.2h6.6L16.9 7h2.6A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z"/><circle cx="12" cy="12.8" r="3.6"/></svg>
+            <p class="nota"><b>Pendiente mío</b>Sacarle la foto a Carlos en la oficina, plano medio, sonriendo.</p>
+          </div>
+        </div>
+        <h3 class="equipo__name">Carlos Baldelli</h3>
+        <p class="equipo__role eyebrow">Presidente y socio</p>
+        <p class="equipo__text">Preside Intellihelp y conduce su dirección comercial. Es responsable de la relación con los clientes corporativos y del sector público, y encabeza la participación de la empresa en proyectos nuevos y licitaciones.</p>
+        <div class="equipo__perfil">
+          <div class="equipo__bloque">
+            <h4 class="equipo__bloque-titulo">Especialidades</h4>
+            <ul class="equipo__chips" role="list">
+              <li class="chip">Dirección comercial</li>
+              <li class="chip">Proyectos nuevos</li>
+              <li class="chip">Licitaciones</li>
+            </ul>
+          </div>
+        </div>
+        <p class="nota"><b>Para Carlos</b>Me faltan tu formación, certificaciones, idiomas y año de ingreso. ¿Vos y Nico figuran como fundadores, y puedo enlazar tu LinkedIn personal desde esta tarjeta? Si no me decís nada, queda solo con lo que está.</p>
+      </li>
+
+      <li id="nicolas-baldelli" class="equipo__card rv">
+        <div class="equipo__media">
+          <!-- <img class="equipo__img" src="/src/assets/img/equipo/nicolas.webp" width="640" height="800" alt="Nicolás Baldelli, director de operaciones y socio de Intellihelp" loading="lazy" decoding="async"> -->
+          <div class="equipo__photo photo-ph">
+            <svg class="photo-ph__icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h2.6l1.6-2.2h6.6L16.9 7h2.6A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z"/><circle cx="12" cy="12.8" r="3.6"/></svg>
+            <p class="nota"><b>Pendiente mío</b>Sacarle la foto a Nico trabajando con un equipo o en un rack.</p>
+          </div>
+        </div>
+        <h3 class="equipo__name">Nicolás Baldelli</h3>
+        <p class="equipo__role eyebrow">Director de operaciones y socio</p>
+        <p class="equipo__text">Dirige las operaciones de Intellihelp y supervisa la ejecución de los proyectos y la prestación de los servicios en curso. Combina la gestión técnica con la comercial y, junto con la presidencia, atiende la relación con los clientes.</p>
+        <div class="equipo__perfil">
+          <div class="equipo__bloque">
+            <h4 class="equipo__bloque-titulo">Especialidades</h4>
+            <ul class="equipo__chips" role="list">
+              <li class="chip">Operaciones</li>
+              <li class="chip">Gestión de servicios</li>
+              <li class="chip">Gestión comercial</li>
+            </ul>
+          </div>
+        </div>
+        <p class="nota"><b>Para Nico</b>Me faltan tus certificaciones, formación, idiomas y año de ingreso. Pasámelos cuando puedas y los sumo.</p>
+      </li>
+
+      <li id="laura-zaltron" class="equipo__card rv">
+        <div class="equipo__media">
+          <!-- <img class="equipo__img" src="/src/assets/img/equipo/laura.webp" width="640" height="800" alt="Laura Zaltron, responsable de marketing y comunicaciones de Intellihelp" loading="lazy" decoding="async"> -->
+          <div class="equipo__photo photo-ph">
+            <svg class="photo-ph__icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h2.6l1.6-2.2h6.6L16.9 7h2.6A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z"/><circle cx="12" cy="12.8" r="3.6"/></svg>
+            <p class="nota"><b>Pendiente mío</b>Sacarle la foto a Laura en la oficina o con un cliente.</p>
+          </div>
+        </div>
+        <h3 class="equipo__name">Laura Zaltron</h3>
+        <p class="equipo__role eyebrow">Responsable de marketing y comunicaciones</p>
+        <p class="equipo__text">Conduce el marketing y la comunicación institucional de Intellihelp, incluida la gestión de la reputación digital de la compañía. Colabora con las áreas de preventa y posventa en el seguimiento de cada cuenta.</p>
+        <div class="equipo__perfil">
+          <div class="equipo__bloque">
+            <h4 class="equipo__bloque-titulo">Especialidades</h4>
+            <ul class="equipo__chips" role="list">
+              <li class="chip">Marketing</li>
+              <li class="chip">Comunicación</li>
+              <li class="chip">Preventa y posventa</li>
+              <li class="chip">Reputación digital</li>
+            </ul>
+          </div>
+        </div>
+        <p class="nota"><b>Pendiente mío</b>Pedirle a Laura su formación, certificaciones, idiomas y año de ingreso.</p>
+      </li>
+
+      <li id="lisandro-campos" class="equipo__card rv">
+        <div class="equipo__media">
+          <!-- <img class="equipo__img" src="/src/assets/img/equipo/lisandro.webp" width="640" height="800" alt="Lisandro Campos, responsable de preventa y servicios de Intellihelp" loading="lazy" decoding="async"> -->
+          <div class="equipo__photo photo-ph">
+            <svg class="photo-ph__icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h2.6l1.6-2.2h6.6L16.9 7h2.6A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z"/><circle cx="12" cy="12.8" r="3.6"/></svg>
+            <p class="nota"><b>Pendiente mío</b>Sacarle la foto a Lisandro en la oficina, plano medio.</p>
+          </div>
+        </div>
+        <h3 class="equipo__name">Lisandro Campos</h3>
+        <p class="equipo__role eyebrow">Responsable de preventa y servicios</p>
+        <p class="equipo__text">Realiza los relevamientos técnicos y elabora las propuestas de cada proyecto, desde el análisis de requerimientos hasta la especificación del equipamiento y la definición del alcance del servicio.</p>
+        <div class="equipo__perfil">
+          <div class="equipo__bloque">
+            <h4 class="equipo__bloque-titulo">Especialidades</h4>
+            <ul class="equipo__chips" role="list">
+              <li class="chip">Preventa</li>
+              <li class="chip">Relevamiento</li>
+              <li class="chip">Propuestas técnicas</li>
+            </ul>
+          </div>
+        </div>
+        <p class="nota"><b>Pendiente mío</b>Que Lisandro confirme el cargo ("Responsable de preventa y servicios") y su descripción, y me pase las áreas o marcas que trabaja, certificaciones, formación, idiomas y año de ingreso.</p>
+      </li>
+
+      <li id="brian-sierra" class="equipo__card equipo__card--ancha rv">
+        <div class="equipo__media">
+          <!-- <img class="equipo__img" src="/src/assets/img/equipo/brian.webp" width="640" height="800" alt="Brian Sierra, jefe de sistemas y soporte técnico de Intellihelp" loading="lazy" decoding="async"> -->
+          <div class="equipo__photo photo-ph">
+            <svg class="photo-ph__icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h2.6l1.6-2.2h6.6L16.9 7h2.6A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z"/><circle cx="12" cy="12.8" r="3.6"/></svg>
+            <p class="nota"><b>Pendiente mío</b>Mi foto en la oficina, con equipos de red.</p>
+          </div>
+        </div>
+        <h3 class="equipo__name">Brian Sierra</h3>
+        <p class="equipo__role eyebrow">Jefe de sistemas y soporte técnico</p>
+        <p class="equipo__text">Dirige el área de sistemas de Intellihelp y el equipo de soporte técnico que atiende a los clientes en sus sedes y en forma remota. Es responsable de la infraestructura tecnológica de la compañía: diseñó e implementó la red corporativa, segmentada por función, y administra los servidores, la gestión de identidades y el acceso remoto seguro.</p>
+        <p class="equipo__text">Automatiza la operación de esa infraestructura con herramientas propias: la auditoría de servidores, el alta y la baja de equipos en el acceso remoto y el respaldo de la configuración del equipamiento de red. Es responsable también de la documentación técnica de toda la infraestructura.</p>
+        <p class="equipo__text">Lidera el desarrollo de los sistemas de gestión internos, desde el análisis hasta la puesta en producción: el CRM comercial, que reemplazó a tres plataformas de terceros; la mesa de ayuda con asignación automática de tickets; el inventario de activos IT; la gestión de comprobantes y remitos integrada con ARCA, y el portal de recursos humanos.</p>
+        <p class="equipo__text">En proyectos para clientes, implementó la mesa de ayuda sobre GLPI de una obra social, con acuerdos de nivel de servicio, asignación automática y escalamiento en tres niveles, y supervisa el soporte en sitio de sus agencias del interior, donde interviene como segundo nivel. Participa en implementaciones de control de acceso biométrico y videovigilancia, incluida la capacitación de los usuarios, y elabora las propuestas técnicas y la documentación de entrega de esos proyectos.</p>
+        <!--
+          Fuentes: DOCS/privado/perfil/perfil-tecnico-brian.md (§0, §3, §4 y §5),
+          DOCS/contenido/fuentes/fuentes-certificaciones-equipo.md,
+          fuentes-capacidades-internas.md (O2, O4, O5, D5, A1 a A3, §2), fuentes-perfil-brian-web.md
+          y fuentes-drive-clientes.md (cargos de Brian: supervisor y segundo nivel en las
+          agencias del interior de la obra social, desde jul. 2025).
+          Automatización: sin nombres de scripts, frecuencia ni destino de los respaldos
+          (lista negra de fuentes-capacidades-internas §3).
+          El cliente de GLPI va sin nombre ("una obra social") hasta tener autorización escrita.
+          Vencimientos a vigilar: Hikvision HCSA y Zyxel ZCNA, ene. 2027;
+          Asterisk, jun. 2027; Dahua DHCA-ACS, jul. 2027; Dahua DHCA-IPVSS,
+          oct. 2028. Si no se renuevan, pasarlas a formación o sacarlas, y
+          revisar la línea de la home.
+          No figuran: Grandstream (vencida en jun. 2026) e Integrador Certificado
+          Suprema (vencido en nov. 2025). Furukawa Laserway va como formación.
+          Cursos de 2025 de Santander quedan fuera (solo CV). También quedan
+          fuera, por ser introductorios: UTN Programador Web Inicial (2020) y los
+          cursos de Cisco Networking Academy. Las materias de la tecnicatura no se
+          listan: la carrera va en una línea de Formación.
+          Sin detalle de la arquitectura de seguridad interna (firewall, DNS, VPN,
+          proveedores): solo "red segmentada", "identidades" y "acceso remoto".
+          GLPI de la obra social: sin la cantidad de SLA (son reglas de
+          configuración y la cifra se leería como cantidad de contratos).
+        -->
+        <div class="equipo__perfil">
+          <div class="equipo__bloque equipo__bloque--ancho">
+            <h4 class="equipo__bloque-titulo">Especialidades</h4>
+            <ul class="equipo__chips" role="list">
+              <li class="chip">Dirección de soporte técnico</li>
+              <li class="chip">Administración de sistemas</li>
+              <li class="chip">Redes corporativas y switching</li>
+              <li class="chip">Windows Server y Active Directory</li>
+              <li class="chip">Linux y contenedores</li>
+              <li class="chip">Identidad y acceso remoto</li>
+              <li class="chip">Mesa de ayuda sobre GLPI</li>
+              <li class="chip">Desarrollo de sistemas internos</li>
+              <li class="chip">Integración con ARCA</li>
+              <li class="chip">Control de acceso y biometría</li>
+              <li class="chip">Videovigilancia IP</li>
+              <li class="chip">Fibra óptica y GPON</li>
+            </ul>
+          </div>
+
+          <div class="equipo__bloque">
+            <h4 class="equipo__bloque-titulo">Certificaciones</h4>
+            <ul class="equipo__lista" role="list">
+              <li><span class="equipo__emisor">Hikvision</span> · HCSA Access Control <span class="equipo__fecha">(2025)</span></li>
+              <li><span class="equipo__emisor">Dahua</span> · DHCA-ACS, Intelligent Building System <span class="equipo__fecha">(2025)</span></li>
+              <li><span class="equipo__emisor">Dahua</span> · DHCA-IPVSS, IP Video Surveillance <span class="equipo__fecha">(2026)</span></li>
+              <li><span class="equipo__emisor">Zyxel</span> · ZCNA en Switch, WLAN, Security y Nebula <span class="equipo__fecha">(2025)</span></li>
+              <li><span class="equipo__emisor">Sangoma</span> · Asterisk Certified Essentials <span class="equipo__fecha">(2025)</span></li>
+            </ul>
+          </div>
+
+          <div class="equipo__columna">
+            <div class="equipo__bloque">
+              <h4 class="equipo__bloque-titulo">Formación</h4>
+              <ul class="equipo__lista" role="list">
+                <li><span class="equipo__emisor">Teclab</span> · Tecnicatura Superior en Redes Informáticas <span class="equipo__fecha">(en curso)</span></li>
+                <li><span class="equipo__emisor">Suprema</span> · Control de acceso y biometría, BioStar 2 (niveles básico, intermedio y avanzado) y especificación de proyectos <span class="equipo__fecha">(2024 a 2026)</span></li>
+                <li><span class="equipo__emisor">Furukawa</span> · Laserway, redes ópticas pasivas y GPON <span class="equipo__fecha">(2024 y 2025)</span></li>
+                <li><span class="equipo__emisor">Serprotel</span> · Operación de OLT Furukawa <span class="equipo__fecha">(2024)</span></li>
+              </ul>
+            </div>
+
+            <div class="equipo__bloque">
+              <h4 class="equipo__bloque-titulo">Idiomas</h4>
+              <ul class="equipo__lista" role="list">
+                <li><span class="equipo__emisor">Inglés</span> · Técnico, para documentación de fabricantes y exámenes de certificación</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <p class="nota"><b>Pendiente mío</b>Renovar Hikvision y Zyxel antes de enero de 2027, y pedirle a Sangoma que reemita el certificado de Asterisk con mi apellido antes de mostrarlo a un cliente.</p>
+      </li>
+
+      <li id="alejandro-ayala" class="equipo__card rv">
+        <div class="equipo__media">
+          <!-- <img class="equipo__img" src="/src/assets/img/equipo/alejandro.webp" width="640" height="800" alt="Alejandro Ayala, responsable de instalaciones y posventa de Intellihelp" loading="lazy" decoding="async"> -->
+          <div class="equipo__photo photo-ph">
+            <svg class="photo-ph__icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h2.6l1.6-2.2h6.6L16.9 7h2.6A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z"/><circle cx="12" cy="12.8" r="3.6"/></svg>
+            <p class="nota"><b>Pendiente mío</b>Sacarle la foto a Alejandro en una instalación.</p>
+          </div>
+        </div>
+        <h3 class="equipo__name">Alejandro Ayala</h3>
+        <p class="equipo__role eyebrow">Responsable de instalaciones y posventa</p>
+        <p class="equipo__text">Coordina la ejecución de las obras de videovigilancia, control de acceso y cableado estructurado, y es responsable del servicio de posventa de cada proyecto. Junto con el equipo técnico, atiende en las sedes de los clientes el enrolamiento biométrico del personal y el mantenimiento correctivo de cámaras y grabadores. Está certificado por Hikvision en control de acceso y por Sangoma en telefonía IP sobre Asterisk.</p>
+        <!--
+          Fuente: DOCS/contenido/fuentes/fuentes-certificaciones-equipo.md (corte 30/10/2026).
+          Vigentes con examen: Hikvision CGSA Access Control (hasta sept. 2029) y
+          Asterisk Certified Essentials (hasta mayo 2027).
+          No figuran como certificación: Hikvision HCSA CCTV y Access Control
+          (vencidas en sept. 2026), HCSA Alarm y VMS (vencen en oct. 2026),
+          Fortinet FCF (vencida el 09/10/2026; sus dos cursos van como formación)
+          y Grandstream Networking Solution (vencida en jun. 2026).
+          Furukawa: nunca "partner" ni "canal autorizado".
+        -->
+        <div class="equipo__perfil">
+          <div class="equipo__bloque">
+            <h4 class="equipo__bloque-titulo">Especialidades</h4>
+            <ul class="equipo__chips" role="list">
+              <li class="chip">Instalaciones</li>
+              <li class="chip">Posventa</li>
+              <li class="chip">Control de acceso biométrico</li>
+              <li class="chip">Videovigilancia</li>
+              <li class="chip">Soporte en sitio</li>
+              <li class="chip">Telefonía IP</li>
+            </ul>
+          </div>
+
+          <div class="equipo__bloque">
+            <h4 class="equipo__bloque-titulo">Certificaciones</h4>
+            <ul class="equipo__lista" role="list">
+              <li><span class="equipo__emisor">Hikvision</span> · CGSA Access Control <span class="equipo__fecha">(2024)</span></li>
+              <li><span class="equipo__emisor">Sangoma</span> · Asterisk Certified Essentials <span class="equipo__fecha">(2025)</span></li>
+            </ul>
+          </div>
+
+          <div class="equipo__bloque">
+            <h4 class="equipo__bloque-titulo">Formación</h4>
+            <ul class="equipo__lista" role="list">
+              <li><span class="equipo__emisor">Suprema</span> · Control de acceso y biometría, y BioStar 2 básico <span class="equipo__fecha">(2024)</span></li>
+              <li><span class="equipo__emisor">Fortinet</span> · Cursos del programa Certified Fundamentals en ciberseguridad <span class="equipo__fecha">(2024)</span></li>
+              <li><span class="equipo__emisor">Furukawa</span> · Laserway, redes ópticas pasivas y GPON <span class="equipo__fecha">(2024)</span></li>
+              <li><span class="equipo__emisor">Serprotel</span> · Operación de OLT Furukawa <span class="equipo__fecha">(2024)</span></li>
+              <li><span class="equipo__emisor">Avaya</span> · Administering Avaya Control Manager <span class="equipo__fecha">(2025)</span></li>
+            </ul>
+          </div>
+        </div>
+        <p class="nota"><b>Pendiente mío</b>Pasarle la tarjeta a Alejandro para que revise el texto y me confirme formación e idiomas. Renovar sus HCSA de Hikvision, la FCF de Fortinet y Grandstream, que ya vencieron o vencen este mes.</p>
+      </li>
+
+      <li id="raul-nasif" class="equipo__card rv">
+        <div class="equipo__media">
+          <!-- <img class="equipo__img" src="/src/assets/img/equipo/raul.webp" width="640" height="800" alt="Raúl Nasif, responsable de administración de Intellihelp" loading="lazy" decoding="async"> -->
+          <div class="equipo__photo photo-ph">
+            <svg class="photo-ph__icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h2.6l1.6-2.2h6.6L16.9 7h2.6A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z"/><circle cx="12" cy="12.8" r="3.6"/></svg>
+            <p class="nota"><b>Pendiente mío</b>Sacarle la foto a Raúl en la oficina, plano medio.</p>
+          </div>
+        </div>
+        <h3 class="equipo__name">Raúl Nasif</h3>
+        <p class="equipo__role eyebrow">Responsable de administración</p>
+        <p class="equipo__text">Está a cargo de la administración de Intellihelp. Gestiona la facturación, el seguimiento de cobranzas y la documentación administrativa de cada contrato de servicio, y atiende las consultas de los clientes sobre facturas y pagos.</p>
+        <div class="equipo__perfil">
+          <div class="equipo__bloque">
+            <h4 class="equipo__bloque-titulo">Especialidades</h4>
+            <ul class="equipo__chips" role="list">
+              <li class="chip">Facturación</li>
+              <li class="chip">Documentación</li>
+              <li class="chip">Cobranzas</li>
+            </ul>
+          </div>
+        </div>
+        <p class="nota"><b>Pendiente mío</b>Que Raúl confirme el cargo ("Responsable de administración") y su descripción, y me pase formación, idiomas y año de ingreso.</p>
+      </li>
+
+      <li id="equipo-tecnico" class="equipo__card rv">
+        <div class="equipo__media">
+          <!-- <img class="equipo__img" src="/src/assets/img/equipo/equipo-tecnico.webp" width="640" height="800" alt="Técnicos de Intellihelp trabajando en las oficinas de un cliente" loading="lazy" decoding="async"> -->
+          <div class="equipo__photo photo-ph">
+            <svg class="photo-ph__icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h2.6l1.6-2.2h6.6L16.9 7h2.6A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z"/><circle cx="12" cy="12.8" r="3.6"/></svg>
+            <p class="nota"><b>Para Nico</b>Para la foto del equipo técnico en un cliente necesito su permiso. ¿A cuál se lo pedimos?</p>
+          </div>
+        </div>
+        <h3 class="equipo__name">Nuestro equipo técnico</h3>
+        <p class="equipo__role eyebrow">En las oficinas de nuestros clientes</p>
+        <p class="equipo__text">Técnicos y analistas en nómina de Intellihelp que trabajan dentro de la operación del cliente, con el respaldo de nuestra sede de Palermo. Prestan el servicio de mesa de ayuda de nivel 1 y 2 y se integran al área de sistemas del cliente como analistas, desarrolladores o administradores.</p>
+        <div class="equipo__perfil">
+          <div class="equipo__bloque">
+            <h4 class="equipo__bloque-titulo">Especialidades</h4>
+            <ul class="equipo__chips" role="list">
+              <li class="chip">Service desk N1 y N2</li>
+              <li class="chip">Soporte técnico</li>
+              <li class="chip">Outsourcing IT</li>
+            </ul>
+          </div>
+        </div>
+        <p class="nota"><b>Para Nico</b>Las certificaciones que junté son de Alejandro y mías. ¿Qué certificaciones tiene el equipo de outsourcing y cuántos técnicos son? Si preferís no publicar el número, pongo solo las certificaciones.</p>
+      </li>
+    </ul>
+
+    <!-- Cita: comillas grandes a la izquierda y texto a la derecha (estructura del PDF) -->
+    <figure class="equipo__quote rv">
+      <span class="equipo__quote-mark num" aria-hidden="true">“</span>
+      <blockquote class="equipo__quote-text">
+        <p>Construimos relaciones de largo plazo con nuestros clientes, basadas en el cumplimiento de cada compromiso asumido.</p>
+      </blockquote>
+      <figcaption class="equipo__quote-cite">Intellihelp</figcaption>
+    </figure>
+  </div>
+</section>

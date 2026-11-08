@@ -1,0 +1,64 @@
+<meta charset="utf-8" />
+<!--
+  HEAD COMÚN DE LAS PÁGINAS INTERNAS
+  Va como primera cosa dentro de <head> (el charset queda primero, antes de
+  este comentario, para que entre en los primeros 1024 bytes). Pone charset, viewport, título,
+  descripción, canonical (la URL de la página), íconos, manifest, Open Graph,
+  Twitter y el script principal. Después del include, cada página agrega su
+  JSON-LD (Service, CollectionPage, AboutPage…).
+
+  Uso:
+    <head>
+      <include src="partials/pagina/head.html"
+        titulo="Outsourcing IT y service desk en Buenos Aires | Intellihelp"
+        descripcion="Texto de 140 a 160 caracteres con servicio, público y ciudad."></include>
+      <script type="application/ld+json">…</script>
+    </head>
+
+  Props:
+    titulo        obligatoria. Única por página: servicio + ciudad + "| Intellihelp" (hasta 60 caracteres).
+    descripcion   obligatoria. Única por página (hasta 160 caracteres). Sin comillas dobles.
+    actualizado   opcional. Fecha de la última revisión del contenido (AAAA-MM-DD).
+                  Por defecto, la de la última revisión general del sitio: cada
+                  vez que se publiquen cambios, actualizarla acá y en el
+                  lastmod de public/sitemap.xml.
+  La canonical y og:url salen solas de la ruta de la página (page.url).
+  El JSON-LD de abajo da la fecha de actualización y el editor de cada página
+  (informe p.18-21: contenido citable con fecha y autoría). Usa el mismo @id
+  que el AboutPage, ContactPage o CollectionPage de la página (#pagina), así
+  que los buscadores lo leen como un solo nodo.
+  La 404 no usa este parcial: no lleva canonical y es noindex.
+-->
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{{props.titulo}}</title>
+<meta name="description" content="{{props.descripcion}}" />
+<meta name="theme-color" content="#2A2A2A" />
+<link rel="canonical" href="{{page.url}}" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="es_AR" />
+<meta property="og:site_name" content="{{site.name}}" />
+<meta property="og:title" content="{{props.titulo}}" />
+<meta property="og:description" content="{{props.descripcion}}" />
+<meta property="og:url" content="{{page.url}}" />
+<meta property="og:image" content="{{site.url}}og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": "{{page.url}}#pagina",
+    "url": "{{page.url}}",
+    "inLanguage": "es-AR",
+    "dateModified": "{{props.actualizado|2026-10-30}}",
+    "isPartOf": { "@id": "{{site.url}}#sitio" },
+    "publisher": { "@id": "{{site.url}}#organizacion" }
+  }
+</script>
+
+<script type="module" src="/src/scripts/main.js"></script>

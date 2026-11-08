@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Páginas HTML del sitio principal. El blog tiene su propio sitemap (WordPress): /novedades/wp-sitemap.xml.
+     Al sumar una página HTML, agregarla acá con la fecha de su último cambio. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://www.intellihelp.tech/</loc>
+    <lastmod>2026-11-08</lastmod>
+  </url>
+  <url>
+    <loc>https://www.intellihelp.tech/diagnostico-sin-cargo/</loc>
+    <lastmod>2026-11-08</lastmod>
+  </url>
+  <url>
+    <loc>https://www.intellihelp.tech/postulate/</loc>
+    <lastmod>2026-11-08</lastmod>
+  </url>
+  <url>
+    <loc>https://www.intellihelp.tech/privacidad/</loc>
+    <lastmod>2026-11-08</lastmod>
+  </url>
+</urlset>

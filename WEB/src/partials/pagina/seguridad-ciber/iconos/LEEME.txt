@@ -1,0 +1,4 @@
+Íconos de las páginas /soluciones/, /soluciones/seguridad/ y /soluciones/ciberseguridad/.
+Mismo formato que partials/pagina/iconos/ (trazo 1.8, 24x24, clases "ico svc-ico"):
+hacen pop, se dibujan y flotan como los de la home. Se usan dentro de
+<span class="servicios__icon icon-badge"> en las tarjetas servicios__card.

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Google Tag Manager (GTM-54S82VL3), igual que en el resto del sitio. -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-54S82VL3');</script>
+  <!-- End Google Tag Manager -->
+
+  <title>Página no encontrada | Intellihelp</title>
+  <!-- Página de error: la sirve el .htaccess de la raíz (ErrorDocument 404) para cualquier ruta que no exista,
+       con el código 404. No se indexa ni tiene canonical. Las rutas van absolutas (/css/, /img/) porque puede
+       aparecer en cualquier profundidad (/servicios/algo/otra/). -->
+  <meta name="robots" content="noindex, follow">
+  <meta name="theme-color" content="#2A2A2A">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <link rel="preload" href="/fonts/saira-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/css/styles.css">
+  <!-- Propio de esta página: los accesos a las secciones cambian de color al pasar el mouse, sin subrayado (mismo
+       criterio que el menú y el pie). -->
+  <style>
+    .nf-links { gap: 12px 32px; }
+    .nf-links a { color: var(--purple); text-decoration: none; transition: color var(--t-fast) var(--ease-out); }
+    .nf-links a:hover { color: var(--ink); }
+  </style>
+
+  <script>
+    (function (root) {
+      root.classList.add('js');
+      if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) root.classList.add('anim');
+    })(document.documentElement);
+  </script>
+  <script src="/js/main.js" defer></script>
+  <!-- MOVIMIENTO: recetas de animación (títulos por líneas, fotos, header que se compacta y se esconde, íconos que
+       levitan), después de los estilos y de main.js. Detalle en README-movimiento.md. -->
+  <link rel="stylesheet" href="/css/motion.css">
+  <script src="/js/motion.js" defer></script>
+  <!-- ANIMACIÓN DE CARGA (igual en todas las páginas): css/carga.css + js/carga.js, sin defer. Corre en cada carga,
+       recarga y al volver con Atrás; con "reducir movimiento" no aparece. -->
+  <link rel="stylesheet" href="/css/carga.css">
+  <script src="/js/carga.js"></script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-54S82VL3"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+<!-- header:inicio
+     Encabezado común a todas las páginas del sitio (home, /diagnostico-sin-cargo/, /gracias-reserva/, /postulate/,
+     /privacidad/, 404 y el tema del blog). Se copia igual, completo, entre header:inicio y header:fin; solo cambian los
+     atributos del CTA (href, data-cta y, en el diagnóstico, data-dx-ir). Estilos: "Header" en css/styles.css;
+     comportamiento (compactarse, esconderse al bajar, panel del menú y sección activa): js/main.js.
+     Las anclas van como /#seccion para que funcionen desde cualquier página. En una página interna, al link del menú que
+     corresponda (Blog o Postulate) se le agrega aria-current="page" (main.js lo hace solo si falta). -->
+<header id="inicio" class="site-header">
+  <div class="wrap site-header__inner">
+    <a href="/" class="brand" aria-label="Intellihelp, volver al inicio">
+      <img src="/img/logo-intellihelp.png" alt="ITH, Intellihelp" width="74" height="40">
+      <span class="brand__tag"><span>Servicios IT</span><span>desde 2010</span></span>
+    </a>
+    <nav id="menu" class="nav" aria-label="Principal">
+      <ul class="list-reset">
+        <li><a href="/#que-ofrecemos">Qué ofrecemos</a></li>
+        <li><a href="/#quienes-somos">Quiénes somos</a></li>
+        <li><a href="/#casos">Casos</a></li>
+        <li><a href="/novedades/">Blog</a></li>
+        <li><a href="/#preguntas">FAQ</a></li>
+        <li><a href="/postulate/">Postulate</a></li>
+      </ul>
+      <a id="cta-header" data-cta="header-agendar" href="/diagnostico-sin-cargo/" class="btn btn-lime btn-sm site-header__cta">Agendá reunión <span class="arr" aria-hidden="true">→</span></a>
+    </nav>
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="menu" data-nav-toggle>
+      <span class="nav-toggle__bars" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span class="sr-only">Menú</span>
+    </button>
+  </div>
+</header>
+<!-- header:fin -->
+
+<main id="contenido">
+<!-- ===== Página no encontrada: la ruta no existe (o era del sitio anterior y no tiene redirección). Ofrece los mismos
+     caminos que el menú y el CTA de siempre, para que la visita no se pierda. ===== -->
+<div class="page-head section--alt">
+  <div class="wrap">
+    <div class="section-head rv rv-seq">
+      <p class="eyebrow">Error 404</p>
+      <h1 class="section-title">No encontramos <span class="hl">esta página.</span></h1>
+      <p class="lead">Es posible que la dirección haya cambiado con la actualización del sitio o que contenga un error. Podés continuar desde las secciones principales.</p>
+    </div>
+  </div>
+</div>
+
+<div class="page-body section section--alt bg-white">
+  <div class="wrap">
+    <div class="section-cta rv">
+      <a data-cta="404-agendar" href="/diagnostico-sin-cargo/" class="btn btn-lime">Agendá reunión <span class="arr" aria-hidden="true">→</span></a>
+      <a data-cta="404-inicio" href="/" class="btn btn-light">Ir al inicio</a>
+    </div>
+    <nav class="nav-links nf-links rv" data-d="0.5" aria-label="Secciones del sitio">
+      <a href="/#que-ofrecemos">Qué ofrecemos</a>
+      <a href="/#quienes-somos">Quiénes somos</a>
+      <a href="/#casos">Casos</a>
+      <a href="/novedades/">Blog</a>
+      <a href="/#preguntas">FAQ</a>
+      <a href="/postulate/">Postulate</a>
+    </nav>
+  </div>
+</div>
+</main>
+
+<!-- footer:inicio
+     Pie común a todas las páginas HTML del sitio, junto con el botón flotante de WhatsApp. Se copia igual entre
+     footer:inicio y footer:fin. Los años (16, desde 2010) los recalcula main.js con [data-anios] y [data-anio]. -->
+<footer class="site-footer">
+  <div class="wrap footer__inner">
+    <div class="footer__cols">
+      <div class="footer__about">
+        <div class="footer__brand">
+          <img src="/img/logo-intellihelp.png" alt="ITH, Intellihelp" width="82" height="44" loading="lazy">
+          <span class="footer__tag">Servicios IT<br>desde 2010</span>
+        </div>
+        <p class="footer__text">Servicios IT para empresas y organismos públicos. <span data-anios>16</span>&nbsp;años en la Argentina y la región.</p>
+      </div>
+      <nav class="footer__col" aria-label="Qué ofrecemos">
+        <span class="eyebrow eyebrow--lime">Qué ofrecemos</span>
+        <a href="/#servicios">Servicios</a>
+        <a href="/#soluciones">Soluciones</a>
+        <a href="/#presencia">Presencia</a>
+        <a href="/diagnostico-sin-cargo/">Diagnóstico sin cargo</a>
+      </nav>
+      <nav class="footer__col" aria-label="Empresa">
+        <span class="eyebrow eyebrow--lime">Empresa</span>
+        <a href="/#quienes-somos">Quiénes somos</a>
+        <a href="/#casos">Casos</a>
+        <a href="/novedades/">Blog</a>
+        <a href="/#preguntas">FAQ</a>
+        <a href="/postulate/">Postulate</a>
+      </nav>
+      <div class="footer__col footer__col--wide">
+        <span class="eyebrow eyebrow--lime">Contacto</span>
+        <a href="tel:+541177006868">+54 11 7700-6868</a>
+        <a href="mailto:info@intellihelp.tech">info@intellihelp.tech</a>
+        <a href="mailto:rrhh@intellihelp.tech">rrhh@intellihelp.tech</a>
+        <a href="https://www.linkedin.com/company/intellihelp/" target="_blank" rel="noopener">LinkedIn</a>
+        <address class="footer__address">Av. Dorrego 1789, piso 6, of. 604, C1414CKM, CABA<br>Lunes a viernes de 9 a 18</address>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© <span data-anio>2026</span> Intellihelp S.A. Todos los derechos reservados. <a href="/privacidad/">Privacidad</a></span>
+      <span>Gold Partner Huawei · Gold Partner Hikvision</span>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp comercial (mismo número que el cierre de la home y el JSON-LD), con un mensaje precargado (?text=) propio
+     de cada página para saber desde dónde escriben. Sin title: el nombre accesible va en aria-label. Lima con el logo blanco; al pasar el mouse,
+     blanco con el logo carbón. -->
+<a href="https://wa.me/5491150274827?text=Hola%2C%20no%20encontr%C3%A9%20la%20p%C3%A1gina%20que%20buscaba%20en%20el%20sitio%20de%20Intellihelp%20y%20quiero%20hacer%20una%20consulta." target="_blank" rel="noopener" class="wa-float" aria-label="Escribinos por WhatsApp (se abre en una pestaña nueva)">
+  <svg class="ico ico--fill" aria-hidden="true" width="30" height="30" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg></a>
+<!-- footer:fin -->
+
+</body>
+</html>

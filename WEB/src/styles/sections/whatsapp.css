@@ -1,0 +1,94 @@
+/* ==========================================================================
+   Botón flotante de WhatsApp
+   Diseño del PDF: círculo de 56px abajo a la derecha con el logo oficial de
+   WhatsApp (glifo blanco sobre el verde de la marca).
+   Animación del código original (DOCS/diseno/Home-html-referencia): sombra
+   carbón y hover que sube 3px, escala 1.04 y suma un leve brillo.
+   ========================================================================== */
+
+.wa-float {
+  /* Color de marca de WhatsApp (no es parte de la paleta del sitio): el
+     logo va en su verde oficial, como en el PDF de diseño. */
+  --wa-green: #25d366;
+
+  position: fixed;
+  right: calc(16px + env(safe-area-inset-right, 0px));
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  z-index: 70;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--wa-green);
+  color: var(--c-white);
+  text-decoration: none;
+  box-shadow: 0 12px 30px rgb(42 42 42 / 0.28);
+  transition:
+    transform var(--dur) var(--ease-out),
+    filter var(--dur),
+    opacity 0.3s var(--ease-out),
+    visibility 0.3s;
+}
+
+/* Oculto mientras se ve el hero, la sección de contacto, el footer o el menú mobile
+   (lo decide src/scripts/modules/wa-float.js) */
+.wa-float.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px) scale(0.9);
+  pointer-events: none;
+}
+
+.wa-float:hover {
+  color: var(--c-white);
+  transform: translateY(-3px) scale(1.04);
+  filter: brightness(1.06);
+}
+
+.wa-float:active {
+  transform: translateY(0);
+}
+
+/* Anillo blanco + contorno carbón: se ve sobre fondos claros, oscuros y violeta */
+.wa-float:focus-visible {
+  outline: 3px solid var(--c-carbon);
+  outline-offset: 3px;
+  box-shadow:
+    0 0 0 3px var(--c-white),
+    0 12px 30px rgb(42 42 42 / 0.28);
+}
+
+.wa-float__icon {
+  flex: none;
+  width: 28px;
+  height: 28px;
+}
+
+@media (min-width: 600px) {
+  .wa-float {
+    right: calc(24px + env(safe-area-inset-right, 0px));
+    bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wa-float {
+    transition: filter var(--dur), opacity 0.3s, visibility 0.3s;
+  }
+
+  .wa-float.is-hidden {
+    transform: none;
+  }
+
+  .wa-float:hover {
+    transform: none;
+  }
+}
+
+@media print {
+  .wa-float {
+    display: none;
+  }
+}

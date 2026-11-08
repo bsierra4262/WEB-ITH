@@ -1,0 +1,146 @@
+<!--
+  LANDING /diagnostico/ · AGENDA DEL CRM (embudo, etapa 03 "Convertir": elige
+  día y hora, deja sus datos, recibe la confirmación y se reúne con Carlos)
+  Con site.diagnostico.calendario = "crm", diagnostico.js pone este template
+  en el panel blanco de #agenda (antes del formulario de siempre, que queda
+  oculto como respaldo) y lo llena con los horarios de /api/agenda.php.
+  Tres pasos en el mismo panel:
+  1. Día y hora: botones con aria-pressed; flechas, Inicio y Fin para moverse
+     dentro de cada grupo (un solo botón del grupo en el orden de tabulación).
+  2. Datos: los mismos campos que el formulario de siempre, la casilla de
+     consentimiento (mismo texto y versión que partials/agenda.html) y los
+     ocultos de origen. Se envía a /api/agenda.php.
+  3. Confirmación en pantalla. El mail con la invitación y el enlace de Meet
+     lo manda el CRM.
+  Si el CRM no responde o no hay horarios, diagnostico.js saca este bloque y
+  deja el formulario de siempre (con los datos ya cargados si falló la reserva).
+  data-calendario-crm: lo usa analytics.js para reconocer el calendario.
+-->
+<template data-diagnostico-crm>
+  <div class="diagnostico-crm" data-calendario-crm data-estado="cargando">
+    <div class="diagnostico-crm__paso" data-crm-paso="horario">
+      <h3 class="agenda__h3" id="dc-titulo" tabindex="-1">Elegí día y hora</h3>
+      <p class="agenda__sub">Horarios disponibles de Carlos Baldelli, en hora de Argentina. La reunión es por videollamada y dura <span data-crm-duracion>30</span> minutos.</p>
+
+      <div class="diagnostico-crm__nav">
+        <button type="button" class="diagnostico-crm__flecha" data-crm-anterior disabled>
+          <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7" /></svg>
+          <span class="visually-hidden">Días anteriores</span>
+        </button>
+        <p class="diagnostico-crm__rango" data-crm-rango aria-live="polite"></p>
+        <button type="button" class="diagnostico-crm__flecha" data-crm-siguiente disabled>
+          <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7" /></svg>
+          <span class="visually-hidden">Días siguientes</span>
+        </button>
+      </div>
+      <div class="diagnostico-crm__dias" role="group" aria-label="Días con horarios disponibles" data-crm-dias></div>
+
+      <fieldset class="diagnostico-crm__grupo">
+        <legend class="diagnostico-crm__legend" data-crm-dia>Horarios disponibles</legend>
+        <div class="diagnostico-crm__horas" data-crm-horas>
+          <p class="diagnostico-crm__cargando">Consultando los horarios disponibles…</p>
+        </div>
+      </fieldset>
+
+      <div class="agenda__status" role="status" aria-live="polite" data-crm-aviso></div>
+
+      <p class="agenda__sub diagnostico-calendario__alt">¿No encontrás un horario conveniente? Escribinos por <a href="{{site.whatsapp.url}}" target="_blank" rel="noopener">WhatsApp<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a> o a <a href="mailto:{{site.email}}">{{site.email}}</a> y lo coordinamos.</p>
+    </div>
+
+    <form class="agenda__form diagnostico-crm__form" data-crm-form action="/api/agenda.php" method="post" aria-labelledby="dc-elegido" novalidate hidden>
+      <div class="diagnostico-crm__elegido">
+        <span class="diagnostico-crm__elegido-ico" aria-hidden="true"><svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span>
+        <p class="diagnostico-crm__elegido-texto" id="dc-elegido" tabindex="-1"><span class="diagnostico-crm__elegido-label">Tu reunión con Carlos Baldelli</span> <strong data-crm-elegido></strong></p>
+        <button type="button" class="diagnostico-crm__cambiar" data-crm-cambiar>Cambiar horario</button>
+      </div>
+
+      <input type="hidden" name="tipo" value="" />
+      <input type="hidden" name="vendedor" value="" />
+      <input type="hidden" name="inicio" value="" />
+      <input type="hidden" name="origen" value="" />
+      <input type="hidden" name="canal" value="" />
+      <input type="hidden" name="utm_source" value="" />
+      <input type="hidden" name="utm_medium" value="" />
+      <input type="hidden" name="utm_campaign" value="" />
+      <input type="hidden" name="utm_term" value="" />
+      <input type="hidden" name="utm_content" value="" />
+      <input type="hidden" name="gclid" value="" />
+      <input type="hidden" name="li_fat_id" value="" />
+      <input type="hidden" name="referrer" value="" />
+      <input type="hidden" name="landing" value="" />
+      <input type="hidden" name="visitas_landing" value="" />
+      <input type="hidden" name="consentimiento_version" value="web-2026-11" />
+      <input type="hidden" name="idem" value="" />
+
+      <p class="agenda__required-note">Los campos con <span class="agenda__req" aria-hidden="true">*</span><span class="visually-hidden">asterisco</span> son obligatorios.</p>
+      <div class="agenda__row2">
+        <div class="agenda__field">
+          <label class="agenda__label" for="dc-nombre">Nombre y apellido <span class="agenda__req" aria-hidden="true">*</span></label>
+          <input class="field" id="dc-nombre" name="nombre" type="text" autocomplete="name" maxlength="120" placeholder="Tu nombre completo" required />
+        </div>
+        <div class="agenda__field">
+          <label class="agenda__label" for="dc-empresa">Empresa u organismo <span class="agenda__req" aria-hidden="true">*</span></label>
+          <input class="field" id="dc-empresa" name="empresa" type="text" autocomplete="organization" maxlength="120" placeholder="Razón social o nombre comercial" required />
+        </div>
+      </div>
+
+      <div class="agenda__row2">
+        <div class="agenda__field">
+          <label class="agenda__label" for="dc-mail">Mail laboral <span class="agenda__req" aria-hidden="true">*</span></label>
+          <input class="field" id="dc-mail" name="mail" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="190" placeholder="nombre@empresa.com" required />
+        </div>
+        <div class="agenda__field">
+          <label class="agenda__label" for="dc-telefono">Teléfono</label>
+          <input class="field" id="dc-telefono" name="telefono" type="tel" inputmode="tel" autocomplete="tel" maxlength="40" placeholder="Opcional" />
+        </div>
+      </div>
+
+      <div class="agenda__field">
+        <label class="agenda__label" for="dc-necesidad">¿Qué servicio te interesa?</label>
+        <!-- Mismas opciones y valores que partials/agenda.html (NECESIDADES en
+             public/api/_crm.php). -->
+        <select class="field agenda__select" id="dc-necesidad" name="necesidad" data-select>
+          <option value="" selected>Elegí una opción</option>
+          <option value="Cámaras de seguridad y control de acceso">Cámaras y control de acceso</option>
+          <option value="Soporte IT, mesa de ayuda u outsourcing IT">Soporte IT u outsourcing</option>
+          <option>Redes, fibra o data center</option>
+          <option>Ciberseguridad</option>
+          <option>Búsqueda de perfiles IT</option>
+          <option value="Desarrollo de software o automatización con IA">Software o automatización con IA</option>
+          <option value="Licitación o proyecto para un organismo público">Licitación u organismo público</option>
+          <option>Otro proyecto</option>
+        </select>
+      </div>
+
+      <div class="agenda__field">
+        <label class="agenda__label" for="dc-mensaje">Contanos sobre el proyecto</label>
+        <textarea class="field agenda__textarea" id="dc-mensaje" name="mensaje" rows="3" maxlength="3000" placeholder="Por ejemplo: qué necesitás resolver, cuántas sedes o puestos abarca y en qué plazo."></textarea>
+      </div>
+
+      <!-- Trampa para bots: invisible para personas y lectores de pantalla -->
+      <div class="agenda__hp" aria-hidden="true">
+        <label for="dc-website">No completar</label>
+        <input id="dc-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <div class="agenda__check">
+        <input class="agenda__check-input" id="dc-acepto" name="acepto" type="checkbox" value="1" required />
+        <label class="agenda__check-label" for="dc-acepto">Acepto que Intellihelp use estos datos para responder mi consulta y coordinar la reunión, según el <a href="/privacidad/">aviso de privacidad</a>. <span class="agenda__req" aria-hidden="true">*</span></label>
+      </div>
+
+      <button type="submit" class="btn btn--lime btn--block agenda__submit">
+        <span class="agenda__submit-label">Confirmá la reunión</span> <span class="arr" aria-hidden="true">→</span>
+      </button>
+
+      <div class="agenda__status" role="status" aria-live="polite" data-crm-estado></div>
+
+      <p class="agenda__legal"><svg class="agenda__legal-ico" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10.5" width="16" height="10.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg><span>Registramos la reunión y tus datos en nuestro sistema de gestión de clientes, y la agendamos en Google Calendar con el enlace de Google Meet. Más detalle en el <a href="/privacidad/">aviso de privacidad</a> (Ley 25.326).</span></p>
+    </form>
+
+    <div class="agenda__done diagnostico-crm__ok" data-crm-ok tabindex="-1" hidden>
+      <span class="agenda__done-ico" aria-hidden="true"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+      <p class="agenda__done-title">Reunión confirmada.</p>
+      <p class="agenda__done-text">La reunión con Carlos Baldelli es el <strong data-crm-ok-cuando></strong> (hora de Argentina), por videollamada. Te enviamos un mail con el enlace de Google Meet y la invitación para tu calendario. Si necesitás cambiar el horario o cancelar, usá los enlaces de ese mail.</p>
+    </div>
+  </div>
+</template>

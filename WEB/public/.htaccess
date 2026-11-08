@@ -1,0 +1,258 @@
+# ==========================================================================
+# Intellihelp — www.intellihelp.tech (Hostinger: LiteSpeed / Apache)
+# Este archivo viaja en dist/ (Vite copia public/ tal cual) y va a la raíz de
+# public_html. Todo está envuelto en <IfModule> para que, si el servidor no
+# tiene un módulo, la directiva se ignore en vez de dar un error 500.
+# Documentación: DOCS/desarrollo/DEPLOY.md
+# ==========================================================================
+
+# La home estática tiene prioridad sobre un index.php que pueda quedar del WP viejo.
+DirectoryIndex index.html index.php
+Options -Indexes
+
+# Marca las peticiones que NO son del sitio estático:
+# - ITH_AJENO: subdominio desarrollo.intellihelp.tech y la carpeta /desarrollo/,
+#   una app PHP aparte que vive dentro de public_html. No recibe ninguna cabecera.
+#   Lo mismo para /crm/ y /crm-pruebas/ (el CRM: login con Google en
+#   intellihelp.tech/crm sin www, scripts propios y su propio .htaccess).
+# - ITH_SKIP: lo anterior más /blog/ (el WordPress). No reciben la CSP, la
+#   Permissions-Policy ni las reglas de caché: la CSP rompería wp-admin y el
+#   editor (scripts inline), y el patrón de hash de Vite coincide con miniaturas
+#   como foto-1024x768.jpg. El blog sí recibe nosniff, Referrer-Policy,
+#   X-Frame-Options y HSTS.
+<IfModule mod_setenvif.c>
+  SetEnvIfNoCase Host "^desarrollo\." ITH_SKIP=1 ITH_AJENO=1
+  SetEnvIf Request_URI "^/desarrollo(/|$)" ITH_SKIP=1 ITH_AJENO=1
+  SetEnvIf Request_URI "^/crm(-pruebas)?(/|$)" ITH_SKIP=1 ITH_AJENO=1
+  SetEnvIf Request_URI "^/blog(/|$)" ITH_SKIP=1
+</IfModule>
+
+# --------------------------------------------------------------------------
+# 1. Redirecciones
+#    Todas las 301 van directo a https://www.intellihelp.tech/<destino>: una
+#    URL vieja con http o sin www llega en un solo salto.
+#    Tabla de origen: informe de visibilidad, cap. 9 ("Los 301 a preservar"),
+#    resumida en DOCS/marketing/requisitos-marketing.md.
+# --------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # /desarrollo/ queda aislado: ninguna regla de abajo lo toca. NO BORRAR.
+  RewriteRule ^desarrollo($|/) - [L]
+  # El CRM tampoco: ni www forzado (rompe la vuelta del login de Google) ni barra final.
+  RewriteRule ^crm(-pruebas)?($|/) - [L]
+  RewriteCond %{HTTP_HOST} ^desarrollo\. [NC]
+  RewriteRule ^ - [L]
+
+  # /blog/ es del WordPress que se va a instalar en esa carpeta: ninguna regla
+  # de este archivo lo redirige (solo le aplica el dominio canónico del final).
+  # No sumar "blog" a las listas de abajo.
+
+  # Archivos y carpetas ocultos (.git, .env, .htpasswd…) → 403, salvo .well-known
+  # (lo usan los certificados SSL y verificaciones de dominio).
+  RewriteCond %{REQUEST_URI} !^/\.well-known/
+  RewriteRule (^|/)\. - [F,L]
+
+  # Bibliotecas PHP de /api/ (empiezan con _, como _crm.php): no se piden por
+  # HTTP. Igual responden 404 por su cuenta si llegaran a ejecutarse.
+  RewriteRule ^api/_ - [R=404,L]
+
+  # --- URLs duplicadas de las páginas nuevas
+  # /soluciones/index.html → /soluciones/ (y /index.html → /). Se mira
+  # THE_REQUEST para no tocar el pedido interno que hace DirectoryIndex.
+  RewriteCond %{REQUEST_URI} !^/blog/ [NC]
+  RewriteCond %{THE_REQUEST} ^[A-Z]+\s/+((?:[^/\s?]+/)*)index\.html[\s?]
+  RewriteRule ^ https://www.intellihelp.tech/%1 [R=301,L,NE]
+  # Carpeta sin barra final (/soluciones/seguridad) → con barra, en el mismo
+  # salto que https y www (si no, el servidor agrega la barra en otro salto).
+  RewriteCond %{HTTP_HOST} ^(?:www\.)?intellihelp\.tech$ [NC]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteCond %{REQUEST_URI} !/$
+  RewriteRule ^(.*)$ https://www.intellihelp.tech/$1/ [R=301,L,NE]
+
+  # --- URLs del WordPress viejo → páginas nuevas (301)
+  # Relevadas del backup ai1wm 2024-03-19 y del informe. Aceptan el prefijo
+  # /es/ (WPML) y la barra final opcional. /contacto/, /servicios/,
+  # /soluciones/ y /clientes/ son páginas reales: no se redirigen, solo sus
+  # variantes viejas.
+
+  # Contacto. /contacto/ se mantiene porque la usa el perfil de Google.
+  RewriteCond %{QUERY_STRING} (?:^|&)page_id=32(?:&|$)
+  RewriteRule ^$ https://www.intellihelp.tech/contacto/? [R=301,L]
+  RewriteRule ^es/contacto/?$ https://www.intellihelp.tech/contacto/ [R=301,L,NC]
+  RewriteRule ^(?:es/)?(?:contacto-2|contacto-us|contact-us)/?$ https://www.intellihelp.tech/contacto/ [R=301,L,NC]
+
+  # Servicios
+  RewriteRule ^es/servicios/?$ https://www.intellihelp.tech/servicios/ [R=301,L,NC]
+  RewriteRule ^servicios/(?:empresas|home)\.html$ https://www.intellihelp.tech/servicios/ [R=301,L,NC]
+  RewriteRule ^(?:es/)?(?:servici0s|servicios-antigua|services)/?$ https://www.intellihelp.tech/servicios/ [R=301,L,NC]
+  RewriteRule ^(?:es/)?(?:outsourcing|outsourcing-bancos|webinar-claves-outsourcing-tecnologico-2022-yanina-brea)/?$ https://www.intellihelp.tech/servicios/outsourcing-y-service-desk/ [R=301,L,NC]
+  # Capacitación (fase 2, ya publicada).
+  RewriteRule ^(?:es/)?(?:universidades|universities)/?$ https://www.intellihelp.tech/servicios/capacitacion/ [R=301,L,NC]
+
+  # Soluciones
+  RewriteRule ^es/soluciones/?$ https://www.intellihelp.tech/soluciones/ [R=301,L,NC]
+  RewriteRule ^(?:es/)?(?:soluciones-antigua|soluciones-v1-antigua|solutions)/?$ https://www.intellihelp.tech/soluciones/ [R=301,L,NC]
+  # Cloud (fase 2, ya publicada).
+  RewriteRule ^(?:es/)?soluciones-cloud-huawei/?$ https://www.intellihelp.tech/soluciones/cloud/ [R=301,L,NC]
+  RewriteRule ^(?:es/)?(?:control-de-accesos|videoseguridad)/?$ https://www.intellihelp.tech/soluciones/seguridad/ [R=301,L,NC]
+
+  # Clientes
+  RewriteRule ^es/clientes/?$ https://www.intellihelp.tech/clientes/ [R=301,L,NC]
+  RewriteRule ^(?:es/)?(?:clientes-antigua|clients|history/primer-negocio)/?$ https://www.intellihelp.tech/clientes/ [R=301,L,NC]
+  # Fichas de cliente (33 entradas "client" del WP) y descargas de casos en PDF
+  # (Download Monitor): todo va a la página de clientes.
+  RewriteRule ^(?:es/)?(?:client|download)/.*$ https://www.intellihelp.tech/clientes/ [R=301,L,NC]
+
+  # Nosotros, historia y partners
+  RewriteRule ^(?:es/)?(?:quienes-somos|who-we-are|who-we-are-2|partners-y-vendors|partners-and-vendors)/?$ https://www.intellihelp.tech/nosotros/ [R=301,L,NC]
+  # /history/ y sus 9 hitos (history/fundacion, history/primeras-oficinas…),
+  # salvo history/primer-negocio, que ya salió arriba hacia /clientes/.
+  RewriteRule ^(?:es/)?history(?:/.*)?$ https://www.intellihelp.tech/nosotros/#historia [R=301,L,NE,NC]
+
+  # Búsquedas laborales y avisos de empleo de 2022. El informe dice
+  # /nosotros/trabaja-con-nosotros/, pero la sección quedó como ancla de /nosotros/.
+  # Los avisos los crucé con el backup ai1wm del 19/03/2024: 14 publicados
+  # (analista-bi, analista-bi-junior, analista-de-plataformas,
+  # analista-desarrollador, analista-funcional, analista-funcional-qa-junior-ssr,
+  # arquitecto-de-soluciones, desarrollador-php-sr, developer-android-senior,
+  # developer-ios-sr-ssr, developer-java-angular, developer-java-net,
+  # developer-java-ssr-sr y developer-node-senior), más dejanos-tu-cv.
+  RewriteRule ^(?:es/)?(?:busquedas|searches|rrhh|dejanos-tu-cv)/?$ https://www.intellihelp.tech/nosotros/#trabaja-con-nosotros [R=301,L,NE,NC]
+  RewriteRule ^(?:es/)?(?:analista-[a-z0-9-]+|developer-[a-z0-9-]+|desarrollador-[a-z0-9-]+|arquitecto-de-soluciones)/?$ https://www.intellihelp.tech/nosotros/#trabaja-con-nosotros [R=301,L,NE,NC]
+
+  # Novedades y las 2 notas de 2018. El informe las manda a /blog/; mientras el
+  # WordPress no esté instalado van a la página más cercana. Cuando /blog/
+  # responda, cambiar estos tres destinos a https://www.intellihelp.tech/blog/
+  RewriteRule ^(?:es/)?(?:novedades|news)/?$ https://www.intellihelp.tech/ [R=301,L,NC]
+  RewriteRule ^(?:es/)?(?:la-ciudad-buenos-aires-contara-una-red-fibra-optica-unica|la-ciudad-de-buenos-aires-contara-con-una-red-de-fibra-optica-propia-y-unica)/?$ https://www.intellihelp.tech/soluciones/redes-ftth/ [R=301,L,NC]
+  RewriteRule ^(?:es/)?claves-que-hay-que-tener-en-cuenta-en-las-evaluaciones-de-desempeno/?$ https://www.intellihelp.tech/servicios/ [R=301,L,NC]
+
+  # Home vieja, archivos de autor y de categoría, y toda la versión en inglés → home
+  RewriteRule ^es/?$ https://www.intellihelp.tech/ [R=301,L,NC]
+  RewriteRule ^en(?:/.*)?$ https://www.intellihelp.tech/ [R=301,L,NC]
+  RewriteRule ^(?:es/)?(?:home|home-2|home-antigua|category/.*|author/.*)/?$ https://www.intellihelp.tech/ [R=301,L,NC]
+
+  # PDF viejo de servicios (va antes del 410 de wp-content). Si se sube un PDF
+  # actualizado a esta misma ruta, borrar esta regla.
+  RewriteRule ^wp-content/uploads/2019/07/ITH-servicios-digital\.pdf$ https://www.intellihelp.tech/servicios/ [R=301,L,NC]
+
+  # Restos de WordPress en la raíz que ya no existen → 410 Gone (Google los
+  # desindexa antes). Solo en la raíz: no afectan al WordPress de /blog/.
+  RewriteRule ^(?:wp-admin|wp-includes|wp-content|wp-json)(?:/|$) - [G,L,NC]
+  RewriteRule ^(?:wp-login\.php|xmlrpc\.php|wp-cron\.php|feed/?|comments/feed/?)$ - [G,L,NC]
+
+  # --- Dominio canónico: https://www.intellihelp.tech
+  # Dominio anterior (intelihelp.com.ar, con una sola "l"). Solo actúa si ese
+  # dominio apunta a este hosting; si no, la línea no hace nada.
+  RewriteCond %{HTTP_HOST} ^(?:www\.)?intelihelp\.com\.ar$ [NC]
+  RewriteRule ^ https://www.intellihelp.tech%{REQUEST_URI} [R=301,L,NE]
+  # Sin www → con www (y a https en el mismo salto).
+  RewriteCond %{HTTP_HOST} ^intellihelp\.tech$ [NC]
+  RewriteRule ^ https://www.intellihelp.tech%{REQUEST_URI} [R=301,L,NE]
+  # http → https (contempla proxy/CDN que termina el SSL).
+  RewriteCond %{HTTP_HOST} ^www\.intellihelp\.tech$ [NC]
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+  RewriteRule ^ https://www.intellihelp.tech%{REQUEST_URI} [R=301,L,NE]
+</IfModule>
+
+# Página 404 propia. En el build usa rutas absolutas, así se ve bien en cualquier URL.
+ErrorDocument 404 /404.html
+
+# --------------------------------------------------------------------------
+# 2. Tipos MIME
+# --------------------------------------------------------------------------
+<IfModule mod_mime.c>
+  AddType application/manifest+json webmanifest
+  AddType font/woff2 woff2
+  AddType image/avif avif
+  AddType image/webp webp
+  AddType image/svg+xml svg
+  AddType text/javascript js mjs
+  AddCharset utf-8 .html .css .js .mjs .json .webmanifest .xml .txt .svg
+</IfModule>
+
+# --------------------------------------------------------------------------
+# 3. Compresión (LiteSpeed comprime con brotli/gzip por su cuenta; en Apache
+#    se usa mod_brotli si existe y mod_deflate como respaldo)
+# --------------------------------------------------------------------------
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/css text/plain text/xml text/javascript application/javascript application/json application/ld+json application/manifest+json application/xml image/svg+xml
+</IfModule>
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml text/javascript application/javascript application/json application/ld+json application/manifest+json application/xml image/svg+xml
+</IfModule>
+
+# --------------------------------------------------------------------------
+# 4. Caché del navegador
+#    - /assets/* (nombres con hash de Vite): 1 año, immutable.
+#    - Imágenes, íconos y fuentes sin hash (public/): 30 días.
+#    - HTML, manifest, robots, sitemap: no-cache (siempre se revalida, así
+#      cada deploy se ve al instante).
+#    - PHP (formulario): no-store.
+#    Se usa mod_headers (y no mod_expires) para poder excluir /desarrollo/.
+# --------------------------------------------------------------------------
+<IfModule mod_headers.c>
+  # Archivos estáticos sin hash (orden importa: la regla de hash va después y pisa esta).
+  <FilesMatch "\.(?:avif|webp|png|jpe?g|gif|svg|ico|woff2?)$">
+    Header set Cache-Control "public, max-age=2592000" env=!ITH_SKIP
+  </FilesMatch>
+  # Archivos con hash de Vite: nombre-XXXXXXXX.ext (8 caracteres base64url).
+  <FilesMatch "-[A-Za-z0-9_-]{8}\.(?:css|js|mjs|woff2|avif|webp|png|jpe?g|gif|svg)$">
+    Header set Cache-Control "public, max-age=31536000, immutable" env=!ITH_SKIP
+  </FilesMatch>
+  <FilesMatch "\.(?:html?|webmanifest|xml|txt)$">
+    Header set Cache-Control "no-cache" env=!ITH_SKIP
+  </FilesMatch>
+  <FilesMatch "\.php$">
+    Header set Cache-Control "no-store" env=!ITH_SKIP
+  </FilesMatch>
+  # ("/" se resuelve a index.html, así que la home también queda en no-cache.)
+
+  # ------------------------------------------------------------------------
+  # 5. Cabeceras de seguridad (las cuatro primeras también para /blog/)
+  # ------------------------------------------------------------------------
+  Header always set X-Content-Type-Options "nosniff" env=!ITH_AJENO
+  Header always set Referrer-Policy "strict-origin-when-cross-origin" env=!ITH_AJENO
+  Header always set X-Frame-Options "SAMEORIGIN" env=!ITH_AJENO
+  Header always set Permissions-Policy "accelerometer=(), autoplay=(self \"https://www.youtube-nocookie.com\"), camera=(), display-capture=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), usb=(), browsing-topics=()" env=!ITH_SKIP
+  # HSTS sin includeSubDomains: hay subdominios (desarrollo.) que no controla este sitio.
+  Header always set Strict-Transport-Security "max-age=31536000" env=!ITH_AJENO
+  # CSP: todo propio, más lo que carga el contenedor de Google Tag Manager
+  # (GTM-54S82VL3) y lo que va embebido en /diagnostico/. Detalle de cada
+  # dominio en DOCS/marketing/medicion-embudo.md.
+  # - GTM y su vista previa (Tag Assistant): *.googletagmanager.com y
+  #   tagmanager.google.com; la vista previa también pide fonts.googleapis.com,
+  #   fonts.gstatic.com, ssl.gstatic.com y www.gstatic.com.
+  # - GA4: *.google-analytics.com, *.analytics.google.com, *.g.doubleclick.net,
+  #   www.google.com y www.google.com.ar (señales de Google, dominio del país).
+  # - Google Ads (conversiones y remarketing): www.googleadservices.com,
+  #   googleads.g.doubleclick.net, www.google.com, pagead2.googlesyndication.com,
+  #   y los iframes td.doubleclick.net y www.googletagmanager.com.
+  # - Clarity: *.clarity.ms (script y envío de datos) y c.bing.com.
+  # - LinkedIn Insight Tag: snap.licdn.com (script) y *.linkedin.com (envío).
+  # - Video de la landing: iframes de www.youtube-nocookie.com y www.youtube.com,
+  #   y el script www.youtube.com/iframe_api (lo carga analytics.js solo si hay
+  #   un video, para medir cuánto se ve), y la miniatura de i.ytimg.com.
+  # - Calendario: iframes de calendly.com o calendar.google.com (página de
+  #   citas); widget.js y widget.css de assets.calendly.com si se usa el
+  #   embebido de Calendly con script.
+  # El JSON-LD (application/ld+json) no se ejecuta, así que no necesita hash.
+  # 'unsafe-inline' en estilos solo por los atributos style="--i:2" de los
+  # parciales. script-src no tiene 'unsafe-inline' ni 'unsafe-eval' a
+  # propósito: en GTM no corren las etiquetas de "HTML personalizado" ni las
+  # variables de "JavaScript personalizado"; se usan las plantillas oficiales
+  # (GA4, Google Ads, Clarity, LinkedIn Insight). Si se suma otra herramienta,
+  # agregar acá su dominio (ver DOCS/desarrollo/DEPLOY.md).
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' https://*.googletagmanager.com https://tagmanager.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com https://*.clarity.ms https://snap.licdn.com https://www.youtube.com https://assets.calendly.com; style-src 'self' 'unsafe-inline' https://tagmanager.google.com https://fonts.googleapis.com https://assets.calendly.com; img-src 'self' data: https://*.googletagmanager.com https://ssl.gstatic.com https://www.gstatic.com https://*.google-analytics.com https://*.analytics.google.com https://*.g.doubleclick.net https://www.google.com https://www.google.com.ar https://www.googleadservices.com https://*.clarity.ms https://c.bing.com https://*.linkedin.com https://i.ytimg.com; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://*.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://*.g.doubleclick.net https://www.google.com https://www.google.com.ar https://www.googleadservices.com https://pagead2.googlesyndication.com https://*.clarity.ms https://c.bing.com https://*.linkedin.com; manifest-src 'self'; frame-src https://www.googletagmanager.com https://td.doubleclick.net https://www.youtube-nocookie.com https://www.youtube.com https://calendly.com https://calendar.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests" env=!ITH_SKIP
+  Header unset X-Powered-By
+</IfModule>
+
+# Nunca servir archivos de configuración o código fuente sueltos.
+<FilesMatch "\.(?:env|ini|log|sh|sql|bak|md|lock|map|wpress)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+</FilesMatch>

@@ -1,0 +1,39 @@
+<!--
+  SECCIÓN GENÉRICA DE CONTENIDO
+  Para los bloques propios de cada página ("Qué incluye", "Cómo trabajamos",
+  "Marcas"…): encabezado de sección de la home (eyebrow + h2 + bajada) y el
+  contenido en el slot, armado con componentes que ya existen:
+    - tarjetas con ícono: <ul class="servicios__grid" role="list"> con
+      <li class="servicios__card card rv slow card-h"> (servicios.css)
+    - pasos numerados: <ol class="pasos__grid" role="list"> con
+      <li class="pasos__card card-h rv"> (pasos.css)
+    - lista de chequeo partida: .problema__split (problema.css)
+    - casos chicos: <ul class="casos__grid pagina-casos" role="list"> (casos.css)
+    - chips: <li class="chip">
+
+  Uso:
+    <include src="partials/pagina/bloque.html" id="incluye" eyebrow="Qué incluye"
+      titulo="Tres formas de tercerizar el soporte IT." fondo="section--soft">
+      <template slot="bajada"><p class="lead">Bajada opcional.</p></template>
+      <ul class="servicios__grid" role="list"> … </ul>
+    </include>
+
+  Props:
+    id        obligatoria. Id de la sección (ancla y aria-labelledby).
+    eyebrow   obligatoria.
+    titulo    obligatoria (h2).
+    fondo     opcional: "section--soft" (cremita). Por defecto, blanco.
+  Slots: el principal (contenido) y "bajada" (opcional, va en el encabezado).
+  Para una sección oscura con fondo de luces, armala a mano con
+  class="section tech on-dark" y el include de partials/fondo.html.
+-->
+<section id="{{props.id}}" class="section pagina-bloque {{props.fondo|}}" aria-labelledby="{{props.id}}-titulo">
+  <div class="wrap">
+    <header class="section-head rv">
+      <p class="eyebrow eyebrow--dash">{{props.eyebrow}}</p>
+      <h2 id="{{props.id}}-titulo" class="h2">{{props.titulo}}</h2>
+      <slot name="bajada"></slot>
+    </header>
+    <slot></slot>
+  </div>
+</section>

@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Servicios informáticos para empresas en CABA | Intellihelp</title>
+    <meta
+      name="description"
+      content="Intellihelp: servicios informáticos para empresas en CABA. Soporte IT, mesa de ayuda, outsourcing IT, cámaras de seguridad y control de accesos, desde {{site.since}}."
+    />
+    <meta name="theme-color" content="#2A2A2A" />
+    <link rel="canonical" href="{{site.url}}" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:site_name" content="{{site.name}}" />
+    <meta property="og:title" content="Intellihelp | Servicios IT para empresas y organismos desde {{site.since}}" />
+    <meta
+      property="og:description"
+      content="Mesa de ayuda, outsourcing IT, redes, fibra, cámaras de seguridad y control de acceso para empresas y organismos públicos. Empresa argentina con equipo propio en Palermo, CABA."
+    />
+    <meta property="og:url" content="{{site.url}}" />
+    <meta property="og:image" content="{{site.url}}og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!--
+      Datos estructurados. Contacto y trayectoria salen de src/data/site.json.
+      foundingDate usa site.since porque la trayectoria se cuenta desde ese año.
+      La dirección se reparte en calle (site.street), CP (site.postalCode) y localidad.
+      El horario (openingHoursSpecification) sale de site.horario, confirmado
+      por marketing el 03/11/2026 (lunes a viernes, de 9 a 18).
+      hasOfferCatalog lista solo las páginas de servicio que existen.
+      sameAs y hasMap: cuando tenga el link "Compartir" del perfil de Google
+      (maps.app.goo.gl/… o ?cid=), va como token en site.json y reemplaza la
+      búsqueda de Maps en hasMap; también se suma a sameAs.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": ["Organization", "LocalBusiness"],
+        "@id": "{{site.url}}#organizacion",
+        "name": "{{site.name}}",
+        "legalName": "INTELLIHELP S.A.",
+        "alternateName": "ITH",
+        "taxID": "30-71140975-7",
+        "url": "{{site.url}}",
+        "logo": "{{site.url}}apple-touch-icon.png",
+        "image": "{{site.url}}og-image.png",
+        "description": "INTELLIHELP S.A. es una empresa argentina de servicios informáticos con sede en Buenos Aires y {{site.years}} años de trayectoria. Presta soporte IT, mesa de ayuda, outsourcing IT, redes, fibra óptica, data center, cámaras de seguridad y control de acceso a empresas y organismos públicos.",
+        "disambiguatingDescription": "No tiene relación con IntelliHelp SpA de Chile.",
+        "foundingDate": "{{site.since}}",
+        "email": "{{site.email}}",
+        "telephone": "{{site.phone.display}}",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "{{site.street}}",
+          "postalCode": "{{site.postalCode}}",
+          "addressLocality": "Ciudad Autónoma de Buenos Aires",
+          "addressRegion": "CABA",
+          "addressCountry": "AR"
+        },
+        "hasMap": "{{site.mapsUrl}}",
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "{{site.horario.abre}}",
+            "closes": "{{site.horario.cierra}}"
+          }
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "sales",
+          "telephone": "{{site.phone.display}}",
+          "email": "{{site.email}}",
+          "areaServed": "AR",
+          "availableLanguage": "es"
+        },
+        "sameAs": ["{{site.linkedin}}"],
+        "areaServed": "AR",
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Servicios y soluciones de Intellihelp",
+          "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Outsourcing IT y service desk", "url": "{{site.url}}servicios/outsourcing-y-service-desk/" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Instalación de cámaras de seguridad y control de acceso", "url": "{{site.url}}soluciones/seguridad/" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Ciberseguridad para empresas", "url": "{{site.url}}soluciones/ciberseguridad/" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Cableado estructurado y redes LAN", "url": "{{site.url}}soluciones/redes-indoor/" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Redes FTTH e instalación de fibra óptica", "url": "{{site.url}}soluciones/redes-ftth/" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Data center, servidores y storage", "url": "{{site.url}}soluciones/data-center/" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Servicios en la nube para empresas", "url": "{{site.url}}soluciones/cloud/" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Soluciones IoT e IIoT", "url": "{{site.url}}soluciones/iot/" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Redes de acceso GPON, CATV y HFC", "url": "{{site.url}}soluciones/acceso/" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Energías renovables y paneles solares", "url": "{{site.url}}soluciones/energias-renovables/" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Reclutamiento y selección de personal IT", "url": "{{site.url}}servicios/reclutamiento-y-seleccion/" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Headhunting IT y executive search", "url": "{{site.url}}servicios/busqueda-de-recursos/" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Desarrollo de aplicaciones y software a medida", "url": "{{site.url}}servicios/desarrollo-de-aplicaciones/" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Automatización de procesos y automatización con IA", "url": "{{site.url}}servicios/automatizacion/" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Capacitación IT para empresas", "url": "{{site.url}}servicios/capacitacion/" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Consultoría IT y transformación digital", "url": "{{site.url}}servicios/consultoria/" } }
+          ]
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "@id": "{{site.url}}#sitio",
+        "name": "{{site.name}}",
+        "url": "{{site.url}}",
+        "inLanguage": "es-AR",
+        "publisher": { "@id": "{{site.url}}#organizacion" }
+      }
+    </script>
+    <!-- Fecha de la última revisión de contenido de la home: actualizarla a
+         mano junto con el lastmod de "/" en public/sitemap.xml. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": "{{site.url}}#pagina",
+        "url": "{{site.url}}",
+        "name": "Servicios informáticos para empresas en CABA | Intellihelp",
+        "inLanguage": "es-AR",
+        "isPartOf": { "@id": "{{site.url}}#sitio" },
+        "about": { "@id": "{{site.url}}#organizacion" },
+        "publisher": { "@id": "{{site.url}}#organizacion" },
+        "dateModified": "2026-10-30"
+      }
+    </script>
+
+    <script type="module" src="/src/scripts/main.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <include src="partials/header.html"></include>
+
+    <main id="contenido">
+      <include src="partials/hero.html"></include>
+      <include src="partials/logos.html"></include>
+      <include src="partials/problema.html"></include>
+      <include src="partials/servicios.html"></include>
+      <include src="partials/historia.html"></include>
+      <include src="partials/equipo.html"></include>
+      <include src="partials/presencia.html"></include>
+      <include src="partials/casos.html"></include>
+      <include src="partials/testimonios.html"></include>
+      <include src="partials/pasos.html"></include>
+      <include src="partials/faq.html"></include>
+      <include src="partials/agenda.html" cierre="El primer paso es el relevamiento."></include>
+    </main>
+
+    <include src="partials/footer.html"></include>
+    <include src="partials/whatsapp.html"></include>
+  </body>
+</html>

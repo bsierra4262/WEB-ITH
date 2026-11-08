@@ -1,0 +1,202 @@
+/* =========================================================
+   Postulate (/postulate/). Se carga después de styles.css solo en esa página.
+   Usa los tokens y las piezas de styles.css (secciones, rótulos, títulos, botones, chips, .card-dark, .icon-circle);
+   acá van solo las piezas propias. Fondos como en la home, blanco y lavanda alternados: hero lavanda (con la card
+   blanca), "Por qué" blanco, perfiles lavanda y búsquedas blanco. Tarjetas como Servicios y Soluciones de la home: sin caja, sin sombra y sin
+   filetes; se separan por aire y tipografía, con el número arriba a la izquierda. Ritmo de Globant: titulares grandes y
+   compactos, encabezado partido (título a la izquierda y bajada a la derecha) y 56 px de aire hasta el contenido.
+   Sin colores nuevos.
+   ========================================================= */
+
+/* ---------- Encabezado de sección partido ---------- */
+.postulate-head .section-title { line-height: 1.04; letter-spacing: -.02em; }
+@media (min-width: 1024px) {
+  .postulate-head {
+    display: grid;
+    grid-template-columns: minmax(0, 620px) minmax(0, 440px);
+    justify-content: space-between;
+    align-items: end;
+    gap: 16px 48px;
+    max-width: none;
+    margin-bottom: 56px;
+  }
+  .postulate-head > .eyebrow { grid-column: 1; grid-row: 1; }
+  .postulate-head > .section-title { grid-column: 1; grid-row: 2; }
+  .postulate-head > .lead { grid-column: 2; grid-row: 2; font-size: 19px; line-height: 1.55; }
+}
+
+/* ---------- Hero ---------- */
+.postulate-hero { padding: calc(var(--section-y) * .8) 0 var(--section-y); background: var(--lavender); }
+.postulate-hero__grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); align-items: center; gap: 48px clamp(40px, 6vw, 96px); }
+.postulate-hero__text { display: flex; flex-direction: column; align-items: flex-start; gap: 22px; }
+.postulate-hero__title { font-size: var(--h1); line-height: 1; letter-spacing: -.03em; }
+.postulate-hero__text .lead { max-width: 34em; font-size: clamp(18px, 1.5vw, 21px); }
+.postulate-hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; margin-top: 10px; }
+
+/* Card clara (regla: fondo oscuro únicamente en el hero de la home, placeholder del video): blanca sobre el lavanda
+   del hero, como la card del cierre de la home. Rótulo violeta, números en violeta, texto carbón. */
+.postulate-hero__card { display: flex; flex-direction: column; gap: 28px; padding: clamp(32px, 4vw, 48px); border-radius: var(--radius); background: var(--white); color: var(--ink); }
+.postulate-hero__card .eyebrow { color: var(--purple); }
+/* El hero es de la familia violeta (.section--alt); la card carbón conserva la barrita lima, como el resto de las cards oscuras */
+.postulate-hero__card .eyebrow::before { background: var(--purple); }
+.postulate-steps { display: flex; flex-direction: column; }
+.postulate-steps li { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 16px; padding: 20px 0; border-top: 1px solid var(--gray-bg); color: var(--muted); font-size: 17px; line-height: 1.55; }
+.postulate-steps li:last-child { padding-bottom: 0; }
+.postulate-steps strong { color: var(--ink); }
+.postulate-steps__num { color: var(--purple); font-size: 22px; font-weight: 700; line-height: 1.2; }
+
+@media (max-width: 900px) {
+  .postulate-hero__grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 600px) {
+  .postulate-hero__actions .btn { width: 100%; }
+  .postulate-steps li { grid-template-columns: 40px minmax(0, 1fr); gap: 12px; font-size: 16px; }
+}
+
+/* ---------- Por qué trabajar con nosotros ---------- */
+/* Tarjetas sin caja: número arriba a la izquierda, ícono en su círculo blanco, título y texto; 40 px de aire. */
+.postulate-why__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 48px 40px; counter-reset: motivo; }
+.postulate-why__item { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding: 0; counter-increment: motivo; }
+.postulate-why__item::before { content: counter(motivo, decimal-leading-zero); color: var(--muted); font-size: 14px; font-weight: 600; letter-spacing: .04em; line-height: 1; font-variant-numeric: tabular-nums; }
+.postulate-why__item .icon-circle { width: 64px; height: 64px; }
+/* Hover como las tarjetas de Servicios de la home: solo el título toma el violeta */
+.postulate-why__title, .postulate-profile__title { transition: color var(--t-fast) var(--ease-out); }
+@media (hover: hover) {
+  .postulate-why__item:hover .postulate-why__title, .postulate-profile:hover .postulate-profile__title { color: var(--purple); }
+}
+.postulate-why__title { margin: 8px 0 0; font-size: 22px; font-weight: 700; line-height: 1.2; letter-spacing: -.01em; }
+.postulate-why__text { margin: 0; color: var(--muted); font-size: 17px; line-height: 1.6; }
+@media (max-width: 1100px) { .postulate-why__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .postulate-why__grid { grid-template-columns: minmax(0, 1fr); gap: 40px; } }
+
+/* ---------- Perfiles: tres columnas sin caja ni filetes ---------- */
+.postulate-profiles__list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px clamp(32px, 4vw, 64px); }
+.postulate-profile { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding: 0; }
+.postulate-profile__num { color: var(--muted); font-size: 14px; font-weight: 600; letter-spacing: .04em; line-height: 1; font-variant-numeric: tabular-nums; }
+.postulate-profile .icon-circle { width: 64px; height: 64px; }
+/* Íconos: un solo tratamiento en toda la página (círculo blanco de 64 px con el glifo violeta centrado, como en la home) */
+.postulate-profile__title { margin: 4px 0 0; font-size: clamp(26px, 2.4vw, 32px); font-weight: 700; line-height: 1.15; letter-spacing: -.02em; }
+.postulate-profile__text { margin: 0; color: var(--muted); font-size: 17px; line-height: 1.6; }
+.postulate-profile .chips { margin-top: 4px; }
+@media (max-width: 900px) {
+  .postulate-profiles__list { grid-template-columns: minmax(0, 1fr); gap: 44px; }
+}
+
+/* ---------- Búsquedas (HiringRoom) ----------
+   Estados de #hiringroom-busquedas (los pone postulate.js; ver el comentario de la sección en el HTML):
+   - sin clase (sin JS): solo el aviso con el botón de mail.
+   - .is-cargando: la línea "Consultando las búsquedas publicadas…".
+   - .is-cargado: cada búsqueda es una tarjeta sin caja (como Servicios en la home: sin fondo, sin sombra y sin
+     filete), con la línea de mail como alternativa debajo.
+   - .is-vacio: el aviso con el botón de mail (no hay búsquedas, o HiringRoom no respondió).
+   Las tarjetas las escribe embed.js de HiringRoom (li.microsite_vacancy y sus clases); acá solo se les da el estilo
+   del sitio. Número arriba a la izquierda (no centrado), como en Perfiles. */
+.postulate-jobs__box { background: none; }
+.postulate-jobs__cargando,
+.postulate-jobs__lista,
+.postulate-jobs__extra { display: none; }
+#hiringroom-busquedas.is-cargando .postulate-jobs__cargando { display: flex; }
+#hiringroom-busquedas.is-cargando .postulate-jobs__vacio,
+#hiringroom-busquedas.is-cargado .postulate-jobs__vacio { display: none; }
+#hiringroom-busquedas.is-cargado .postulate-jobs__lista { display: grid; }
+#hiringroom-busquedas.is-cargado .postulate-jobs__extra { display: block; }
+
+/* Misma altura aproximada que el aviso, así el bloque no salta cuando se resuelve. El indicador es propio: una barrita
+   lima que recorre su riel (quieta con "reducir movimiento"). */
+.postulate-jobs__cargando { align-items: center; gap: 14px; min-height: 176px; margin: 0; color: var(--muted); font-size: 17px; }
+.postulate-jobs__cargando::before { content: ""; flex: none; width: 48px; height: 3px; border-radius: 3px; background: linear-gradient(var(--lime), var(--lime)) 0 0 / 40% 100% no-repeat, var(--white); }
+@media (prefers-reduced-motion: no-preference) {
+  .postulate-jobs__cargando::before { animation: hrCargando 1.1s var(--ease-out) infinite alternate; }
+}
+@keyframes hrCargando { from { background-position: 0 0, 0 0; } to { background-position: 100% 0, 0 0; } }
+
+/* Listado: dos columnas en escritorio, una en celular. Tarjetas sin caja, sin sombra, sin filete y sin elevación:
+   número arriba a la izquierda, título, lugar, resumen y los botones del sitio al pie. Al pasar el mouse solo el título
+   toma el violeta de la sección. */
+.postulate-jobs__lista { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px clamp(40px, 5vw, 72px); counter-reset: busqueda; }
+.postulate-jobs .microsite_vacancy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  counter-increment: busqueda;
+}
+.postulate-jobs .microsite_vacancy::before {
+  content: counter(busqueda, decimal-leading-zero);
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.postulate-jobs .microsite_title { transition: color var(--t-fast) var(--ease-out); }
+@media (hover: hover) {
+  .postulate-jobs .microsite_vacancy:hover .microsite_title { color: var(--purple); }
+}
+.postulate-jobs .microsite_title { height: auto; margin: 0; color: var(--ink); font-size: clamp(22px, 2vw, 26px); font-weight: 700; line-height: 1.2; letter-spacing: -.01em; overflow-wrap: anywhere; }
+.postulate-jobs .microsite_datas { display: flex; flex: 1; flex-direction: column; align-items: flex-start; gap: 14px; width: 100%; margin: 0; padding: 0; list-style: none; }
+.postulate-jobs .microsite_datas > li { max-width: 100%; margin: 0; overflow-wrap: anywhere; }
+
+/* Lugar: chip blanco con el pin (como los chips de la home); sin lugar, no se muestra */
+.postulate-jobs .data_location { display: inline-flex; align-items: center; gap: 7px; padding: 7px 12px; border-radius: 6px; background: var(--lavender); /* la sección es blanca */ color: var(--ink); font-size: 15px; line-height: 1.3; }
+.postulate-jobs .data_location .ico { flex: none; color: var(--purple); }
+.postulate-jobs .data_location.is-vacio { display: none; }
+
+/* Descripción: hasta cuatro renglones; el detalle completo está en la página de la búsqueda en HiringRoom */
+.postulate-jobs .data_desc {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.6;
+}
+.postulate-jobs .data_desc :is(p, ul, ol, div) { display: inline; margin: 0; padding: 0; }
+.postulate-jobs .data_desc :is(h1, h2, h3, h4, h5, h6, strong, b) { display: inline; margin: 0; color: inherit; font-size: inherit; font-weight: 600; }
+.postulate-jobs .data_desc img { display: none; }
+.postulate-jobs .data_desc.is-vacio { display: none; }
+/* Requerimientos, beneficios y detalles quedan para la página de la búsqueda: en la tarjeta alcanza con el resumen */
+.postulate-jobs :is(.data_req, .data_benefits, .data_details) { display: none; }
+
+/* Botones al pie de la tarjeta: Postularme (lima) y Ver la búsqueda (borde carbón), flecha a la derecha del texto */
+.postulate-jobs__acciones { display: flex; flex-wrap: wrap; gap: 12px; width: 100%; margin-top: auto; padding-top: 8px; }
+.postulate-jobs__acciones > li { margin: 0; }
+
+.postulate-jobs__extra { margin: 28px 0 0; color: var(--muted); font-size: 17px; line-height: 1.6; overflow-wrap: anywhere; }
+.postulate-jobs__extra a { font-weight: 600; text-decoration: none; }
+.postulate-jobs__extra a:hover { color: var(--ink); }
+
+/* Aviso sin búsquedas: sin caja, como un bloque más de la sección */
+.postulate-jobs__vacio {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 24px 40px;
+  padding: 0;
+}
+.postulate-jobs__ico { width: 64px; height: 64px; }
+.postulate-jobs__vacio-text { display: flex; flex-direction: column; gap: 10px; }
+.postulate-jobs__vacio-title { margin: 0; font-size: clamp(24px, 2.4vw, 32px); font-weight: 700; line-height: 1.15; letter-spacing: -.02em; }
+.postulate-jobs__vacio-text p { max-width: 40em; margin: 0; color: var(--muted); font-size: 17px; line-height: 1.6; }
+.postulate-jobs__vacio-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.postulate-jobs__mail { max-width: 22em; margin: 0; color: var(--muted); font-size: 15px; line-height: 1.5; overflow-wrap: anywhere; }
+.postulate-jobs__mail strong { color: var(--ink); }
+@media (max-width: 960px) {
+  .postulate-jobs__vacio { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 900px) {
+  .postulate-jobs__lista { grid-template-columns: minmax(0, 1fr); gap: 48px; }
+}
+@media (max-width: 600px) {
+  .postulate-jobs__vacio-actions, .postulate-jobs__vacio-actions .btn { width: 100%; }
+  .postulate-jobs__acciones > li, .postulate-jobs__acciones .btn { width: 100%; }
+}
