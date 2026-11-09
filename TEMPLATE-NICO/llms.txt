@@ -20,7 +20,7 @@ Están todos en la sección "¿Qué ofrecemos?" de la home: https://www.intellih
 - Outsourcing: profesionales IT que se integran al equipo del cliente, seleccionados con psicodiagnóstico laboral, con inducción en la organización y capacitación continua.
 - Búsqueda de recursos: reclutamiento y selección de perfiles técnicos y ejecutivos, con evaluación en assessment centers.
 - Automatización: procesos automatizados e incorporación de herramientas de inteligencia artificial para resolver tareas repetitivas.
-- Consultoría: optimización de los procesos de tecnología sobre estándares y metodologías reconocidas (ITIL, metodologías ágiles y gestión de calidad).
+- Consultoría: optimización de los procesos de tecnología con estándares y metodologías reconocidos (ITIL, metodologías ágiles y gestión de calidad).
 - Desarrollo de apps: sistemas y aplicaciones a medida, desde la propuesta hasta la puesta en marcha.
 - Capacitación: formación para equipos técnicos y usuarios, con talleres prácticos y training center propio.
 - Transformación digital: asesoramiento estratégico para llevar los procesos de la organización al entorno digital, con revisión de procesos y cultura de trabajo, transferencia de conocimiento y capacitación continua.
@@ -30,7 +30,7 @@ Están todos en la sección "¿Qué ofrecemos?" de la home: https://www.intellih
 En la misma sección, a continuación de los servicios: https://www.intellihelp.tech/#soluciones
 
 - Cloud: diseño, migración y operación de nubes privadas, públicas e híbridas.
-- Video seguridad: control de acceso y asistencia por biometría, videovigilancia y soluciones con drones, sobre tecnología Hikvision, Suprema y Dahua.
+- Videoseguridad: control de acceso y asistencia por biometría, videovigilancia y soluciones con drones, sobre tecnología Hikvision, Suprema y Dahua.
 - IoT: sistemas a medida que conectan sensores y equipos, con monitoreo en tiempo real.
 - Data center: infraestructura de centro de datos, de servidores y storage a redes definidas por software.
 - Energías renovables: soluciones solares conectadas a la red, aisladas o híbridas.
