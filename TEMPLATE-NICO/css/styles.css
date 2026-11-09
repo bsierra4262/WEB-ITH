@@ -13,7 +13,7 @@
   font-style: normal;
   font-weight: 400 700;
   font-display: swap;
-  src: url("../fonts/saira-latin.woff2") format("woff2");
+  src: url("../fonts/saira-latin.woff2?v=7eb811eb14") format("woff2");
 }
 
 /* ---------- Tokens ----------

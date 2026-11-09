@@ -62,9 +62,9 @@
   </script>
 
   <!-- Rutas desde la raíz (/css, /js, /img): la página vive en /postulate/ y las relativas de la home no sirven acá. -->
-  <link rel="preload" href="/fonts/saira-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/css/styles.css">
-  <link rel="stylesheet" href="/css/postulate.css">
+  <link rel="preload" href="/fonts/saira-latin.woff2?v=7eb811eb14" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/css/styles.css?v=5ddbbf3cc7">
+  <link rel="stylesheet" href="/css/postulate.css?v=2cc7ad34b7">
 
   <script>
     // Antes del primer pintado: marca que hay JS y pone en <html> la clase "anim" (mismo criterio que la home).
@@ -73,15 +73,15 @@
       if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) root.classList.add('anim');
     })(document.documentElement);
   </script>
-  <script src="/js/main.js" defer></script>
-  <script src="/js/postulate.js" defer></script>
+  <script src="/js/main.js?v=f9c03beaa9" defer></script>
+  <script src="/js/postulate.js?v=c0b8403b8c" defer></script>
   <!-- MOVIMIENTO: las mismas recetas que la home (títulos por líneas, fotos, header que se compacta y se esconde),
        después de los estilos y de main.js. Detalle en README-movimiento.md. -->
-  <link rel="stylesheet" href="/css/motion.css">
-  <script src="/js/motion.js" defer></script>
+  <link rel="stylesheet" href="/css/motion.css?v=2878a7a381">
+  <script src="/js/motion.js?v=938c35f7b3" defer></script>
   <!-- CARGA: la misma animación de carga de todo el sitio (logo y línea), en cada carga y recarga. -->
-  <link rel="stylesheet" href="/css/carga.css">
-  <script src="/js/carga.js"></script>
+  <link rel="stylesheet" href="/css/carga.css?v=d8dd6aa922">
+  <script src="/js/carga.js?v=8b3b1a60f3"></script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->

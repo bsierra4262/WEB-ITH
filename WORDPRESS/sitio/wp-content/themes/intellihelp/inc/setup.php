@@ -173,3 +173,23 @@ add_filter(
 /* ---------- Extracto: corto y sin "[...]" ---------- */
 add_filter( 'excerpt_length', static fn() => 28 );
 add_filter( 'excerpt_more', static fn() => '…' );
+
+/* ---------- Caché en la CDN de Hostinger para visitantes ----------
+ * Las páginas públicas del blog salen del borde de la CDN (unos 0,1 s) en lugar de que WordPress las arme en cada
+ * visita (cerca de 1 s). El navegador las revalida siempre (max-age=0); la CDN las guarda 10 minutos (s-maxage), así
+ * una nota nueva o editada aparece en el blog a más tardar en 10 minutos (o enseguida si se limpia la caché del
+ * hosting). No se aplica con sesión iniciada, en vistas previas ni en pedidos que no sean GET. */
+add_action(
+	'template_redirect',
+	static function (): void {
+		if ( is_user_logged_in() || is_preview() || is_admin() || 'GET' !== ( $_SERVER['REQUEST_METHOD'] ?? '' ) || headers_sent() ) {
+			return;
+		}
+		foreach ( array_keys( $_COOKIE ) as $cookie ) {
+			if ( preg_match( '/^(wordpress_|wp-postpass_|comment_author_)/', (string) $cookie ) ) {
+				return;
+			}
+		}
+		header( 'Cache-Control: public, max-age=0, s-maxage=600' );
+	}
+);

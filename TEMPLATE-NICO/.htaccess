@@ -274,7 +274,10 @@ ErrorDocument 404 /404.html
 # ------------------------------------------------------------------------------------------------------------------
 # Caché del navegador (solo pedidos del sitio principal: ITH_SITIO)
 # ------------------------------------------------------------------------------------------------------------------
-#   - HTML, robots.txt, llms.txt, sitemap.xml: no-cache (se revalida siempre, así cada publicación se ve enseguida).
+#   - HTML: el navegador lo revalida siempre (max-age=0) y la CDN de Hostinger lo guarda una hora (s-maxage): así la
+#     página sale del borde de la CDN en ~0,1 s en lugar de ir hasta el servidor. Cada publicación limpia la caché
+#     (hosting_cache_clear), que vacía también la CDN, así los cambios se ven enseguida.
+#   - robots.txt, llms.txt, sitemap.xml: no-cache (se revalidan siempre).
 #   - CSS y JS sin versión: 1 hora (el HTML los pide con el mismo nombre en cada publicación).
 #   - Imágenes, fuentes y video sin versión: 30 días. PDF: 1 día.
 #   - CSS, JS, fuentes e imágenes con versión (?v=... o hash en /assets/): 1 año, immutable. Al cambiar el archivo
@@ -283,7 +286,10 @@ ErrorDocument 404 /404.html
 # carpeta) para no mandarles estas cabeceras a los subdominios ni a las apps. El orden importa: la regla de versión
 # va al final y pisa a las anteriores.
 <IfModule mod_headers.c>
-  <FilesMatch "\.(html?|txt|xml|webmanifest)$">
+  <FilesMatch "\.html?$">
+    Header set Cache-Control "public, max-age=0, s-maxage=3600" env=ITH_SITIO
+  </FilesMatch>
+  <FilesMatch "\.(txt|xml|webmanifest)$">
     Header set Cache-Control "no-cache" env=ITH_SITIO
   </FilesMatch>
   <FilesMatch "\.(css|js|mjs)$">

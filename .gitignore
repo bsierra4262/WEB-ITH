@@ -55,3 +55,6 @@ entities.json
 # Verificación: dependencias y resultados locales (capturas y resumen de cada corrida)
 tools/verificacion/node_modules/
 tools/verificacion/resultados/
+
+# Copia minificada que arma tools/publicar/construir.py (se sube al servidor, no se versiona)
+tools/publicar/dist/
