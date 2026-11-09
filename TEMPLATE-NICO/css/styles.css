@@ -1438,6 +1438,12 @@ html:not(.anim) .cl-fichero .cinta.is-cinta .cinta__row .cinta__list { display: 
 .member__bio p:last-child { margin-bottom: 0; }
 .member__bio strong { color: var(--ink); font-weight: 600; }
 /* Foto grupal del equipo técnico: primera tarjeta, a todo el ancho, con proporción de foto de equipo. En celular, 4:3. */
+/* Galería del equipo en nuestras oficinas (debajo de las tarjetas): fotos 3:2, tres columnas (dos en celular). */
+.galeria { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 48px; }
+.galeria__item { overflow: hidden; border-radius: var(--radius); aspect-ratio: 3 / 2; background: var(--gray-bg); }
+.galeria__item img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform var(--t-img) var(--ease-out); }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) { .galeria__item:hover img { transform: scale(1.05); } }
+@media (max-width: 640px) { .galeria { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 32px; } }
 #equipo .member--grupo { flex-basis: 100%; }
 #equipo .member--grupo .member__photo { aspect-ratio: 21 / 9; }
 @media (max-width: 640px) { #equipo .member--grupo .member__photo { aspect-ratio: 4 / 3; } }
