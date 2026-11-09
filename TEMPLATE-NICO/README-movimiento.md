@@ -23,6 +23,12 @@ entradas cortas, máscaras y cada cosa aparece una vez.
 - **Íconos quietos:** no flotan ni suben con el hover; quedan siempre centrados en su círculo.
 - **Solo `transform` y `opacity`**, más `translate` y `scale` sueltos. Ninguna animación cambia el layout.
 - **Una vez:** cada elemento entra una sola vez. Al volver a subir ya está quieto.
+- **Nunca en blanco:** una entrada solo corre si el visitante la ve llegar (el bloque cruza la línea del 90 % de la
+  pantalla scrolleando a un ritmo normal). Lo que se descubre ya metido en la pantalla (scroll muy rápido, salto con un
+  ancla) o lo que quedó arriba sin verse (recarga a mitad de página, vuelta con Atrás) aparece quieto en el mismo cuadro
+  (`main.js` le pone `.rv-ya` y adelanta sus animaciones de entrada al final; `motion.js` no parte su título). Respaldo:
+  a los 2 s de abrirse el telón y cada vez que el scroll se detiene, se muestra todo lo que esté a la vista o más arriba.
+  Los casos de `/diagnostico-sin-cargo/` siguen la misma regla en `diagnostico.js`.
 - **Reducir movimiento:** con `prefers-reduced-motion: reduce` el `<head>` no pone `.anim` y `motion.js` no hace nada:
   todo queda visible y quieto. La **carga común sí aparece**, en su versión quieta (ver 1). Todas las reglas de
   `motion.css` están dentro de `prefers-reduced-motion: no-preference`.
@@ -128,8 +134,11 @@ Los cuenta `main.js` (1,4 s, ease-out cúbico, una vez). `motion.css` pone cifra
 
 ### 8. Slider y mapas de Presencia
 
-Cada mapa recorre **todas** sus zonas con presencia, una por una (unos 2 s cada una), y recién al terminar el recorrido
-pasa a la otra vista (Argentina → Latam → Argentina…), en bucle. Se pausa con el mouse encima, con el foco adentro, fuera
+Cada mapa empieza con su presentación (2,6 s): el nombre del país o de la región en un globo al costado del mapa,
+separado y con la pestaña hacia el mapa, sin señalar ninguna zona, mientras la silueta entera toma un halo suave del color
+del mapa. Arranca en el acto al prenderse el mapa o al tocar la pestaña o la flecha. Después recorre **todas** sus zonas
+con presencia, una por una (unos 2 s cada una; Buenos Aires y CABA son un solo paso, "Buenos Aires"), y recién al terminar
+el recorrido pasa a la otra vista (Argentina → Latam → Argentina…), en bucle. Se pausa con el mouse sobre el mapa, fuera
 de pantalla o con la pestaña oculta, y sigue desde la zona en la que quedó. En cada cambio de vista, la entrante llega
 de costado (28 px) en el sentido del cambio.
 
@@ -137,8 +146,11 @@ de costado (28 px) en el sentido del cambio.
 
 - **Luces (solo el hero, único fondo oscuro del sitio, placeholder del video):** carbón con cuatro luces difusas (violeta, violeta, lima y lavanda) y un grano fino; órbitas, derivas y
   respiraciones de 30 a 60 s con duraciones distintas. Reglas en `styles.css` (`.tech`, `.fondo`, `.fondo__luz`).
-- **Brillos de marca (`.toque`):** manchas difusas violeta y lima detrás del título de algunas secciones y en una
-  esquina (`.toque--esquina`), con una deriva lentísima (60–70 s, ida y vuelta). Con "reducir movimiento", quietas.
+- **Fondo vivo (todas las páginas):** cada fondo claro lleva dos brillos de marca muy difusos (violeta .09 y lima .13,
+  degradados radiales sin filtros) que derivan lentísimo con `transform` (50–64 s, ida y vuelta), en esquinas que se
+  alternan sección a sección. `main.js` agrega la capa `.brillos` a cada sección de primer nivel con fondo propio y
+  la detiene fuera de pantalla; las páginas sin secciones de color usan `main::before` (70 s). Con "reducir movimiento",
+  quietos.
 
 ### 10. Carruseles: flechas a los costados
 
@@ -157,8 +169,8 @@ abierta por vez (`<details name>`).
 - **Socios tecnológicos:** cada tanto cambia una fila entera de logos en ola (110 ms entre logo y logo): el que sale
   sube y se funde, el que entra llega desde abajo. Sin cajas: los logos van directo sobre el fondo. Con "reducir
   movimiento", todos quietos.
-- **Clientes:** solapas de rubro en una fila (sin "Todos") que avanzan solas cada 7 s: una línea lima fina se llena en
-  la solapa activa y al completarse pasa al rubro siguiente; el panel sale con un fundido corriéndose 16 px a la
+- **Clientes:** solapas de rubro en una fila (sin "Todos") que avanzan solas cada 7 s, sin indicador a la vista (un
+  reloj invisible en la solapa activa marca el paso al rubro siguiente); el panel sale con un fundido corriéndose 16 px a la
   izquierda (.26 s) y el nuevo llega desde la derecha (.5 s). Un clic elige el rubro y el ciclo sigue desde ahí. Los
   logos pasan en bandas continuas a 34 px/s que siempre llenan el ancho: una fila hacia la izquierda o, desde 10
   logos, dos filas en sentidos opuestos (arriba a la izquierda, abajo a la derecha). No se detienen con el mouse: solo

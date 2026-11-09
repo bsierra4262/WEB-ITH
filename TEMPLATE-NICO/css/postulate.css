@@ -54,10 +54,12 @@
 }
 
 /* ---------- Por qué trabajar con nosotros ---------- */
-/* Tarjetas sin caja: número arriba a la izquierda, ícono en su círculo blanco, título y texto; 40 px de aire. */
+/* Tarjetas sin caja, como Servicios y Soluciones de la home: el número arriba a la izquierda (nunca centrado) y el
+   resto centrado en la tarjeta, simétrico entre tarjetas: ícono en su círculo, título y texto. El círculo levita
+   (motion.css, bloque 8). */
 .postulate-why__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 48px 40px; counter-reset: motivo; }
-.postulate-why__item { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding: 0; counter-increment: motivo; }
-.postulate-why__item::before { content: counter(motivo, decimal-leading-zero); color: var(--muted); font-size: 14px; font-weight: 600; letter-spacing: .04em; line-height: 1; font-variant-numeric: tabular-nums; }
+.postulate-why__item { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 0; text-align: center; counter-increment: motivo; }
+.postulate-why__item::before { content: counter(motivo, decimal-leading-zero); align-self: flex-start; color: var(--muted); font-size: 14px; font-weight: 600; letter-spacing: .04em; line-height: 1; font-variant-numeric: tabular-nums; }
 .postulate-why__item .icon-circle { width: 64px; height: 64px; }
 /* Hover como las tarjetas de Servicios de la home: solo el título toma el violeta */
 .postulate-why__title, .postulate-profile__title { transition: color var(--t-fast) var(--ease-out); }
@@ -65,21 +67,86 @@
   .postulate-why__item:hover .postulate-why__title, .postulate-profile:hover .postulate-profile__title { color: var(--purple); }
 }
 .postulate-why__title { margin: 8px 0 0; font-size: 22px; font-weight: 700; line-height: 1.2; letter-spacing: -.01em; }
-.postulate-why__text { margin: 0; color: var(--muted); font-size: 17px; line-height: 1.6; }
+.postulate-why__text { max-width: 22em; margin: 0; color: var(--muted); font-size: 17px; line-height: 1.6; }
 @media (max-width: 1100px) { .postulate-why__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 600px) { .postulate-why__grid { grid-template-columns: minmax(0, 1fr); gap: 40px; } }
+@media (max-width: 600px) { .postulate-why__grid { grid-template-columns: minmax(0, 1fr); gap: 44px; } }
 
-/* ---------- Perfiles: tres columnas sin caja ni filetes ---------- */
-.postulate-profiles__list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px clamp(32px, 4vw, 64px); }
-.postulate-profile { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding: 0; }
-.postulate-profile__num { color: var(--muted); font-size: 14px; font-weight: 600; letter-spacing: .04em; line-height: 1; font-variant-numeric: tabular-nums; }
-.postulate-profile .icon-circle { width: 64px; height: 64px; }
+/* ---------- Perfiles ----------
+   Catálogo en data/perfiles.json; el orden lo arma postulate.js con api/busquedas.php (ver el comentario de la sección
+   en el HTML). Tres columnas en escritorio, dos en tableta y una en celular. Tarjetas sin caja ni filetes: número
+   arriba a la izquierda y el resto centrado (ícono, título, texto y chips). Con JS se ven los seis primeros y
+   "Ver todos los perfiles" despliega el resto (.is-abierto); sin JS se ven todos y el botón no aparece. */
+@media (min-width: 1024px) {
+  .postulate-profiles .postulate-head { margin-bottom: 36px; }
+}
+/* Línea "Hoy buscamos…": la escribe postulate.js solo cuando hay búsquedas publicadas; si no, no se muestra */
+.postulate-profiles__hoy[hidden] { display: none; }
+@media (min-width: 1024px) { .postulate-profiles__hoy[hidden] + .postulate-profiles__list { margin-top: 20px; } }
+.postulate-profiles__hoy { max-width: 62em; margin: 0 0 56px; color: var(--ink); font-size: clamp(18px, 1.5vw, 20px); line-height: 1.55; }
+.postulate-profiles__hoy strong { font-weight: 700; }
+.postulate-profiles__hoy .next-link { white-space: nowrap; } /* sin margen: si baja de renglón, arranca alineado */
+
+.postulate-profiles__list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 56px clamp(32px, 4vw, 64px); }
+.postulate-profile { position: relative; display: flex; flex-direction: column; align-items: center; gap: 16px; min-width: 0; padding: 0; text-align: center; }
+.postulate-profile__num { align-self: flex-start; color: var(--muted); font-size: 14px; font-weight: 600; letter-spacing: .04em; line-height: 1; font-variant-numeric: tabular-nums; }
 /* Íconos: un solo tratamiento en toda la página (círculo blanco de 64 px con el glifo violeta centrado, como en la home) */
-.postulate-profile__title { margin: 4px 0 0; font-size: clamp(26px, 2.4vw, 32px); font-weight: 700; line-height: 1.15; letter-spacing: -.02em; }
-.postulate-profile__text { margin: 0; color: var(--muted); font-size: 17px; line-height: 1.6; }
-.postulate-profile .chips { margin-top: 4px; }
-@media (max-width: 900px) {
-  .postulate-profiles__list { grid-template-columns: minmax(0, 1fr); gap: 44px; }
+.postulate-profile .icon-circle { width: 64px; height: 64px; }
+.postulate-profile__title { margin: 4px 0 0; font-size: clamp(22px, 2vw, 26px); font-weight: 700; line-height: 1.2; letter-spacing: -.015em; overflow-wrap: break-word; }
+.postulate-profile__text { max-width: 26em; margin: 0; color: var(--muted); font-size: 17px; line-height: 1.6; }
+.postulate-profile .chips { justify-content: center; margin-top: 4px; }
+
+/* Marca "Buscamos ahora": a la altura del número, del lado derecho, así el ícono no se corre y la fila queda pareja.
+   Es un enlace a las búsquedas abiertas. */
+.postulate-profile__ahora {
+  position: absolute;
+  top: -7px;
+  right: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  max-width: calc(100% - 44px);
+  padding: 6px 11px;
+  border-radius: 6px;
+  background: var(--lime);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  transition: background-color var(--t-fast) var(--ease-out), color var(--t-fast) var(--ease-out);
+}
+.postulate-profile__ahora::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.postulate-profiles a.postulate-profile__ahora { color: var(--ink); } /* .section--alt pinta los enlaces de violeta */
+.postulate-profiles a.postulate-profile__ahora:hover { background: var(--ink); color: var(--lime); }
+
+/* Plegado: con JS, los perfiles que pasan de los seis primeros esperan a "Ver todos los perfiles" */
+.js .postulate-profiles:not(.is-abierto) .postulate-profile.is-extra { display: none; }
+.postulate-profiles__mas { display: none; }
+.js .postulate-profiles__mas { display: flex; justify-content: center; margin-top: 64px; }
+.postulate-profiles__mas[hidden] { display: none; }
+.postulate-profiles__mas .arr { display: inline-block; transition: transform var(--t-fast) var(--ease-out), rotate var(--t-fast) var(--ease-out); }
+.postulate-profiles.is-abierto .postulate-profiles__mas .arr { rotate: 180deg; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .postulate-profiles__mas .btn:hover .arr { transform: translateY(2px); }
+}
+
+@media (max-width: 1100px) {
+  .postulate-profiles__list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 52px 40px; }
+}
+@media (max-width: 600px) {
+  .postulate-profiles__list { grid-template-columns: minmax(0, 1fr); gap: 48px; }
+  .postulate-profiles__hoy { margin-bottom: 44px; }
+  .postulate-profiles__hoy .next-link { display: flex; margin: 10px 0 0; }
+  .js .postulate-profiles__mas { margin-top: 52px; }
+  .postulate-profiles__mas .btn { width: 100%; }
+}
+/* Levitación (motion.css, bloque 8): la misma ola de izquierda a derecha en cada fila de tres. motion.css la ordena
+   para los primeros cuatro; acá se repite por fila, con más especificidad. */
+.anim .postulate-profiles__list > .postulate-profile:nth-child(3n+1) > .icon-circle { --lev-d: 0s; }
+.anim .postulate-profiles__list > .postulate-profile:nth-child(3n+2) > .icon-circle { --lev-d: -.45s; }
+.anim .postulate-profiles__list > .postulate-profile:nth-child(3n) > .icon-circle { --lev-d: -.9s; }
+@media (prefers-reduced-motion: reduce) {
+  .postulate-profiles__mas .arr, .postulate-profile__ahora { transition: none; }
 }
 
 /* ---------- Búsquedas (HiringRoom) ----------
@@ -188,8 +255,6 @@
 .postulate-jobs__vacio-title { margin: 0; font-size: clamp(24px, 2.4vw, 32px); font-weight: 700; line-height: 1.15; letter-spacing: -.02em; }
 .postulate-jobs__vacio-text p { max-width: 40em; margin: 0; color: var(--muted); font-size: 17px; line-height: 1.6; }
 .postulate-jobs__vacio-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
-.postulate-jobs__mail { max-width: 22em; margin: 0; color: var(--muted); font-size: 15px; line-height: 1.5; overflow-wrap: anywhere; }
-.postulate-jobs__mail strong { color: var(--ink); }
 @media (max-width: 960px) {
   .postulate-jobs__vacio { grid-template-columns: minmax(0, 1fr); }
 }

@@ -13,6 +13,11 @@
    - Hoja de HiringRoom: embed.js agrega hiringroom.com/assets/css/api/embed.css, que trae una sola regla global
      sobre todos los h3 (tamaño, color y alto fijo). Se quita apenas aparece para que no toque los títulos del sitio;
      que aparezca también avisa que la consulta terminó, aunque no haya búsquedas.
+   - Perfiles: pide api/busquedas.php (búsquedas publicadas ahora y conteo histórico por perfil del catálogo
+     data/perfiles.json) y reordena las tarjetas del HTML, que ya traen el catálogo completo en su orden por defecto:
+     primero los perfiles con búsquedas publicadas (marca "Buscamos ahora" con cuántas), después los más buscados
+     según el historial y después el resto. Escribe la línea "Hoy buscamos…" y maneja "Ver todos los perfiles" (a la
+     vista quedan los seis primeros). Si la API falla o no responde en 6 segundos, queda el orden por defecto.
    - Medición: publica postulate_click en el dataLayer al tocar los botones con data-postulate (incluidos los de cada
      búsqueda). Como el resto del sitio, GTM decide qué hacer con el evento.
    ========================================================= */
@@ -201,6 +206,195 @@
     }
   } else if (caja) {
     estado('is-vacio');
+  }
+
+  /* ---------- Perfiles: orden según las búsquedas publicadas y el historial ---------- */
+  var API_BUSQUEDAS = '/api/busquedas.php';
+  var PERFILES_VISIBLES = 6;
+  var ESPERA_PERFILES = 6000;
+  var seccionPerfiles = document.querySelector('[data-perfiles]');
+  var listaPerfiles = seccionPerfiles ? seccionPerfiles.querySelector('[data-perfiles-lista]') : null;
+  var lineaHoy = seccionPerfiles ? seccionPerfiles.querySelector('[data-perfiles-hoy]') : null;
+  var botonMas = seccionPerfiles ? seccionPerfiles.querySelector('[data-perfiles-mas]') : null;
+  var textoMas = botonMas ? botonMas.querySelector('[data-perfiles-mas-texto]') : null;
+  var conMovimiento = document.documentElement.classList.contains('anim');
+
+  function tarjetasPerfil() {
+    return listaPerfiles ? Array.prototype.slice.call(listaPerfiles.querySelectorAll(':scope > .postulate-profile')) : [];
+  }
+
+  function columnasPerfil() {
+    var cols = getComputedStyle(listaPerfiles).gridTemplateColumns;
+    return Math.max(1, cols && cols !== 'none' ? cols.split(' ').length : 1);
+  }
+
+  // Número, plegado (los seis primeros a la vista) y demora de entrada por columna, según el orden actual.
+  function acomodarPerfiles() {
+    var tarjetas = tarjetasPerfil();
+    var cols = columnasPerfil();
+    tarjetas.forEach(function (li, i) {
+      var num = li.querySelector('.postulate-profile__num');
+      if (num) num.textContent = (i < 9 ? '0' : '') + (i + 1);
+      li.classList.toggle('is-extra', i >= PERFILES_VISIBLES);
+      if (!li.classList.contains('show')) li.style.setProperty('--rv-d', ((i % cols) * 0.08).toFixed(2) + 's');
+    });
+    if (botonMas) botonMas.parentElement.hidden = tarjetas.length <= PERFILES_VISIBLES;
+  }
+
+  function tituloPerfil(li) {
+    var h = li.querySelector('.postulate-profile__title');
+    return h ? h.textContent.trim() : '';
+  }
+
+  // Línea de arriba de la grilla. Sin búsquedas publicadas queda el texto por defecto; con búsquedas:
+  // "Hoy buscamos: A, B, C." (los perfiles en negrita, separados por comas: varios nombres ya llevan "y") y, si hay
+  // búsquedas que no encajan en el catálogo, "… y otras posiciones."; al final, el enlace a las búsquedas abiertas.
+  function escribirLinea(nombres, hayOtras) {
+    if (!lineaHoy) return;
+    // Sin búsquedas publicadas la línea no se muestra: el título de la sección ya lo dice todo
+    lineaHoy.hidden = !nombres.length && !hayOtras;
+    if (lineaHoy.hidden) { lineaHoy.textContent = ''; return; }
+    var partes = nombres.map(function (n) { return { texto: n, fuerte: true }; });
+    if (hayOtras) partes.push({ texto: nombres.length ? 'otras posiciones' : 'posiciones de otras áreas', fuerte: false });
+    lineaHoy.textContent = '';
+    lineaHoy.appendChild(document.createTextNode('Hoy buscamos: '));
+    partes.forEach(function (p, i) {
+      if (i > 0) lineaHoy.appendChild(document.createTextNode(p.fuerte ? ', ' : ' y '));
+      if (p.fuerte) {
+        var strong = document.createElement('strong');
+        strong.textContent = p.texto;
+        lineaHoy.appendChild(strong);
+      } else {
+        lineaHoy.appendChild(document.createTextNode(p.texto));
+      }
+    });
+    lineaHoy.appendChild(document.createTextNode('. '));
+    var ir = document.createElement('a');
+    ir.className = 'next-link';
+    ir.href = '#busquedas';
+    ir.setAttribute('data-postulate', 'perfiles-hoy');
+    ir.appendChild(document.createTextNode('Ver las búsquedas abiertas '));
+    var flecha = document.createElement('span');
+    flecha.className = 'arr';
+    flecha.setAttribute('aria-hidden', 'true');
+    flecha.textContent = '→';
+    ir.appendChild(flecha);
+    lineaHoy.appendChild(ir);
+  }
+
+  // Marca "Buscamos ahora · N búsquedas" junto al número: enlace a las búsquedas abiertas.
+  function marcarAhora(li, cantidad) {
+    var previa = li.querySelector('.postulate-profile__ahora');
+    if (previa) previa.remove();
+    li.classList.toggle('is-ahora', cantidad > 0);
+    if (!cantidad) return;
+    var a = document.createElement('a');
+    a.className = 'postulate-profile__ahora';
+    a.href = '#busquedas';
+    a.setAttribute('data-postulate', 'perfil-buscamos-ahora');
+    a.textContent = 'Buscamos ahora · ' + cantidad + (cantidad === 1 ? ' búsqueda' : ' búsquedas');
+    var sr = document.createElement('span');
+    sr.className = 'sr-only';
+    sr.textContent = ' de ' + tituloPerfil(li);
+    a.appendChild(sr);
+    var num = li.querySelector('.postulate-profile__num');
+    if (num) num.insertAdjacentElement('afterend', a); else li.insertBefore(a, li.firstChild);
+  }
+
+  function ordenarPerfiles(datos) {
+    if (!datos || !Array.isArray(datos.perfiles) || !listaPerfiles) return;
+    var porId = {};
+    datos.perfiles.forEach(function (p) {
+      if (p && typeof p.id === 'string') porId[p.id] = { v: Math.max(0, +p.vigentes || 0), h: Math.max(0, +p.historico || 0) };
+    });
+    var filas = tarjetasPerfil().map(function (li) {
+      var c = porId[li.getAttribute('data-perfil')] || { v: 0, h: 0 };
+      return { li: li, orden: +li.getAttribute('data-orden'), v: c.v, h: c.h };
+    });
+    // Primero los que tienen búsquedas publicadas (más búsquedas, antes), después los más buscados según el
+    // historial y después el resto, en el orden del catálogo.
+    filas.sort(function (a, b) {
+      return ((b.v > 0) - (a.v > 0)) || (b.v - a.v) || (b.h - a.h) || (a.orden - b.orden);
+    });
+
+    function aplicar() {
+      filas.forEach(function (f) {
+        marcarAhora(f.li, f.v);
+        listaPerfiles.appendChild(f.li);
+      });
+      acomodarPerfiles();
+      var otras = !!datos.otros && +datos.otros.vigentes > 0;
+      escribirLinea(filas.filter(function (f) { return f.v > 0; }).map(function (f) { return tituloPerfil(f.li); }), otras);
+    }
+
+    // Si la sección ya está a la vista, el cambio de orden entra con un fundido corto en lugar de un salto.
+    var aLaVista = listaPerfiles.querySelector('.postulate-profile.show') !== null;
+    if (aLaVista && conMovimiento && listaPerfiles.animate) {
+      var salida = listaPerfiles.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 160, easing: 'ease-out' });
+      salida.onfinish = function () {
+        aplicar();
+        listaPerfiles.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 260, easing: 'ease-out' });
+      };
+    } else {
+      aplicar();
+    }
+  }
+
+  // "Ver todos los perfiles": al abrir, la lista crece hasta su alto nuevo y los perfiles que aparecen entran con su
+  // revelado (.rv); al cerrar, los de más se desvanecen y la página se corrige para que el botón quede en su lugar.
+  // Con "reducir movimiento", sin transiciones.
+  function plegar(abrir) {
+    seccionPerfiles.classList.toggle('is-abierto', abrir);
+    botonMas.setAttribute('aria-expanded', abrir ? 'true' : 'false');
+    if (textoMas) textoMas.textContent = abrir ? 'Ver menos perfiles' : 'Ver todos los perfiles';
+  }
+  function cerrarSinSalto() {
+    var antes = botonMas.getBoundingClientRect().top;
+    plegar(false);
+    window.scrollTo({ top: window.scrollY + botonMas.getBoundingClientRect().top - antes, behavior: 'instant' });
+  }
+  if (botonMas && listaPerfiles) {
+    botonMas.addEventListener('click', function () {
+      var abrir = !seccionPerfiles.classList.contains('is-abierto');
+      if (!conMovimiento || !listaPerfiles.animate) {
+        if (abrir) plegar(true); else cerrarSinSalto();
+        return;
+      }
+      if (abrir) {
+        var desde = listaPerfiles.offsetHeight;
+        plegar(true);
+        var hasta = listaPerfiles.offsetHeight;
+        listaPerfiles.style.overflow = 'hidden';
+        var crecer = listaPerfiles.animate([{ height: desde + 'px' }, { height: hasta + 'px' }], { duration: 480, easing: 'cubic-bezier(.22, 1, .36, 1)' });
+        crecer.onfinish = crecer.oncancel = function () { listaPerfiles.style.overflow = ''; };
+        return;
+      }
+      var fundidos = tarjetasPerfil()
+        .filter(function (li) { return li.classList.contains('is-extra'); })
+        .map(function (li) { return li.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 180, easing: 'ease-out', fill: 'forwards' }); });
+      var listo = false;
+      var cerrar = function () {
+        if (listo) return;
+        listo = true;
+        cerrarSinSalto();
+        fundidos.forEach(function (f) { f.cancel(); });
+      };
+      if (fundidos.length) fundidos[0].onfinish = cerrar; else cerrar();
+      setTimeout(cerrar, 400); // por si la animación no termina (pestaña oculta)
+    });
+  }
+
+  if (listaPerfiles) {
+    tarjetasPerfil().forEach(function (li, i) { li.setAttribute('data-orden', String(i)); });
+    acomodarPerfiles();
+    if ('fetch' in window) {
+      var control = 'AbortController' in window ? new AbortController() : null;
+      var corte = setTimeout(function () { if (control) control.abort(); }, ESPERA_PERFILES);
+      fetch(API_BUSQUEDAS, { headers: { Accept: 'application/json' }, signal: control ? control.signal : undefined })
+        .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+        .then(function (datos) { clearTimeout(corte); ordenarPerfiles(datos); })
+        .catch(function () { clearTimeout(corte); /* queda el orden por defecto del HTML */ });
+    }
   }
 
   /* ---------- Medición ---------- */

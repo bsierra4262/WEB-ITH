@@ -70,6 +70,9 @@
   html { scroll-behavior: smooth; }
 }
 
+/* El lienzo también va en lavanda (no solo el body): ni al recargar, ni al rebotar el scroll en los bordes, ni mientras
+   el navegador arma la página se ve un cuadro blanco. */
+html { background: var(--lavender); }
 body {
   margin: 0;
   font-family: 'Saira', sans-serif;
@@ -145,15 +148,19 @@ a, a:is(:hover, :focus, :focus-visible, :active, :visited), summary, button, u, 
    Home: hero carbón · Qué ofrecemos blanco · Presencia lavanda · Equipo blanco · Socios lavanda · Clientes blanco ·
    Historia lavanda · Casos blanco · Cita lavanda · Preguntas blanco · Cierre lavanda (card blanca) · pie blanco.
    Las piezas claras se ajustan al fondo: círculos de íconos y chips en lavanda sobre blanco y en blanco sobre lavanda.
-   Toques (.toque): un brillo de marca muy suave (violeta y lima, como el del título del diagnóstico) detrás del título
-   de algunas secciones; con .toque--esquina, otro en la esquina de abajo a la derecha. Opacidades bajas para que no
-   ensucien ni bajen el contraste; z-index -1 dentro de la sección (que aísla su propio apilado); deriva lentísima de
-   60–70 s, quietos con "reducir movimiento". El aislamiento no afecta a los logos que se funden con mix-blend-mode: el
-   fondo de la sección queda dentro del mismo grupo. */
+   Fondo vivo (pedido de Brian, 09/11: "muy liso"): los colores siguen lisos, pero cada fondo claro lleva dos brillos
+   de marca muy difusos (violeta y lima, los del título del diagnóstico) que derivan lentísimo (50–64 s, ida y vuelta).
+   - Secciones con fondo propio (blanco o lavanda): main.js les agrega una capa .brillos (aria-hidden) como primer
+     hijo, con un brillo violeta arriba y uno lima abajo, en esquinas opuestas que se alternan sección a sección
+     (data-lado a/b), así la página tiene un ritmo y nunca dos secciones seguidas iguales. Fuera de pantalla se detienen.
+   - Páginas sin secciones de color (privacidad, 404, diagnóstico): el fondo fijo de main::before, con la misma deriva.
+   - Opacidades bajas (.09 violeta, .13 lima) y solo transform: no ensucian, no bajan el contraste y no repintan.
+     Con "reducir movimiento", quietos. Sin JS, las secciones quedan lisas y main::before igual se ve. */
 :root { --lav-2: var(--lavender); }
 .bg-white { background: var(--white); }
 .bg-gray { background: var(--lavender); }
-/* Base de las páginas sin sección de fondo propio (404, privacidad): lavanda con un brillo fijo muy suave */
+/* Base de las páginas sin sección de fondo propio (404, privacidad, diagnóstico): lavanda con dos brillos fijos que
+   derivan muy despacio */
 main::before {
   content: "";
   position: fixed;
@@ -162,46 +169,34 @@ main::before {
   pointer-events: none;
   background:
     radial-gradient(42% 38% at 82% 18%, rgb(102 51 153 / .10), transparent 70%),
-    radial-gradient(38% 34% at 14% 86%, rgb(152 204 50 / .10), transparent 70%);
+    radial-gradient(38% 34% at 14% 86%, rgb(152 204 50 / .12), transparent 70%);
 }
 .dx--noche main::before { content: none; }
 
-.toque { position: relative; isolation: isolate; }
-@supports (overflow: clip) { .toque { overflow-x: clip; } }
-.toque::before, .toque--esquina::after {
+.con-brillos { position: relative; isolation: isolate; }
+.brillos { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.brillos::before, .brillos::after {
   content: "";
   position: absolute;
-  z-index: -1;
-  pointer-events: none;
-  filter: blur(48px);
+  width: min(820px, 90vw);
+  height: min(560px, 75vw);
+  border-radius: 50%;
 }
-.toque::before {
-  top: calc(var(--section-y) * .45);
-  left: max(-60px, calc((100vw - var(--wrap-max)) / 2 - 120px));
-  width: min(640px, 70vw);
-  height: 300px;
-  background:
-    radial-gradient(46% 60% at 30% 50%, rgb(102 51 153 / .09), transparent 72%),
-    radial-gradient(40% 54% at 64% 46%, rgb(152 204 50 / .11), transparent 74%);
-}
-.toque--esquina::after {
-  right: -120px;
-  bottom: -80px;
-  width: min(560px, 60vw);
-  height: 360px;
-  background:
-    radial-gradient(50% 50% at 60% 55%, rgb(152 204 50 / .10), transparent 72%),
-    radial-gradient(40% 46% at 30% 40%, rgb(102 51 153 / .07), transparent 72%);
-}
+.brillos::before { top: -18%; left: -14%; background: radial-gradient(closest-side, rgb(102 51 153 / .09), rgb(102 51 153 / 0)); }
+.brillos::after { right: -14%; bottom: -22%; background: radial-gradient(closest-side, rgb(152 204 50 / .13), rgb(152 204 50 / 0)); }
+.brillos[data-lado="b"]::before { right: -14%; left: auto; }
+.brillos[data-lado="b"]::after { right: auto; left: -14%; }
 @media (prefers-reduced-motion: no-preference) {
-  .toque::before { animation: toqueDeriva 60s ease-in-out infinite alternate; }
-  .toque--esquina::after { animation: toqueDeriva 70s ease-in-out -20s infinite alternate-reverse; }
+  .brillos::before { animation: brilloA 52s ease-in-out infinite alternate; }
+  .brillos::after { animation: brilloB 64s ease-in-out -18s infinite alternate; }
+  .brillos[data-lado="b"]::before { animation-name: brilloB; animation-duration: 58s; }
+  .brillos[data-lado="b"]::after { animation-name: brilloA; animation-duration: 50s; }
+  .brillos.is-quieto::before, .brillos.is-quieto::after { animation-play-state: paused; }
+  main::before { animation: brilloFondo 70s ease-in-out infinite alternate; }
 }
-@keyframes toqueDeriva { from { transform: translate3d(0, 0, 0) scale(1); } to { transform: translate3d(5%, 4%, 0) scale(1.08); } }
-@media (max-width: 600px) {
-  .toque::before { left: -80px; width: 120vw; height: 240px; }
-  .toque--esquina::after { right: -140px; width: 110vw; height: 280px; }
-}
+@keyframes brilloA { from { transform: translate3d(0, 0, 0) scale(1); } to { transform: translate3d(16%, 12%, 0) scale(1.14); } }
+@keyframes brilloB { from { transform: translate3d(0, 0, 0) scale(1.1); } to { transform: translate3d(-14%, -10%, 0) scale(.94); } }
+@keyframes brilloFondo { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-4%, 3%, 0) scale(1.05); } }
 
 /* Piezas claras según el fondo */
 .bg-gray :is(.icon-circle, .chip, .offer__sub-num) { background: var(--white); }
@@ -427,11 +422,115 @@ h1.section-title { font-size: var(--h1); } /* páginas internas: el H1 usa la cl
 }
 /* Entra una sola vez, después del hero */
 .anim .wa-float { animation: rise .5s 1.5s var(--ease-out) backwards; }
-.wa-float.is-oculto { opacity: 0; pointer-events: none; }
+/* Siempre a la vista: si tapa un control chico, main.js lo sube lo justo (--wa-lift) en lugar de ocultarlo */
+.wa-float { translate: 0 calc(-1 * var(--wa-lift, 0px)); }
+@media (prefers-reduced-motion: no-preference) {
+  .wa-float { transition: transform var(--t-lift) var(--ease-out), translate .35s var(--ease-out), background-color var(--t-fast) var(--ease-out), color var(--t-fast) var(--ease-out); }
+}
 @media (max-width: 760px) {
   .wa-float { right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); width: 52px; height: 52px; }
   .wa-float .ico { width: 26px; height: 26px; }
 }
+/* Con el globo abierto, el botón queda en blanco con el logo carbón (el mismo estado que el hover) */
+.wa-float.is-activo { background: var(--white); color: var(--ink); }
+
+/* Globo de WhatsApp (main.js lo arma sobre el botón flotante; sin JS no existe y el botón es el link directo).
+   Un globo de conversación blanco que nace del botón: encabezado con el logo, el mensaje de la página en un campo
+   editable con forma de mensaje propio (lavanda, sin borde ni tirador de tamaño, crece con el texto) y el botón lima
+   "Enviar por WhatsApp →". Se abre con un fundido y una escala corta desde el botón; con "reducir movimiento", solo el
+   fundido. La cola apunta al centro del botón. */
+.wa-globo {
+  --wa-boton: 60px;
+  --wa-borde: 24px;
+  position: fixed;
+  right: var(--wa-borde);
+  bottom: calc(var(--wa-borde) + var(--wa-boton) + 14px + var(--wa-lift, 0px) + env(safe-area-inset-bottom, 0px));
+  z-index: 51;
+  box-sizing: border-box;
+  width: min(340px, calc(100vw - 32px));
+  padding: 18px;
+  border-radius: 18px;
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: 0 24px 56px -16px rgba(42, 42, 42, .38), 0 2px 8px rgba(42, 42, 42, .08);
+  opacity: 0;
+  transform: translateY(10px) scale(.96);
+  transform-origin: calc(100% - var(--wa-boton) / 2) 100%;
+  transition: opacity .22s var(--ease-out), transform .34s var(--ease-out);
+  pointer-events: none;
+}
+.wa-globo.is-abierto { opacity: 1; transform: none; pointer-events: auto; }
+.wa-globo::after {
+  content: "";
+  position: absolute;
+  right: calc(var(--wa-boton) / 2 - 7px);
+  bottom: -6px;
+  width: 14px;
+  height: 14px;
+  border-radius: 0 0 3px 0;
+  background: var(--white);
+  transform: rotate(45deg);
+}
+.wa-globo__cab { display: flex; align-items: center; gap: 12px; margin: 0 0 14px; padding-right: 32px; }
+.wa-globo__avatar { display: inline-flex; flex: none; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: var(--lime); color: var(--white); }
+.wa-globo__avatar svg { width: 22px; height: 22px; }
+.wa-globo__titulo { margin: 0; font-size: 16px; font-weight: 700; line-height: 1.25; }
+.wa-globo__sub { margin: 2px 0 0; color: var(--muted); font-size: 13px; line-height: 1.35; }
+.wa-globo__cerrar {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background-color var(--t-fast) var(--ease-out), color var(--t-fast) var(--ease-out);
+}
+.wa-globo__cerrar:hover { background: var(--lavender); color: var(--ink); }
+.wa-globo__texto {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 76px;
+  max-height: 172px;
+  margin: 0 0 14px;
+  padding: 12px 14px;
+  border: 0;
+  border-radius: 14px 14px 4px 14px;
+  background: var(--lavender);
+  color: var(--ink);
+  font: inherit;
+  font-size: 15px;
+  line-height: 1.5;
+  overflow-y: auto;
+  resize: none;
+  -webkit-appearance: none;
+  appearance: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--purple) transparent;
+  box-shadow: inset 0 0 0 2px transparent;
+  transition: box-shadow var(--t-fast) var(--ease-out);
+}
+.wa-globo__texto::-webkit-scrollbar { width: 6px; background: transparent; }
+.wa-globo__texto::-webkit-scrollbar-thumb { border-radius: 6px; background: var(--purple); }
+.wa-globo__texto:focus { outline: none; }
+.wa-globo__texto:focus-visible { box-shadow: inset 0 0 0 2px var(--purple); }
+.wa-globo__enviar { width: 100%; min-height: 50px; font-size: 16px; }
+@media (max-width: 760px) {
+  .wa-globo { --wa-boton: 52px; --wa-borde: 16px; padding: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wa-globo { transform: none; transition: opacity .15s linear; }
+  .wa-float.is-activo { transform: none; }
+}
+@media print { .wa-globo { display: none; } }
 
 /* ---------- Header (componente único de todas las páginas) ----------
    Barra carbón con el logo original y la frase "Servicios IT / desde 2010" en dos líneas, el menú en mayúsculas
@@ -749,8 +848,9 @@ html:not(.anim) .slot { flex: 0 0 calc((100% - 5 * 16px) / 6); }
    a la vez (la celda nunca queda vacía). Tamaño óptico parejo: --lf es el alto del logo como fracción del alto útil de
    la celda, calculado según su proporción y su peso visual (un bloque lleno como Fiesa o Lenovo va más chico que un
    trazo fino como Bring). */
-/* Celdas sin caja (sin fondo, borde ni sombra): solo el logo y aire. Varios logos traen fondo blanco propio; con
-   `multiply` ese blanco toma el color de la sección y no se ve un recuadro. */
+/* Celdas sin caja (sin fondo, borde ni sombra): solo el logo y aire. Los logos van con fondo transparente
+   (img/socios/*-transparente.webp, sin el blanco de los archivos originales), así nunca se ve un recuadro blanco
+   sobre el lavanda, tampoco durante el recambio, que mueve y funde las imágenes. */
 .slot { display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); place-items: center; height: 100px; padding: 18px 24px; background: none; }
 .slot[hidden] { display: none; }
 .slot img {
@@ -760,7 +860,6 @@ html:not(.anim) .slot { flex: 0 0 calc((100% - 5 * 16px) / 6); }
   height: calc(var(--lf, .6) * 100%);
   max-width: 100%;
   object-fit: contain;
-  mix-blend-mode: multiply;
   transition: opacity .7s var(--ease-out), transform .7s var(--ease-out), filter .7s var(--ease-out); /* FLIP_MS en main.js */
 }
 /* Recambio: el logo que sale sube y se achica apenas; el que entra llega desde abajo. Fundido cruzado, sin hueco. */
@@ -913,10 +1012,12 @@ html:not(.anim) .cinta__list[aria-hidden="true"] { display: none !important; }
 }
 .cl-rubro:hover { background: var(--gray-bg); color: var(--purple); }
 .cl-rubro[aria-selected="true"] { background: var(--purple); color: var(--white); }
-/* Progreso del rubro activo: una línea lima fina al pie de la solapa que se llena con el tiempo del avance
-   automático (al terminar, main.js pasa al rubro siguiente). Fuera de pantalla se detiene. */
+/* Reloj del avance automático: un pseudo-elemento invisible al pie de la solapa activa cuya animación dura lo que dura
+   el rubro; al terminar (animationend), main.js pasa al siguiente. Sin indicador a la vista (pedido de Brian, 09/11:
+   con la solapa en violeta alcanza). Fuera de pantalla se detiene. */
 .cl-rubro::after {
   content: "";
+  visibility: hidden;
   position: absolute;
   left: 0;
   right: 0;
@@ -1495,6 +1596,30 @@ html:not(.anim) .cl-fichero .cinta.is-cinta .cinta__row .cinta__list { display: 
    nunca queda del mismo color que la zona que señala. */
 #presencia-pais .map-pin { --pin-bg: var(--purple); --pin-fg: var(--white); --pin-dot: var(--white); --pin-ring: var(--purple); }
 #presencia-regional .map-pin { --pin-bg: var(--lime); --pin-fg: var(--ink); --pin-dot: var(--ink); --pin-ring: var(--lime); }
+/* Presentación del recorrido ("Argentina", "Latinoamérica"): el globo va al costado del mapa, separado, sin línea guía
+   ni punto (no señala una zona), con una pestaña que apunta al mapa (.is-izq: el globo a la izquierda del mapa, la
+   pestaña a la derecha). Mientras se ve, la silueta entera del país o de la región toma un halo muy suave del color de
+   acento del mapa. */
+:is(#presencia, #presencia-regional) .map-pin.is-pais {
+  padding: 7px 14px 8px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .02em;
+  transform-origin: 0 50%;
+}
+:is(#presencia, #presencia-regional) .map-pin.is-pais::before {
+  top: 50%;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  transform: translate(-45%, -50%) rotate(45deg);
+}
+:is(#presencia, #presencia-regional) .map-pin.is-pais::after { display: none; }
+:is(#presencia, #presencia-regional) .map-pin.is-pais.is-izq { transform-origin: 100% 50%; }
+:is(#presencia, #presencia-regional) .map-pin.is-pais.is-izq::before { left: auto; right: 0; transform: translate(45%, -50%) rotate(45deg); }
+:is(#presencia, #presencia-regional) .map-stage .armap { transition: filter .6s var(--ease-out); }
+:is(#presencia, #presencia-regional) .map-stage.is-intro .armap { filter: drop-shadow(0 0 10px color-mix(in srgb, var(--map-accent, var(--purple)) 40%, transparent)); }
 /* Entrada: la etiqueta escala desde el punto (200 ms). Solo con .anim, que ya excluye "reducir movimiento" */
 .anim :is(#presencia, #presencia-regional) .map-pin { animation: pinIn .2s cubic-bezier(.22, 1, .36, 1) both; }
 @keyframes pinIn { from { opacity: 0; scale: .7; } to { opacity: 1; scale: 1; } }
@@ -1584,7 +1709,7 @@ html:not(.anim) .cl-fichero .cinta.is-cinta .cinta__row .cinta__list { display: 
 .case-menu__logos > li { min-width: 0; }
 /* Logos de clientes del sector, sin caja: en gris y apenas atenuados en reposo; con el mouse suben 2 px y toman su
    color. El del caso a la vista (acompaña la rotación) queda a color, un poco más grande y con una barrita lima debajo
-   que se dibuja desde el centro. Varios logos traen fondo blanco propio: `multiply` lo funde con el de la sección. */
+   que se dibuja desde el centro. Los logos de clientes ya tienen fondo transparente. */
 .case-menu__logo {
   position: relative;
   display: flex;
@@ -1611,7 +1736,6 @@ html:not(.anim) .cl-fichero .cinta.is-cinta .cinta__row .cinta__list { display: 
   width: auto;
   height: auto;
   object-fit: contain;
-  mix-blend-mode: multiply;
   filter: grayscale(1);
   opacity: .62;
   transition: filter .35s var(--ease-out), opacity .35s var(--ease-out), transform .45s var(--ease-out);
@@ -1687,114 +1811,147 @@ html:not(.anim) .cl-fichero .cinta.is-cinta .cinta__row .cinta__list { display: 
 .js .cases-layout .carousel__btn { grid-row: 1; position: relative; z-index: 1; }
 .js .cases-layout [data-carousel-prev] { grid-column: 1; }
 .js .cases-layout [data-carousel-next] { grid-column: 3; }
-.js .cases-layout .carousel__dots { grid-row: 2; grid-column: 2; justify-self: center; margin-top: 18px; color: var(--muted); font-size: 14px; font-weight: 600; letter-spacing: .08em; font-variant-numeric: tabular-nums; }
+.js .cases-layout .carousel__dots { grid-row: 2; grid-column: 2; justify-self: start; display: flex; align-items: center; gap: 14px; margin: 28px 0 0 8px; color: var(--muted); font-size: 14px; font-weight: 600; letter-spacing: .08em; font-variant-numeric: tabular-nums; }
 @media (max-width: 760px) {
   .js .cases-layout .carousel { display: grid; grid-template-columns: minmax(0, 1fr); position: relative; }
   .js .cases-layout .carousel__track { grid-column: 1; }
-  .js .cases-layout .carousel__dots { grid-column: 1; }
+  .js .cases-layout .carousel__dots { grid-column: 1; margin-left: 34px; }
   /* En celular el caso es alto: las flechas (una de cada lado) suben a la altura del logo del cliente (24 px de
-     padding + mitad de los 108 px del logo), sobre el margen, donde no hay texto, y no a la mitad del caso. */
-  .js .cases-layout .carousel__btn { --arrow: 38px; position: absolute; top: calc(28px + 40px); width: var(--arrow); height: var(--arrow); transform: translateY(-50%); box-shadow: 0 4px 14px rgba(0, 0, 0, .25); }
+     padding + mitad de los 68 px del logo), sobre el margen, donde no hay texto, y no a la mitad del caso. */
+  .js .cases-layout .carousel__btn { --arrow: 38px; position: absolute; top: calc(24px + 34px); width: var(--arrow); height: var(--arrow); transform: translateY(-50%); box-shadow: 0 4px 14px rgba(0, 0, 0, .25); }
   .js .cases-layout [data-carousel-prev] { left: calc(-1 * var(--wrap-pad) + 2px); }
   .js .cases-layout [data-carousel-next] { right: calc(-1 * var(--wrap-pad) + 2px); }
 }
 
+/* Caso: una sola columna con jerarquía clara y aire (pedido de Brian, 09/11).
+   1. Identidad: el logo a la izquierda (caja fija de 152 × 76, así todos los casos arrancan igual) y, a su lado, el
+      nombre del cliente y el sector.
+   2. Servicios: las etiquetas lima en una fila debajo.
+   3. "Qué hicimos": el rótulo con su ícono y la lista de proyectos numerada (o el texto, si es uno solo), con la línea
+      de avance a la izquierda.
+   .case-card__who es display: contents: sus hijos se ubican directo en la grilla del caso (el HTML no cambia). */
 .case-card {
+  position: relative;
   display: grid;
-  grid-template-columns: minmax(220px, 2fr) 3fr;
-  gap: 28px 56px;
-  min-height: 320px;
-  padding: 8px 8px 8px;
+  grid-template-columns: 152px minmax(0, 1fr);
+  grid-template-areas:
+    "logo name"
+    "logo sector"
+    "chips chips"
+    "what what";
+  column-gap: 28px;
+  row-gap: 6px;
+  align-content: start;
+  min-height: 0;
+  padding: 4px 8px 8px;
   border: 0;
   border-radius: 0;
   background: none;
   color: var(--ink);
 }
-.case-card__who { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; min-width: 0; }
+.case-card__who { display: contents; }
 .case-card__logo {
+  grid-area: logo;
   display: flex;
   align-items: center;
-  justify-content: center;
   justify-content: flex-start;
-  width: 100%;
-  max-width: 220px;
-  height: 80px;
+  align-self: center;
+  width: 152px;
+  height: 76px;
   padding: 0;
   border: 0;
   border-radius: 0;
-  background: none; /* sin caja: el logo a color va directo sobre el blanco */
+  background: none; /* sin caja: el logo (PNG con transparencia) va directo sobre el fondo */
 }
-.case-card__logo img { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; mix-blend-mode: multiply; }
+.case-card__logo img { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
 .case-card__logo--text { color: var(--ink); font-size: 20px; font-weight: 700; text-align: center; }
-.case-card__name { margin: 0; font-size: 26px; font-weight: 700; line-height: 1.2; }
+.case-card__name { grid-area: name; align-self: end; max-width: 26ch; margin: 0; font-size: clamp(24px, 2.1vw, 30px); font-weight: 700; line-height: 1.18; letter-spacing: -.01em; text-wrap: balance; }
+.case-card__who > .eyebrow { grid-area: sector; align-self: start; margin-top: 4px; }
+.case-card__who > .chips { grid-area: chips; margin-top: 22px; }
 .chip--lime { display: inline-flex; align-items: center; gap: 7px; background: var(--lime); color: var(--ink); }
 .chip--lime .ico { flex: none; }
 
-.case-card__what { display: flex; flex-direction: column; justify-content: center; gap: 16px; min-width: 0; }
+.case-card__what { grid-area: what; display: flex; flex-direction: column; gap: 14px; min-width: 0; max-width: 64ch; margin-top: 40px; }
 .case-card__head { display: flex; align-items: center; gap: 14px; }
 .case-card__head .eyebrow { white-space: nowrap; }
 .case-card :focus-visible { outline-color: var(--purple); }
 .case-card__name:focus:not(:focus-visible) { outline: none; } /* recibe el foco al llegar desde un logo de Clientes */
 .icon-circle--lime { background: var(--lime); color: var(--ink); }
-.case-card__text { margin: 0; font-size: 22px; font-weight: 500; line-height: 1.5; }
-/* Avance del caso: barra junto al contador ("01 / 17"), que se llena de lima en el tiempo total del caso a la vista
-   (main.js le pone la duración y la reinicia en cada caso). Se pausa con el carrusel y no está con un cliente elegido.
-   El filete de arriba del caso (.case-card__timer) ya no se usa: las tarjetas van sin líneas. */
-.case-card { position: relative; }
+.case-card__text { margin: 0; font-size: 21px; font-weight: 500; line-height: 1.5; }
+/* Avance del caso: el contador ("01 / 17") y su barra van en una fila fija al pie del caso, alineada con su borde
+   izquierdo: el contador tiene ancho fijo (cifras tabulares) y la barra, 160 px, así ninguno de los dos se mueve ni
+   cambia de largo según el número. La barra se llena de lima en el tiempo total del caso a la vista (main.js le pone
+   la duración y la reinicia en cada caso); se pausa con el carrusel y no está con un cliente elegido. */
 .case-card__timer { display: none; }
-.carousel__progress { display: inline-block; position: relative; width: 140px; height: 4px; margin-left: 16px; overflow: hidden; border-radius: 4px; background: var(--gray-bg); vertical-align: middle; }
+.carousel__count { display: inline-block; flex: none; width: 7ch; font-variant-numeric: tabular-nums; text-align: left; white-space: nowrap; }
+.carousel__progress { display: inline-block; flex: none; position: relative; width: 160px; height: 4px; overflow: hidden; border-radius: 4px; background: var(--gray-bg); }
 .carousel__progress-fill { position: absolute; inset: 0; border-radius: inherit; background: var(--lime); transform-origin: left; transform: scaleX(0); animation-timing-function: linear; animation-fill-mode: forwards; }
 .carousel.is-paused .carousel__progress-fill { animation-play-state: paused; }
-.carousel.is-pinned .carousel__progress { display: none; }
-@media (max-width: 600px) { .carousel__progress { width: 96px; margin-left: 12px; } }
+.carousel.is-pinned .carousel__progress { visibility: hidden; } /* oculta sin mover el contador */
+@media (max-width: 600px) { .carousel__progress { width: 120px; } }
 
-/* Cambio de caso, coordinado: el que se va sale primero (todo sube 10 px y se funde, en 0,26 s: SALIDA_MS en main.js)
-   y el que llega entra escalonado: logo, nombre, sector, etiquetas una por una, "Qué hicimos" y cada proyecto de la
-   lista. Solo con animaciones habilitadas; con "reducir movimiento" el cambio es directo. */
-.anim .case-card.is-saliendo :is(.case-card__who, .case-card__what) { animation: casoSale .26s var(--ease-out) both; }
-.anim .case-card.is-saliendo .case-card__what { animation-delay: .03s; }
-@keyframes casoSale { to { opacity: 0; transform: translateY(-10px); } }
-.anim .case-card:not([inert]) .case-card__logo { animation: popSoft .55s var(--ease-out) both; }
-.anim .case-card:not([inert]) .case-card__name { animation: riseSm .6s .08s var(--ease-out) both; }
-.anim .case-card:not([inert]) .case-card__who .eyebrow { animation: riseSm .6s .14s var(--ease-out) both; }
-.anim .case-card:not([inert]) .chips > li { animation: riseSm .5s .2s var(--ease-out) both; }
-.anim .case-card:not([inert]) .chips > li:nth-child(2) { animation-delay: .26s; }
-.anim .case-card:not([inert]) .chips > li:nth-child(3) { animation-delay: .32s; }
-.anim .case-card:not([inert]) .chips > li:nth-child(n+4) { animation-delay: .38s; }
-.anim .case-card:not([inert]) .case-card__head { animation: riseSm .55s .22s var(--ease-out) both; }
-.anim .case-card:not([inert]) .case-card__head .icon-circle { animation: popSoft .5s .3s var(--ease-out) both; }
-.anim .case-card:not([inert]) :is(.case-card__text, .case-card__hint) { animation: riseSm .55s .32s var(--ease-out) both; }
-.anim .case-card:not([inert]) .case-step { animation: riseSm .5s .3s var(--ease-out) both; }
-.anim .case-card:not([inert]) .case-step:nth-child(2) { animation-delay: .36s; }
-.anim .case-card:not([inert]) .case-step:nth-child(3) { animation-delay: .42s; }
-.anim .case-card:not([inert]) .case-step:nth-child(4) { animation-delay: .48s; }
-.anim .case-card:not([inert]) .case-step:nth-child(n+5) { animation-delay: .54s; }
-.anim .case-step[aria-current="true"] .case-step__btn { animation: riseSm .4s var(--ease-out) both; }
+/* Cambio de caso. Salida corta y escalonada (todo sube 8 px y se funde, de arriba abajo; SALIDA_MS en main.js) y
+   entrada orquestada: el logo crece apenas desde el 92 %, el nombre y el sector suben, las etiquetas llegan en ola,
+   "Qué hicimos" aparece y la lista entra línea por línea desde la izquierda. Una sola curva; con "reducir movimiento"
+   el cambio es directo. */
+.anim .carousel .case-card.is-saliendo :is(.case-card__logo, .case-card__name, .case-card__who > .eyebrow, .chips > li, .case-card__head, .case-step, .case-card__text) { animation: casoSale .24s var(--ease-out) both; }
+.anim .carousel .case-card.is-saliendo :is(.case-card__name, .case-card__who > .eyebrow) { animation-delay: .02s; }
+.anim .carousel .case-card.is-saliendo :is(.chips > li, .case-card__head) { animation-delay: .04s; }
+.anim .carousel .case-card.is-saliendo :is(.case-step, .case-card__text) { animation-delay: .06s; }
+@keyframes casoSale { to { opacity: 0; transform: translateY(-8px); } }
+@keyframes casoLogo { from { opacity: 0; transform: scale(.92); } to { opacity: 1; transform: none; } }
+@keyframes casoSube { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes casoChip { from { opacity: 0; transform: translateY(8px) scale(.94); } to { opacity: 1; transform: none; } }
+@keyframes casoLinea { from { opacity: 0; transform: translateX(-14px); } to { opacity: 1; transform: none; } }
+.anim .case-card:not([inert]) .case-card__logo { transform-origin: 0 50%; animation: casoLogo .7s var(--ease-out) both; }
+.anim .case-card:not([inert]) .case-card__name { animation: casoSube .7s .06s var(--ease-out) both; }
+.anim .case-card:not([inert]) .case-card__who > .eyebrow { animation: casoSube .6s .12s var(--ease-out) both; }
+.anim .case-card:not([inert]) .chips > li { animation: casoChip .55s calc(.2s + var(--ola, 0) * .06s) var(--ease-out) both; }
+.anim .case-card:not([inert]) .chips > li:nth-child(2) { --ola: 1; }
+.anim .case-card:not([inert]) .chips > li:nth-child(3) { --ola: 2; }
+.anim .case-card:not([inert]) .chips > li:nth-child(4) { --ola: 3; }
+.anim .case-card:not([inert]) .chips > li:nth-child(n+5) { --ola: 4; }
+.anim .case-card:not([inert]) .case-card__head { animation: casoSube .6s .3s var(--ease-out) both; }
+.anim .case-card:not([inert]) .case-card__head .icon-circle { animation: casoLogo .55s .34s var(--ease-out) both; }
+.anim .case-card:not([inert]) .case-card__text { animation: casoLinea .6s .4s var(--ease-out) both; }
+.anim .case-card:not([inert]) .case-step { animation: casoLinea .55s calc(.4s + var(--linea, 0) * .07s) var(--ease-out) both; }
+.anim .case-card:not([inert]) .case-step:nth-child(2) { --linea: 1; }
+.anim .case-card:not([inert]) .case-step:nth-child(3) { --linea: 2; }
+.anim .case-card:not([inert]) .case-step:nth-child(4) { --linea: 3; }
+.anim .case-card:not([inert]) .case-step:nth-child(5) { --linea: 4; }
+.anim .case-card:not([inert]) .case-step:nth-child(n+6) { --linea: 5; }
 
-/* Varios proyectos de un mismo cliente: uno activo por vez, con barra de avance lima mientras corre el carrusel */
-.case-steps { display: flex; flex-direction: column; gap: 4px; }
-/* Avance de cada proyecto: el filete izquierdo del proyecto activo se llena de arriba abajo (sin línea bajo el texto) */
-.case-step { position: relative; padding: 10px 0 10px 18px; border-left: 4px solid var(--gray-bg); color: var(--muted); font-size: 17px; line-height: 1.5; transition: color .3s var(--ease-out), border-color .3s var(--ease-out); }
+/* Varios proyectos de un mismo cliente: numerados (01, 02…), uno activo por vez, con la línea de avance lima a la
+   izquierda mientras corre el carrusel */
+.case-steps { display: flex; flex-direction: column; gap: 2px; counter-reset: paso; }
+.case-step { position: relative; display: grid; grid-template-columns: 2.4ch minmax(0, 1fr); column-gap: 14px; padding: 10px 0 10px 18px; border-left: 3px solid var(--gray-bg); color: var(--muted); font-size: 17px; line-height: 1.5; counter-increment: paso; transition: color .3s var(--ease-out), border-color .3s var(--ease-out); }
+.case-step::before { content: counter(paso, decimal-leading-zero); padding-top: .12em; color: var(--muted); font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: .04em; transition: color .3s var(--ease-out); }
 .case-step[aria-current="true"] { border-left-color: var(--lime); color: var(--ink); font-weight: 600; }
+.case-step[aria-current="true"]::before { color: var(--purple); }
 .carousel.is-auto:not(.is-pinned) .case-step[aria-current="true"] { border-left-color: var(--gray-bg); }
 .case-step__btn { display: block; width: 100%; margin: 0; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; transition: color var(--t-fast) var(--ease-out); }
 .case-step__btn:hover { color: var(--purple); }
-.case-step__bar { display: none; position: absolute; top: 0; bottom: 0; left: -4px; width: 4px; background: var(--lime); transform-origin: 50% 0; transform: scaleY(0); pointer-events: none; }
+.case-step__bar { display: none; position: absolute; top: 0; bottom: 0; left: -3px; width: 3px; background: var(--lime); transform-origin: 50% 0; transform: scaleY(0); pointer-events: none; }
 .carousel.is-auto .case-step[aria-current="true"] .case-step__bar { display: block; animation: stepbarY var(--step-ms, 3.5s) linear forwards; }
 .carousel.is-paused .case-step__bar { animation-play-state: paused; }
-.case-card__hint { margin: 0; color: var(--muted); font-size: 14px; }
+.case-card__hint { display: none; }
 /* Con un cliente elegido no hay avance automático ni barras de carga */
 .carousel.is-pinned .case-step__bar, .carousel.is-pinned .case-card__timer { display: none !important; }
-.carousel.is-pinned .case-card__hint { display: none; } /* "se pasan solos" ya no aplica */
 
-@container caso (max-width: 720px) {
-  .case-card { grid-template-columns: 1fr; gap: 22px; min-height: 0; }
-  .case-card__what { justify-content: flex-start; } /* en una columna, sin hueco entre las etiquetas y los proyectos */
+/* Angosto (el carrusel o la pantalla): todo en una columna, el logo arriba */
+@container caso (max-width: 560px) {
+  .case-card { grid-template-columns: minmax(0, 1fr); grid-template-areas: "logo" "name" "sector" "chips" "what"; }
+  .case-card__logo { margin-bottom: 14px; }
+  .case-card__what { margin-top: 32px; }
 }
 @media (max-width: 760px) {
-  .case-card { grid-template-columns: 1fr; gap: 22px; min-height: 0; padding: 28px 34px 8px; } /* 34 px: las flechas no tapan el filete de los proyectos */
-  .case-card__what { justify-content: flex-start; } /* en una columna, sin hueco entre las etiquetas y los proyectos */
+  .case-card { grid-template-columns: minmax(0, 1fr); grid-template-areas: "logo" "name" "sector" "chips" "what"; padding: 24px 34px 8px; } /* 34 px: las flechas no tapan la lista */
+  .case-card__logo { width: 136px; height: 68px; margin-bottom: 14px; }
+  .case-card__name { font-size: 24px; }
+  .case-card__who > .chips { margin-top: 18px; }
+  .case-card__what { margin-top: 32px; }
   .case-card__text { font-size: 19px; }
+  .case-step { padding-left: 14px; column-gap: 10px; font-size: 16px; }
 }
 
 /* ---------- Cita de Carlos (#como-trabajamos) ----------
@@ -1863,6 +2020,8 @@ html:not(.anim) .cl-fichero .cinta.is-cinta .cinta__row .cinta__list { display: 
   cursor: pointer;
   transition: color var(--t-fast) var(--ease-out);
 }
+/* En celular el "+" deja libre la columna del botón de WhatsApp (abajo a la derecha, siempre a la vista) */
+@media (max-width: 760px) { .faq__q { padding-right: 60px; } }
 .faq__q::-webkit-details-marker { display: none; }
 .faq__q::marker { content: ""; }
 .faq__q:hover, .faq__item[open] > .faq__q { color: var(--purple); }

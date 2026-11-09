@@ -102,7 +102,7 @@ ofrecemos, Quiénes somos, Casos, FAQ, Postulate), el pie, los "Agendá reunión
 | `assets/css/main.css` | Solo lo común con el sitio principal: fuente, tokens, botones, header, pie, encabezados, `.prose`, cierre y revelados. Copiado de `TEMPLATE-NICO/css/styles.css` sin el CSS de la home. |
 | `assets/css/blog.css` | Listado, tarjetas, nota, compartir y paginación ("Anteriores" a la izquierda y "Siguientes" a la derecha, nunca juntas). Tarjetas sin caja, fondo ni sombra (aire y filetes finos). Filtro con "Todas las notas" primero (marcada en el listado general) y la categoría activa en violeta. Ningún enlace lleva subrayado (`:root a` en main.css): se distinguen por color y peso. |
 | `assets/css/carga.css`, `assets/js/carga.js` | Animación de carga común del sitio (copias de TEMPLATE-NICO: si cambian allá, se copian igual). |
-| `assets/js/main.js` | Origen de la visita (`ith_origen`, el mismo de la agenda), menú angosto, medición y revelados. |
+| `assets/js/main.js` | Globo de WhatsApp (mensaje del blog editable, `click_whatsapp`), origen de la visita (`ith_origen`, el mismo de la agenda), menú angosto, medición y revelados. |
 | `assets/img/`, `assets/fonts/` | Logo, favicons, imagen para redes ("desde 2010") y Saira. |
 
 ## Funciones para las plantillas
@@ -151,5 +151,18 @@ Movimiento igual al de la home (TEMPLATE-NICO/README-movimiento.md, sección 14)
 - Hover: el `.btn` común, el título de la nota en violeta y los círculos de "Compartir" que solo cambian de color.
   Los íconos no suben ni se agrandan con el mouse.
 - Con "reducir movimiento" no se pone `.anim`: todo queda visible y quieto (solo aparece el telón quieto de la carga).
+- Nunca un área en blanco (mismo revelado que la home): solo entra animado lo que el visitante ve llegar (su borde
+  cruza el 90 % de la pantalla). Lo que se descubre ya adentro de la pantalla (scroll rápido, ancla) o quedó arriba
+  (recarga a mitad, Atrás) aparece quieto en el mismo cuadro (clase `rv-ya`, sus entradas se adelantan a su final), con
+  un respaldo a los 2 s de abrirse el telón y cada vez que se detiene el scroll. `html` también va en lavanda.
 Si algún día se suman las recetas de `motion.js` de la home (títulos por líneas, fotos que se descubren), alcanza con
 dejar `assets/css/motion.css` y `assets/js/motion.js` en el tema: se cargan solos (ver `inc/setup.php`).
+
+## WhatsApp flotante
+
+Siempre visible en todas las pantallas (el blog no tiene lógica que lo oculte). Sin JS es el link directo a wa.me con el
+mensaje del blog (`?text=Hola, vengo de las novedades de Intellihelp y quiero hacer una consulta.`, en `footer.php`).
+Con JS abre el mismo globo que la home (copia del módulo de `TEMPLATE-NICO/js/main.js` y del CSS `.wa-globo*`): el
+mensaje se puede editar y "Enviar por WhatsApp →" abre wa.me con el texto final. Mouse: se abre al apoyarse; toque y
+teclado: el botón abre y cierra (con Enter el foco va al mensaje; Escape cierra y devuelve el foco). Medición:
+`click_whatsapp` con `link_location: "flotante"` al enviar.

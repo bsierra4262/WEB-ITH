@@ -380,24 +380,54 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- footer:fin -->
 
 <!-- Índice de la política: marca en el índice la sección que se está leyendo (aria-current). Sin JS el índice funciona
-     igual, como lista de anclas. -->
+     igual, como lista de anclas.
+     - La sección actual es la última cuyo título ya subió hasta el primer cuarto de la parte útil de la pantalla
+       (debajo del header fijo): es la que se está leyendo, aunque su título ya haya salido por arriba.
+     - Con el final de la página a la vista se marca la última (Contacto es corta y su título nunca llega arriba).
+     - Al tocar un ítem del índice queda marcado ese, aunque su título no llegue arriba (las últimas secciones), hasta
+       que el visitante vuelve a scrollear por su cuenta. -->
 <script>
   (function () {
-    var links = document.querySelectorAll('.legal-toc a[href^="#"]');
-    if (!links.length || !('IntersectionObserver' in window)) return;
+    var links = Array.prototype.slice.call(document.querySelectorAll('.legal-toc a[href^="#"]'));
+    if (!links.length) return;
     var porId = {};
-    links.forEach(function (a) { porId[a.getAttribute('href').slice(1)] = a; });
+    links.forEach(function (a) { porId[decodeURIComponent(a.getAttribute('href').slice(1))] = a; });
     var titulos = Array.prototype.filter.call(document.querySelectorAll('.legal-body h2[id]'), function (h) { return porId[h.id]; });
+    if (!titulos.length) return;
+    var header = document.querySelector('.site-header');
+    var actual = null;
+    var elegido = null; // id tocado en el índice: manda hasta que el visitante scrollea por su cuenta
     var marcar = function (id) {
+      if (id === actual) return;
+      actual = id;
       links.forEach(function (a) { a.removeAttribute('aria-current'); });
-      if (porId[id]) porId[id].setAttribute('aria-current', 'true');
+      if (id && porId[id]) porId[id].setAttribute('aria-current', 'true');
     };
-    var obs = new IntersectionObserver(function () {
-      var actual = null;
-      titulos.forEach(function (h) { if (h.getBoundingClientRect().top < window.innerHeight * 0.35) actual = h; });
-      marcar(actual ? actual.id : '');
-    }, { rootMargin: '0px 0px -60% 0px', threshold: [0, 1] });
-    titulos.forEach(function (h) { obs.observe(h); });
+    var calcular = function () {
+      var arriba = header ? header.offsetHeight : 0; // alto en el flujo: no cambia cuando la barra se esconde
+      var util = window.innerHeight - arriba;
+      var linea = arriba + 24 + util * 0.25;
+      var doc = document.documentElement;
+      var alFinal = window.innerHeight + window.scrollY >= doc.scrollHeight - 4;
+      var id = null;
+      titulos.forEach(function (h) { if (h.getBoundingClientRect().top <= linea) id = h.id; });
+      var ultimo = titulos[titulos.length - 1];
+      if (alFinal && ultimo.getBoundingClientRect().top < window.innerHeight) id = ultimo.id;
+      if (elegido) id = elegido;
+      marcar(id); // antes del primer título (la introducción y "En síntesis") no se marca nada
+    };
+    var pedido = 0;
+    var pedir = function () { if (!pedido) pedido = requestAnimationFrame(function () { pedido = 0; calcular(); }); };
+    window.addEventListener('scroll', pedir, { passive: true });
+    window.addEventListener('resize', pedir);
+    links.forEach(function (a) {
+      a.addEventListener('click', function () { elegido = decodeURIComponent(a.getAttribute('href').slice(1)); pedir(); });
+    });
+    var soltar = function () { if (elegido) { elegido = null; pedir(); } };
+    ['wheel', 'touchstart', 'keydown'].forEach(function (ev) { window.addEventListener(ev, soltar, { passive: true }); });
+    if (location.hash && porId[decodeURIComponent(location.hash.slice(1))]) elegido = decodeURIComponent(location.hash.slice(1));
+    calcular();
+    window.addEventListener('load', pedir);
   })();
 </script>
 

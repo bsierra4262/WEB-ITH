@@ -428,6 +428,76 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </section>
 
+  <!-- ===== Clientes: "Confían en nosotros", con TODOS los clientes de la home (los mismos 50 logos de la sección Clientes,
+       sin repetir; para sumar uno, agregar su li acá y en su rubro de la home). main.js (módulo "Clientes") arma la
+       banda: dos filas en movimiento continuo, la de arriba hacia la izquierda y la de abajo hacia la derecha, con alto
+       fijo; no se detiene con el mouse, solo fuera de pantalla. Logos en gris que toman color con el mouse encima.
+       Va sobre una franja blanca entre el bloque de reserva y los casos (el bloque de reserva no se anima). Con
+       "reducir movimiento" o sin JS, una grilla quieta y centrada. ===== -->
+  <section class="dx-clientes" aria-labelledby="dx-clientes-titulo">
+    <div class="dx-casos__in rv">
+      <p class="dx-casos__rotulo">Clientes</p>
+      <h2 id="dx-clientes-titulo" class="dx-casos__titulo">Confían en nosotros</h2>
+      <p class="dx-casos__sub">Organismos públicos y empresas privadas que eligen a Intellihelp para su soporte, su infraestructura y su seguridad.</p>
+    </div>
+    <div class="cinta dx-clientes__cinta rv" data-cinta>
+      <div class="cinta__panel" data-cinta-panel>
+        <ul class="cinta__list list-reset" aria-label="Clientes de Intellihelp">
+          <li class="cinta__item"><img src="../img/clientes/agip.png?v=20261109" alt="AGIP" width="140" height="49" style="--lw:97;--lo:1.00;--lb:0.87" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/senado-de-la-nacion-argentina.png?v=20261109" alt="Senado de la Nación Argentina" width="106" height="100" style="--lw:76;--lo:0.74" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/agencia-de-sistemas-de-informacion.png?v=20261109" alt="Agencia de Sistemas de Información" width="212" height="82" style="--lw:116;--lo:1.00;--lb:0.96" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/gobierno-de-la-ciudad-de-buenos-aires.png?v=20261109" alt="Gobierno de la Ciudad de Buenos Aires" width="155" height="67" style="--lw:95;--lo:0.60" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/ministerio-de-educacion-de-la-ciudad-de-buenos-aires.png?v=20261109" alt="Ministerio de Educación de la Ciudad de Buenos Aires" width="228" height="45" style="--lw:180;--lo:0.80" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/ministerio-de-cultura-de-la-ciudad-de-buenos-aires.png?v=20261109" alt="Ministerio de Cultura de la Ciudad de Buenos Aires" width="219" height="47" style="--lw:180;--lo:0.80" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/superintendencia-de-riesgos-del-trabajo.png?v=20261109" alt="Superintendencia de Riesgos del Trabajo" width="146" height="94" style="--lw:81;--lo:0.92" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/ba-salud.png?v=20261109" alt="Ministerio de Salud de la Ciudad de Buenos Aires" width="100" height="86" style="--lw:79;--lo:1.00;--lb:0.60" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/administracion-de-parques-nacionales.png?v=20261109" alt="Administración de Parques Nacionales" width="138" height="136" style="--lw:74;--lo:0.60" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/correo-argentino.png?v=20261109" alt="Correo Argentino" width="216" height="56" style="--lw:117;--lo:0.64" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/telam.png?v=20261109" alt="Télam" width="137" height="47" style="--lw:93;--lo:0.66" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/sedronar.png?v=20261109" alt="Sedronar" width="172" height="56" style="--lw:123;--lo:1.00;--lb:0.86" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/boletin-oficial-de-la-republica-argentina.png?v=20261109" alt="Boletín Oficial de la República Argentina" width="191" height="64" style="--lw:125;--lo:0.73" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/museo-moderno.png?v=20261109" alt="Museo de Arte Moderno de Buenos Aires" width="119" height="82" style="--lw:72;--lo:0.60" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/gendarmeria-nacional.png?v=20261109" alt="Gendarmería Nacional" width="358" height="168" style="--lw:96;--lo:1.00;--lb:0.87" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/nic-argentina.png?v=20261109" alt="NIC Argentina" width="79" height="70" style="--lw:71;--lo:1.00;--lb:0.72" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/consejo-magistratura.png?v=20261109" alt="Consejo de la Magistratura del Poder Judicial de la Nación" width="480" height="150" style="--lw:132;--lo:0.73" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/incucai.png?v=20261109" alt="INCUCAI" width="480" height="123" style="--lw:107;--lo:0.71" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/nacion-seguros.png?v=20261109" alt="Nación Seguros" width="186" height="43" style="--lw:144;--lo:0.74" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/medife.png?v=20261109" alt="Medifé" width="480" height="111" style="--lw:136;--lo:1.00;--lb:0.95" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/ase-nacional.png?v=20261109" alt="ASE Nacional" width="175" height="59" style="--lw:124;--lo:0.80" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/osdipp.png?v=20261109" alt="OSDIPP" width="185" height="32" style="--lw:138;--lo:0.75" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/avalian.png?v=20261109" alt="Avalian" width="106" height="76" style="--lw:88;--lo:1.00;--lb:0.81" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/gestion-compartida.png?v=20261109" alt="Gestión Compartida" width="152" height="50" style="--lw:110;--lo:0.62" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/pfizer.png?v=20261109" alt="Pfizer" width="176" height="74" style="--lw:97;--lo:0.77" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/laboratorios-bago.png?v=20261109" alt="Laboratorios Bagó" width="156" height="53" style="--lw:100;--lo:0.73" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/reckitt-benckiser.png?v=20261109" alt="Reckitt Benckiser" width="171" height="79" style="--lw:104;--lo:0.69" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/petropack.png?v=20261109" alt="Petropack" width="189" height="72" style="--lw:115;--lo:0.66" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/specchem.png?v=20261109" alt="SpecChem" width="176" height="41" style="--lw:135;--lo:0.91" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/finca-sophenia.png?v=20261109" alt="Finca Sophenia" width="262" height="168" style="--lw:99;--lo:0.67" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/beilox.png?v=20261109" alt="Beilox" width="107" height="46" style="--lw:113;--lo:1.00;--lb:0.81" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/gemez-depositos-fiscales.png?v=20261109" alt="Gemez Depósitos Fiscales" width="294" height="168" style="--lw:102;--lo:1.00" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/cablevision-fibertel.png?v=20261109" alt="Cablevisión Fibertel" width="480" height="104" style="--lw:113;--lo:0.87" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/el-cronista.png?v=20261109" alt="El Cronista" width="196" height="31" style="--lw:150;--lo:1.00;--lb:0.88" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/eo-107-9.png?v=20261109" alt="EO 107.9" width="182" height="168" style="--lw:56;--lo:0.76" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/huawei.png?v=20261109" alt="Huawei" width="107" height="107" style="--lw:56;--lo:0.82" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/global-hitss.png?v=20261109" alt="Global Hitss" width="191" height="44" style="--lw:148;--lo:0.64" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/mymtec.png?v=20261109" alt="Mymtec" width="178" height="90" style="--lw:105;--lo:0.79" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/sistran.png?v=20261109" alt="Sistran" width="149" height="73" style="--lw:98;--lo:0.66" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/lojack.png?v=20261109" alt="LoJack (Grupo Strix)" width="151" height="69" style="--lw:94;--lo:0.62" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/ituran.png?v=20261109" alt="Ituran" width="140" height="63" style="--lw:104;--lo:0.88" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/came.png?v=20261109" alt="CAME" width="146" height="73" style="--lw:78;--lo:0.87" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/los-cardales-country-club.png?v=20261109" alt="Los Cardales Country Club" width="150" height="50" style="--lw:123;--lo:0.70" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/eve-joyeria.png?v=20261109" alt="EVE Joyería" width="148" height="46" style="--lw:116;--lo:0.60" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/los-noques.png?v=20261109" alt="Los Noques" width="128" height="79" style="--lw:100;--lo:0.60" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/ayassa-fombella.png?v=20261109" alt="Ayassa Fombella" width="182" height="81" style="--lw:109;--lo:0.79" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/grupo-libertad.png?v=20261109" alt="Grupo Libertad" width="175" height="91" style="--lw:89;--lo:0.76" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/universal-credit.png?v=20261109" alt="Universal Credit" width="170" height="46" style="--lw:126;--lo:0.96" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/asociacion-argentina-de-golf.png?v=20261109" alt="Asociación Argentina de Golf" width="77" height="76" style="--lw:65;--lo:0.80" loading="lazy" decoding="async"></li>
+          <li class="cinta__item"><img src="../img/clientes/naranja-x.png?v=20261109" alt="Naranja X (Tarjeta Naranja)" width="360" height="84" style="--lw:130;--lo:1.00;--lb:0.97" loading="lazy" decoding="async"></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== Casos: carrusel que avanza solo (se frena con el mouse o el dedo encima, con el foco adentro y fuera de
        pantalla; con "reducir movimiento" queda quieto), con una flecha a cada lado. Sin botón de pausa.
        Para sumar un caso: copiar un <article class="dx-caso"> dentro de .dx-casos__rail y cambiar los textos.
@@ -537,6 +607,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <a href="/" class="dx-pie__marca" aria-label="Intellihelp, volver al inicio"><img src="../img/logo-intellihelp.png" alt="ITH, Intellihelp" width="52" height="28" loading="lazy"></a>
   <p class="dx-pie__legal">© <span data-anio>2026</span> Intellihelp S.A. · <a href="/privacidad/">Aviso de privacidad</a><br>Tus datos se tratan conforme a la Ley 25.326 de Protección de los Datos Personales. Podés pedir acceso, rectificación o supresión cuando quieras, escribiendo a <a href="mailto:info@intellihelp.tech">info@intellihelp.tech</a>.</p>
 </footer>
+
+<!-- WhatsApp flotante (el mismo de todas las páginas, con el mensaje de esta): sin JS es el link directo; con JS,
+     main.js le suma el globo con el mensaje editable. -->
+<a href="https://wa.me/5491150274827?text=Hola%2C%20quiero%20coordinar%20un%20diagn%C3%B3stico%20IT%20sin%20cargo%20con%20Intellihelp." target="_blank" rel="noopener" class="wa-float" aria-label="Escribinos por WhatsApp (se abre en una pestaña nueva)">
+  <svg class="ico ico--fill" aria-hidden="true" width="30" height="30" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg></a>
 
 </body>
 </html>

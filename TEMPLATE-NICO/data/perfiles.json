@@ -1,0 +1,369 @@
+{
+  "_info": "Catálogo de perfiles de /postulate/. Los nombres son los de los servicios y soluciones de la home y de la presentación institucional 2026 (no se inventan categorías). Lo usa api/busquedas.php para reconocer a qué perfil corresponde cada búsqueda de HiringRoom (por las palabras clave del título; las que empiezan con ~ son genéricas y solo desempatan) y el orden es el que se muestra cuando no hay datos. El texto, los chips y el ícono de cada perfil están también en postulate/index.html (mismo id en data-perfil): si se cambia un perfil acá, cambiarlo allá. Íconos: los de la tarjeta del mismo nombre en Servicios y Soluciones de la home.",
+  "version": 2,
+  "visibles": 6,
+  "perfiles": [
+    {
+      "id": "mesa-de-ayuda",
+      "titulo": "Mesa de ayuda",
+      "texto": "Atención y soporte a usuarios con un único punto de contacto, en las oficinas de nuestros clientes o en forma remota, con estándares ITIL.",
+      "chips": [
+        "Service desk",
+        "Soporte a usuarios",
+        "Mantenimiento multiplataforma 24/7"
+      ],
+      "servicio": "Mesa de ayuda",
+      "palabras": [
+        "soporte tecnico",
+        "tecnico de soporte",
+        "soporte it",
+        "soporte informatico",
+        "soporte en sitio",
+        "soporte presencial",
+        "soporte remoto",
+        "soporte a usuarios",
+        "tecnico informatico",
+        "tecnico pc",
+        "tecnico de campo",
+        "field service",
+        "desktop support",
+        "~soporte",
+        "~tecnico",
+        "~hardware",
+        "nivel 2",
+        "segundo nivel",
+        "mesa de ayuda",
+        "help desk",
+        "helpdesk",
+        "service desk",
+        "servicedesk",
+        "nivel 1",
+        "primer nivel",
+        "atencion a usuarios",
+        "operador de mesa",
+        "analista de mesa",
+        "itil"
+      ]
+    },
+    {
+      "id": "outsourcing",
+      "titulo": "Outsourcing",
+      "texto": "Profesionales IT en nómina de Intellihelp que se integran al equipo de un cliente, con inducción en su organización y capacitación continua.",
+      "chips": [
+        "Perfiles multiplataforma",
+        "Inducción y capacitación continua"
+      ],
+      "servicio": "Outsourcing",
+      "palabras": [
+        "outsourcing",
+        "staff augmentation",
+        "in house",
+        "on site",
+        "onsite",
+        "asignado a cliente",
+        "~en cliente",
+        "~multiplataforma"
+      ]
+    },
+    {
+      "id": "video-seguridad",
+      "titulo": "Video seguridad",
+      "texto": "Instalación, puesta en marcha y mantenimiento de videovigilancia, control de acceso y biometría, en Buenos Aires o en cualquier provincia.",
+      "chips": [
+        "Control de acceso",
+        "Asistencia por biometría",
+        "Videovigilancia"
+      ],
+      "servicio": "Video seguridad",
+      "palabras": [
+        "videovigilancia",
+        "video vigilancia",
+        "videoseguridad",
+        "video seguridad",
+        "cctv",
+        "camaras",
+        "camaras de seguridad",
+        "control de acceso",
+        "control de accesos",
+        "biometria",
+        "biometrico",
+        "seguridad electronica",
+        "instalador",
+        "~instalaciones",
+        "hikvision",
+        "dahua",
+        "suprema",
+        "molinetes",
+        "alarmas"
+      ]
+    },
+    {
+      "id": "redes-outdoor",
+      "titulo": "Redes outdoor",
+      "texto": "Tendido y mantenimiento de redes de fibra óptica hasta el edificio, la oficina o el hogar.",
+      "chips": [
+        "Redes FTTx",
+        "Fibra óptica",
+        "Mantenimiento 24/7"
+      ],
+      "servicio": "Redes outdoor",
+      "palabras": [
+        "fibra",
+        "fibra optica",
+        "ftth",
+        "fttx",
+        "fttb",
+        "fttp",
+        "gpon",
+        "fusionista",
+        "empalmador",
+        "tendido",
+        "liniero"
+      ]
+    },
+    {
+      "id": "redes-indoor",
+      "titulo": "Redes indoor",
+      "texto": "Configuración, cableado y mantenimiento de redes internas: routing, switching y redes inalámbricas.",
+      "chips": [
+        "Core routing",
+        "LAN switching",
+        "Wireless LAN"
+      ],
+      "servicio": "Redes indoor",
+      "palabras": [
+        "redes",
+        "networking",
+        "~network",
+        "telecomunicaciones",
+        "telecom",
+        "noc",
+        "routing",
+        "switching",
+        "wifi",
+        "wireless",
+        "lan",
+        "wan",
+        "cisco",
+        "mikrotik",
+        "aruba",
+        "ubiquiti",
+        "voip",
+        "telefonia ip",
+        "~telefonia",
+        "~conectividad",
+        "cableado",
+        "cableado estructurado",
+        "cablista"
+      ]
+    },
+    {
+      "id": "data-center",
+      "titulo": "Data center",
+      "texto": "Instalación y administración de servidores, storage, bases de datos y redes del centro de datos.",
+      "chips": [
+        "Servidores",
+        "Sistemas hiperconvergentes",
+        "Switches"
+      ],
+      "servicio": "Data center",
+      "palabras": [
+        "sysadmin",
+        "administrador de sistemas",
+        "administracion de sistemas",
+        "administrador de infraestructura",
+        "infraestructura",
+        "servidores",
+        "windows server",
+        "linux",
+        "active directory",
+        "virtualizacion",
+        "vmware",
+        "proxmox",
+        "storage",
+        "data center",
+        "datacenter",
+        "dba",
+        "base de datos",
+        "bases de datos",
+        "~plataformas",
+        "analista de plataformas"
+      ]
+    },
+    {
+      "id": "cloud",
+      "titulo": "Cloud",
+      "texto": "Diseño, migración y operación de nubes privadas, públicas e híbridas, con orquestación y automatización.",
+      "chips": [
+        "Nube privada",
+        "Nube pública",
+        "Nube híbrida"
+      ],
+      "servicio": "Cloud",
+      "palabras": [
+        "cloud",
+        "nube",
+        "azure",
+        "aws",
+        "devops"
+      ]
+    },
+    {
+      "id": "desarrollo-de-apps",
+      "titulo": "Desarrollo de apps",
+      "texto": "Desarrollo a medida de sistemas y aplicaciones web, móviles y transaccionales, en equipos propios o integrados a los de nuestros clientes.",
+      "chips": [
+        "Sistemas en tiempo real",
+        "Soluciones móviles",
+        "Sistemas transaccionales"
+      ],
+      "servicio": "Desarrollo de apps",
+      "palabras": [
+        "desarrollador",
+        "desarrolladora",
+        "developer",
+        "programador",
+        "programadora",
+        "~desarrollo",
+        "~software",
+        "analista programador",
+        "analista desarrollador",
+        "java",
+        ".net",
+        "c#",
+        "node",
+        "angular",
+        "react",
+        "android",
+        "ios",
+        "~mobile",
+        "cobol",
+        "python",
+        "php",
+        "full stack",
+        "fullstack",
+        "frontend",
+        "front end",
+        "backend",
+        "back end"
+      ]
+    },
+    {
+      "id": "consultoria",
+      "titulo": "Consultoría",
+      "texto": "Análisis funcional, pruebas de calidad, liderazgo de proyectos y mejora de procesos, sobre estándares y metodologías reconocidas.",
+      "chips": [
+        "Estándares ITIL",
+        "Metodologías ágiles",
+        "Procesos"
+      ],
+      "servicio": "Consultoría",
+      "palabras": [
+        "analista funcional",
+        "~funcional",
+        "analista de negocio",
+        "qa",
+        "quality assurance",
+        "tester",
+        "testing",
+        "bi",
+        "business intelligence",
+        "power bi",
+        "analista bi",
+        "analista de datos",
+        "data analyst",
+        "~datos",
+        "lider de proyecto",
+        "lider de proyectos",
+        "project manager",
+        "project leader",
+        "jefe de proyecto",
+        "pmo",
+        "arquitecto",
+        "arquitecto de soluciones",
+        "arquitectura",
+        "scrum",
+        "scrum master",
+        "agile coach",
+        "product owner",
+        "lider tecnico",
+        "tech lead",
+        "team lead",
+        "~coordinador"
+      ]
+    },
+    {
+      "id": "automatizacion",
+      "titulo": "Automatización",
+      "texto": "Agentes de inteligencia artificial y herramientas de automatización que resuelven tareas repetitivas y liberan tiempo de los equipos de nuestros clientes.",
+      "chips": [
+        "Agentes IA",
+        "Herramientas de automatización"
+      ],
+      "servicio": "Automatización",
+      "palabras": [
+        "automatizacion",
+        "automatizaciones",
+        "rpa",
+        "n8n",
+        "~bot",
+        "~bots",
+        "chatbot",
+        "~integraciones",
+        "inteligencia artificial",
+        "ia",
+        "machine learning"
+      ]
+    },
+    {
+      "id": "ciberseguridad",
+      "titulo": "Ciberseguridad",
+      "texto": "Redes seguras, evaluaciones de seguridad y protección de entornos de nuestros clientes junto a fabricantes como Fortinet.",
+      "chips": [
+        "Soluciones Fortinet",
+        "Evaluación de seguridad",
+        "Seguridad basada en IA"
+      ],
+      "servicio": "Ciberseguridad",
+      "palabras": [
+        "ciberseguridad",
+        "cybersecurity",
+        "seguridad informatica",
+        "seguridad de la informacion",
+        "infosec",
+        "soc",
+        "pentest",
+        "pentester",
+        "ethical hacking",
+        "firewall",
+        "fortinet",
+        "fortigate",
+        "siem"
+      ]
+    },
+    {
+      "id": "busqueda-de-recursos",
+      "titulo": "Búsqueda de recursos",
+      "texto": "Reclutamiento y selección de perfiles técnicos y ejecutivos que se incorporan directamente a la nómina de las empresas que nos confían sus búsquedas.",
+      "chips": [
+        "Búsqueda de personal",
+        "Búsqueda de ejecutivos",
+        "Assessment centers"
+      ],
+      "servicio": "Búsqueda de recursos",
+      "palabras": [
+        "importante empresa",
+        "reconocida empresa",
+        "empresa lider",
+        "para cliente",
+        "empresa cliente",
+        "~gerente",
+        "~jefe",
+        "~director",
+        "~ejecutivo",
+        "~head of",
+        "~manager"
+      ]
+    }
+  ]
+}

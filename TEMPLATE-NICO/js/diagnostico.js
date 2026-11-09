@@ -622,18 +622,46 @@
     const tarjetas = [...rail.querySelectorAll('.dx-caso')];
     const tarjetasAbajo = abajo(pista);
     if (tarjetasAbajo) tarjetas.forEach((c) => c.setAttribute('data-dx-entra', 'espera'));
+    const enEspera = () => [...encabezado, ...tarjetas].filter((el) => el.getAttribute('data-dx-entra') === 'espera');
+    const yaQuieto = (el) => { el.removeAttribute('data-dx-entra'); el.style.removeProperty('--dx-d'); };
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e) => {
         if (!e.isIntersecting) return;
         io.unobserve(e.target);
-        if (e.target === pista) tarjetas.forEach((c, i) => revelar(c, Math.min(i, 8) * 0.09));
-        else revelar(e.target, 0);
+        // Si ya está metido en la pantalla (scroll muy rápido o salto), aparece quieto: nunca un hueco esperando
+        const tarde = e.boundingClientRect.top < innerHeight * 0.72;
+        const grupo = e.target === pista ? tarjetas : [e.target];
+        grupo.forEach((c, i) => { if (tarde) yaQuieto(c); else revelar(c, e.target === pista ? Math.min(i, 8) * 0.09 : 0); });
       });
     }, { rootMargin: '0px 0px -6% 0px' });
+    // Nada queda oculto: lo que el visitante pasó sin verlo (scroll rápido, recarga a mitad de página con el scroll
+    // restaurado) aparece ya quieto, y como respaldo, a los 2 s de abrirse el telón y cada vez que el scroll se
+    // detiene, entra todo lo que esté a la vista.
+    let abierto = false;
+    // modo 'arriba': solo lo que quedó por encima; 'scroll': también lo que ya está metido en la pantalla; 'forzar':
+    // además, lo que esté a la vista, con su entrada.
+    const barrer = (modo) => {
+      if (!abierto) return;
+      const alto = innerHeight;
+      enEspera().forEach((el) => {
+        const r = (tarjetas.includes(el) ? pista : el).getBoundingClientRect();
+        if (r.bottom <= 0 || (modo !== 'arriba' && r.top < alto * 0.72 && r.bottom > 0)) { yaQuieto(el); io.unobserve(tarjetas.includes(el) ? pista : el); }
+        else if (modo === 'forzar' && r.top < alto) revelar(el, 0);
+      });
+    };
+    let quieto = 0;
+    addEventListener('scroll', () => {
+      barrer('scroll');
+      clearTimeout(quieto);
+      quieto = setTimeout(() => barrer('forzar'), 1200);
+    }, { passive: true });
     // Recién cuando sale el telón de la carga común: nada entra debajo de él.
     trasIntro(() => {
+      abierto = true;
       encabezado.forEach((el) => { if (el.getAttribute('data-dx-entra') === 'espera') io.observe(el); });
       if (tarjetasAbajo) io.observe(pista);
+      barrer('arriba');
+      setTimeout(() => barrer('forzar'), 2000);
     });
   }
 

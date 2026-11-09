@@ -21,7 +21,7 @@ html:has(body.dx) { scroll-padding-top: calc(var(--header-h) + 16px); }
 /* Barra de la página: la base (violeta sobre lavanda, sin destello al tocar) está en styles.css; acá solo la variante de
    cada pantalla (en la carbón, gris sobre carbón). */
 html:has(body.dx--papel) { scrollbar-color: var(--purple) var(--lavender); }
-html:has(body.dx--noche) { scrollbar-color: var(--line-dark) var(--ink); }
+html:has(body.dx--noche) { scrollbar-color: var(--line-dark) var(--ink); background: var(--ink); }
 html:has(body.dx--noche)::-webkit-scrollbar { background: var(--ink); }
 html:has(body.dx--noche)::-webkit-scrollbar-thumb { border-color: var(--ink); background: var(--line-dark); }
 .dx a, .dx button, .dx label, .dx input { -webkit-tap-highlight-color: transparent; }
@@ -393,6 +393,26 @@ button.dx-mes__dia[aria-pressed="true"] { border-color: var(--r-sel); background
 /* Recibido sin JS (api/contact.php vuelve con #contact-success) */
 .dx-agenda #contact-success:target { display: flex !important; }
 .dx-agenda:has(#contact-success:target) #contact-form { display: none !important; }
+
+/* ---------- Clientes ("Confían en nosotros") ----------
+   Franja blanca a todo el ancho entre la reserva (lavanda) y los casos (lavanda), con los 50 logos de la home en la
+   banda común de styles.css (.cinta): dos filas en movimiento continuo, arriba hacia la izquierda y abajo hacia la
+   derecha, con alto fijo (dos filas de --item-h) y sin pausa con el mouse. Logos en gris; con el mouse, a color. */
+.dx-clientes { margin-top: 72px; padding: 56px 0 60px; background: var(--white); }
+.dx-clientes .dx-casos__sub { margin-bottom: 30px; }
+.dx-clientes__cinta { --item-h: 84px; --cl-gap: 12px; display: block; max-width: 1360px; margin: 0 auto; padding: 0 24px; }
+.dx-clientes__cinta .cinta__panel { display: flex; flex-direction: column; gap: var(--cl-gap); }
+.anim .dx-clientes__cinta.is-cinta .cinta__panel { height: calc(2 * var(--item-h) + var(--cl-gap)); }
+.dx-clientes__cinta .cinta__list { max-width: none; padding: 0; }
+/* Quieta (sin JS o con "reducir movimiento"): grilla compacta y pareja con los 50 logos */
+html:not(.anim) .dx-clientes__cinta .cinta__list, html:not(.anim) .dx-clientes__cinta.is-cinta .cinta__row .cinta__list { display: grid; max-width: none; padding: 0; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); justify-items: center; gap: 4px 20px; }
+@media (max-width: 600px) {
+  .dx-clientes { margin-top: 56px; padding: 44px 0 48px; }
+  .dx-clientes__cinta { --item-h: 66px; --cl-gap: 8px; padding: 0 16px; }
+  html:not(.anim) .dx-clientes__cinta { --item-h: 52px; --logo-scale: .5; }
+  html:not(.anim) .dx-clientes__cinta .cinta__list, html:not(.anim) .dx-clientes__cinta.is-cinta .cinta__row .cinta__list { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2px 10px; }
+  html:not(.anim) .dx-clientes__cinta .cinta__item img { max-width: 100%; max-height: 32px; }
+}
 
 /* ---------- Casos ---------- */
 .dx-casos { padding: 62px 0 0; }

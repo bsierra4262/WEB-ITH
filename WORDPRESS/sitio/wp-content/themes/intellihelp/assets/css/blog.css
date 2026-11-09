@@ -89,9 +89,11 @@
   .post-feature { grid-template-columns: minmax(0, 1fr); }
 }
 /* Celular: el WhatsApp flotante (52 px a 16 px del borde) ocupa la franja derecha. El rótulo de la destacada deja libre
-   esa franja (padding derecho) y la categoría pasa a su propio renglón, sin el separador; el botón no se mueve. */
+   esa franja (padding derecho) y la categoría pasa a su propio renglón, sin el separador; el título también deja
+   libre la franja. El botón no se mueve. */
 @media (max-width: 760px) {
   .post-feature__eyebrow { align-items: flex-start; padding-right: 64px; line-height: 1.6; }
+  .post-feature__title { padding-right: 64px; }
   .post-feature__eyebrow::before { margin-top: .7em; }
   .post-feature__sep { display: none; }
   .post-feature__cat { display: block; }

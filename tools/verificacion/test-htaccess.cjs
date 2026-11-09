@@ -390,7 +390,7 @@ caso('png sin versión: 30 días', W + '/img/logo-intellihelp.png', { status: 20
 caso('png con versión', W + '/img/logo-intellihelp.png?v=2', { status: 200, cc: 'public, max-age=31536000, immutable' });
 caso('woff2 sin versión', W + '/fonts/saira-latin.woff2', { status: 200, cc: 'public, max-age=2592000' });
 caso('woff2 con versión', W + '/fonts/saira-latin.woff2?v=1', { status: 200, cc: 'public, max-age=31536000, immutable' });
-caso('webp de clientes con guiones no se toma como hash', W + '/img/clientes/gemez-depositos-fiscales.webp', { status: 200, cc: 'public, max-age=2592000' });
+caso('png de clientes con guiones no se toma como hash', W + '/img/clientes/gemez-depositos-fiscales.png', { status: 200, cc: 'public, max-age=2592000' });
 caso('asset con hash en /assets/', W + '/assets/index-Bx3k9_aQ.js', { status: 200, cc: 'public, max-age=31536000, immutable' });
 caso('video', W + '/video/hero-placeholder.mp4', { status: 200, cc: 'public, max-age=2592000' });
 caso('HTML de página', W + '/privacidad/', { status: 200, cc: 'no-cache' });

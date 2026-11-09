@@ -7,7 +7,7 @@ DirectoryIndex disabled
 # Apache 2.4 / LiteSpeed
 <IfModule mod_authz_core.c>
   Require all denied
-  <FilesMatch "^(contact|agenda)\.php$">
+  <FilesMatch "^(contact|agenda|busquedas)\.php$">
     Require all granted
   </FilesMatch>
 </IfModule>
@@ -16,7 +16,7 @@ DirectoryIndex disabled
 <IfModule !mod_authz_core.c>
   Order allow,deny
   Deny from all
-  <FilesMatch "^(contact|agenda)\.php$">
+  <FilesMatch "^(contact|agenda|busquedas)\.php$">
     Order deny,allow
     Allow from all
   </FilesMatch>

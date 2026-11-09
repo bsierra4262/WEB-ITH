@@ -21,7 +21,9 @@ js/main.js               Módulos independientes (ver "Comportamiento"); cada un
                          para la home y para las páginas internas
 js/agenda.js             Agenda del CRM, formulario de consulta, origen de la visita y su medición. La usa la página
                          /diagnostico-sin-cargo/; la home ya no la carga
-api/                     agenda.php (horarios y reserva), contact.php (consulta) y _crm.php (firma de pedidos al CRM, cola)
+api/                     agenda.php (horarios y reserva), contact.php (consulta), _crm.php (firma de pedidos al CRM, cola) y
+                         busquedas.php (búsquedas de HiringRoom e historial para los perfiles de /postulate/)
+data/perfiles.json       Catálogo de perfiles de /postulate/ (ver "Postulate")
 diagnostico-sin-cargo/   Diagnóstico sin cargo: bloque de reserva propio con el calendario primero (ver "Diagnóstico sin cargo")
 gracias-reserva/         Confirmación después de reservar (noindex; fuera del sitemap)
 css/diagnostico.css, js/diagnostico.js  Estilos y comportamiento propios de esas dos pantallas
@@ -38,9 +40,13 @@ google9ffcbef7277c41a3.html  Verificación de Search Console (copia exacta del a
 vite.config.js, servir.cmd, dev/smtp-local.mjs, .vite/  Solo para ver el sitio en local; no se publican
 README.md, README-movimiento.md  Documentación interna; no se publica
 img/logo-intellihelp.png Logo
-img/clientes/*.webp      Logos de clientes (la cinta usa 50: 19 del sector público y 31 del privado; strix.webp queda
+img/clientes/*.png       Logos de clientes (la cinta usa 50: 19 del sector público y 31 del privado; strix.png queda
                          sin uso, ver "Clientes")
-img/socios/*.webp        Logos de socios tecnológicos (35)
+img/socios/*.png         Logos de socios tecnológicos (35)
+                         Todos los logos son PNG con canal alfa real: el fondo blanco se eliminó editando la imagen
+                         (color a alfa, antialias limpio, sin halo), así nunca muestran una caja blanca sobre el lavanda
+                         ni sobre el blanco. En el HTML van con versión (`?v=20261109`): si se reemplaza un logo, subir
+                         la versión. Para sumar uno, quitarle el fondo antes de subirlo (no se usa mix-blend-mode).
 img/iconos/*.svg         Íconos de Transformación digital y Tecnología colaborativa (hoy van embebidos en el HTML;
                          los archivos quedan como fuente)
 img/equipo/carlos-cita.jpg  Foto de la cita de Carlos (hoy, una silueta provisoria de 880 × 1100)
@@ -118,14 +124,23 @@ cualquier página, y en la home `main.js` las trata como anclas de la misma pág
 Menú: Qué ofrecemos (`/#que-ofrecemos`) · Quiénes somos (`/#quienes-somos`) · Casos (`/#casos`) · Blog (`/novedades/`) ·
 FAQ (`/#preguntas`) · Postulate (`/postulate/`), y el botón "Agendá reunión →" (`/diagnostico-sin-cargo/`).
 
-**WhatsApp:** todos los enlaces a `wa.me/5491150274827` llevan un mensaje precargado (`?text=`) distinto por página
-(home, diagnóstico, gracias, postulate, privacidad y 404), para saber desde dónde escriben.
+**WhatsApp:** el botón flotante está en todas las páginas (también en el diagnóstico y en gracias) y nunca se
+oculta: si queda encima de un control chico (la flecha de un carrusel, un día del calendario), `main.js` lo sube lo
+justo; en celular los "+" de las preguntas dejan libre su columna. Todos los enlaces a `wa.me/5491150274827` llevan un mensaje precargado (`?text=`) distinto por página
+(home, diagnóstico, gracias, postulate, privacidad y 404), para saber desde dónde escriben. El botón flotante es una
+mejora progresiva (`main.js` + "Globo de WhatsApp" en `styles.css`, sin tocar el HTML de cada página): sin JS es el link
+directo; con JS, al pasar el mouse (o al tocarlo en el celular, o con Enter) abre un globo de conversación con el mensaje
+de la página en un campo editable y el botón "Enviar por WhatsApp →", que abre wa.me con el texto que quedó. Se cierra
+con la X, Escape o un clic afuera (con el mouse, si no se entró al globo, se cierra solo al salir). Al enviar publica
+`click_whatsapp` con `link_location: "flotante"`; los demás enlaces a WhatsApp lo publican con su sección.
 
 **Fondos y tarjetas:** regla acordada con Brian: **fondo oscuro únicamente en el hero (placeholder del video de
 fondo)**. El resto alterna blanco (`.bg-white`) y lavanda liso (`.bg-gray`) para que dos secciones seguidas nunca sean
-iguales; paleta acotada (carbón para el texto, violeta, lima solo como acento, blanco y lavanda). Algunas secciones llevan
-`.toque`: una mancha difusa de marca (violeta y lima) detrás del título y, con `.toque--esquina`, otra en la esquina de
-abajo; sutiles, con deriva lentísima y quietas con "reducir movimiento" (ver "Ritmo de fondos" en `styles.css`). Las
+iguales; paleta acotada (carbón para el texto, violeta, lima solo como acento, blanco y lavanda). **Fondo vivo:** cada
+fondo claro lleva dos brillos de marca muy difusos (violeta arriba, lima abajo, en esquinas que se alternan sección a
+sección) que derivan lentísimo; `main.js` agrega la capa `.brillos` a cada sección con fondo propio y las páginas sin
+secciones de color usan `main::before` con la misma deriva. Quietos con "reducir movimiento" (ver "Ritmo de fondos" en
+`styles.css`). Las
 tarjetas no llevan caja, sombra ni filetes: se separan por aire y tipografía, con el número arriba a la izquierda. Los
 círculos de íconos y los chips van en lavanda sobre blanco y en blanco sobre lavanda. Barra de desplazamiento de la
 página en violeta sobre lavanda.
@@ -170,19 +185,25 @@ Capturas de referencia (1440 y 390, por sección y completas): `DOCS/diseno/capt
   - Todos a la misma escala (0,7 px por unidad del dibujo, trazo de 2,2 unidades) en un círculo de 64 px. Cada figura
     lleva `pathLength="64"` para que el trazo se dibuje completo en la entrada.
 - **Presencia**: una sola sección con dos vistas (mapa de Argentina y mapa regional). Pestañas con el nombre, flechas a
-  los costados del mapa (una de cada lado, centradas en alto) y deslizar con el dedo. Cada mapa recorre todas sus zonas
-  con presencia, una por una, y recién al terminar pasa a la otra vista, en bucle; se frena con el mouse encima, con el
-  foco adentro o fuera de pantalla. Las provincias y los países se nombran en el `aria-label` de cada mapa (sin
+  los costados del mapa (una de cada lado, centradas en alto) y deslizar con el dedo. Cada mapa arranca con su
+  presentación ("Argentina" o "Latinoamérica" en un globo al costado del mapa, separado, sin señalar ninguna zona) y
+  después recorre todas sus zonas con presencia, una por una, en orden geográfico: Salta, Tucumán, Misiones, Corrientes,
+  Entre Ríos, Santa Fe, Buenos Aires (con CABA, un solo paso que se llama "Buenos Aires" también al pasar el mouse o
+  tocarlo), Córdoba, San Luis, San Juan, Mendoza y Neuquén; en Latam, Perú, Chile, Argentina, Uruguay y Paraguay. El
+  globo de la presentación va a 9 px del borde del país. Al tocar "Argentina" o "Latam" el recorrido arranca en el acto
+  con la presentación. Recién al terminar pasa a la otra vista, en bucle; se frena con el mouse sobre el mapa o fuera de
+  pantalla. El orden, los pasos dobles ("A+B") y la presentación se configuran en los atributos `data-map-*` del SVG
+  (comentario de la sección). Las provincias y los países se nombran en el `aria-label` de cada mapa (sin
   `<title>` en los trazos: no hay tooltips nativos). Para sumar una zona, agregar `on` a su clase en el SVG.
 - **Equipo**: primero "Nuestro equipo técnico" a todo el ancho y después Carlos, Nicolás, Laura, Lisandro, Brian Sierra y
   Alejandro Ayala. Las certificaciones son solo las vigentes del zip de certificados 2026 (las vencidas pasan a
   "Formación"). Sin foto, `.member__photo` muestra la caja gris con la silueta; para poner la foto va un `<img>` adentro.
 - **Socios tecnológicos**: grilla de 35 logos sin cajas; cada tanto cambia una fila entera en ola, con fundido cruzado y
-  un leve desplazamiento. Se detiene con el mouse encima, con el foco adentro o fuera de pantalla. Sin botón de pausa.
+  un leve desplazamiento. Logos PNG con transparencia real (ver "Estructura"). Se detiene con el mouse encima, con el foco adentro o fuera de pantalla. Sin botón de pausa.
 - **Clientes**: los rubros del fichero original de Nico, sin "Todos", como solapas en una fila arriba (en celular, en
   renglones centrados, sin scroll): Sector público (18), Seguros y salud (6), Laboratorios e industria (8), Medios y
-  tecnología (9) y Servicios y comercio (9). Los rubros avanzan solos cada 7 s, con una línea lima fina en la solapa
-  activa que se llena con el tiempo; el cambio es un fundido con un corrimiento corto. Un clic elige el rubro y el ciclo
+  tecnología (9) y Servicios y comercio (9). Los rubros avanzan solos cada 7 s, sin indicador (la solapa activa en
+  violeta alcanza); el cambio es un fundido con un corrimiento corto. Un clic elige el rubro y el ciclo
   sigue desde ahí; sin botón de pausa (con "reducir movimiento" no avanza solo). Debajo, los logos del rubro en bandas
   continuas que siempre llenan el ancho: una fila hacia la izquierda o, desde 10 logos, dos filas (arriba hacia la
   izquierda y abajo hacia la derecha). Las bandas no se detienen con el mouse: solo fuera de pantalla. Logos en gris que
@@ -194,9 +215,11 @@ Capturas de referencia (1440 y 390, por sección y completas): `DOCS/diseno/capt
   (fundación) a 2026.
 - **Casos**: 40 casos. A la izquierda, un menú con el sector ("Sector público" / "Sector privado", sin "Todos"; arranca
   en público) y los logos de los clientes de ese sector, en gris, que toman color al pasar el mouse; el del caso a la
-  vista queda a color con una barrita lima. Los casos pasan solos con una transición coordinada (sale el anterior y
-  entran escalonados logo, nombre, sector, etiquetas y la lista "Qué hicimos"), una barra de avance que se llena con el
-  tiempo del caso y el contador "01 / 17". Si un cliente tiene varios proyectos (`data-steps`), se pasan de a uno.
+  vista queda a color con una barrita lima. El caso va en una columna con jerarquía clara: logo (caja fija) con el
+  nombre y el sector al lado, las etiquetas de servicio debajo y "Qué hicimos" con la lista numerada de proyectos. Los
+  casos pasan solos: la salida es corta y escalonada y la entrada orquestada (el logo crece apenas, nombre y sector
+  suben, las etiquetas llegan en ola y la lista entra línea por línea). Al pie, el contador "01 / 17" (ancho fijo) y su
+  barra de avance (160 px, 120 en celular) en una fila fija que nunca se mueve. Si un cliente tiene varios proyectos (`data-steps`), se pasan de a uno.
   Flechas a los costados de la tarjeta, centradas. La pista toma el alto del caso activo: sin caja con scroll.
 - **Cita de Carlos**: «Anticiparse y resolver antes de que el cliente lo pida es mucho más fácil que recuperar una
   relación que se rompió.», firmada en una línea "Carlos Baldelli · CEO de Intellihelp" (en celular, nombre arriba y
@@ -252,6 +275,9 @@ de forma es la página de Clau; el formulario es un bloque de reserva propio, co
   - "¿Preferís que te contactemos?" cambia el bloque a la consulta sin turno (`api/contact.php`), con "Volver a los
     horarios". Si el CRM no responde o no quedan horarios, abre directamente la consulta. Sin JS, la consulta funciona
     con un POST normal.
+- **Confían en nosotros:** entre el bloque de reserva y los casos, una franja blanca con los 50 clientes de la home (sin
+  repetir), en la banda común de Clientes: dos filas en movimiento continuo (arriba hacia la izquierda, abajo hacia la
+  derecha), alto fijo y sin pausa con el mouse. Para sumar un cliente, agregar su `li` acá y en su rubro de la home.
 - **Casos:** carrusel de cinco casos (Antes / Qué se hizo / Hoy), flechas a los costados. **Pie mínimo** con la Ley 25.326.
 - **`/gracias-reserva/`** (fondo carbón, noindex): "Listo, {nombre}.", día y horario, a qué mail llegó la invitación,
   qué tener a mano, cómo cambiar el horario y la firma. Si se entra directo, invita a ir a la agenda.
@@ -275,11 +301,50 @@ selección (portal: <https://intellihelp.hiringroom.com/jobs>).
   número arriba a la izquierda, dos columnas en escritorio y una en celular. Mientras consulta se ve "Consultando las
   búsquedas publicadas…" con un indicador propio. La hoja propia de HiringRoom (una regla global sobre todos los `h3`)
   se quita apenas aparece.
-- **Resto de la página:** hero con la card carbón "Cómo te acompañamos", "Por qué trabajar con nosotros" y "Perfiles que
-  solemos buscar", todo con tarjetas sin caja y la misma escala y ritmo de la home.
+- **Resto de la página:** hero con la card blanca "Cómo te acompañamos", "Por qué trabajar con nosotros" y "Perfiles que
+  solemos buscar", todo con tarjetas sin caja y la misma escala y ritmo de la home: número arriba a la izquierda y el
+  ícono (con su levitación), el título, el texto y los chips centrados en la tarjeta.
+- **Perfiles que se arman solos:** el catálogo está en `data/perfiles.json` (12 perfiles). **Los nombres son los de los
+  servicios y soluciones de la home y de la presentación institucional 2026; no se inventan categorías:** Mesa de ayuda,
+  Outsourcing, Video seguridad, Redes outdoor, Redes indoor, Data center, Cloud, Desarrollo de apps, Consultoría,
+  Automatización, Ciberseguridad y Búsqueda de recursos. Cada perfil lleva id, título, texto, chips (los de la tarjeta
+  del mismo nombre en la home), `servicio` (la tarjeta de la home de la que sale el ícono) y palabras clave. Las
+  tarjetas también están escritas en `postulate/index.html` (mismo id en `data-perfil`), para buscadores y para cuando
+  no hay JS: **si se cambia un perfil, cambiarlo en los dos lugares.** `js/postulate.js` pide `/api/busquedas.php` y
+  las reordena: primero los perfiles con búsquedas publicadas ahora (marca lima "Buscamos ahora · N búsquedas", que
+  lleva a `#busquedas`), después los más buscados según el historial y después el resto en el orden del catálogo.
+  Arriba escribe "Hoy buscamos: …" solo si hay búsquedas publicadas (sin búsquedas, esa línea no se muestra). Se ven
+  seis; "Ver todos los perfiles" despliega el resto. Sin JS se ven los doce; si la API falla o tarda más de 6
+  segundos, queda el orden del HTML.
+- **`api/busquedas.php`:** consulta la API pública de HiringRoom (la misma que usa `embed.js`:
+  `https://hiringroom.com/api/vacancies/get_vacancy_list?cuenta=…`, responde `{"vacancies":[…]}`) como mucho cada 30
+  minutos y, si falla, sirve la última respuesta buena y reintenta a los 5 minutos. Clasifica cada título por las
+  palabras clave del catálogo (sin tildes ni mayúsculas, por palabra completa; las que empiezan con `~` son genéricas y
+  solo desempatan); lo que no encaja cuenta como "otros". Guarda un historial (`historial.json`: id, título, lugar,
+  primera y última vez vista) para que con el tiempo quede registro de las búsquedas anteriores. Devuelve JSON con las
+  búsquedas vigentes y, por perfil, cuántas hay ahora y cuántas hubo. Sin datos personales ni claves: solo título y
+  lugar de cada aviso publicado.
+  - **Carpeta de datos** (caché e historial), la primera que se pueda usar: la variable de entorno
+    `ITH_BUSQUEDAS_DATOS`; `busquedas-web/` al lado de la configuración del CRM (`ITH_CRM_CONFIG` o
+    `ITH_CRM_CONFIG_SERVIDOR`; en local queda en `WEB/config/busquedas-web/`, que no se versiona);
+    `ith_web_config/busquedas-web/` al lado de `public_html`, si `ith_web_config` existe; y como último recurso
+    `datos-busquedas/` en la raíz del sitio, que el script protege con un `.htaccess` que niega el acceso y un
+    `.gitignore`. En el hosting conviene que quede fuera de `public_html` (cualquiera de las tres primeras).
+  - **Histórico completo:** la API pública solo trae las búsquedas publicadas en el momento. Para sumar las búsquedas
+    pasadas de HiringRoom hace falta su API privada con las credenciales de la cuenta administradora (las tiene
+    Carlos). El punto de integración está preparado y comentado en `api/busquedas.php` (`historial_api_privada()` y
+    `sumar_historial_privado()`): las credenciales van en un archivo fuera de `public_html` (por ejemplo
+    `ith_web_config/hiringroom.php`, o la ruta de `ITH_HIRINGROOM_CONFIG`), nunca en el repositorio.
+  - **En el hosting:** `api/.htaccess` hoy solo deja pasar `contact.php` y `agenda.php`. Antes de publicar, sumar
+    `busquedas` a las dos reglas `FilesMatch` (`^(contact|agenda|busquedas)\.php$`); si no, la API responde 403 y los
+    perfiles quedan en el orden por defecto.
 - **Sin búsquedas o sin HiringRoom:** si no hay búsquedas publicadas, o el script no carga o no responde en 8 segundos
-  (bloqueador, sin red), se ve el aviso "En este momento no hay búsquedas abiertas" con el botón de mail a
-  rrhh@intellihelp.tech. Sin JS se ve ese mismo aviso.
+  (bloqueador, sin red), se ve el aviso "En este momento no hay búsquedas abiertas" con el botón "Enviá tu CV por
+  correo →": abre el correo de la persona dirigido a rrhh@intellihelp.tech con el asunto "Postulación" (postulación
+  espontánea; la ayuda de abajo dice que hay que adjuntar el CV). No sube archivos. Sin JS se ve ese mismo aviso.
+- **Con búsquedas:** cada tarjeta tiene "Postularme →", que abre el formulario de esa búsqueda en HiringRoom (el CV
+  queda asociado a esa búsqueda), y "Ver la búsqueda". La línea de correo queda debajo solo como alternativa: "¿Ninguna
+  búsqueda se ajusta a tu perfil? Enviá tu CV por correo…".
 - **Política de seguridad:** el hosting hoy no manda Content-Security-Policy. Si se agrega, permitir
   `https://hiringroom.com` en `script-src` y `connect-src`.
 - **Medición:** además de `cta_click` e `internal_nav`, los botones de la página publican `postulate_click`.
@@ -300,7 +365,12 @@ selección (portal: <https://intellihelp.hiringroom.com/jobs>).
 - **Un solo botón:** `.btn` (con `.btn-lime`, `.btn-light`, `.btn-soft`, `.btn-gray`) en todo el sitio, también en el
   header y en el diagnóstico: hover con cambio de color, brillo y flecha que avanza; al hacer clic se hunde apenas.
 - **Animaciones de entrada**: los `.rv` aparecen al entrar en pantalla, una sola vez. El script del `<head>` pone en
-  `<html>` las clases `js` y `anim`; sin `anim` todo se ve quieto.
+  `<html>` las clases `js` y `anim`; sin `anim` todo se ve quieto. Nada puede quedar oculto: lo que se descubre ya metido
+  en la pantalla (scroll rápido, ancla) o que quedó arriba sin verse (recarga a mitad de página, Atrás) aparece quieto en
+  el mismo cuadro, y a los 2 s de abrirse el telón y cada vez que el scroll se detiene se muestra todo lo que esté a la
+  vista o más arriba (ver `README-movimiento.md`). El lienzo (`html`) también es lavanda: nunca hay un cuadro blanco.
+- **Índice de `/privacidad/`**: marca la última sección cuyo título subió al primer cuarto de la parte útil de la
+  pantalla (debajo del header); con el final de la página a la vista, la última (Contacto); al tocar un ítem, ese.
 - **Texto del hero**: entra cuando empieza a salir el telón de la carga (`ith:intro-salida`).
 - **Escala de títulos**: tokens `--h1`, `--h2` y `--h2-big` en `:root` de `styles.css` (copiados en el `main.css` del
   tema del blog). El H1 de cada página usa `--h1` y siempre es lo más grande de la pantalla.
@@ -329,7 +399,9 @@ selección (portal: <https://intellihelp.hiringroom.com/jobs>).
 - [ ] Validar qué logos de clientes y qué casos se pueden publicar con nombre.
 - [ ] Redirecciones del `.htaccess`: antes de publicar, cruzar la lista con las páginas que Search Console muestra
       con tráfico o enlaces y probarlas en el hosting con el checklist de "Lanzamiento en Hostinger".
-- [ ] Tema del blog: recopiar `css/carga.css`, `js/carga.js` y el header nuevo (barra carbón) en el tema de WordPress.
+- [ ] Tema del blog: recopiar `css/carga.css`, `js/carga.js` y el header nuevo (barra carbón) en el tema de WordPress,
+      y el globo de WhatsApp (bloque "Globo de WhatsApp" de `styles.css` y los módulos "WhatsApp flotante: globo" y
+      "Medición: clics a WhatsApp" de `main.js`).
 
 ## Lanzamiento en Hostinger
 

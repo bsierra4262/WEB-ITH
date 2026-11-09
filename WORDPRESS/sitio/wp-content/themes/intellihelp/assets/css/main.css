@@ -1,6 +1,6 @@
 /* =========================================================
    Intellihelp Novedades — estilos comunes con el sitio principal
-   Subconjunto de TEMPLATE-NICO/css/styles.css: fuente, tokens, base, fondo, tipografía, botones, header, pie, WhatsApp
+   Subconjunto de TEMPLATE-NICO/css/styles.css: fuente, tokens, base, fondo vivo, tipografía, botones, header, pie, WhatsApp
    flotante, encabezados de pantalla, texto de las notas (.prose), card de cierre y revelados. Las reglas están
    copiadas tal cual (mismos valores y la misma curva --ease-out) para que el header y el pie se vean idénticos; lo
    propio del blog va en blog.css. No se carga el CSS de la home (carruseles, mapas, casos, equipo...).
@@ -70,6 +70,9 @@
   html { scroll-behavior: smooth; }
 }
 
+/* El lienzo también va en lavanda (no solo el body): ni al recargar, ni al rebotar el scroll en los bordes, ni mientras
+   el navegador arma la página se ve un cuadro blanco. */
+html { background: var(--lavender); }
 body {
   margin: 0;
   font-family: 'Saira', sans-serif;
@@ -143,17 +146,28 @@ input[type="search"]::-webkit-search-results-decoration { -webkit-appearance: no
 @media (max-width: 600px) { :root { --wrap-pad: 20px; } }
 
 .section { padding: var(--section-y) 0; }
-/* Fondos: solo color, alternados sección a sección (la clase va en cada <section>) */
-.bg-white { background: transparent; }
-.bg-gray { background: var(--lav-2); }
-
-/* ---------- Fondo del sitio: lavanda con un toque de marca ----------
-   Igual que el sitio principal (TEMPLATE-NICO/css/styles.css, "Fondo del sitio"): lavanda liso (#F0EBF5) y, detrás del
-   contenido, un brillo de marca muy suave (violeta arriba a la derecha y lima abajo a la izquierda), fijo a la pantalla
-   y con una deriva lentísima (90 s); con "reducir movimiento" queda quieto. .bg-white es "lavanda con toque"
-   (transparente) y .bg-gray "lavanda liso" (--lav-2). El pie queda blanco y el cierre, en carbón.
-   El brillo es un ::before fijo de <main> con z-index -1: queda debajo de todo el contenido. */
-:root { --lav-2: color-mix(in srgb, var(--lavender) 55%, var(--gray-bg)); }
+/* ---------- Ritmo de fondos y toques de marca ----------
+   REGLA: fondo oscuro únicamente en el hero (placeholder del video de fondo). El resto del sitio es claro y homogéneo:
+   las secciones alternan blanco (.bg-white) y lavanda liso (.bg-gray), de modo que dos seguidas nunca tengan el mismo
+   fondo. Paleta acotada: carbón para el texto, violeta #663399, lima #98CC32 solo como acento, blanco y lavanda.
+   Copia de TEMPLATE-NICO/css/styles.css ("Ritmo de fondos y toques de marca"); en el blog main.js pone las capas
+   .brillos en las secciones claras (listado, notas relacionadas, cierre, cuerpo del 404). Si cambia allá, se copia acá.
+   Home: hero carbón · Qué ofrecemos blanco · Presencia lavanda · Equipo blanco · Socios lavanda · Clientes blanco ·
+   Historia lavanda · Casos blanco · Cita lavanda · Preguntas blanco · Cierre lavanda (card blanca) · pie blanco.
+   Las piezas claras se ajustan al fondo: círculos de íconos y chips en lavanda sobre blanco y en blanco sobre lavanda.
+   Fondo vivo (pedido de Brian, 09/11: "muy liso"): los colores siguen lisos, pero cada fondo claro lleva dos brillos
+   de marca muy difusos (violeta y lima, los del título del diagnóstico) que derivan lentísimo (50–64 s, ida y vuelta).
+   - Secciones con fondo propio (blanco o lavanda): main.js les agrega una capa .brillos (aria-hidden) como primer
+     hijo, con un brillo violeta arriba y uno lima abajo, en esquinas opuestas que se alternan sección a sección
+     (data-lado a/b), así la página tiene un ritmo y nunca dos secciones seguidas iguales. Fuera de pantalla se detienen.
+   - Páginas sin secciones de color (privacidad, 404, diagnóstico): el fondo fijo de main::before, con la misma deriva.
+   - Opacidades bajas (.09 violeta, .13 lima) y solo transform: no ensucian, no bajan el contraste y no repintan.
+     Con "reducir movimiento", quietos. Sin JS, las secciones quedan lisas y main::before igual se ve. */
+:root { --lav-2: var(--lavender); }
+.bg-white { background: var(--white); }
+.bg-gray { background: var(--lavender); }
+/* Base de las páginas sin sección de fondo propio (404, privacidad, diagnóstico): lavanda con dos brillos fijos que
+   derivan muy despacio */
 main::before {
   content: "";
   position: fixed;
@@ -161,17 +175,35 @@ main::before {
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(42% 38% at 82% 18%, rgb(102 51 153 / .13), transparent 70%),
-    radial-gradient(38% 34% at 14% 86%, rgb(152 204 50 / .14), transparent 70%),
-    radial-gradient(30% 26% at 30% 30%, rgb(102 51 153 / .05), transparent 70%);
+    radial-gradient(42% 38% at 82% 18%, rgb(102 51 153 / .10), transparent 70%),
+    radial-gradient(38% 34% at 14% 86%, rgb(152 204 50 / .12), transparent 70%);
 }
+.dx--noche main::before { content: none; }
+
+.con-brillos { position: relative; isolation: isolate; }
+.brillos { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.brillos::before, .brillos::after {
+  content: "";
+  position: absolute;
+  width: min(820px, 90vw);
+  height: min(560px, 75vw);
+  border-radius: 50%;
+}
+.brillos::before { top: -18%; left: -14%; background: radial-gradient(closest-side, rgb(102 51 153 / .09), rgb(102 51 153 / 0)); }
+.brillos::after { right: -14%; bottom: -22%; background: radial-gradient(closest-side, rgb(152 204 50 / .13), rgb(152 204 50 / 0)); }
+.brillos[data-lado="b"]::before { right: -14%; left: auto; }
+.brillos[data-lado="b"]::after { right: auto; left: -14%; }
 @media (prefers-reduced-motion: no-preference) {
-  main::before { animation: fondoDeriva 90s ease-in-out infinite alternate; }
+  .brillos::before { animation: brilloA 52s ease-in-out infinite alternate; }
+  .brillos::after { animation: brilloB 64s ease-in-out -18s infinite alternate; }
+  .brillos[data-lado="b"]::before { animation-name: brilloB; animation-duration: 58s; }
+  .brillos[data-lado="b"]::after { animation-name: brilloA; animation-duration: 50s; }
+  .brillos.is-quieto::before, .brillos.is-quieto::after { animation-play-state: paused; }
+  main::before { animation: brilloFondo 70s ease-in-out infinite alternate; }
 }
-@keyframes fondoDeriva {
-  from { transform: translate3d(0, 0, 0) scale(1); }
-  to { transform: translate3d(-4%, 3%, 0) scale(1.06); }
-}
+@keyframes brilloA { from { transform: translate3d(0, 0, 0) scale(1); } to { transform: translate3d(16%, 12%, 0) scale(1.14); } }
+@keyframes brilloB { from { transform: translate3d(0, 0, 0) scale(1.1); } to { transform: translate3d(-14%, -10%, 0) scale(.94); } }
+@keyframes brilloFondo { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-4%, 3%, 0) scale(1.05); } }
 
 .section-head { max-width: 760px; display: flex; flex-direction: column; gap: 14px; margin-bottom: 36px; }
 .section-head--wide { max-width: 980px; }
@@ -331,10 +363,117 @@ h1.section-title { font-size: var(--h1); } /* el H1 del listado, las categorías
 }
 /* Entra una sola vez, después del hero */
 .anim .wa-float { animation: rise .5s 1.5s var(--ease-out) backwards; }
+/* Siempre a la vista. En la home main.js lo sube lo justo (--wa-lift) si tapa un control chico; el blog no tiene esos
+   controles y no lo define (queda en 0), pero comparte la regla para que el componente sea el mismo. */
+.wa-float { translate: 0 calc(-1 * var(--wa-lift, 0px)); }
+@media (prefers-reduced-motion: no-preference) {
+  .wa-float { transition: transform var(--t-lift) var(--ease-out), translate .35s var(--ease-out), background-color var(--t-fast) var(--ease-out), color var(--t-fast) var(--ease-out); }
+}
 @media (max-width: 760px) {
   .wa-float { right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); width: 52px; height: 52px; }
   .wa-float .ico { width: 26px; height: 26px; }
 }
+.wa-float.is-oculto { opacity: 0; pointer-events: none; }
+/* Con el globo abierto, el botón queda en blanco con el logo carbón (el mismo estado que el hover) */
+.wa-float.is-activo { background: var(--white); color: var(--ink); }
+
+/* Globo de WhatsApp (main.js lo arma sobre el botón flotante; sin JS no existe y el botón es el link directo).
+   Un globo de conversación blanco que nace del botón: encabezado con el logo, el mensaje de la página en un campo
+   editable con forma de mensaje propio (lavanda, sin borde ni tirador de tamaño, crece con el texto) y el botón lima
+   "Enviar por WhatsApp →". Se abre con un fundido y una escala corta desde el botón; con "reducir movimiento", solo el
+   fundido. La cola apunta al centro del botón. */
+.wa-globo {
+  --wa-boton: 60px;
+  --wa-borde: 24px;
+  position: fixed;
+  right: var(--wa-borde);
+  bottom: calc(var(--wa-borde) + var(--wa-boton) + 14px + var(--wa-lift, 0px) + env(safe-area-inset-bottom, 0px));
+  z-index: 51;
+  box-sizing: border-box;
+  width: min(340px, calc(100vw - 32px));
+  padding: 18px;
+  border-radius: 18px;
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: 0 24px 56px -16px rgba(42, 42, 42, .38), 0 2px 8px rgba(42, 42, 42, .08);
+  opacity: 0;
+  transform: translateY(10px) scale(.96);
+  transform-origin: calc(100% - var(--wa-boton) / 2) 100%;
+  transition: opacity .22s var(--ease-out), transform .34s var(--ease-out);
+  pointer-events: none;
+}
+.wa-globo.is-abierto { opacity: 1; transform: none; pointer-events: auto; }
+.wa-globo::after {
+  content: "";
+  position: absolute;
+  right: calc(var(--wa-boton) / 2 - 7px);
+  bottom: -6px;
+  width: 14px;
+  height: 14px;
+  border-radius: 0 0 3px 0;
+  background: var(--white);
+  transform: rotate(45deg);
+}
+.wa-globo__cab { display: flex; align-items: center; gap: 12px; margin: 0 0 14px; padding-right: 32px; }
+.wa-globo__avatar { display: inline-flex; flex: none; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: var(--lime); color: var(--white); }
+.wa-globo__avatar svg { width: 22px; height: 22px; }
+.wa-globo__titulo { margin: 0; font-size: 16px; font-weight: 700; line-height: 1.25; }
+.wa-globo__sub { margin: 2px 0 0; color: var(--muted); font-size: 13px; line-height: 1.35; }
+.wa-globo__cerrar {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background-color var(--t-fast) var(--ease-out), color var(--t-fast) var(--ease-out);
+}
+.wa-globo__cerrar:hover { background: var(--lavender); color: var(--ink); }
+.wa-globo__texto {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 76px;
+  max-height: 172px;
+  margin: 0 0 14px;
+  padding: 12px 14px;
+  border: 0;
+  border-radius: 14px 14px 4px 14px;
+  background: var(--lavender);
+  color: var(--ink);
+  font: inherit;
+  font-size: 15px;
+  line-height: 1.5;
+  overflow-y: auto;
+  resize: none;
+  -webkit-appearance: none;
+  appearance: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--purple) transparent;
+  box-shadow: inset 0 0 0 2px transparent;
+  transition: box-shadow var(--t-fast) var(--ease-out);
+}
+.wa-globo__texto::-webkit-scrollbar { width: 6px; background: transparent; }
+.wa-globo__texto::-webkit-scrollbar-thumb { border-radius: 6px; background: var(--purple); }
+.wa-globo__texto:focus { outline: none; }
+.wa-globo__texto:focus-visible { box-shadow: inset 0 0 0 2px var(--purple); }
+.wa-globo__enviar { width: 100%; min-height: 50px; font-size: 16px; }
+@media (max-width: 760px) {
+  .wa-globo { --wa-boton: 52px; --wa-borde: 16px; padding: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wa-globo { transform: none; transition: opacity .15s linear; }
+  .wa-float.is-activo { transform: none; }
+}
+@media print { .wa-globo { display: none; } }
 
 /* ---------- Header (componente único de todas las páginas) ----------
    Barra carbón con el logo original y la frase "Servicios IT / desde 2010" en dos líneas, el menú en mayúsculas

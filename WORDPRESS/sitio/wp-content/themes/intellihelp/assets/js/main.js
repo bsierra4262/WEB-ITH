@@ -2,6 +2,7 @@
    Es el subconjunto de TEMPLATE-NICO/js/main.js que necesita el blog, con la misma lógica (el menú angosto y el
    header están copiados tal cual):
    origen de la visita · menú angosto · header que se compacta y se esconde · medición (cta_click e internal_nav) ·
+   fondo vivo (brillos de las secciones claras) · globo de WhatsApp (con la medición click_whatsapp) ·
    revelado al scrollear (copiado tal cual del sitio principal: espera al telón de la animación de carga y se repite
    al volver desde el historial).
    Nada se mueve solo: el blog no tiene carruseles, cintas ni botones de pausa. */
@@ -189,31 +190,290 @@
     // Cada elemento aparece una sola vez: al mostrarlo se deja de observar y al volver a subir ya está ahí.
     // En un carrusel de tarjetas, mostrar una muestra todo el carrusel: las tarjetas de los otros grupos terminan su
     // entrada fuera de vista y al pasar con las flechas ya están quietas (sin escalonado repetido).
-    const reveal = (el) => {
-      const group = el.matches('[data-carousel-track] .rv') ? el.closest('[data-carousel-track]').querySelectorAll('.rv') : [el];
-      group.forEach((item) => {
-        item.classList.add('show');
-        io.unobserve(item);
-        ioTall.unobserve(item);
+    //
+    // Nada puede quedar oculto (pedido de Brian: nunca una pantalla en blanco al scrollear o al recargar):
+    // - Umbral 0: un bloque entra (con su animación) apenas su borde cruza la línea del 90 % de la pantalla, sea del
+    //   alto que sea. Es lo que pasa al scrollear a un ritmo normal.
+    // - Lo que se descubre ya metido en la pantalla (scroll muy rápido, salto a un ancla) o lo que el visitante pasó sin
+    //   llegar a verlo (recarga a mitad de página, vuelta con Atrás) aparece ya quieto, sin entrada (`ya`), en el mismo
+    //   cuadro del scroll: nunca se ve una pantalla vacía esperando animaciones, ni al bajar rápido ni al volver a subir.
+    // - Respaldo: a los 2 s de abrirse el telón y cada vez que el scroll se detiene, todo lo que esté a la vista o más
+    //   arriba se muestra, haya avisado o no el IntersectionObserver.
+    const pendientes = new Set();
+    // Entradas que dejan algo oculto mientras corren; al mostrar "ya", se adelantan a su final. Las animaciones que
+    // no son de entrada (bandas, avance de rubros, mapa, levitación) siguen su curso.
+    const ENTRADAS = /^(rise|riseSm|focusIn|fadeIn|pop|popSoft|draw|histRing|mLine|mUncover|mZoom|mGrow)$/;
+    const terminar = (el) => {
+      if (typeof el.getAnimations !== 'function') return;
+      el.getAnimations({ subtree: true }).forEach((a) => {
+        if (!ENTRADAS.test(a.animationName || '')) return;
+        try { a.finish(); } catch (err) { /* animación infinita: no es de entrada */ }
       });
     };
-    const onEntries = (entries) => entries.forEach(({ target, isIntersecting }) => { if (isIntersecting) reveal(target); });
-    const margin = '0px 0px -8% 0px';
-    const io = new IntersectionObserver(onEntries, { threshold: 0.15, rootMargin: margin });
-    // Bloques más altos que la pantalla (grilla de clientes en celular, por ejemplo): con 0.15 podrían no llegar
-    // nunca al umbral, así que se muestran apenas asoman.
-    const ioTall = new IntersectionObserver(onEntries, { threshold: 0, rootMargin: margin });
-    // Se observa al abrirse los telones. Con el scroll restaurado por el navegador (recarga a mitad de página) solo se
-    // revela lo que está a la vista; lo de arriba entra cuando se vuelve a subir.
-    const observar = () => items.forEach((el) => {
-      if (!el.classList.contains('show')) (el.offsetHeight > innerHeight * 0.8 ? ioTall : io).observe(el);
-    });
+    const reveal = (el, { ya = false, sinDemora = false } = {}) => {
+      const group = el.matches('[data-carousel-track] .rv') ? [...el.closest('[data-carousel-track]').querySelectorAll('.rv')] : [el];
+      const nuevos = group.filter((item) => !item.classList.contains('show'));
+      nuevos.forEach((item) => {
+        if (ya) item.classList.add('rv-ya'); // motion.js no parte el título de un bloque que aparece ya quieto
+        else if (sinDemora) item.style.setProperty('--rv-d', '0s');
+        item.classList.add('show');
+        pendientes.delete(item);
+        io.unobserve(item);
+      });
+      // Después de los observadores de motion.js (microtareas), que suman sus propias entradas al ver .show
+      if (ya && nuevos.length) Promise.resolve().then(() => nuevos.forEach(terminar));
+    };
+    let primeraTanda = false; // la primera respuesta del observer: lo que se ve al abrirse el telón entra escalonado
+    const io = new IntersectionObserver((entries) => {
+      const alto = innerHeight;
+      entries.forEach(({ target, isIntersecting, boundingClientRect: r }) => {
+        if (!isIntersecting) return;
+        // Ya adentro de la pantalla al descubrirlo: el visitante llegó de un salto o va muy rápido
+        reveal(target, primeraTanda ? {} : { ya: r.top < alto * 0.72 });
+      });
+      primeraTanda = false;
+    }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
+    let abierto = false;
+    // modo 'arriba': solo lo que quedó por encima de la pantalla (ya quieto). 'scroll': además, lo que ya está metido en
+    // la pantalla (ya quieto, en el mismo cuadro del scroll, antes de pintarse). 'forzar' (respaldo): además, todo lo que
+    // esté a la vista, con su entrada sin demora.
+    const barrer = (modo) => {
+      if (!abierto || !pendientes.size) return;
+      const alto = innerHeight;
+      const ya = [];
+      const visibles = [];
+      pendientes.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.bottom <= 0 && r.top < 0) ya.push(el);
+        else if (r.top < alto && r.bottom > 0) {
+          if (modo !== 'arriba' && r.top < alto * 0.72) ya.push(el);
+          else if (modo === 'forzar') visibles.push(el);
+        }
+      });
+      ya.forEach((el) => reveal(el, { ya: true }));
+      visibles.forEach((el) => reveal(el, { sinDemora: true }));
+    };
+    let barrerRaf = 0;
+    let quieto = 0;
+    const alScrollear = () => {
+      if (!barrerRaf) barrerRaf = requestAnimationFrame(() => { barrerRaf = 0; barrer('scroll'); });
+      clearTimeout(quieto);
+      quieto = setTimeout(() => barrer('forzar'), 1200);
+    };
+    addEventListener('scroll', alScrollear, { passive: true });
+    addEventListener('resize', alScrollear);
+    // Se observa al abrirse los telones. Con el scroll restaurado por el navegador (recarga a mitad de página) lo que
+    // está a la vista entra delante del visitante y lo de arriba ya está en su lugar al volver a subir.
+    const observar = () => {
+      abierto = true;
+      primeraTanda = true;
+      items.forEach((el) => { if (!el.classList.contains('show')) { pendientes.add(el); io.observe(el); } });
+      barrer('arriba');
+      setTimeout(() => barrer('forzar'), 2000);
+    };
     alAbrir(observar);
     alRepetir(() => {
       io.disconnect();
-      ioTall.disconnect();
-      items.forEach((el) => el.classList.remove('show'));
+      pendientes.clear();
+      abierto = false;
+      items.forEach((el) => el.classList.remove('show', 'rv-ya'));
       alAbrir(observar);
     });
   }
+
+  /* ---------- Fondo vivo: brillos de marca en cada fondo claro ---------- */
+  // Cada sección de primer nivel con fondo claro propio (blanco o lavanda) recibe como primer hijo una capa .brillos
+  // con dos brillos difusos (violeta y lima) que derivan muy despacio (CSS, "Ritmo de fondos"). Las capas alternan de
+  // lado (data-lado a/b) sección a sección y se detienen fuera de pantalla. El hero carbón tiene su propio fondo de
+  // luces y las secciones transparentes (bloque de reserva del diagnóstico, por ejemplo) muestran el de main::before.
+  {
+    const claro = (el) => {
+      const m = getComputedStyle(el).backgroundColor.match(/[\d.]+/g);
+      if (!m || (m.length > 3 && Number(m[3]) === 0)) return false;
+      const [r, g, b] = m.map(Number);
+      return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255 > 0.7;
+    };
+    // En el blog: encabezados de pantalla y de nota, listado, cuerpo del 404, notas relacionadas y cierre (solo las
+    // que tienen fondo claro propio; las transparentes muestran el de main::before).
+    const capas = [...document.querySelectorAll('main section, main .page-head, main .post-hero')]
+      .filter((el) => !el.parentElement.closest('section') && !el.matches('.hero, .tech, .section--dark') && claro(el));
+    const io = 'IntersectionObserver' in window
+      ? new IntersectionObserver((entries) => entries.forEach((en) => en.target.classList.toggle('is-quieto', !en.isIntersecting)), { rootMargin: '10% 0px' })
+      : null;
+    capas.forEach((sec, i) => {
+      const capa = document.createElement('div');
+      capa.className = 'brillos';
+      capa.setAttribute('aria-hidden', 'true');
+      capa.dataset.lado = i % 2 ? 'b' : 'a';
+      sec.classList.add('con-brillos');
+      sec.prepend(capa);
+      if (io) io.observe(capa);
+    });
+  }
+
+  /* ---------- WhatsApp flotante: botón y estado ----------
+     En el sitio principal, waActualizar también oculta el botón donde taparía flechas o controles; el blog no tiene
+     esos controles, así que solo queda el estado del globo (abierto o cerrado). zonaDe es la de "Medición". */
+  const waFloat = document.querySelector('.wa-float');
+  let waAbierto = false;
+  const waActualizar = () => {};
+
+  /* ---------- WhatsApp flotante: globo con el mensaje de la página ---------- */
+  // Mejora progresiva del enlace flotante (.wa-float, el mismo en todas las páginas): sin JS sigue siendo el link
+  // directo a wa.me con el mensaje de la página (?text=). Con JS, al pasar el mouse (o al tocarlo en el celular, o con
+  // Enter) se abre un globo de conversación con ese mensaje en un campo editable y el botón "Enviar por WhatsApp →",
+  // que abre wa.me con el texto que quedó (la app o WhatsApp Web, según el dispositivo, como el link de siempre).
+  // - Mouse: se abre al apoyarse sobre el botón y se cierra solo al salir, salvo que el visitante ya haya entrado al
+  //   globo (clic o foco adentro); desde ahí queda abierto hasta la X, Escape o un clic afuera.
+  // - Toque y teclado: el botón abre y cierra el globo. Con teclado, el foco va al mensaje; con el dedo no (el teclado
+  //   del celular no aparece hasta tocar el mensaje). Escape cierra y devuelve el foco al botón; salir con Tab, también
+  //   cierra. Ctrl/Cmd + Enter en el mensaje envía.
+  // - El campo crece con el texto, sin tirador de tamaño; recién pasados unos 7 renglones muestra una barra fina con
+  //   los colores del sitio.
+  // - Medición: click_whatsapp (link_location "flotante") al enviar; el resto de los enlaces a WhatsApp lo publica con
+  //   su sección (módulo siguiente).
+  if (waFloat) {
+    let destino = null;
+    try { destino = new URL(waFloat.href); } catch (err) { /* sin href válido: queda el link tal cual */ }
+    if (destino && /(^|\.)wa\.me$|(^|\.)whatsapp\.com$/.test(destino.hostname)) {
+      const mensaje = destino.searchParams.get('text') || '';
+      const base = destino.origin + destino.pathname;
+      const reducido = matchMedia('(prefers-reduced-motion: reduce)');
+      const globo = document.createElement('div');
+      globo.className = 'wa-globo';
+      globo.id = 'wa-globo';
+      globo.hidden = true;
+      globo.setAttribute('role', 'dialog');
+      globo.setAttribute('aria-labelledby', 'wa-globo-titulo');
+      globo.innerHTML = '<div class="wa-globo__cab"><span class="wa-globo__avatar" aria-hidden="true"></span><div>'
+        + '<p class="wa-globo__titulo" id="wa-globo-titulo">Escribinos por WhatsApp</p>'
+        + '<p class="wa-globo__sub">Podés editarlo antes de enviar.</p></div></div>'
+        + '<label class="sr-only" for="wa-globo-texto">Mensaje</label>'
+        + '<textarea id="wa-globo-texto" class="wa-globo__texto" rows="3"></textarea>'
+        + '<a class="btn btn-lime wa-globo__enviar" target="_blank" rel="noopener">Enviar por WhatsApp <span class="arr" aria-hidden="true">→</span></a>'
+        + '<button type="button" class="wa-globo__cerrar" aria-label="Cerrar"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>';
+      const logo = waFloat.querySelector('svg');
+      if (logo) globo.querySelector('.wa-globo__avatar').append(logo.cloneNode(true));
+      const texto = globo.querySelector('textarea');
+      const enviar = globo.querySelector('.wa-globo__enviar');
+      const cerrarBtn = globo.querySelector('.wa-globo__cerrar');
+      texto.value = mensaje;
+      const armarEnlace = () => {
+        const t = texto.value.trim();
+        enviar.href = t ? `${base}?text=${encodeURIComponent(t)}` : base;
+      };
+      const ajustarAlto = () => {
+        texto.style.height = 'auto';
+        texto.style.height = `${texto.scrollHeight}px`; // el CSS lo limita (max-height)
+      };
+      armarEnlace();
+      waFloat.after(globo);
+      waFloat.setAttribute('aria-expanded', 'false');
+      waFloat.setAttribute('aria-controls', globo.id);
+      waFloat.setAttribute('aria-haspopup', 'dialog');
+      waFloat.setAttribute('aria-label', 'Escribinos por WhatsApp');
+
+      let fijo = false; // el visitante entró al globo: no se cierra al sacar el mouse
+      let tAbrir = 0;
+      let tCerrar = 0;
+      let tOcultar = 0;
+      let tipo = 'mouse'; // con qué se tocó el botón por última vez
+      const abrir = ({ foco = false, fijar = false } = {}) => {
+        clearTimeout(tCerrar);
+        clearTimeout(tOcultar);
+        if (fijar) fijo = true;
+        if (!waAbierto) {
+          waAbierto = true;
+          globo.hidden = false;
+          ajustarAlto();
+          void globo.offsetWidth; // la transición de apertura arranca desde el estado cerrado
+          globo.classList.add('is-abierto');
+          waFloat.classList.add('is-activo');
+          waFloat.setAttribute('aria-expanded', 'true');
+          waActualizar();
+        }
+        if (foco) {
+          texto.focus({ preventScroll: true });
+          texto.setSelectionRange(texto.value.length, texto.value.length);
+        }
+      };
+      const cerrar = ({ devolverFoco = false } = {}) => {
+        clearTimeout(tAbrir);
+        clearTimeout(tCerrar);
+        if (!waAbierto) return;
+        waAbierto = false;
+        fijo = false;
+        globo.classList.remove('is-abierto');
+        waFloat.classList.remove('is-activo');
+        waFloat.setAttribute('aria-expanded', 'false');
+        if (devolverFoco) waFloat.focus({ preventScroll: true });
+        tOcultar = setTimeout(() => { if (!waAbierto) globo.hidden = true; }, reducido.matches ? 160 : 360);
+        waActualizar();
+      };
+
+      const esMouse = (e) => e.pointerType === 'mouse';
+      waFloat.addEventListener('pointerdown', (e) => { tipo = e.pointerType || 'mouse'; });
+      waFloat.addEventListener('pointerenter', (e) => {
+        if (!esMouse(e)) return;
+        clearTimeout(tCerrar);
+        if (!waAbierto) tAbrir = setTimeout(() => abrir(), 120);
+      });
+      const salir = (e) => {
+        if (!esMouse(e)) return;
+        clearTimeout(tAbrir);
+        if (!waAbierto || fijo) return;
+        tCerrar = setTimeout(() => { if (!fijo) cerrar(); }, 380);
+      };
+      waFloat.addEventListener('pointerleave', salir);
+      globo.addEventListener('pointerleave', salir);
+      globo.addEventListener('pointerenter', (e) => { if (esMouse(e)) clearTimeout(tCerrar); });
+      globo.addEventListener('pointerdown', () => { fijo = true; });
+      globo.addEventListener('focusin', () => { fijo = true; });
+      waFloat.addEventListener('click', (e) => {
+        e.preventDefault(); // con JS, el botón abre el globo; el envío lo hace "Enviar por WhatsApp"
+        clearTimeout(tAbrir);
+        const teclado = e.detail === 0;
+        if (waAbierto && (fijo || teclado || tipo !== 'mouse')) { cerrar({ devolverFoco: teclado }); return; }
+        abrir({ foco: teclado || tipo === 'mouse', fijar: true });
+      });
+      cerrarBtn.addEventListener('click', () => cerrar({ devolverFoco: true }));
+      texto.addEventListener('input', () => { armarEnlace(); ajustarAlto(); });
+      texto.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); enviar.click(); }
+      });
+      enviar.addEventListener('click', () => { armarEnlace(); setTimeout(() => cerrar(), 0); });
+      document.addEventListener('keydown', (e) => {
+        if (e.key !== 'Escape' || !waAbierto) return;
+        const adentro = globo.contains(document.activeElement) || document.activeElement === waFloat;
+        cerrar({ devolverFoco: adentro });
+      });
+      // Clic o toque afuera (en captura, antes que cualquier otro manejador)
+      document.addEventListener('pointerdown', (e) => {
+        if (!waAbierto || !(e.target instanceof Node)) return;
+        if (globo.contains(e.target) || waFloat.contains(e.target)) return;
+        cerrar();
+      }, true);
+      // Tab fuera del globo y del botón
+      const alSalirFoco = (e) => {
+        const a = e.relatedTarget;
+        if (!waAbierto || !a || globo.contains(a) || waFloat.contains(a)) return;
+        cerrar();
+      };
+      globo.addEventListener('focusout', alSalirFoco);
+      waFloat.addEventListener('focusout', alSalirFoco);
+    }
+  }
+
+  /* ---------- Medición: clics a WhatsApp ---------- */
+  // click_whatsapp con link_location: "flotante" (el botón de envío del globo, o el botón flotante sin el globo) o la
+  // sección del enlace (agenda, footer...). No cuenta el clic que solo abre el globo (ese no sale a WhatsApp).
+  document.addEventListener('click', (e) => {
+    const a = e.target instanceof Element ? e.target.closest('a[href*="wa.me/"], a[href*="api.whatsapp.com/"]') : null;
+    if (!a || e.defaultPrevented) return;
+    (window.dataLayer = window.dataLayer || []).push({
+      event: 'click_whatsapp',
+      link_location: a.closest('.wa-globo, .wa-float') ? 'flotante' : (zonaDe(a) || 'contenido'),
+      page_path: location.pathname,
+    });
+  });
 })();

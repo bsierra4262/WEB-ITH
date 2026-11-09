@@ -57,8 +57,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 </footer>
 
 <!-- WhatsApp comercial (mismo número que el cierre de la home y el JSON-LD). Lima con el logo blanco; al pasar el mouse,
-     blanco con el logo carbón. -->
-<a href="<?php echo esc_url( ith_url_whatsapp() ); ?>" target="_blank" rel="noopener" class="wa-float" aria-label="Escribinos por WhatsApp (se abre en una pestaña nueva)">
+     blanco con el logo carbón. Con JS abre el globo con el mensaje del blog (?text=), editable antes de enviar (main.js);
+     sin JS es el link directo. -->
+<a href="<?php echo esc_url( ith_url_whatsapp() . '?text=' . rawurlencode( 'Hola, vengo de las novedades de Intellihelp y quiero hacer una consulta.' ) ); ?>" target="_blank" rel="noopener" class="wa-float" aria-label="Escribinos por WhatsApp (se abre en una pestaña nueva)">
   <?php echo ith_icono( 'whatsapp', 30 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- SVG fijo. ?>
 </a>
 

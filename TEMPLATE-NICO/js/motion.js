@@ -98,6 +98,8 @@
     while (host.parentElement && host.parentElement !== seq) host = host.parentElement;
     if (host.parentElement !== seq) return;
     const armed = whenShown(seq, () => {
+      // main.js muestra "ya" (sin entrada) lo que el visitante pasó sin verlo: ahí el título queda entero, sin partir
+      if (seq.classList.contains('rv-ya')) return;
       try {
         const masks = split(el);
         if (!masks.length) return;

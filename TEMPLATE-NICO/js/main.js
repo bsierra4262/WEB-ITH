@@ -2,8 +2,9 @@
    (/diagnostico-sin-cargo/, /postulate/).
    Módulos, en orden: trayectoria (años) · origen de la visita · menú angosto · barra con sección activa · enlaces internos · CTAs
    (medición) · hero con video · párrafos "Ver más" · revelado al scrollear · contadores · carruseles · filtro de casos ·
-   cinta de clientes · socios (slots) · slider de presencia · mapas. Cada módulo busca sus nodos y, si no están, no hace
-   nada, así el mismo archivo sirve para la home y para las páginas internas.
+   cinta de clientes · socios (slots) · slider de presencia · mapas · preguntas · fondo vivo · WhatsApp flotante (y su globo) ·
+   medición de WhatsApp. Cada módulo busca sus nodos y, si no están, no hace nada, así el mismo archivo sirve para la
+   home y para las páginas internas.
    Sin botones de pausa en ningún lado (pedido de Brian): lo que se mueve solo se detiene con el mouse encima, con el
    foco adentro, fuera de pantalla o con la pestaña oculta, y con "reducir movimiento" no se mueve. */
 (() => {
@@ -395,30 +396,93 @@
     // Cada elemento aparece una sola vez: al mostrarlo se deja de observar y al volver a subir ya está ahí.
     // En un carrusel de tarjetas, mostrar una muestra todo el carrusel: las tarjetas de los otros grupos terminan su
     // entrada fuera de vista y al pasar con las flechas ya están quietas (sin escalonado repetido).
-    const reveal = (el) => {
-      const group = el.matches('[data-carousel-track] .rv') ? el.closest('[data-carousel-track]').querySelectorAll('.rv') : [el];
-      group.forEach((item) => {
-        item.classList.add('show');
-        io.unobserve(item);
-        ioTall.unobserve(item);
+    //
+    // Nada puede quedar oculto (pedido de Brian: nunca una pantalla en blanco al scrollear o al recargar):
+    // - Umbral 0: un bloque entra (con su animación) apenas su borde cruza la línea del 90 % de la pantalla, sea del
+    //   alto que sea. Es lo que pasa al scrollear a un ritmo normal.
+    // - Lo que se descubre ya metido en la pantalla (scroll muy rápido, salto a un ancla) o lo que el visitante pasó sin
+    //   llegar a verlo (recarga a mitad de página, vuelta con Atrás) aparece ya quieto, sin entrada (`ya`), en el mismo
+    //   cuadro del scroll: nunca se ve una pantalla vacía esperando animaciones, ni al bajar rápido ni al volver a subir.
+    // - Respaldo: a los 2 s de abrirse el telón y cada vez que el scroll se detiene, todo lo que esté a la vista o más
+    //   arriba se muestra, haya avisado o no el IntersectionObserver.
+    const pendientes = new Set();
+    // Entradas que dejan algo oculto mientras corren; al mostrar "ya", se adelantan a su final. Las animaciones que
+    // no son de entrada (bandas, avance de rubros, mapa, levitación) siguen su curso.
+    const ENTRADAS = /^(rise|riseSm|focusIn|fadeIn|pop|popSoft|draw|histRing|mLine|mUncover|mZoom|mGrow)$/;
+    const terminar = (el) => {
+      if (typeof el.getAnimations !== 'function') return;
+      el.getAnimations({ subtree: true }).forEach((a) => {
+        if (!ENTRADAS.test(a.animationName || '')) return;
+        try { a.finish(); } catch (err) { /* animación infinita: no es de entrada */ }
       });
     };
-    const onEntries = (entries) => entries.forEach(({ target, isIntersecting }) => { if (isIntersecting) reveal(target); });
-    const margin = '0px 0px -8% 0px';
-    const io = new IntersectionObserver(onEntries, { threshold: 0.15, rootMargin: margin });
-    // Bloques más altos que la pantalla (grilla de clientes en celular, por ejemplo): con 0.15 podrían no llegar
-    // nunca al umbral, así que se muestran apenas asoman.
-    const ioTall = new IntersectionObserver(onEntries, { threshold: 0, rootMargin: margin });
-    // Se observa al abrirse los telones. Con el scroll restaurado por el navegador (recarga a mitad de página) solo se
-    // revela lo que está a la vista; lo de arriba entra cuando se vuelve a subir.
-    const observar = () => items.forEach((el) => {
-      if (!el.classList.contains('show')) (el.offsetHeight > innerHeight * 0.8 ? ioTall : io).observe(el);
-    });
+    const reveal = (el, { ya = false, sinDemora = false } = {}) => {
+      const group = el.matches('[data-carousel-track] .rv') ? [...el.closest('[data-carousel-track]').querySelectorAll('.rv')] : [el];
+      const nuevos = group.filter((item) => !item.classList.contains('show'));
+      nuevos.forEach((item) => {
+        if (ya) item.classList.add('rv-ya'); // motion.js no parte el título de un bloque que aparece ya quieto
+        else if (sinDemora) item.style.setProperty('--rv-d', '0s');
+        item.classList.add('show');
+        pendientes.delete(item);
+        io.unobserve(item);
+      });
+      // Después de los observadores de motion.js (microtareas), que suman sus propias entradas al ver .show
+      if (ya && nuevos.length) Promise.resolve().then(() => nuevos.forEach(terminar));
+    };
+    let primeraTanda = false; // la primera respuesta del observer: lo que se ve al abrirse el telón entra escalonado
+    const io = new IntersectionObserver((entries) => {
+      const alto = innerHeight;
+      entries.forEach(({ target, isIntersecting, boundingClientRect: r }) => {
+        if (!isIntersecting) return;
+        // Ya adentro de la pantalla al descubrirlo: el visitante llegó de un salto o va muy rápido
+        reveal(target, primeraTanda ? {} : { ya: r.top < alto * 0.72 });
+      });
+      primeraTanda = false;
+    }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
+    let abierto = false;
+    // modo 'arriba': solo lo que quedó por encima de la pantalla (ya quieto). 'scroll': además, lo que ya está metido en
+    // la pantalla (ya quieto, en el mismo cuadro del scroll, antes de pintarse). 'forzar' (respaldo): además, todo lo que
+    // esté a la vista, con su entrada sin demora.
+    const barrer = (modo) => {
+      if (!abierto || !pendientes.size) return;
+      const alto = innerHeight;
+      const ya = [];
+      const visibles = [];
+      pendientes.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.bottom <= 0 && r.top < 0) ya.push(el);
+        else if (r.top < alto && r.bottom > 0) {
+          if (modo !== 'arriba' && r.top < alto * 0.72) ya.push(el);
+          else if (modo === 'forzar') visibles.push(el);
+        }
+      });
+      ya.forEach((el) => reveal(el, { ya: true }));
+      visibles.forEach((el) => reveal(el, { sinDemora: true }));
+    };
+    let barrerRaf = 0;
+    let quieto = 0;
+    const alScrollear = () => {
+      if (!barrerRaf) barrerRaf = requestAnimationFrame(() => { barrerRaf = 0; barrer('scroll'); });
+      clearTimeout(quieto);
+      quieto = setTimeout(() => barrer('forzar'), 1200);
+    };
+    addEventListener('scroll', alScrollear, { passive: true });
+    addEventListener('resize', alScrollear);
+    // Se observa al abrirse los telones. Con el scroll restaurado por el navegador (recarga a mitad de página) lo que
+    // está a la vista entra delante del visitante y lo de arriba ya está en su lugar al volver a subir.
+    const observar = () => {
+      abierto = true;
+      primeraTanda = true;
+      items.forEach((el) => { if (!el.classList.contains('show')) { pendientes.add(el); io.observe(el); } });
+      barrer('arriba');
+      setTimeout(() => barrer('forzar'), 2000);
+    };
     alAbrir(observar);
     alRepetir(() => {
       io.disconnect();
-      ioTall.disconnect();
-      items.forEach((el) => el.classList.remove('show'));
+      pendientes.clear();
+      abierto = false;
+      items.forEach((el) => el.classList.remove('show', 'rv-ya'));
       alAbrir(observar);
     });
   }
@@ -642,6 +706,7 @@
       progFill.style.animationName = 'stepbar';
     };
     const pad = (n) => String(n).padStart(2, '0');
+    let cuenta = null;
     const render = () => {
       // De a una tarjeta no se bloquea ninguna: la siguiente asoma y se puede tocar o recorrer con el teclado.
       slides.forEach((slide, i) => { slide.inert = !perCard && i !== index; });
@@ -651,8 +716,13 @@
       if (!dots.length) {
         const mode = carousel.dataset.carouselCounter;
         const pos = pool.indexOf(index) + 1;
-        dotsBox.textContent = mode === 'off' ? '' : mode === 'pad' ? `${pad(pos)} / ${pad(pool.length)}` : `${pos} de ${pool.length}`;
-        if (prog) dotsBox.append(prog);
+        const texto = mode === 'off' ? '' : mode === 'pad' ? `${pad(pos)} / ${pad(pool.length)}` : `${pos} de ${pool.length}`;
+        if (prog) {
+          // Contador de ancho fijo y barra al lado: la fila nunca cambia de posición ni de largo (ver CSS)
+          if (!cuenta) { cuenta = document.createElement('span'); cuenta.className = 'carousel__count'; }
+          cuenta.textContent = texto;
+          if (cuenta.parentNode !== dotsBox) { dotsBox.textContent = ''; dotsBox.append(cuenta, prog); }
+        } else dotsBox.textContent = texto;
       }
       setStep(0);
       seg = null;
@@ -671,7 +741,7 @@
     // Casos (data-carousel-fit): en vez de deslizar la pista, el caso que se va sale (logo, título, etiquetas y
     // proyectos suben y se funden, .is-saliendo en el CSS) y recién entonces aparece el nuevo con su entrada escalonada
     // (la del CSS, al perder `inert`). Un nuevo pedido durante la salida la corta y cambia enseguida.
-    const SALIDA_MS = 260;
+    const SALIDA_MS = 320; // salida escalonada del caso (casoSale en el CSS: .24 s + .06 s de ola)
     let salida = 0;
     const go = (i, instant) => {
       const prev = index;
@@ -856,7 +926,7 @@
   const caseCarousel = caseMenu && caseMenu.parentElement.querySelector('[data-carousel]');
   if (caseMenu && carousels.has(caseCarousel)) {
     const api = carousels.get(caseCarousel);
-    const fileOf = (src) => (src || '').replace(/^.*\//, '');
+    const fileOf = (src) => (src || '').replace(/[?#].*$/, '').replace(/^.*\//, ''); // sin carpeta ni versión (?v=)
     const cases = api.slides.map((slide, i) => {
       const logo = slide.querySelector('.case-card__logo');
       const img = logo && logo.querySelector('img');
@@ -974,8 +1044,9 @@
   // - Logos en gris; el que está bajo el mouse (o enfocado) toma su color. Los que tienen caso de éxito son enlaces a
   //   #casos que además dejan elegido su caso en el menú de Casos.
   // - Con "reducir movimiento": una grilla quieta y prolija por rubro (sin copias).
-  const cinta = document.querySelector('[data-cinta]');
-  if (cinta) {
+  // Cualquier `[data-cinta]` de la página: el fichero de la home (con solapas) o una banda suelta con un solo panel
+  // (la de /diagnostico-sin-cargo/, con todos los clientes en dos filas).
+  document.querySelectorAll('[data-cinta]').forEach((cinta) => {
     const SPEED = 34; // px por segundo
     const DOS_FILAS = 10; // desde esta cantidad de logos, el rubro va en dos filas
     const panels = [...cinta.querySelectorAll('[data-cinta-panel]')];
@@ -1134,7 +1205,7 @@
         (fichero || cinta).classList.toggle('is-offscreen', !lastEntry(entries).isIntersecting);
       }).observe(fichero || cinta);
     }
-  }
+  });
 
   /* ---------- Socios tecnológicos: slots que rotan en barrido ---------- */
   // Dos grillas (mayoristas arriba, marcas abajo), cada una muestra una fila (tres en celular) y guarda el resto de
@@ -1312,7 +1383,8 @@
     // El mapa de la vista activa terminó de recorrer todas sus zonas: pasa a la otra vista (solo en modo automático).
     // Si el visitante ya eligió una vista, no se cancela el evento y el recorrido vuelve a empezar en la misma.
     presSlider.addEventListener('map:tour-end', (e) => {
-      if (!motion || tocado || !slides[actual].contains(e.target)) return;
+      // Con el mouse o el foco en el slider no cambia de vista: el recorrido vuelve a empezar en la misma
+      if (!motion || tocado || presSlider.classList.contains('is-pausa') || !slides[actual].contains(e.target)) return;
       e.preventDefault();
       mostrar(actual + 1);
     });
@@ -1402,8 +1474,9 @@
         : `Mapa de Argentina por provincias. ${MAP_ON}: ${names}.`);
     } catch (e) { /* queda la descripción del HTML */ }
 
+    // Paso del recorrido de cada zona ("A+B" es un solo paso con dos zonas): define también el orden en que se prenden
+    const rank = (p) => { const i = order.findIndex((paso) => paso.split('+').includes(p.dataset.name)); return i === -1 ? order.length : i; };
     if (motion) {
-      const rank = (p) => { const i = order.indexOf(p.dataset.name); return i === -1 ? order.length : i; };
       [...active].sort((a, b) => rank(a) - rank(b)).forEach((p, i) => { p.style.animationDelay = `${0.3 + i * 0.08}s`; });
       // Se prenden una sola vez, como el resto de las entradas de la página. Si el mapa está en la vista oculta del
       // slider de Presencia, espera a que esa vista se muestre (pres:show).
@@ -1488,7 +1561,70 @@
       const a = anchorOf(z);
       return new DOMPoint(a.x, a.y).matrixTransform(ctm);
     };
-    const place = (z) => {
+    // Presentación (intro): el globo va al costado del mapa, separado (GAP px) y sin tocar ninguna zona, del lado de
+    // data-map-intro-lado. Primero se prueba al costado del mapa entero, a media altura (en escritorio sobra lugar);
+    // si no entra, a la altura de cada fila de data-map-intro-y (fracciones del alto), en orden, contando el borde de la
+    // tierra en toda la franja que ocupa el globo. Si no entra en ninguna, va en la primera fila, ajustado al ancho.
+    // La pestaña del globo apunta al mapa. El borde de la tierra por fila se mide con isPointInFill y se guarda.
+    const GAP = 9; // separado del borde del país, pero cerca
+    const MARGEN = 14; // aire contra los bordes de la caja (las flechas del slider van sobre el borde en celular)
+    const introLado = map.dataset.mapIntroLado === 'izquierda' ? -1 : 1;
+    const introFilas = (map.dataset.mapIntroY || '0.5').split(',').map(Number).filter((f) => f > 0 && f < 1);
+    const bordes = new Map();
+    const bordeEn = (yy) => {
+      const y = Math.round(yy);
+      if (bordes.has(y)) return bordes.get(y);
+      const vb = map.viewBox.baseVal;
+      const paso = vb.width / 160;
+      const formas = zones.filter((z) => typeof z.isPointInFill === 'function');
+      let borde = null;
+      for (let x = vb.x; x <= vb.x + vb.width; x += paso) {
+        const pt = new DOMPoint(x, y);
+        if (formas.some((z) => z.isPointInFill(pt))) {
+          borde = x;
+          if (introLado < 0) break; // a la izquierda alcanza con el primer punto de tierra
+        }
+      }
+      bordes.set(y, borde);
+      return borde;
+    };
+    const bordeFranja = (y, medio) => {
+      let borde = null;
+      for (let yy = y - medio; yy <= y + medio; yy += 3) {
+        const x = bordeEn(yy);
+        if (x !== null) borde = borde === null ? x : (introLado > 0 ? Math.max(borde, x) : Math.min(borde, x));
+      }
+      return borde;
+    };
+    const placeIntro = () => {
+      const ctm = map.getScreenCTM();
+      const vb = map.viewBox && map.viewBox.baseVal;
+      if (!ctm || !vb || !ctm.a) return;
+      const w = pin.offsetWidth;
+      const h = pin.offsetHeight;
+      const box = stage.getBoundingClientRect();
+      const medio = (h / 2 + 8) / ctm.a; // media altura del globo (y un poco de aire), en unidades del SVG
+      const bb = map.getBBox();
+      const candidatos = [{ x: introLado > 0 ? bb.x + bb.width : bb.x, y: bb.y + bb.height / 2 }]
+        .concat(introFilas.map((f) => { const y = vb.y + vb.height * f; return { x: bordeFranja(y, medio), y }; }))
+        .filter((c) => c.x !== null);
+      let sitio = null;
+      for (const c of candidatos) {
+        const pt = new DOMPoint(c.x, c.y).matrixTransform(ctm);
+        const left = introLado > 0 ? pt.x - box.left + GAP : pt.x - box.left - GAP - w;
+        const cand = { left, top: pt.y - box.top - h / 2 };
+        if (left >= MARGEN && left + w <= box.width - MARGEN) { sitio = cand; break; }
+        if (!sitio && c !== candidatos[0]) sitio = cand;
+      }
+      if (!sitio) return;
+      pin.classList.remove('is-below');
+      pin.classList.toggle('is-izq', introLado < 0);
+      pin.style.left = `${Math.min(Math.max(sitio.left, 0), Math.max(box.width - w, 0))}px`;
+      pin.style.top = `${Math.round(sitio.top)}px`;
+    };
+    const place = (sel) => {
+      if (sel.intro) { placeIntro(); return; }
+      const z = sel.zones[0];
       const p = anchorOnScreen(z);
       if (!p) return;
       const w = pin.offsetWidth;
@@ -1504,33 +1640,49 @@
       pin.style.setProperty('--tip-x', `${Math.min(Math.max(tipX - left, 7), w - 7)}px`);
     };
 
+    // Lo que muestra el indicador es una selección: una zona (hover, foco, toque, chip), un paso del recorrido con una
+    // o dos zonas ("Buenos Aires y CABA") o la presentación del país o de la región (intro: el globo va al costado del
+    // mapa, separado, y no señala ninguna zona). El globo lleva el nombre corto (data-label) si lo hay.
+    const labelOf = (z) => z.dataset.label || z.dataset.name;
+    // Pasos de data-map-order con varias zonas ("Buenos Aires+CABA"): son una sola selección, con el nombre de la
+    // primera, tanto en el recorrido como al pasar el mouse o tocar cualquiera de ellas.
+    const grupoDe = new Map();
+    order.forEach((paso) => {
+      const zs = paso.split('+').map((n) => byName.get(n)).filter((z) => z && z.classList.contains('on'));
+      if (zs.length < 2) return;
+      const sel = { zones: zs, label: labelOf(zs[0]), key: paso };
+      zs.forEach((z) => grupoDe.set(z, sel));
+    });
+    const selDe = (z) => (z ? grupoDe.get(z) || { zones: [z], label: labelOf(z), key: z.dataset.name } : null);
     // Prioridad: la zona con hover; si no hay, la enfocada; si no, la fijada (clic, toque, Enter o espacio).
     let hovered = null;
     let focused = null;
     let pinned = null;
     let current = null;
-    let tourZone = null; // zona que muestra el recorrido automático (la de menor prioridad)
+    let tourStep = null; // paso que muestra el recorrido automático (la de menor prioridad)
     let tourStop = () => {}; // lo define el recorrido automático (al final de este bloque)
-    const show = (z) => {
-      if (z === current) return;
-      if (current) current.classList.remove('is-active');
-      current = z;
-      stage.classList.toggle('is-focusing', !!z);
-      chips.forEach((c) => c.classList.toggle('is-active', !!z && c.dataset.zone === z.dataset.name));
-      if (!z) { pin.hidden = true; return; }
+    const show = (sel) => {
+      if ((sel && sel.key) === (current && current.key)) return;
+      if (current) current.zones.forEach((z) => z.classList.remove('is-active'));
+      current = sel;
+      stage.classList.toggle('is-focusing', !!sel && !sel.intro);
+      stage.classList.toggle('is-intro', !!sel && !!sel.intro);
+      chips.forEach((c) => c.classList.toggle('is-active', !!sel && sel.zones.some((z) => c.dataset.zone === z.dataset.name)));
+      if (!sel) { pin.hidden = true; return; }
       map.classList.add('is-settled');
-      z.classList.add('is-active');
-      pin.textContent = z.dataset.name; // solo el nombre: el estado ya lo dicen el color y la leyenda
+      sel.zones.forEach((z) => z.classList.add('is-active'));
+      pin.textContent = sel.label; // solo el nombre: el estado ya lo dicen el color y la leyenda
+      pin.classList.toggle('is-pais', !!sel.intro);
       pin.hidden = true;
       void pin.offsetWidth; // reinicia la animación de entrada al pasar de una zona a otra
       pin.hidden = false;
-      place(z);
+      place(sel);
     };
     const update = () => {
       const user = hovered || focused || pinned;
       // Mientras pasa solo, el resto del mapa apenas se atenúa (sin desenfoque): es un recorrido, no una elección
-      stage.classList.toggle('is-tour', !user && Boolean(tourZone));
-      show(user || tourZone);
+      stage.classList.toggle('is-tour', !user && Boolean(tourStep) && !tourStep.intro);
+      show(user ? selDe(user) : tourStep);
       const isPinned = (name) => String(!!pinned && pinned.dataset.name === name);
       chips.forEach((c) => c.setAttribute('aria-pressed', isPinned(c.dataset.zone)));
     };
@@ -1597,15 +1749,25 @@
     // con presencia, una por una (una cada TOUR_MS, en el orden de data-map-order), como un mapa que se presenta.
     // Al terminar la última avisa con map:tour-end (cancelable, burbujea): el slider de Presencia lo cancela y cambia de
     // vista; si nadie lo cancela, el recorrido vuelve a empezar. Cada vez que la vista se muestra arranca desde la
-    // primera zona. Se detiene (sin perder el lugar) con el mouse o el foco sobre el mapa o el slider, con una zona
-    // elegida, fuera de pantalla, con la pestaña oculta y en la vista oculta del slider; con "reducir movimiento" no
-    // corre. Al soltar, sigue desde donde estaba.
+    // presentación, en el acto. Se detiene (sin perder el lugar) con el mouse sobre el mapa, con una zona elegida, fuera
+    // de pantalla, con la pestaña oculta y en la vista oculta del slider; con "reducir movimiento" no corre. Al soltar,
+    // sigue desde donde estaba.
     if (motion && active.length > 1) {
       map.dataset.mapTour = '';
       const TOUR_MS = 2000;
-      const rankOf = (p) => { const i = order.indexOf(p.dataset.name); return i === -1 ? order.length : i; };
-      const tourList = [...active].sort((a, b) => rankOf(a) - rankOf(b));
-      const litMs = (0.3 + (tourList.length - 1) * 0.08 + 0.5) * 1000; // hasta que se prende la última zona
+      const INTRO_MS = 2600; // la presentación del país o de la región se queda un poco más
+      // Pasos: la presentación (si hay data-map-intro), los de data-map-order ("A+B" juntos) y, al final, cualquier
+      // zona con presencia que no figure en el orden.
+      const tourList = [];
+      const enOrden = new Set();
+      order.forEach((paso) => {
+        const zs = paso.split('+').map((n) => byName.get(n)).filter((z) => z && z.classList.contains('on'));
+        if (!zs.length) return;
+        zs.forEach((z) => enOrden.add(z));
+        tourList.push(zs.length > 1 ? grupoDe.get(zs[0]) : selDe(zs[0]));
+      });
+      active.forEach((z) => { if (!enOrden.has(z)) tourList.push(selDe(z)); });
+      if (map.dataset.mapIntro) tourList.unshift({ zones: [], label: map.dataset.mapIntro, key: '#intro', intro: true });
       let tourTimer = 0;
       let tourI = -1;
       let enVista = false;
@@ -1617,42 +1779,44 @@
       const puedeCorrer = () => enVista && !document.hidden && map.classList.contains('is-lit') && vistaActiva();
       tourStop = () => {
         clearTimeout(tourTimer);
-        if (tourZone) { tourZone = null; update(); }
+        if (tourStep) { tourStep = null; update(); }
       };
-      const slider = map.closest('[data-pres-slider]');
-      const enPausa = () => !!slider && slider.classList.contains('is-pausa');
+      // El recorrido solo se frena con el mouse sobre el mapa (o una zona elegida): el foco en las pestañas o el mouse
+      // sobre el texto no lo detienen, así al tocar "Argentina" o "Latam" arranca en el acto.
       const tick = () => {
         if (!puedeCorrer()) { tourStop(); return; }
         if (encima || hovered || focused || pinned) {
-          if (tourZone) { tourZone = null; update(); }
-        } else if (!enPausa()) {
+          if (tourStep) { tourStep = null; update(); }
+        } else {
           if (tourI === tourList.length - 1) {
             // Se vio la última zona su tiempo completo: fin del recorrido de esta vista
             const fin = new Event('map:tour-end', { bubbles: true, cancelable: true });
             if (!map.dispatchEvent(fin)) { tourI = -1; return; } // el slider cambia de vista (map:clear lo frena)
           }
           tourI = (tourI + 1) % tourList.length;
-          tourZone = tourList[tourI];
+          tourStep = tourList[tourI];
           update();
         }
-        tourTimer = setTimeout(tick, TOUR_MS);
+        tourTimer = setTimeout(tick, tourStep && tourStep.intro ? INTRO_MS : TOUR_MS);
       };
       const tourStart = (espera) => {
         clearTimeout(tourTimer);
         if (!puedeCorrer()) { tourStop(); return; }
         tourTimer = setTimeout(tick, espera);
       };
-      map.addEventListener('map:lit', () => { tourI = -1; tourStart(litMs + 700); });
+      // Arranque inmediato: apenas el mapa se prende, o apenas se muestra su vista (al tocar la pestaña o la flecha),
+      // aparece la presentación del país o de la región y el recorrido sigue desde ahí, mientras las zonas se encienden.
+      map.addEventListener('map:lit', () => { tourI = -1; tourStart(120); });
       const vista = map.closest('[data-pres-slide]');
-      // Al volver a mostrarse, el recorrido empieza de nuevo desde la primera zona (el mapa ya está prendido)
-      if (vista) vista.addEventListener('pres:show', () => { tourI = -1; tourStart(map.classList.contains('is-settled') ? 900 : litMs + 700); });
-      card.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') { encima = true; if (tourZone) { tourZone = null; update(); } } });
+      // setTimeout 0: después de que el mapa se prenda con el mismo pres:show (ver "Mapas", arriba)
+      if (vista) vista.addEventListener('pres:show', () => setTimeout(() => { tourI = -1; tourStart(0); }, 0));
+      card.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') { encima = true; if (tourStep) { tourStep = null; update(); } } });
       card.addEventListener('pointerleave', () => { encima = false; });
       document.addEventListener('visibilitychange', () => tourStart(TOUR_MS));
       new IntersectionObserver((entries) => {
         enVista = lastEntry(entries).isIntersecting;
-        tourStart(TOUR_MS);
-      }, { threshold: 0.5 }).observe(map);
+        tourStart(tourI === -1 ? 0 : TOUR_MS); // recién mostrado: la presentación aparece en el acto
+      }, { threshold: 0.2 }).observe(map);
     }
   });
 
@@ -1669,54 +1833,248 @@
     }));
   }
 
-  /* ---------- WhatsApp flotante: en celular se corre de donde taparía controles ---------- */
-  // Hasta 760 px el botón se oculta (.is-oculto: opacidad 0 y sin clics) mientras están en pantalla la lista de
-  // preguntas (taparía los "+"), la agenda de /diagnostico-sin-cargo/ (taparía las flechas de semana) y el cierre de la
-  // home, que ya ofrece WhatsApp. En escritorio no cambia nada.
-  // En cualquier ancho, además, se oculta mientras la flecha derecha de un carrusel (Servicios, Soluciones, Presencia,
-  // Casos) pasa por debajo del botón: si no, la tapa y no se puede tocar. Se compara la posición real de cada flecha con
-  // la del botón (más un margen) al scrollear y al cambiar el ancho, una vez por cuadro.
+  /* ---------- Fondo vivo: brillos de marca en cada fondo claro ---------- */
+  // Cada sección de primer nivel con fondo claro propio (blanco o lavanda) recibe como primer hijo una capa .brillos
+  // con dos brillos difusos (violeta y lima) que derivan muy despacio (CSS, "Ritmo de fondos"). Las capas alternan de
+  // lado (data-lado a/b) sección a sección y se detienen fuera de pantalla. El hero carbón tiene su propio fondo de
+  // luces y las secciones transparentes (bloque de reserva del diagnóstico, por ejemplo) muestran el de main::before.
+  {
+    const claro = (el) => {
+      const m = getComputedStyle(el).backgroundColor.match(/[\d.]+/g);
+      if (!m || (m.length > 3 && Number(m[3]) === 0)) return false;
+      const [r, g, b] = m.map(Number);
+      return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255 > 0.7;
+    };
+    const capas = [...document.querySelectorAll('main section, main .page-head')]
+      .filter((el) => !el.parentElement.closest('section') && !el.matches('.hero, .tech, .section--dark') && claro(el));
+    const io = 'IntersectionObserver' in window
+      ? new IntersectionObserver((entries) => entries.forEach((en) => en.target.classList.toggle('is-quieto', !en.isIntersecting)), { rootMargin: '10% 0px' })
+      : null;
+    capas.forEach((sec, i) => {
+      const capa = document.createElement('div');
+      capa.className = 'brillos';
+      capa.setAttribute('aria-hidden', 'true');
+      capa.dataset.lado = i % 2 ? 'b' : 'a';
+      sec.classList.add('con-brillos');
+      sec.prepend(capa);
+      if (io) io.observe(capa);
+    });
+  }
+
+  /* ---------- WhatsApp flotante: siempre a la vista, sin tapar controles ---------- */
+  // El botón nunca se oculta (pedido de Brian, 09/11). Si debajo de él queda un control chico (la flecha derecha de un
+  // carrusel, un día del calendario, un logo del menú de Casos...), el botón sube lo justo para dejarlo libre y vuelve
+  // a su lugar cuando ya no tapa nada. Se mide una vez por cuadro al scrollear y al cambiar el ancho o el alto de la
+  // página. En celular, los "+" de las preguntas ya dejan libre la columna del botón (padding en el CSS).
+  // El desplazamiento va en --wa-lift (en <html>): lo usan el botón y el globo.
   const waFloat = document.querySelector('.wa-float');
-  const waZonas = [...document.querySelectorAll('.faq__list, .faq, .dx-agenda, #agenda .closing')];
-  const waFlechas = [...document.querySelectorAll('[data-carousel-next], [data-pres-next]')];
-  let waTapa = false;
-  let waZona = () => false;
-  const waActualizar = () => { if (waFloat) waFloat.classList.toggle('is-oculto', waTapa || waZona()); };
-  if (waFloat && waFlechas.length) {
-    const MARGEN = 16;
+  let waAbierto = false;
+  if (waFloat) {
+    const CONTROLES = 'a[href], button, summary, input, select, textarea, label, [role="button"], [role="tab"], .faq__sign';
+    const MARGEN = 10;
+    const TOPE = 220; // como mucho sube esto
+    let lift = 0;
     let raf = 0;
+    // Controles chicos de la página (los que el botón podría tapar). Los logos de las bandas de Clientes no cuentan:
+    // pasan en movimiento por debajo y siguen tocables. Una fila de pregunta o una tarjeta tampoco (son anchas).
+    let candidatos = [];
+    const listar = () => {
+      candidatos = [...document.querySelectorAll(CONTROLES)].filter((c) => !c.closest('.wa-float, .wa-globo, .cinta, [aria-hidden="true"]'));
+    };
+    const tapados = (rect) => candidatos.filter((c) => {
+      if (!c.offsetParent || c.closest('[inert]')) return false;
+      const r = c.getBoundingClientRect();
+      if (r.width > 220 || r.height > 140 || r.width === 0) return false;
+      return r.right > rect.left - MARGEN && r.left < rect.right + MARGEN && r.bottom > rect.top - MARGEN && r.top < rect.bottom + MARGEN;
+    });
     const medir = () => {
       raf = 0;
-      const w = waFloat.getBoundingClientRect();
-      waTapa = waFlechas.some((btn) => {
-        if (!btn.offsetParent) return false; // oculta (hidden o sin JS)
-        const r = btn.getBoundingClientRect();
-        return r.right > w.left - MARGEN && r.left < w.right + MARGEN && r.bottom > w.top - MARGEN && r.top < w.bottom + MARGEN;
-      });
-      waActualizar();
+      if (waAbierto) return; // con el globo abierto no se mueve
+      // Lugar de reposo del botón (sin la subida ni su transición), según su right/bottom fijos
+      const cs = getComputedStyle(waFloat);
+      const w = waFloat.offsetWidth;
+      const h = waFloat.offsetHeight;
+      const right = root.clientWidth - parseFloat(cs.right);
+      const bottom = root.clientHeight - parseFloat(cs.bottom);
+      const r0 = { left: right - w, right, width: w, height: h, top: bottom - h, bottom };
+      let nuevo = 0;
+      for (let k = 0; k < 4; k++) {
+        const r = { ...r0, top: r0.top - nuevo, bottom: r0.bottom - nuevo };
+        const debajo = tapados(r);
+        if (!debajo.length) break;
+        const arriba = Math.min(...debajo.map((c) => c.getBoundingClientRect().top));
+        nuevo = Math.min(TOPE, Math.max(nuevo + 8, r0.bottom - arriba + MARGEN));
+        if (nuevo >= TOPE) break;
+      }
+      if (Math.abs(nuevo - lift) < 2) return;
+      lift = nuevo;
+      root.style.setProperty('--wa-lift', `${Math.round(lift)}px`);
     };
     const pedir = () => { if (!raf) raf = requestAnimationFrame(medir); };
+    let relistar = 0;
+    const cambio = () => { clearTimeout(relistar); relistar = setTimeout(() => { listar(); pedir(); }, 200); }; // menús y casos que se arman después
+    listar();
     addEventListener('scroll', pedir, { passive: true });
-    addEventListener('resize', pedir);
-    // La flecha también se mueve sin scroll: el caso de Casos cambia de alto al pasar al siguiente
-    if ('ResizeObserver' in window) {
-      const ro = new ResizeObserver(pedir);
-      waFlechas.forEach((btn) => ro.observe(btn.closest('[data-carousel], [data-pres-slider]') || btn));
-    }
+    addEventListener('resize', cambio);
+    if ('ResizeObserver' in window) new ResizeObserver(cambio).observe(document.body);
     document.addEventListener('transitionend', pedir, true);
     pedir();
   }
-  if (waFloat && waZonas.length && 'IntersectionObserver' in window) {
-    const angosto = matchMedia('(max-width: 760px)');
-    const visibles = new Set();
-    waZona = () => angosto.matches && visibles.size > 0;
-    const actualizar = waActualizar;
-    // Solo cuenta la franja de abajo de la pantalla (donde está el botón): -75 % arriba
-    const waObs = new IntersectionObserver((entries) => {
-      entries.forEach((en) => (en.isIntersecting ? visibles.add(en.target) : visibles.delete(en.target)));
-      actualizar();
-    }, { rootMargin: '-75% 0px 0px 0px' });
-    waZonas.forEach((z) => waObs.observe(z));
-    angosto.addEventListener('change', actualizar);
+
+  /* ---------- WhatsApp flotante: globo con el mensaje de la página ---------- */
+  // Mejora progresiva del enlace flotante (.wa-float, el mismo en todas las páginas): sin JS sigue siendo el link
+  // directo a wa.me con el mensaje de la página (?text=). Con JS, al pasar el mouse (o al tocarlo en el celular, o con
+  // Enter) se abre un globo de conversación con ese mensaje en un campo editable y el botón "Enviar por WhatsApp →",
+  // que abre wa.me con el texto que quedó (la app o WhatsApp Web, según el dispositivo, como el link de siempre).
+  // - Mouse: se abre al apoyarse sobre el botón y se cierra solo al salir, salvo que el visitante ya haya entrado al
+  //   globo (clic o foco adentro); desde ahí queda abierto hasta la X, Escape o un clic afuera.
+  // - Toque y teclado: el botón abre y cierra el globo. Con teclado, el foco va al mensaje; con el dedo no (el teclado
+  //   del celular no aparece hasta tocar el mensaje). Escape cierra y devuelve el foco al botón; salir con Tab, también
+  //   cierra. Ctrl/Cmd + Enter en el mensaje envía.
+  // - El campo crece con el texto, sin tirador de tamaño; recién pasados unos 7 renglones muestra una barra fina con
+  //   los colores del sitio.
+  // - Medición: click_whatsapp (link_location "flotante") al enviar; el resto de los enlaces a WhatsApp lo publica con
+  //   su sección (módulo siguiente).
+  if (waFloat) {
+    let destino = null;
+    try { destino = new URL(waFloat.href); } catch (err) { /* sin href válido: queda el link tal cual */ }
+    if (destino && /(^|\.)wa\.me$|(^|\.)whatsapp\.com$/.test(destino.hostname)) {
+      const mensaje = destino.searchParams.get('text') || '';
+      const base = destino.origin + destino.pathname;
+      const reducido = matchMedia('(prefers-reduced-motion: reduce)');
+      const globo = document.createElement('div');
+      globo.className = 'wa-globo';
+      globo.id = 'wa-globo';
+      globo.hidden = true;
+      globo.setAttribute('role', 'dialog');
+      globo.setAttribute('aria-labelledby', 'wa-globo-titulo');
+      globo.innerHTML = '<div class="wa-globo__cab"><span class="wa-globo__avatar" aria-hidden="true"></span><div>'
+        + '<p class="wa-globo__titulo" id="wa-globo-titulo">Escribinos por WhatsApp</p>'
+        + '<p class="wa-globo__sub">Podés editarlo antes de enviar.</p></div></div>'
+        + '<label class="sr-only" for="wa-globo-texto">Mensaje</label>'
+        + '<textarea id="wa-globo-texto" class="wa-globo__texto" rows="3"></textarea>'
+        + '<a class="btn btn-lime wa-globo__enviar" target="_blank" rel="noopener">Enviar por WhatsApp <span class="arr" aria-hidden="true">→</span></a>'
+        + '<button type="button" class="wa-globo__cerrar" aria-label="Cerrar"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>';
+      const logo = waFloat.querySelector('svg');
+      if (logo) globo.querySelector('.wa-globo__avatar').append(logo.cloneNode(true));
+      const texto = globo.querySelector('textarea');
+      const enviar = globo.querySelector('.wa-globo__enviar');
+      const cerrarBtn = globo.querySelector('.wa-globo__cerrar');
+      texto.value = mensaje;
+      const armarEnlace = () => {
+        const t = texto.value.trim();
+        enviar.href = t ? `${base}?text=${encodeURIComponent(t)}` : base;
+      };
+      const ajustarAlto = () => {
+        texto.style.height = 'auto';
+        texto.style.height = `${texto.scrollHeight}px`; // el CSS lo limita (max-height)
+      };
+      armarEnlace();
+      waFloat.after(globo);
+      waFloat.setAttribute('aria-expanded', 'false');
+      waFloat.setAttribute('aria-controls', globo.id);
+      waFloat.setAttribute('aria-haspopup', 'dialog');
+      waFloat.setAttribute('aria-label', 'Escribinos por WhatsApp');
+
+      let fijo = false; // el visitante entró al globo: no se cierra al sacar el mouse
+      let tAbrir = 0;
+      let tCerrar = 0;
+      let tOcultar = 0;
+      let tipo = 'mouse'; // con qué se tocó el botón por última vez
+      const abrir = ({ foco = false, fijar = false } = {}) => {
+        clearTimeout(tCerrar);
+        clearTimeout(tOcultar);
+        if (fijar) fijo = true;
+        if (!waAbierto) {
+          waAbierto = true;
+          globo.hidden = false;
+          ajustarAlto();
+          void globo.offsetWidth; // la transición de apertura arranca desde el estado cerrado
+          globo.classList.add('is-abierto');
+          waFloat.classList.add('is-activo');
+          waFloat.setAttribute('aria-expanded', 'true');
+        }
+        if (foco) {
+          texto.focus({ preventScroll: true });
+          texto.setSelectionRange(texto.value.length, texto.value.length);
+        }
+      };
+      const cerrar = ({ devolverFoco = false } = {}) => {
+        clearTimeout(tAbrir);
+        clearTimeout(tCerrar);
+        if (!waAbierto) return;
+        waAbierto = false;
+        fijo = false;
+        globo.classList.remove('is-abierto');
+        waFloat.classList.remove('is-activo');
+        waFloat.setAttribute('aria-expanded', 'false');
+        if (devolverFoco) waFloat.focus({ preventScroll: true });
+        tOcultar = setTimeout(() => { if (!waAbierto) globo.hidden = true; }, reducido.matches ? 160 : 360);
+      };
+
+      const esMouse = (e) => e.pointerType === 'mouse';
+      waFloat.addEventListener('pointerdown', (e) => { tipo = e.pointerType || 'mouse'; });
+      waFloat.addEventListener('pointerenter', (e) => {
+        if (!esMouse(e)) return;
+        clearTimeout(tCerrar);
+        if (!waAbierto) tAbrir = setTimeout(() => abrir(), 120);
+      });
+      const salir = (e) => {
+        if (!esMouse(e)) return;
+        clearTimeout(tAbrir);
+        if (!waAbierto || fijo) return;
+        tCerrar = setTimeout(() => { if (!fijo) cerrar(); }, 380);
+      };
+      waFloat.addEventListener('pointerleave', salir);
+      globo.addEventListener('pointerleave', salir);
+      globo.addEventListener('pointerenter', (e) => { if (esMouse(e)) clearTimeout(tCerrar); });
+      globo.addEventListener('pointerdown', () => { fijo = true; });
+      globo.addEventListener('focusin', () => { fijo = true; });
+      waFloat.addEventListener('click', (e) => {
+        e.preventDefault(); // con JS, el botón abre el globo; el envío lo hace "Enviar por WhatsApp"
+        clearTimeout(tAbrir);
+        const teclado = e.detail === 0;
+        if (waAbierto && (fijo || teclado || tipo !== 'mouse')) { cerrar({ devolverFoco: teclado }); return; }
+        abrir({ foco: teclado || tipo === 'mouse', fijar: true });
+      });
+      cerrarBtn.addEventListener('click', () => cerrar({ devolverFoco: true }));
+      texto.addEventListener('input', () => { armarEnlace(); ajustarAlto(); });
+      texto.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); enviar.click(); }
+      });
+      enviar.addEventListener('click', () => { armarEnlace(); setTimeout(() => cerrar(), 0); });
+      document.addEventListener('keydown', (e) => {
+        if (e.key !== 'Escape' || !waAbierto) return;
+        const adentro = globo.contains(document.activeElement) || document.activeElement === waFloat;
+        cerrar({ devolverFoco: adentro });
+      });
+      // Clic o toque afuera (en captura, antes que cualquier otro manejador)
+      document.addEventListener('pointerdown', (e) => {
+        if (!waAbierto || !(e.target instanceof Node)) return;
+        if (globo.contains(e.target) || waFloat.contains(e.target)) return;
+        cerrar();
+      }, true);
+      // Tab fuera del globo y del botón
+      const alSalirFoco = (e) => {
+        const a = e.relatedTarget;
+        if (!waAbierto || !a || globo.contains(a) || waFloat.contains(a)) return;
+        cerrar();
+      };
+      globo.addEventListener('focusout', alSalirFoco);
+      waFloat.addEventListener('focusout', alSalirFoco);
+    }
   }
+
+  /* ---------- Medición: clics a WhatsApp ---------- */
+  // click_whatsapp con link_location: "flotante" (el botón de envío del globo, o el botón flotante sin el globo) o la
+  // sección del enlace (agenda, footer...). No cuenta el clic que solo abre el globo (ese no sale a WhatsApp).
+  document.addEventListener('click', (e) => {
+    const a = e.target instanceof Element ? e.target.closest('a[href*="wa.me/"], a[href*="api.whatsapp.com/"]') : null;
+    if (!a || e.defaultPrevented) return;
+    (window.dataLayer = window.dataLayer || []).push({
+      event: 'click_whatsapp',
+      link_location: a.closest('.wa-globo, .wa-float') ? 'flotante' : (zonaDe(a) || 'contenido'),
+      page_path: location.pathname,
+    });
+  });
 })();
