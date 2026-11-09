@@ -20,7 +20,7 @@ Están todos en la sección "¿Qué ofrecemos?" de la home: https://www.intellih
 - Outsourcing: profesionales IT que se integran al equipo del cliente, seleccionados con psicodiagnóstico laboral, con inducción en la organización y capacitación continua.
 - Búsqueda de recursos: reclutamiento y selección de perfiles técnicos y ejecutivos, con evaluación en assessment centers.
 - Automatización: procesos automatizados e incorporación de herramientas de inteligencia artificial para resolver tareas repetitivas.
-- Consultoría: optimización de los procesos de tecnología sobre estándares y metodologías reconocidas (ITIL, metodologías ágiles y gestión de calidad), con especialización en COBIS, el sistema core bancario.
+- Consultoría: optimización de los procesos de tecnología sobre estándares y metodologías reconocidas (ITIL, metodologías ágiles y gestión de calidad).
 - Desarrollo de apps: sistemas y aplicaciones a medida, desde la propuesta hasta la puesta en marcha.
 - Capacitación: formación para equipos técnicos y usuarios, con talleres prácticos y training center propio.
 - Transformación digital: asesoramiento estratégico para llevar los procesos de la organización al entorno digital, con revisión de procesos y cultura de trabajo, transferencia de conocimiento y capacitación continua.
