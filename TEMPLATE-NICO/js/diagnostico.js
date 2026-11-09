@@ -292,6 +292,7 @@
     const hoy = new Date(Date.now() - 3 * 3600e3).toISOString().slice(0, 10); // Argentina, UTC-3
 
     let disponibles = new Map(); // fecha -> cantidad de horarios
+    let feriados = new Map(); // fecha -> nombre del feriado (sin turnos ese día)
     let elegido = null;
     let mes = hoy.slice(0, 7); // AAAA-MM que se muestra
     let cargado = false;
@@ -304,11 +305,13 @@
         <button type="button" class="dx-mes__flecha" data-mes-sig disabled><svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg><span class="sr-only">Mes siguiente</span></button>
       </div>
       <div class="dx-mes__semana" aria-hidden="true"><span>Lu</span><span>Ma</span><span>Mi</span><span>Ju</span><span>Vi</span><span>Sá</span><span>Do</span></div>
-      <div class="dx-mes__grilla" role="group" aria-labelledby="dx-mes-titulo" data-mes-grilla></div>`;
+      <div class="dx-mes__grilla" role="group" aria-labelledby="dx-mes-titulo" data-mes-grilla></div>
+      <p class="dx-mes__feriados" data-mes-feriados hidden></p>`;
     const titulo = box.querySelector('.dx-mes__titulo');
     const grilla = box.querySelector('[data-mes-grilla]');
     const ant = box.querySelector('[data-mes-ant]');
     const sig = box.querySelector('[data-mes-sig]');
+    const notaFeriados = box.querySelector('[data-mes-feriados]');
 
     const meses = () => [...disponibles.keys()].map((f) => f.slice(0, 7)).sort();
     function pintar() {
@@ -344,11 +347,17 @@
           el = document.createElement('span');
           el.setAttribute('aria-hidden', 'true');
         }
-        el.className = `dx-mes__dia${fecha === hoy ? ' is-hoy' : ''}`;
+        el.className = `dx-mes__dia${fecha === hoy ? ' is-hoy' : ''}${!n && feriados.has(fecha) ? ' is-feriado' : ''}`;
         el.textContent = String(d);
         celdas.push(el);
       }
       grilla.replaceChildren(...celdas);
+      // Debajo del mes, qué feriados tiene (esos días no se pueden elegir).
+      const delMesFeriados = [...feriados].filter(([f]) => f.startsWith(mes)).sort(([x], [y]) => x.localeCompare(y));
+      notaFeriados.hidden = !delMesFeriados.length;
+      notaFeriados.textContent = delMesFeriados.length
+        ? `${delMesFeriados.length === 1 ? 'Feriado' : 'Feriados'}: ${delMesFeriados.map(([f, nombre]) => `${Number(f.slice(8))}/${Number(f.slice(5, 7))} ${nombre}`).join(' · ')}`
+        : '';
     }
 
     function elegir(fecha, enfocar) {
@@ -407,6 +416,7 @@
     panel.addEventListener('agenda:horarios', (e) => {
       const lista = (e.detail && e.detail.dias) || [];
       disponibles = new Map(lista.map((d) => [d.fecha, d.horarios]));
+      feriados = new Map(((e.detail && e.detail.feriados) || []).map((f) => [f.fecha, f.nombre]));
       elegido = e.detail.elegido || (lista[0] && lista[0].fecha) || null;
       if (elegido) mes = elegido.slice(0, 7);
       cargado = true;

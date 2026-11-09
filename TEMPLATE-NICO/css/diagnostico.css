@@ -273,6 +273,11 @@ button.dx-mes__dia:hover { border-color: var(--r-sel); }
 button.dx-mes__dia[aria-pressed="true"] { border-color: var(--r-sel); background: var(--r-sel); color: var(--r-sel-fg); }
 .dx-mes__dia.is-hoy::after { content: ""; position: absolute; bottom: 5px; left: 50%; width: 4px; height: 4px; border-radius: 50%; background: currentColor; translate: -50% 0; }
 .dx-mes__nota { margin: 10px 0 0; color: var(--r-muted); font-size: 13px; }
+/* Feriado: no se puede elegir; un punto violeta arriba y el nombre debajo del mes */
+.dx-mes__dia.is-feriado { color: var(--r-sel); opacity: .7; }
+.dx-mes__dia.is-feriado::before { content: ""; position: absolute; top: 6px; right: 7px; width: 5px; height: 5px; border-radius: 50%; background: var(--r-sel); }
+.dx-mes__feriados { margin: 10px 0 0; color: var(--r-muted); font-size: 13px; line-height: 1.45; }
+.dx-mes__feriados::before { content: ""; display: inline-block; width: 5px; height: 5px; margin-right: 7px; border-radius: 50%; background: var(--r-sel); vertical-align: middle; translate: 0 -1px; }
 
 /* Horarios del día: sin scroll interno, en grilla */
 .dx-horas .agenda-crm__legend { margin-bottom: 12px; color: var(--r-fg); font-size: 15px; font-weight: 700; }

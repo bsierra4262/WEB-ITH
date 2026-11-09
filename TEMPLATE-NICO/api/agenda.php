@@ -205,6 +205,9 @@ if ($metodo === 'GET') {
             }
         }
         $guardado['dias'] = $dias;
+        // Los feriados del rango pedido (el CRM ya los saca de los horarios; acá van para marcarlos).
+        $guardado['feriados'] = array_values(array_filter((array) ($guardado['feriados'] ?? []), static fn ($f) => is_array($f)
+            && ($f['fecha'] ?? '') >= $desde->format('Y-m-d') && ($f['fecha'] ?? '') <= $hasta->format('Y-m-d')));
         $guardado['form_token'] = crm_form_token($cfg);
         responder(200, $guardado);
     };
@@ -257,6 +260,13 @@ if ($metodo === 'GET') {
         }
     }
 
+    $feriados = [];
+    foreach ((array) ($r['json']['feriados'] ?? []) as $f) {
+        if (is_array($f) && is_string($f['fecha'] ?? null) && fecha($f['fecha']) !== null && is_string($f['nombre'] ?? null)) {
+            $feriados[] = ['fecha' => $f['fecha'], 'nombre' => mb_substr(trim($f['nombre']), 0, 120)];
+        }
+    }
+
     $tipoCrm = is_array($r['json']['tipo'] ?? null) ? $r['json']['tipo'] : [];
     $respuesta = [
         'ok' => true,
@@ -266,6 +276,7 @@ if ($metodo === 'GET') {
         'duracion_min' => max(5, (int) ($tipoCrm['duracion_min'] ?? 30)),
         'con_meet' => (bool) ($tipoCrm['con_meet'] ?? true),
         'dias' => $dias,
+        'feriados' => $feriados,
     ];
     if ($archivo !== null) {
         @file_put_contents($archivo, json_encode($respuesta, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES), LOCK_EX);

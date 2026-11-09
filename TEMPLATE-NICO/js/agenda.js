@@ -556,6 +556,7 @@
     if (!lista.length) return false;
 
     dias = lista;
+    const feriados = Array.isArray(datos.feriados) ? datos.feriados.filter((f) => f && typeof f.fecha === 'string' && typeof f.nombre === 'string') : [];
     formToken = typeof datos.form_token === 'string' ? datos.form_token : '';
     // El par tipo/vendedor que resolvió el servidor (el pedido o el primero de su configuración).
     form.elements.namedItem('tipo').value = datos.tipo || tipoPedido;
@@ -569,7 +570,7 @@
     // Aviso con todos los días que tienen horarios (la tira solo muestra cinco); lo usa el calendario mensual de
     // /diagnostico-sin-cargo/. La home no lo escucha.
     panel.dispatchEvent(new CustomEvent('agenda:horarios', {
-      detail: { dias: dias.map((d) => ({ fecha: d.fecha, horarios: d.horarios.length })), elegido: diaElegido },
+      detail: { dias: dias.map((d) => ({ fecha: d.fecha, horarios: d.horarios.length })), elegido: diaElegido, feriados },
     }));
     return true;
   }
