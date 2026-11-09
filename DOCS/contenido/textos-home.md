@@ -342,8 +342,7 @@ Nota: las certificaciones de Hikvision, Suprema, Furukawa, Zyxel y Cisco que fig
 - Firma: "Intellihelp", sin nombre propio. Texto y firma aprobados por Dirección (oct. 2026).
 - [fuente: BRIEF §15.1, frase literal. El brief lo completaron Carlos, Nicolás y Laura (KICK p.5), así que no se le puede atribuir a uno solo sin su visto bueno]
 - Versión alternativa, si Dirección la aprueba y la firma Carlos: "Construimos relaciones de largo plazo con nuestros clientes, cumpliendo siempre lo que nos comprometimos a hacer. Por eso renuevan." (131) [fuente: BRIEF §15.1 y §15.2]
-- **Frase publicada hoy (08/11):** «Anticiparse y resolver antes de que el cliente lo pida es mucho más fácil que
-  recuperar una relación que se rompió.», firmada "Carlos Baldelli · CEO de Intellihelp". Adaptación de una idea de
+- **Frase publicada (09/11):** «Resolver un problema antes de que el cliente lo note cuesta mucho menos que recuperar su confianza.» (versión revisada el 09/11, elegida por Brian; falta la aprobación de Carlos), firmada "Carlos Baldelli · CEO de Intellihelp". Adaptación de una idea de
   Mark Cuban sobre ponerse en el lugar del cliente, elegida por Brian el 08/11; pendiente de aprobación de Carlos.
 
 ---

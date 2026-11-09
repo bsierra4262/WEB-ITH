@@ -219,8 +219,7 @@ Capturas de referencia (1440 y 390, por sección y completas): `DOCS/diseno/capt
   suben, las etiquetas llegan en ola y la lista entra línea por línea). Al pie, el contador "01 / 17" (ancho fijo) y su
   barra de avance (160 px, 120 en celular) en una fila fija que nunca se mueve. Si un cliente tiene varios proyectos (`data-steps`), se pasan de a uno.
   Flechas a los costados de la tarjeta, centradas. La pista toma el alto del caso activo: sin caja con scroll.
-- **Cita de Carlos**: «Anticiparse y resolver antes de que el cliente lo pida es mucho más fácil que recuperar una
-  relación que se rompió.», firmada en una línea "Carlos Baldelli · CEO de Intellihelp" (en celular, nombre arriba y
+- **Cita de Carlos**: «Resolver un problema antes de que el cliente lo note cuesta mucho menos que recuperar su confianza.» (versión revisada el 09/11, elegida por Brian; falta la aprobación de Carlos), firmada en una línea "Carlos Baldelli · CEO de Intellihelp" (en celular, nombre arriba y
   cargo abajo), y la foto a la derecha. Es una adaptación de una idea de Mark Cuban sobre ponerse en el lugar del
   cliente, sin nombrarlo; la eligió Brian el 08/11 y falta la aprobación de Carlos (está en el comentario del HTML).
   Para poner la foto real, reemplazar `img/equipo/carlos-cita.jpg` (de frente, vertical 4:5, 880 × 1100) con el mismo
