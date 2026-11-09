@@ -141,26 +141,25 @@ a, a:is(:hover, :focus, :focus-visible, :active, :visited), summary, button, u, 
 
 .section { padding: var(--section-y) 0; }
 /* Fondos: solo color, alternados sección a sección (la clase va en cada <section>) */
-/* ---------- Ritmo de fondos y toques de marca ----------
-   REGLA: fondo oscuro únicamente en el hero (placeholder del video de fondo). El resto del sitio es claro y homogéneo:
-   las secciones alternan blanco (.bg-white) y lavanda liso (.bg-gray), de modo que dos seguidas nunca tengan el mismo
-   fondo. Paleta acotada: carbón para el texto, violeta #663399, lima #98CC32 solo como acento, blanco y lavanda.
+/* ---------- Ritmo de fondos y brillos de marca ----------
+   REGLA: fondo oscuro únicamente en el hero (placeholder del video de fondo) y en /gracias-reserva/. El resto alterna
+   blanco (.bg-white) y lavanda (.bg-gray), de modo que dos secciones seguidas nunca tengan el mismo fondo. Paleta
+   acotada: carbón para el texto, violeta #663399, lima #98CC32 solo como acento, blanco y lavanda.
    Home: hero carbón · Qué ofrecemos blanco · Presencia lavanda · Equipo blanco · Socios lavanda · Clientes blanco ·
    Historia lavanda · Casos blanco · Cita lavanda · Preguntas blanco · Cierre lavanda (card blanca) · pie blanco.
    Las piezas claras se ajustan al fondo: círculos de íconos y chips en lavanda sobre blanco y en blanco sobre lavanda.
-   Fondo vivo (pedido de Brian, 09/11: "muy liso"): los colores siguen lisos, pero cada fondo claro lleva dos brillos
-   de marca muy difusos (violeta y lima, los del título del diagnóstico) que derivan lentísimo (50–64 s, ida y vuelta).
-   - Secciones con fondo propio (blanco o lavanda): main.js les agrega una capa .brillos (aria-hidden) como primer
-     hijo, con un brillo violeta arriba y uno lima abajo, en esquinas opuestas que se alternan sección a sección
-     (data-lado a/b), así la página tiene un ritmo y nunca dos secciones seguidas iguales. Fuera de pantalla se detienen.
-   - Páginas sin secciones de color (privacidad, 404, diagnóstico): el fondo fijo de main::before, con la misma deriva.
-   - Opacidades bajas (.09 violeta, .13 lima) y solo transform: no ensucian, no bajan el contraste y no repintan.
-     Con "reducir movimiento", quietos. Sin JS, las secciones quedan lisas y main::before igual se ve. */
+   BRILLOS EN TODAS LAS SECCIONES (pedido de Brian, 09/11): cada sección con fondo propio, blanca o lavanda, lleva la
+   misma textura con la misma intensidad: dos halos de marca chicos y sutiles (violeta .07 arriba, lima .09 abajo, como
+   el toque del título del diagnóstico) que derivan lento y poco (30–38 s, ida y vuelta), en esquinas que se alternan
+   sección a sección, y que se desvanecen antes del borde. Así no hay secciones lisas al lado de otras animadas.
+   - main.js agrega a cada sección de primer nivel con fondo propio una capa .brillos (aria-hidden) como primer hijo;
+     fuera de pantalla se detiene. Las zonas sin fondo propio (encabezados de privacidad y 404, diagnóstico) muestran
+     el de main::before, con los mismos brillos y la misma deriva.
+   - Con "reducir movimiento" (por ejemplo, Windows con las animaciones apagadas) se ven igual, quietos.
+   - Solo degradados y transform: no repintan. El texto carbón sobre la mezcla más fuerte sigue por encima de 10:1. */
 :root { --lav-2: var(--lavender); }
 .bg-white { background: var(--white); }
 .bg-gray { background: var(--lavender); }
-/* Base de las páginas sin sección de fondo propio (404, privacidad, diagnóstico): lavanda con dos brillos fijos que
-   derivan muy despacio */
 main::before {
   content: "";
   position: fixed;
@@ -168,35 +167,49 @@ main::before {
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(42% 38% at 82% 18%, rgb(102 51 153 / .10), transparent 70%),
-    radial-gradient(38% 34% at 14% 86%, rgb(152 204 50 / .12), transparent 70%);
+    radial-gradient(30% 26% at 80% 20%, rgb(102 51 153 / .07), transparent 100%),
+    radial-gradient(26% 24% at 16% 82%, rgb(152 204 50 / .09), transparent 100%);
 }
 .dx--noche main::before { content: none; }
 
+/* Capa de brillos de cada sección: dos halos chicos (≈40 % del ancho), muy difuminados y de opacidad baja, que se
+   desvanecen por completo antes del borde de la sección (además, la capa entera se funde arriba y abajo con una
+   máscara): nunca hay un corte duro ni una mancha. Deriva lenta y corta. */
 .con-brillos { position: relative; isolation: isolate; }
-.brillos { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.brillos {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 14%, #000 86%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 14%, #000 86%, transparent);
+}
 .brillos::before, .brillos::after {
   content: "";
   position: absolute;
-  width: min(820px, 90vw);
-  height: min(560px, 75vw);
+  width: 42%;
+  height: min(70%, 520px);
   border-radius: 50%;
 }
-.brillos::before { top: -18%; left: -14%; background: radial-gradient(closest-side, rgb(102 51 153 / .09), rgb(102 51 153 / 0)); }
-.brillos::after { right: -14%; bottom: -22%; background: radial-gradient(closest-side, rgb(152 204 50 / .13), rgb(152 204 50 / 0)); }
-.brillos[data-lado="b"]::before { right: -14%; left: auto; }
-.brillos[data-lado="b"]::after { right: auto; left: -14%; }
-@media (prefers-reduced-motion: no-preference) {
-  .brillos::before { animation: brilloA 52s ease-in-out infinite alternate; }
-  .brillos::after { animation: brilloB 64s ease-in-out -18s infinite alternate; }
-  .brillos[data-lado="b"]::before { animation-name: brilloB; animation-duration: 58s; }
-  .brillos[data-lado="b"]::after { animation-name: brilloA; animation-duration: 50s; }
-  .brillos.is-quieto::before, .brillos.is-quieto::after { animation-play-state: paused; }
-  main::before { animation: brilloFondo 70s ease-in-out infinite alternate; }
+.brillos::before { top: 8%; left: 3%; background: radial-gradient(closest-side, rgb(102 51 153 / .07), rgb(102 51 153 / .03) 50%, rgb(102 51 153 / 0)); }
+.brillos::after { right: 3%; bottom: 8%; background: radial-gradient(closest-side, rgb(152 204 50 / .09), rgb(152 204 50 / .035) 50%, rgb(152 204 50 / 0)); }
+.brillos[data-lado="b"]::before { right: 3%; left: auto; }
+.brillos[data-lado="b"]::after { right: auto; left: 3%; }
+@media (max-width: 760px) {
+  .brillos::before, .brillos::after { width: 80%; height: min(45%, 360px); }
 }
-@keyframes brilloA { from { transform: translate3d(0, 0, 0) scale(1); } to { transform: translate3d(16%, 12%, 0) scale(1.14); } }
-@keyframes brilloB { from { transform: translate3d(0, 0, 0) scale(1.1); } to { transform: translate3d(-14%, -10%, 0) scale(.94); } }
-@keyframes brilloFondo { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-4%, 3%, 0) scale(1.05); } }
+@media (prefers-reduced-motion: no-preference) {
+  .brillos::before { animation: brilloA 32s ease-in-out infinite alternate; }
+  .brillos::after { animation: brilloB 38s ease-in-out -12s infinite alternate; }
+  .brillos[data-lado="b"]::before { animation-name: brilloB; animation-duration: 36s; }
+  .brillos[data-lado="b"]::after { animation-name: brilloA; animation-duration: 30s; }
+  .brillos.is-quieto::before, .brillos.is-quieto::after { animation-play-state: paused; }
+  main::before { animation: brilloFondo 40s ease-in-out infinite alternate; }
+}
+@keyframes brilloA { from { transform: translate3d(0, 0, 0) scale(1); } to { transform: translate3d(7%, 5%, 0) scale(1.05); } }
+@keyframes brilloB { from { transform: translate3d(0, 0, 0) scale(1.04); } to { transform: translate3d(-6%, -5%, 0) scale(.97); } }
+@keyframes brilloFondo { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-3%, 2%, 0) scale(1.03); } }
 
 /* Piezas claras según el fondo */
 .bg-gray :is(.icon-circle, .chip, .offer__sub-num) { background: var(--white); }
@@ -1497,7 +1510,7 @@ html:not(.anim) .cl-fichero .cinta.is-cinta .cinta__row .cinta__list { display: 
 /* Solo las zonas con presencia responden al mouse: las grises quedan como dibujo (sin resaltado ni indicador).
    Con (hover: hover) para que en táctil no quede una zona pintada debajo del dedo. */
 @media (hover: hover) {
-  .prov.on:hover, #presencia .prov.on:hover { fill: var(--ink); stroke: var(--ink); }
+  .prov.on:hover, #presencia .prov.on:hover { fill: var(--map-accent-dark, #4B2272); stroke: var(--map-accent-dark, #4B2272); }
   .prov.caba.on:hover, #presencia .prov.caba.on:hover { stroke: var(--white); }
 }
 
@@ -1509,14 +1522,15 @@ html:not(.anim) .cl-fichero .cinta.is-cinta .cinta__row .cinta__list { display: 
    leen sobre el gris; las zonas con presencia, en el acento de cada vista (violeta en Argentina, lima en la región). */
 #presencia .prov { fill: var(--white); stroke: var(--gray-bg); }
 #presencia .prov.on { fill: var(--map-accent, var(--purple)); }
-.anim #presencia .armap:not(.is-lit) .prov.on { fill: var(--white); }
-#presencia .armap.is-lit .prov.on { animation-name: provOnLight; }
-@keyframes provOnLight { from { fill: var(--white); } to { fill: var(--map-accent, var(--purple)); } }
+/* Las zonas con presencia se ven con su color desde el primer cuadro (pedido de Brian, 09/11): sin encendido desde el
+   blanco ni pasos por otro color. */
 /* Presencia regional: acento lima */
-.presence--lime { --map-accent: var(--lime); }
+/* Zona elegida o con el mouse encima: el mismo acento, más oscuro (nunca carbón: se leía como negro). */
+#presencia { --map-accent-dark: #4B2272; }
+.presence--lime { --map-accent: var(--lime); --map-accent-dark: #6B9A1F; }
 .presence--lime .map-info__name { color: var(--ink); }
 .presence--lime .prov.on { fill: var(--lime); }
-@media (hover: hover) { #presencia .presence--lime .prov.on:hover { fill: var(--ink); stroke: var(--ink); } }
+@media (hover: hover) { #presencia .presence--lime .prov.on:hover { fill: var(--map-accent-dark); stroke: var(--map-accent-dark); } }
 .presence--lime .checks .ico { color: var(--ink); }
 .armap--region { max-width: 340px; }
 
@@ -1525,9 +1539,9 @@ html:not(.anim) .cl-fichero .cinta.is-cinta .cinta__row .cinta__list { display: 
 :is(#presencia, #presencia-regional) .prov { transition: fill .25s var(--ease-out), stroke .25s var(--ease-out), opacity .2s var(--ease-out), filter .2s var(--ease-out); }
 :is(#presencia, #presencia-regional) .armap:focus { outline: none; } /* tabindex="-1": no es parada de Tab */
 :is(#presencia, #presencia-regional) .prov__hit { fill: transparent; stroke: none; } /* zona de toque de CABA */
-#presencia .prov.is-active { fill: var(--ink); stroke: var(--ink); }
+#presencia .prov.is-active { fill: var(--map-accent-dark); stroke: var(--map-accent-dark); }
 #presencia .prov.caba.is-active { stroke: var(--white); }
-#presencia-regional .prov.is-active { fill: var(--ink); stroke: var(--ink); }
+#presencia-regional .prov.is-active { fill: var(--map-accent-dark); stroke: var(--map-accent-dark); }
 /* Si se interactúa mientras las zonas se prenden, pasan directo al color final (la animación pisaba el resaltado) */
 :is(#presencia, #presencia-regional) .armap.is-settled .prov.on { animation: none; }
 
@@ -2274,7 +2288,6 @@ html:not(.anim) .cl-fichero .cinta.is-cinta .cinta__row .cinta__list { display: 
 @keyframes stepbar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes stepbarY { from { transform: scaleY(0); } to { transform: scaleY(1); } }
 @keyframes heroMedia { from { opacity: 0; transform: scale(1.03); } to { opacity: 1; transform: none; } }
-@keyframes provOn { from { fill: var(--gray-bg); } to { fill: var(--map-accent, var(--purple)); } }
 @keyframes histRing { from { stroke-dashoffset: 75.4; } to { stroke-dashoffset: 0; } }
 
 .ico { transform-box: fill-box; transform-origin: center; }
@@ -2297,7 +2310,7 @@ html:not(.anim) .cl-fichero .cinta.is-cinta .cinta__row .cinta__list { display: 
 /* Estado previo al revelado. Solo aplica con `.anim` en <html>, que se agrega
    desde <head> cuando hay IntersectionObserver y no se pidió reducir movimiento. */
 .anim .rv:not(.show) { opacity: 0; transform: translateY(26px); }
-.anim .rv:not(.show) :is(.ico, .num) { opacity: 0; transform: scale(.4); }
+.anim .rv:not(.show) :is(.ico, .num):not(button .ico) { opacity: 0; transform: scale(.4); }
 .anim #historia .rv:not(.show) .hist__ring-arc { stroke-dashoffset: 75.4; }
 .anim #historia .rv:not(.show) .hist__ring-dot,
 .anim #historia .hist__item--same.rv:not(.show) .hist__node { opacity: 0; transform: scale(.86); }
@@ -2326,10 +2339,10 @@ html:not(.anim) .cl-fichero .cinta.is-cinta .cinta__row .cinta__list { display: 
 :is(.section-cta, .section-next).rv.show { animation-delay: .4s; }
 
 /* Íconos y cifras dentro de un bloque revelado: entran después de su bloque y el trazo se dibuja */
-.rv.show :is(.ico, .num) { animation: pop .6s var(--ease-out) calc(var(--rv-d, 0s) + var(--seq, 0s) + .2s) both; }
+.rv.show :is(.ico, .num):not(button .ico) { animation: pop .6s var(--ease-out) calc(var(--rv-d, 0s) + var(--seq, 0s) + .2s) both; }
 /* Íconos de Servicios y Soluciones: pop y trazo; después quedan quietos y centrados en su círculo (sin flotación) */
 .rv.show .svc-ico { animation: pop .6s var(--ease-out) calc(var(--rv-d, 0s) + .2s) both; }
-.rv.show .ico :is(path, circle, rect, ellipse) { stroke-dasharray: 64; stroke-dashoffset: 64; animation: draw .8s var(--ease-out) calc(var(--rv-d, 0s) + var(--seq, 0s) + .25s) forwards; }
+.rv.show .ico:not(button .ico) :is(path, circle, rect, ellipse) { stroke-dasharray: 64; stroke-dashoffset: 64; animation: draw .8s var(--ease-out) calc(var(--rv-d, 0s) + var(--seq, 0s) + .25s) forwards; }
 /* Casos: cada tarjeta tiene su propia entrada (ver "Casos"); al revelar el bloque no se animan los íconos de las 39
    tarjetas a la vez, solo sube el carrusel */
 #casos .rv.show .case-card :is(.ico, .num) { animation: none; }
@@ -2342,9 +2355,6 @@ html:not(.anim) .cl-fichero .cinta.is-cinta .cinta__row .cinta__list { display: 
 .anim #historia .rv-seq:not(.show) .hist__sq { opacity: 0; }
 #historia .rv-seq.show .hist__sq { animation: pop .6s var(--ease-out) calc(var(--rv-d, 0s) + .7s) both; }
 
-/* Mapa: las zonas con presencia se "prenden" de a una (demoras desde JS) */
-.anim .armap:not(.is-lit) .prov.on { fill: var(--gray-bg); }
-.armap.is-lit .prov.on { animation: provOn .5s var(--ease-out) backwards; }
 
 /* Apertura suave de los desplegables donde el navegador lo soporta */
 @media (prefers-reduced-motion: no-preference) {

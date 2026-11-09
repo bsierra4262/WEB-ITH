@@ -1,5 +1,5 @@
 {
-  "_info": "Catálogo de perfiles de /postulate/. Los nombres son los de los servicios y soluciones de la home y de la presentación institucional 2026 (no se inventan categorías). Lo usa api/busquedas.php para reconocer a qué perfil corresponde cada búsqueda de HiringRoom (por las palabras clave del título; las que empiezan con ~ son genéricas y solo desempatan) y el orden es el que se muestra cuando no hay datos. El texto, los chips y el ícono de cada perfil están también en postulate/index.html (mismo id en data-perfil): si se cambia un perfil acá, cambiarlo allá. Íconos: los de la tarjeta del mismo nombre en Servicios y Soluciones de la home.",
+  "_info": "Catálogo de perfiles de /postulate/. Los nombres son los de los servicios y soluciones de la home y de la presentación institucional 2026 (no se inventan categorías). Lo usa api/busquedas.php para reconocer a qué perfil corresponde cada búsqueda de HiringRoom (por las palabras clave del título; las que empiezan con ~ son genéricas y solo desempatan) y el orden es el que se muestra cuando no hay datos. El texto, los chips y el ícono de cada perfil están también en postulate/index.html (mismo id en data-perfil): si se cambia un perfil acá, cambiarlo allá. Íconos: los de la tarjeta del mismo nombre en Servicios y Soluciones de la home. Agrupación según la presentación (Presentación Institucional ITH-20261104 v1): el soporte técnico va en Mesa de ayuda (diap. 12, Service Desk: \"soporte técnico a usuarios\"); QA y liderazgo de proyectos van en Consultoría (diap. 9 y 14: calidad y metodologías ágiles); la arquitectura, en Desarrollo de apps (diap. 13: \"Arquitectura TI\"); Data center y Cloud son soluciones separadas (diap. 8, 20 y 24).",
   "version": 2,
   "visibles": 6,
   "perfiles": [
@@ -245,7 +245,12 @@
         "frontend",
         "front end",
         "backend",
-        "back end"
+        "back end",
+        "arquitecto",
+        "arquitecto de soluciones",
+        "arquitectura",
+        "lider tecnico",
+        "tech lead"
       ]
     },
     {
@@ -279,15 +284,10 @@
         "project leader",
         "jefe de proyecto",
         "pmo",
-        "arquitecto",
-        "arquitecto de soluciones",
-        "arquitectura",
         "scrum",
         "scrum master",
         "agile coach",
         "product owner",
-        "lider tecnico",
-        "tech lead",
         "team lead",
         "~coordinador"
       ]

@@ -45,7 +45,7 @@ img/clientes/*.png       Logos de clientes (la cinta usa 50: 19 del sector públ
 img/socios/*.png         Logos de socios tecnológicos (35)
                          Todos los logos son PNG con canal alfa real: el fondo blanco se eliminó editando la imagen
                          (color a alfa, antialias limpio, sin halo), así nunca muestran una caja blanca sobre el lavanda
-                         ni sobre el blanco. En el HTML van con versión (`?v=20261109`): si se reemplaza un logo, subir
+                         ni sobre el blanco. En el HTML van con versión (`?v=20261110`, la misma en todos): si se reemplaza un logo, subir
                          la versión. Para sumar uno, quitarle el fondo antes de subirlo (no se usa mix-blend-mode).
 img/iconos/*.svg         Íconos de Transformación digital y Tecnología colaborativa (hoy van embebidos en el HTML;
                          los archivos quedan como fuente)
@@ -135,15 +135,13 @@ con la X, Escape o un clic afuera (con el mouse, si no se entró al globo, se ci
 `click_whatsapp` con `link_location: "flotante"`; los demás enlaces a WhatsApp lo publican con su sección.
 
 **Fondos y tarjetas:** regla acordada con Brian: **fondo oscuro únicamente en el hero (placeholder del video de
-fondo)**. El resto alterna blanco (`.bg-white`) y lavanda liso (`.bg-gray`) para que dos secciones seguidas nunca sean
-iguales; paleta acotada (carbón para el texto, violeta, lima solo como acento, blanco y lavanda). **Fondo vivo:** cada
-fondo claro lleva dos brillos de marca muy difusos (violeta arriba, lima abajo, en esquinas que se alternan sección a
-sección) que derivan lentísimo; `main.js` agrega la capa `.brillos` a cada sección con fondo propio y las páginas sin
-secciones de color usan `main::before` con la misma deriva. Quietos con "reducir movimiento" (ver "Ritmo de fondos" en
-`styles.css`). Las
-tarjetas no llevan caja, sombra ni filetes: se separan por aire y tipografía, con el número arriba a la izquierda. Los
-círculos de íconos y los chips van en lavanda sobre blanco y en blanco sobre lavanda. Barra de desplazamiento de la
-página en violeta sobre lavanda.
+fondo)** (y `/gracias-reserva/`, carbón). El resto alterna blanco (`.bg-white`) y lavanda (`.bg-gray`) para que dos
+secciones seguidas nunca sean iguales. **Todas** las secciones (también las blancas y el pie) llevan la misma textura
+viva: dos halos de marca chicos y sutiles (violeta y lima) que derivan lento y se desvanecen antes del borde (capa
+`.brillos` que agrega `main.js`; ver "Ritmo de fondos" en `styles.css`); con "reducir movimiento", quietos. Paleta
+acotada: carbón para el texto, violeta, lima solo como acento, blanco y lavanda. Las tarjetas no llevan caja, sombra ni
+filetes: se separan por aire y tipografía, con el número arriba a la izquierda. Los círculos de íconos y los chips van en
+lavanda sobre blanco y en blanco sobre lavanda. Barra de desplazamiento de la página en violeta sobre lavanda.
 
 ## Secciones de la home, en orden
 

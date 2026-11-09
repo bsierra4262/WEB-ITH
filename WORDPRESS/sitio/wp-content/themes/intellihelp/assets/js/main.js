@@ -281,22 +281,22 @@
     });
   }
 
-  /* ---------- Fondo vivo: brillos de marca en cada fondo claro ---------- */
-  // Cada sección de primer nivel con fondo claro propio (blanco o lavanda) recibe como primer hijo una capa .brillos
-  // con dos brillos difusos (violeta y lima) que derivan muy despacio (CSS, "Ritmo de fondos"). Las capas alternan de
-  // lado (data-lado a/b) sección a sección y se detienen fuera de pantalla. El hero carbón tiene su propio fondo de
-  // luces y las secciones transparentes (bloque de reserva del diagnóstico, por ejemplo) muestran el de main::before.
+  /* ---------- Brillos de marca en todas las secciones ---------- */
+  // Cada sección de primer nivel con fondo propio (blanca o lavanda) recibe como primer hijo una capa .brillos con dos
+  // brillos difusos (violeta y lima) que derivan lento (CSS, "Ritmo de fondos"): la misma animación y la misma
+  // intensidad en todas, alternando de lado (data-lado a/b) sección a sección. Fuera de pantalla se detiene. El hero
+  // carbón tiene su propio fondo de luces; lo que no tiene fondo propio muestra el de main::before.
   {
-    const claro = (el) => {
+    const conFondo = (el) => {
       const m = getComputedStyle(el).backgroundColor.match(/[\d.]+/g);
       if (!m || (m.length > 3 && Number(m[3]) === 0)) return false;
       const [r, g, b] = m.map(Number);
-      return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255 > 0.7;
+      return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255 > 0.7; // claro (no el carbón)
     };
-    // En el blog: encabezados de pantalla y de nota, listado, cuerpo del 404, notas relacionadas y cierre (solo las
-    // que tienen fondo claro propio; las transparentes muestran el de main::before).
-    const capas = [...document.querySelectorAll('main section, main .page-head, main .post-hero')]
-      .filter((el) => !el.parentElement.closest('section') && !el.matches('.hero, .tech, .section--dark') && claro(el));
+    // En el blog: encabezados de pantalla y de nota (transparentes: muestran main::before), listado, cuerpo del 404,
+    // notas relacionadas, cierre y pie.
+    const capas = [...document.querySelectorAll('main section, main .page-head, main .post-hero, main .page-body, .site-footer')]
+      .filter((el) => !el.parentElement.closest('section, .page-body') && !el.matches('.hero, .tech, .section--dark') && conFondo(el));
     const io = 'IntersectionObserver' in window
       ? new IntersectionObserver((entries) => entries.forEach((en) => en.target.classList.toggle('is-quieto', !en.isIntersecting)), { rootMargin: '10% 0px' })
       : null;

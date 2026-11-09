@@ -146,11 +146,11 @@ de costado (28 px) en el sentido del cambio.
 
 - **Luces (solo el hero, único fondo oscuro del sitio, placeholder del video):** carbón con cuatro luces difusas (violeta, violeta, lima y lavanda) y un grano fino; órbitas, derivas y
   respiraciones de 30 a 60 s con duraciones distintas. Reglas en `styles.css` (`.tech`, `.fondo`, `.fondo__luz`).
-- **Fondo vivo (todas las páginas):** cada fondo claro lleva dos brillos de marca muy difusos (violeta .09 y lima .13,
-  degradados radiales sin filtros) que derivan lentísimo con `transform` (50–64 s, ida y vuelta), en esquinas que se
-  alternan sección a sección. `main.js` agrega la capa `.brillos` a cada sección de primer nivel con fondo propio y
-  la detiene fuera de pantalla; las páginas sin secciones de color usan `main::before` (70 s). Con "reducir movimiento",
-  quietos.
+- **Brillos de marca (todas las secciones, todas las páginas):** cada sección con fondo propio (blanca o lavanda) lleva
+  la misma textura: dos halos chicos (≈40 % del ancho), violeta .07 y lima .09, muy difuminados, que se desvanecen antes
+  del borde (la capa además se funde arriba y abajo), con deriva lenta y corta (30–38 s, solo `transform`). Las
+  secciones siguen alternando blanco y lavanda. `main.js` agrega la capa `.brillos`; lo que no tiene fondo propio usa
+  `main::before`. Con "reducir movimiento", quietos pero visibles.
 
 ### 10. Carruseles: flechas a los costados
 

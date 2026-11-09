@@ -146,28 +146,27 @@ input[type="search"]::-webkit-search-results-decoration { -webkit-appearance: no
 @media (max-width: 600px) { :root { --wrap-pad: 20px; } }
 
 .section { padding: var(--section-y) 0; }
-/* ---------- Ritmo de fondos y toques de marca ----------
-   REGLA: fondo oscuro únicamente en el hero (placeholder del video de fondo). El resto del sitio es claro y homogéneo:
-   las secciones alternan blanco (.bg-white) y lavanda liso (.bg-gray), de modo que dos seguidas nunca tengan el mismo
-   fondo. Paleta acotada: carbón para el texto, violeta #663399, lima #98CC32 solo como acento, blanco y lavanda.
-   Copia de TEMPLATE-NICO/css/styles.css ("Ritmo de fondos y toques de marca"); en el blog main.js pone las capas
-   .brillos en las secciones claras (listado, notas relacionadas, cierre, cuerpo del 404). Si cambia allá, se copia acá.
+/* ---------- Ritmo de fondos y brillos de marca ----------
+   REGLA: fondo oscuro únicamente en el hero (placeholder del video de fondo) y en /gracias-reserva/. El resto alterna
+   blanco (.bg-white) y lavanda (.bg-gray), de modo que dos secciones seguidas nunca tengan el mismo fondo. Paleta
+   acotada: carbón para el texto, violeta #663399, lima #98CC32 solo como acento, blanco y lavanda.
+   Copia de TEMPLATE-NICO/css/styles.css; en el blog main.js pone las capas en las secciones claras (listado, cuerpo del
+   404, notas relacionadas, cierre y pie). Si cambia allá, se copia acá igual.
    Home: hero carbón · Qué ofrecemos blanco · Presencia lavanda · Equipo blanco · Socios lavanda · Clientes blanco ·
    Historia lavanda · Casos blanco · Cita lavanda · Preguntas blanco · Cierre lavanda (card blanca) · pie blanco.
    Las piezas claras se ajustan al fondo: círculos de íconos y chips en lavanda sobre blanco y en blanco sobre lavanda.
-   Fondo vivo (pedido de Brian, 09/11: "muy liso"): los colores siguen lisos, pero cada fondo claro lleva dos brillos
-   de marca muy difusos (violeta y lima, los del título del diagnóstico) que derivan lentísimo (50–64 s, ida y vuelta).
-   - Secciones con fondo propio (blanco o lavanda): main.js les agrega una capa .brillos (aria-hidden) como primer
-     hijo, con un brillo violeta arriba y uno lima abajo, en esquinas opuestas que se alternan sección a sección
-     (data-lado a/b), así la página tiene un ritmo y nunca dos secciones seguidas iguales. Fuera de pantalla se detienen.
-   - Páginas sin secciones de color (privacidad, 404, diagnóstico): el fondo fijo de main::before, con la misma deriva.
-   - Opacidades bajas (.09 violeta, .13 lima) y solo transform: no ensucian, no bajan el contraste y no repintan.
-     Con "reducir movimiento", quietos. Sin JS, las secciones quedan lisas y main::before igual se ve. */
+   BRILLOS EN TODAS LAS SECCIONES (pedido de Brian, 09/11): cada sección con fondo propio, blanca o lavanda, lleva la
+   misma textura con la misma intensidad: dos halos de marca chicos y sutiles (violeta .07 arriba, lima .09 abajo, como
+   el toque del título del diagnóstico) que derivan lento y poco (30–38 s, ida y vuelta), en esquinas que se alternan
+   sección a sección, y que se desvanecen antes del borde. Así no hay secciones lisas al lado de otras animadas.
+   - main.js agrega a cada sección de primer nivel con fondo propio una capa .brillos (aria-hidden) como primer hijo;
+     fuera de pantalla se detiene. Las zonas sin fondo propio (encabezados de privacidad y 404, diagnóstico) muestran
+     el de main::before, con los mismos brillos y la misma deriva.
+   - Con "reducir movimiento" (por ejemplo, Windows con las animaciones apagadas) se ven igual, quietos.
+   - Solo degradados y transform: no repintan. El texto carbón sobre la mezcla más fuerte sigue por encima de 10:1. */
 :root { --lav-2: var(--lavender); }
 .bg-white { background: var(--white); }
 .bg-gray { background: var(--lavender); }
-/* Base de las páginas sin sección de fondo propio (404, privacidad, diagnóstico): lavanda con dos brillos fijos que
-   derivan muy despacio */
 main::before {
   content: "";
   position: fixed;
@@ -175,35 +174,49 @@ main::before {
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(42% 38% at 82% 18%, rgb(102 51 153 / .10), transparent 70%),
-    radial-gradient(38% 34% at 14% 86%, rgb(152 204 50 / .12), transparent 70%);
+    radial-gradient(30% 26% at 80% 20%, rgb(102 51 153 / .07), transparent 100%),
+    radial-gradient(26% 24% at 16% 82%, rgb(152 204 50 / .09), transparent 100%);
 }
 .dx--noche main::before { content: none; }
 
+/* Capa de brillos de cada sección: dos halos chicos (≈40 % del ancho), muy difuminados y de opacidad baja, que se
+   desvanecen por completo antes del borde de la sección (además, la capa entera se funde arriba y abajo con una
+   máscara): nunca hay un corte duro ni una mancha. Deriva lenta y corta. */
 .con-brillos { position: relative; isolation: isolate; }
-.brillos { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.brillos {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 14%, #000 86%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 14%, #000 86%, transparent);
+}
 .brillos::before, .brillos::after {
   content: "";
   position: absolute;
-  width: min(820px, 90vw);
-  height: min(560px, 75vw);
+  width: 42%;
+  height: min(70%, 520px);
   border-radius: 50%;
 }
-.brillos::before { top: -18%; left: -14%; background: radial-gradient(closest-side, rgb(102 51 153 / .09), rgb(102 51 153 / 0)); }
-.brillos::after { right: -14%; bottom: -22%; background: radial-gradient(closest-side, rgb(152 204 50 / .13), rgb(152 204 50 / 0)); }
-.brillos[data-lado="b"]::before { right: -14%; left: auto; }
-.brillos[data-lado="b"]::after { right: auto; left: -14%; }
-@media (prefers-reduced-motion: no-preference) {
-  .brillos::before { animation: brilloA 52s ease-in-out infinite alternate; }
-  .brillos::after { animation: brilloB 64s ease-in-out -18s infinite alternate; }
-  .brillos[data-lado="b"]::before { animation-name: brilloB; animation-duration: 58s; }
-  .brillos[data-lado="b"]::after { animation-name: brilloA; animation-duration: 50s; }
-  .brillos.is-quieto::before, .brillos.is-quieto::after { animation-play-state: paused; }
-  main::before { animation: brilloFondo 70s ease-in-out infinite alternate; }
+.brillos::before { top: 8%; left: 3%; background: radial-gradient(closest-side, rgb(102 51 153 / .07), rgb(102 51 153 / .03) 50%, rgb(102 51 153 / 0)); }
+.brillos::after { right: 3%; bottom: 8%; background: radial-gradient(closest-side, rgb(152 204 50 / .09), rgb(152 204 50 / .035) 50%, rgb(152 204 50 / 0)); }
+.brillos[data-lado="b"]::before { right: 3%; left: auto; }
+.brillos[data-lado="b"]::after { right: auto; left: 3%; }
+@media (max-width: 760px) {
+  .brillos::before, .brillos::after { width: 80%; height: min(45%, 360px); }
 }
-@keyframes brilloA { from { transform: translate3d(0, 0, 0) scale(1); } to { transform: translate3d(16%, 12%, 0) scale(1.14); } }
-@keyframes brilloB { from { transform: translate3d(0, 0, 0) scale(1.1); } to { transform: translate3d(-14%, -10%, 0) scale(.94); } }
-@keyframes brilloFondo { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-4%, 3%, 0) scale(1.05); } }
+@media (prefers-reduced-motion: no-preference) {
+  .brillos::before { animation: brilloA 32s ease-in-out infinite alternate; }
+  .brillos::after { animation: brilloB 38s ease-in-out -12s infinite alternate; }
+  .brillos[data-lado="b"]::before { animation-name: brilloB; animation-duration: 36s; }
+  .brillos[data-lado="b"]::after { animation-name: brilloA; animation-duration: 30s; }
+  .brillos.is-quieto::before, .brillos.is-quieto::after { animation-play-state: paused; }
+  main::before { animation: brilloFondo 40s ease-in-out infinite alternate; }
+}
+@keyframes brilloA { from { transform: translate3d(0, 0, 0) scale(1); } to { transform: translate3d(7%, 5%, 0) scale(1.05); } }
+@keyframes brilloB { from { transform: translate3d(0, 0, 0) scale(1.04); } to { transform: translate3d(-6%, -5%, 0) scale(.97); } }
+@keyframes brilloFondo { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-3%, 2%, 0) scale(1.03); } }
 
 .section-head { max-width: 760px; display: flex; flex-direction: column; gap: 14px; margin-bottom: 36px; }
 .section-head--wide { max-width: 980px; }

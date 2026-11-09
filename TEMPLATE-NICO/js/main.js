@@ -2,7 +2,7 @@
    (/diagnostico-sin-cargo/, /postulate/).
    Módulos, en orden: trayectoria (años) · origen de la visita · menú angosto · barra con sección activa · enlaces internos · CTAs
    (medición) · hero con video · párrafos "Ver más" · revelado al scrollear · contadores · carruseles · filtro de casos ·
-   cinta de clientes · socios (slots) · slider de presencia · mapas · preguntas · fondo vivo · WhatsApp flotante (y su globo) ·
+   cinta de clientes · socios (slots) · slider de presencia · mapas · preguntas · brillos de marca · WhatsApp flotante (y su globo) ·
    medición de WhatsApp. Cada módulo busca sus nodos y, si no están, no hace nada, así el mismo archivo sirve para la
    home y para las páginas internas.
    Sin botones de pausa en ningún lado (pedido de Brian): lo que se mueve solo se detiene con el mouse encima, con el
@@ -672,18 +672,27 @@
     // tarjeta estirada al alto del caso más largo. El cambio de alto se anima por CSS.
     // La pista nunca muestra scroll (overflow-y: hidden en el CSS): si el caso activo cambia de alto (fuente, proyecto
     // elegido, ancho), un ResizeObserver lo vuelve a medir. --case-h queda para centrar las flechas en celular.
+    // Casos: alto FIJO, el del caso más largo de todos (de los dos sectores) para el ancho actual. El contenido de cada
+    // caso va arriba y la fila contador + barra queda siempre a la misma altura: nada se redimensiona al cambiar de
+    // caso. Para medir, los casos ocultos (filtro de sector) se muestran un instante, en el mismo cuadro (no se pintan).
     const fit = carousel.hasAttribute('data-carousel-fit');
-    const fitHeight = () => {
-      if (!fit || !items[index]) return;
+    let altoFijo = 0;
+    let anchoMedido = -1;
+    const medirAlto = () => {
+      const ocultos = slides.filter((sl) => sl.hidden);
+      ocultos.forEach((sl) => { sl.hidden = false; });
       const box = getComputedStyle(track);
-      const h = items[index].offsetHeight + parseFloat(box.paddingTop) + parseFloat(box.paddingBottom);
-      track.style.height = `${h}px`;
-      carousel.style.setProperty('--case-h', `${h}px`);
+      track.style.height = 'auto';
+      altoFijo = Math.max(...slides.map((sl) => sl.offsetHeight)) + parseFloat(box.paddingTop) + parseFloat(box.paddingBottom);
+      ocultos.forEach((sl) => { sl.hidden = true; });
+      anchoMedido = track.clientWidth;
     };
-    if (fit && 'ResizeObserver' in window) {
-      const ro = new ResizeObserver((entries) => { if (entries.some((en) => en.target === items[index])) fitHeight(); });
-      slides.forEach((slide) => ro.observe(slide));
-    }
+    const fitHeight = (forzar) => {
+      if (!fit || !items[index]) return;
+      if (forzar === true || track.clientWidth !== anchoMedido) medirAlto();
+      track.style.height = `${altoFijo}px`;
+      carousel.style.setProperty('--case-h', `${altoFijo}px`);
+    };
     // Casos (data-carousel-fit con avance automático): barra de avance junto al contador, que se llena en el tiempo
     // total del caso a la vista (todos sus proyectos). Se pausa con el carrusel (.is-paused) y se oculta con un cliente
     // elegido a mano (.is-pinned).
@@ -850,7 +859,8 @@
     track.addEventListener('toggle', schedule, true); // el `toggle` de <details> no burbujea
     document.addEventListener('visibilitychange', schedule);
     addEventListener('resize', () => { fitHeight(); track.scrollTo({ left: offset(index), behavior: 'auto' }); });
-    if (fit && document.fonts) document.fonts.ready.then(fitHeight); // la fuente cambia el alto del texto
+    if (fit && document.fonts) document.fonts.ready.then(() => fitHeight(true)); // la fuente cambia el alto del texto
+    if (fit) addEventListener('load', () => fitHeight(true)); // los logos ya tienen su alto
     new IntersectionObserver((entries) => {
       inView = lastEntry(entries).isIntersecting;
       if (inView) fresh = true;
@@ -1562,11 +1572,11 @@
       return new DOMPoint(a.x, a.y).matrixTransform(ctm);
     };
     // Presentación (intro): el globo va al costado del mapa, separado (GAP px) y sin tocar ninguna zona, del lado de
-    // data-map-intro-lado. Primero se prueba al costado del mapa entero, a media altura (en escritorio sobra lugar);
+    // data-map-intro-lado. Primero se prueba a media altura del mapa;
     // si no entra, a la altura de cada fila de data-map-intro-y (fracciones del alto), en orden, contando el borde de la
     // tierra en toda la franja que ocupa el globo. Si no entra en ninguna, va en la primera fila, ajustado al ancho.
     // La pestaña del globo apunta al mapa. El borde de la tierra por fila se mide con isPointInFill y se guarda.
-    const GAP = 9; // separado del borde del país, pero cerca
+    const GAP = 15; // la misma separación que tenía el globo de Latinoamérica respecto de Chile (pedido de Brian)
     const MARGEN = 14; // aire contra los bordes de la caja (las flechas del slider van sobre el borde en celular)
     const introLado = map.dataset.mapIntroLado === 'izquierda' ? -1 : 1;
     const introFilas = (map.dataset.mapIntroY || '0.5').split(',').map(Number).filter((f) => f > 0 && f < 1);
@@ -1575,7 +1585,7 @@
       const y = Math.round(yy);
       if (bordes.has(y)) return bordes.get(y);
       const vb = map.viewBox.baseVal;
-      const paso = vb.width / 160;
+      const paso = vb.width / 720; // fino: el borde medido coincide con el que se ve
       const formas = zones.filter((z) => typeof z.isPointInFill === 'function');
       let borde = null;
       for (let x = vb.x; x <= vb.x + vb.width; x += paso) {
@@ -1603,9 +1613,12 @@
       const w = pin.offsetWidth;
       const h = pin.offsetHeight;
       const box = stage.getBoundingClientRect();
-      const medio = (h / 2 + 8) / ctm.a; // media altura del globo (y un poco de aire), en unidades del SVG
+      const medio = (h / 2 + 1) / ctm.a; // media altura del globo, en unidades del SVG: la separación se mide en sus mismas filas
       const bb = map.getBBox();
-      const candidatos = [{ x: introLado > 0 ? bb.x + bb.width : bb.x, y: bb.y + bb.height / 2 }]
+      // Primero a media altura del mapa; después las filas de data-map-intro-y. Siempre a GAP px de la tierra de la
+      // franja que ocupa el globo (no de la caja del mapa), así Argentina y Latinoamérica quedan igual de separados.
+      const medioY = bb.y + bb.height / 2;
+      const candidatos = [{ x: bordeFranja(medioY, medio), y: medioY }]
         .concat(introFilas.map((f) => { const y = vb.y + vb.height * f; return { x: bordeFranja(y, medio), y }; }))
         .filter((c) => c.x !== null);
       let sitio = null;
@@ -1744,6 +1757,10 @@
     };
     addEventListener('resize', replace);
     addEventListener('scroll', replace, { passive: true });
+    // La vista entrante del slider llega con un corrimiento animado: al terminar, el globo se vuelve a ubicar con el
+    // mapa ya en su lugar (si no, la separación quedaría medida a mitad del movimiento)
+    const vistaDelMapa = map.closest('[data-pres-slide]');
+    if (vistaDelMapa) vistaDelMapa.addEventListener('animationend', (e) => { if (e.target instanceof Element && e.target.contains(stage)) replace(); });
 
     // Recorrido automático: cuando el mapa ya se prendió y está a la vista, el indicador pasa solo por TODAS las zonas
     // con presencia, una por una (una cada TOUR_MS, en el orden de data-map-order), como un mapa que se presenta.
@@ -1833,20 +1850,20 @@
     }));
   }
 
-  /* ---------- Fondo vivo: brillos de marca en cada fondo claro ---------- */
-  // Cada sección de primer nivel con fondo claro propio (blanco o lavanda) recibe como primer hijo una capa .brillos
-  // con dos brillos difusos (violeta y lima) que derivan muy despacio (CSS, "Ritmo de fondos"). Las capas alternan de
-  // lado (data-lado a/b) sección a sección y se detienen fuera de pantalla. El hero carbón tiene su propio fondo de
-  // luces y las secciones transparentes (bloque de reserva del diagnóstico, por ejemplo) muestran el de main::before.
+  /* ---------- Brillos de marca en todas las secciones ---------- */
+  // Cada sección de primer nivel con fondo propio (blanca o lavanda) recibe como primer hijo una capa .brillos con dos
+  // brillos difusos (violeta y lima) que derivan lento (CSS, "Ritmo de fondos"): la misma animación y la misma
+  // intensidad en todas, alternando de lado (data-lado a/b) sección a sección. Fuera de pantalla se detiene. El hero
+  // carbón tiene su propio fondo de luces; lo que no tiene fondo propio muestra el de main::before.
   {
-    const claro = (el) => {
+    const conFondo = (el) => {
       const m = getComputedStyle(el).backgroundColor.match(/[\d.]+/g);
       if (!m || (m.length > 3 && Number(m[3]) === 0)) return false;
       const [r, g, b] = m.map(Number);
-      return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255 > 0.7;
+      return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255 > 0.7; // claro (no el carbón)
     };
-    const capas = [...document.querySelectorAll('main section, main .page-head')]
-      .filter((el) => !el.parentElement.closest('section') && !el.matches('.hero, .tech, .section--dark') && claro(el));
+    const capas = [...document.querySelectorAll('main section, main .page-head, main .page-body, .site-footer')]
+      .filter((el) => !el.parentElement.closest('section, .page-body') && !el.matches('.hero, .tech, .section--dark') && conFondo(el));
     const io = 'IntersectionObserver' in window
       ? new IntersectionObserver((entries) => entries.forEach((en) => en.target.classList.toggle('is-quieto', !en.isIntersecting)), { rootMargin: '10% 0px' })
       : null;
