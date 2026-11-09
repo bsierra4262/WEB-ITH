@@ -222,6 +222,6 @@ pertenecen a sus titulares. El autor conserva su derecho moral de reconocimiento
 
 ## Autor
 
-**Brian Sierra**, jefe de sistemas y soporte técnico de Intellihelp — diseño de la
-implementación, desarrollo e integración completos: sitio, agenda conectada al CRM, API, blog en
-WordPress, `.htaccess` de lanzamiento y verificación automatizada.
+**Brian Sierra** — Administrador de sistemas (SysAdmin) en Intellihelp · [LinkedIn](https://www.linkedin.com/in/brian-gabriel-sierra/) · [GitHub](https://github.com/bsierra4262)
+
+Diseño de la implementación, desarrollo e integración completos: sitio, agenda conectada al CRM, API, blog en WordPress, `.htaccess` de lanzamiento y verificación automatizada.
