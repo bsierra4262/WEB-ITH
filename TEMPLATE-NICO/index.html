@@ -264,7 +264,7 @@
 
   <!-- Fuente propia (ver @font-face en styles.css): sin pedidos a Google Fonts. `crossorigin` es obligatorio para precargar fuentes. -->
   <link rel="preload" href="fonts/saira-latin.woff2?v=7eb811eb14" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/styles.css?v=5ddbbf3cc7">
+  <link rel="stylesheet" href="css/styles.css?v=5b1b9b6ee9">
 
   <script>
     // Antes del primer pintado: marca que hay JS y pone en <html> la clase "anim", que habilita las animaciones de
@@ -895,19 +895,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <ul class="team list-reset">
               <li class="member member--grupo rv">
-          <div class="member__photo" aria-hidden="true"></div>
+          <div class="member__photo" aria-hidden="true"><picture><source media="(max-width: 640px)" srcset="img/equipo/equipo-grupo-celular.webp?v=20261109" width="800" height="600"><img src="img/equipo/equipo-grupo.webp?v=20261109" alt="" width="1600" height="686" loading="lazy" decoding="async"></picture></div>
           <span class="eyebrow">En las oficinas de nuestros clientes</span>
           <h3 class="member__name">Nuestro equipo técnico</h3>
           <p class="member__bio" data-more>Técnicos y profesionales IT que trabajan todos los días dentro de las organizaciones que acompañamos, en esquemas de outsourcing y mantenimiento.</p>
         </li>
               <li class="member rv">
-          <div class="member__photo" aria-hidden="true"></div>
+          <div class="member__photo" aria-hidden="true"><img src="img/equipo/carlos-baldelli.webp?v=20261109" alt="" width="800" height="600" loading="lazy" decoding="async"></div>
           <span class="eyebrow">CEO y dirección comercial</span>
           <h3 class="member__name">Carlos Baldelli</h3>
           <p class="member__bio" data-more>Fundador de Intellihelp. Define la estrategia de la compañía y lidera la relación comercial con clientes y partners, desde la primera reunión hasta la firma de cada acuerdo.</p>
         </li>
               <li class="member rv">
-          <div class="member__photo" aria-hidden="true"></div>
+          <div class="member__photo" aria-hidden="true"><img src="img/equipo/nicolas-baldelli.webp?v=20261109" alt="" width="800" height="600" loading="lazy" decoding="async"></div>
           <span class="eyebrow">COO</span>
           <h3 class="member__name">Nicolás Baldelli</h3>
           <div class="member__bio" data-more>
@@ -923,7 +923,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </li>
               <li class="member rv">
-          <div class="member__photo" aria-hidden="true"></div>
+          <div class="member__photo" aria-hidden="true"><img src="img/equipo/laura-zaltron.webp?v=20261109" alt="" width="800" height="600" loading="lazy" decoding="async"></div>
           <span class="eyebrow">Soporte técnico, preventa y administración</span>
           <h3 class="member__name">Laura Zaltron</h3>
           <div class="member__bio" data-more>
@@ -938,7 +938,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </li>
               <li class="member rv">
-          <div class="member__photo" aria-hidden="true"></div>
+          <div class="member__photo" aria-hidden="true"><img src="img/equipo/lisandro-campos.webp?v=20261109" alt="" width="800" height="600" loading="lazy" decoding="async"></div>
           <span class="eyebrow">Soporte técnico y preventa</span>
           <h3 class="member__name">Lisandro Campos</h3>
           <div class="member__bio" data-more>
@@ -954,7 +954,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </li>
               <li class="member rv">
-          <div class="member__photo" aria-hidden="true"></div>
+          <div class="member__photo" aria-hidden="true"><img src="img/equipo/brian-sierra.webp?v=20261109" alt="" width="800" height="600" loading="lazy" decoding="async"></div>
           <span class="eyebrow">Administrador de sistemas (SysAdmin)</span>
           <h3 class="member__name">Brian Sierra</h3>
           <div class="member__bio" data-more>
@@ -979,7 +979,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </li>
               <li class="member rv">
-          <div class="member__photo" aria-hidden="true"></div>
+          <div class="member__photo" aria-hidden="true"><img src="img/equipo/alejandro-ayala.webp?v=20261109" alt="" width="800" height="600" loading="lazy" decoding="async"></div>
           <span class="eyebrow">Instalaciones y coordinación de campo</span>
           <h3 class="member__name">Alejandro Ayala</h3>
           <div class="member__bio" data-more>
@@ -1871,10 +1871,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </section>
 <!-- ===== Cita de Carlos. Reemplaza a "Cómo empezamos" y conserva su id (#como-trabajamos) para no romper enlaces.
      Frase a la izquierda, foto de frente a la derecha (en celular, la foto primero).
-     FOTO PROVISORIA: img/equipo/carlos-cita.jpg es una silueta con la estética de las fotos del equipo. Para poner la
-     real, reemplazar ese archivo por la foto de Carlos de frente, vertical 4:5 (880 x 1100 px), con el mismo nombre.
-     FUENTE DE LA FRASE: Adaptación de una idea de Mark Cuban sobre ponerse en el lugar del cliente. Elegida por Brian
-     el 08/11; pendiente de aprobación de Carlos. ===== -->
+     FOTO: img/equipo/carlos-cita.webp, retrato de estudio de la sesión institucional (vertical 4:5, 704 x 880 px).
+     Las fotos del equipo (img/equipo/*.webp, 4:3) salen de la misma sesión, recortadas a la misma escala.
+     FRASE: versión revisada el 09/11, elegida por Brian; pendiente de aprobación de Carlos. ===== -->
 <section id="como-trabajamos" class="section bg-gray cita" aria-label="Palabras de Carlos Baldelli, CEO">
   <div class="wrap">
     <figure class="quote">
@@ -1887,7 +1886,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span class="quote__firma"><span class="quote__name">Carlos Baldelli</span><span class="quote__sep" aria-hidden="true"> · </span><span class="quote__role">CEO de Intellihelp</span></span>
         </figcaption>
       </div>
-      <div class="quote__photo member__photo rv"><img src="img/equipo/carlos-cita.jpg" alt="Carlos Baldelli, CEO de Intellihelp" width="880" height="1100" loading="lazy" decoding="async"></div>    </figure>
+      <div class="quote__photo member__photo rv"><img src="img/equipo/carlos-cita.webp?v=20261109" alt="Carlos Baldelli, CEO de Intellihelp" width="704" height="880" loading="lazy" decoding="async"></div>    </figure>
   </div>
 </section>
 <!-- ===== Preguntas frecuentes ===== -->

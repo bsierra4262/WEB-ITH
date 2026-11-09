@@ -1424,6 +1424,7 @@ html:not(.anim) .cl-fichero .cinta.is-cinta .cinta__row .cinta__list { display: 
 }
 .member__photo:has(img) { background-image: none; padding: 0; overflow: hidden; }
 .member__photo img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform var(--t-img) var(--ease-out); }
+.member__photo picture { display: contents; } /* foto grupal: un recorte para escritorio y otro 4:3 para celular */
 /* Tarjeta compacta sin recuadro ni aro: foto, cargo, nombre y "Ver más". Al pasar el mouse, el nombre toma el violeta. */
 .member__name { transition: color var(--t-fast) var(--ease-out); }
 @media (hover: hover) { #equipo .member:hover .member__name { color: var(--purple); } }
@@ -1447,6 +1448,7 @@ html:not(.anim) .cl-fichero .cinta.is-cinta .cinta__row .cinta__list { display: 
   #equipo .team { gap: 32px 14px; }
   #equipo .member:not(.member--grupo) { flex: 1 1 calc(50% - 7px); gap: 8px; }
   #equipo .member:not(.member--grupo) .member__photo { aspect-ratio: 1; padding: 12px; background-size: 52px; }
+  #equipo .member:not(.member--grupo) .member__photo:has(img) { padding: 0; } /* con foto: sin el margen de la silueta */
   #equipo .member:not(.member--grupo) .eyebrow { align-items: flex-start; gap: 8px; font-size: 12px; letter-spacing: .1em; line-height: 1.35; }
   #equipo .member:not(.member--grupo) .eyebrow::before { width: 16px; margin-top: .5em; }
   #equipo .member:not(.member--grupo) .member__name { font-size: 20px; line-height: 1.2; }
