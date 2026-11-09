@@ -24,7 +24,7 @@ function ith_seo_id_organizacion(): string {
 
 /** Descripción del blog. */
 function ith_seo_descripcion_blog(): string {
-	return 'Blog de Intellihelp: casos de clientes, novedades de la compañía y artículos sobre soporte, redes, seguridad física e infraestructura IT. Servicios IT desde ' . ith_fundacion() . '.';
+	return 'Blog de Intellihelp: casos de clientes, novedades de la compañía y artículos sobre soporte, redes, infraestructura y seguridad. Servicios IT desde ' . ith_fundacion() . '.';
 }
 
 /** Datos SEO de la pantalla actual: titulo, descripcion, canonical, tipo, imagen, imagen_alt, noindex. */

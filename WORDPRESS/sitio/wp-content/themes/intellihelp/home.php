@@ -17,7 +17,7 @@ ith_encabezado_pagina(
 	array(
 		'rotulo' => 'Novedades',
 		'titulo' => 'Novedades, casos y *perspectivas técnicas.*',
-		'bajada' => 'Casos de clientes, novedades de la compañía y artículos sobre soporte, redes, seguridad física e infraestructura IT.',
+		'bajada' => 'Experiencias con clientes, anuncios de la compañía y artículos sobre soporte, redes, infraestructura y seguridad.',
 		'id'     => 'novedades-titulo',
 		'clase'  => 'page-head--blog',
 	)

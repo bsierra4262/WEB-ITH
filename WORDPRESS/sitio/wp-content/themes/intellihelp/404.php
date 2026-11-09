@@ -16,7 +16,7 @@ ith_encabezado_pagina(
 	array(
 		'rotulo' => 'Error 404',
 		'titulo' => 'No encontramos *esta página.*',
-		'bajada' => 'La dirección puede haber cambiado con la actualización del sitio o contener un error. Estas son las secciones principales del sitio.',
+		'bajada' => 'Es posible que la dirección haya cambiado con la actualización del sitio o que contenga un error. Podés continuar desde las secciones principales.',
 	)
 );
 ?>
