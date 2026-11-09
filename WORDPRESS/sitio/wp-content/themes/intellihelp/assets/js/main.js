@@ -282,13 +282,15 @@
   }
 
   /* ---------- Brillos de marca en todas las secciones ---------- */
-  // Cada sección de primer nivel con fondo propio (blanca o lavanda) recibe como primer hijo una capa .brillos con dos
-  // brillos difusos (violeta y lima) que derivan lento (CSS, "Ritmo de fondos"): la misma animación y la misma
-  // intensidad en todas, alternando de lado (data-lado a/b) sección a sección. Fuera de pantalla se detiene. El hero
+  // Cada sección de primer nivel con fondo propio (blanca o lavanda) recibe como primer hijo una capa .brillos con 1 a 4
+  // puntos de luz (violeta y lima) que se desplazan despacio (CSS, "Luces de cada sección"). data-luces="N" en la
+  // sección fija la cantidad; si no, sale de su alto. Fuera de pantalla se detienen. El hero
   // carbón tiene su propio fondo de luces; lo que no tiene fondo propio muestra el de main::before.
   {
     const conFondo = (el) => {
-      const m = getComputedStyle(el).backgroundColor.match(/[\d.]+/g);
+      let m = getComputedStyle(el).backgroundColor.match(/[\d.]+/g);
+      // Sin fondo propio: cuenta el de la página (encabezados, bloque de reserva y casos del diagnóstico)
+      if (!m || (m.length > 3 && Number(m[3]) === 0)) m = getComputedStyle(document.body).backgroundColor.match(/[\d.]+/g);
       if (!m || (m.length > 3 && Number(m[3]) === 0)) return false;
       const [r, g, b] = m.map(Number);
       return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255 > 0.7; // claro (no el carbón)
@@ -300,13 +302,41 @@
     const io = 'IntersectionObserver' in window
       ? new IntersectionObserver((entries) => entries.forEach((en) => en.target.classList.toggle('is-quieto', !en.isIntersecting)), { rootMargin: '10% 0px' })
       : null;
+    // Puntos de luz de una sección: cantidad por data-luces o por alto; violeta y lima alternados (los dos colores en
+    // toda sección con 2 o más); posición, tamaño, recorrido (siempre hacia adentro), duración y desfase variados con
+    // una secuencia fija por página (mismo resultado en cada carga, distinto entre secciones).
+    let semilla = [...location.pathname].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
+    const azar = () => { semilla = (semilla * 1664525 + 1013904223) >>> 0; return semilla / 4294967296; };
+    const entre = (a, b) => a + (b - a) * azar();
+    const luces = (capa, sec, i) => {
+      const pedido = parseInt(sec.dataset.luces, 10);
+      const alto = sec.offsetHeight;
+      const n = Math.max(1, Math.min(4, Number.isNaN(pedido) ? (alto < 520 ? 2 : alto < 1100 ? 3 : 4) : pedido));
+      for (let k = 0; k < n; k++) {
+        const luz = document.createElement('i');
+        const violeta = (k + i) % 2 === 0;
+        luz.className = `luz luz--${violeta ? 'violeta' : 'lima'}`;
+        // Repartidos de arriba abajo, alternando lados, con algo de variación
+        const izquierda = (k + i) % 2 === 0;
+        const x = izquierda ? entre(3, 34) : entre(52, 80);
+        const y = ((k + 0.25) / n) * 100 + entre(-6, 6);
+        luz.style.setProperty('--x', `${x.toFixed(1)}%`);
+        luz.style.setProperty('--y', `${Math.max(2, y).toFixed(1)}%`);
+        luz.style.setProperty('--k', entre(0.55, 1).toFixed(2));
+        luz.style.setProperty('--dx', `${Math.round((x < 45 ? 1 : -1) * entre(60, 150))}px`);
+        luz.style.setProperty('--dy', `${Math.round((y < 50 ? 1 : -1) * entre(16, 60))}px`);
+        luz.style.setProperty('--t', `${entre(14, 21).toFixed(1)}s`);
+        luz.style.setProperty('--d', `${(-entre(0, 12)).toFixed(1)}s`);
+        capa.append(luz);
+      }
+    };
     capas.forEach((sec, i) => {
       const capa = document.createElement('div');
       capa.className = 'brillos';
       capa.setAttribute('aria-hidden', 'true');
-      capa.dataset.lado = i % 2 ? 'b' : 'a';
       sec.classList.add('con-brillos');
       sec.prepend(capa);
+      luces(capa, sec, i);
       if (io) io.observe(capa);
     });
   }

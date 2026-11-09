@@ -355,16 +355,16 @@ if ($r['status'] === 0) {
     error_log('[agenda.php] reserva ' . substr($idem, 0, 16) . ': sin respuesta del CRM en dos intentos');
     responder(202, ['ok' => false, 'error' => 'confirmando',
         'mensaje' => 'Estamos confirmando tu reunión. Revisá tu correo en unos minutos: si quedó agendada, '
-            . 'te llega la invitación. Si no te llega, escribinos a ' . MAIL_TO . ' y la coordinamos.']);
+            . 'vas a recibir la invitación. Si no la recibís, escribinos a ' . MAIL_TO . ' y la coordinamos.']);
 }
 if ($r['status'] === 429 && $err === 'limite_reservas') {
     // Tope por correo o del día en el CRM: el mensaje es para la persona, y
     // la página le deja el formulario de siempre.
-    fallar(429, 'limite', (string) ($r['json']['mensaje'] ?? 'En este momento no podemos tomar más reservas por acá.'));
+    fallar(429, 'limite', (string) ($r['json']['mensaje'] ?? 'En este momento no podemos tomar más reservas desde la agenda.'));
 }
 if ($r['status'] === 409 && $err === 'horario_tomado') {
     limpiar_cache($cfg);
-    fallar(409, 'horario_tomado', 'Justo tomaron ese horario. Elegí otro, por favor.');
+    fallar(409, 'horario_tomado', 'Ese horario acaba de reservarse. Elegí otro, por favor.');
 }
 if ($r['status'] === 409 && $err === 'en_proceso') {
     fallar(409, 'en_proceso', 'Estamos confirmando tu reunión.');

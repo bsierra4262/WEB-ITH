@@ -10,9 +10,14 @@
 
 /* ---------- Encabezado ---------- */
 .page-head--blog .section-title--big { max-width: 14em; }
-.page-head--blog + .blog-list,
-.page-head--blog + .post-search-wrap { padding-top: 40px; }
-.page-head--blog + .post-search-wrap + .blog-list { padding-top: 32px; }
+/* El encabezado del listado, las categorías y la búsqueda arranca más cerca del header y deja aire abajo antes del
+   cambio de fondo (lavanda del encabezado → blanco del listado), así el texto no queda pegado a la transición. */
+.page-head--blog { padding: clamp(40px, 4.4vw, 64px) 0 clamp(48px, 5.6vw, 80px); }
+.page-head--blog + .blog-list { padding-top: 40px; }
+/* Búsqueda: el campo va todavía sobre el lavanda del encabezado; el aire de abajo pasa al campo. */
+.page-head--blog:has(+ .post-search-wrap) { padding-bottom: 28px; }
+.page-head--blog + .post-search-wrap { padding-top: 0; padding-bottom: clamp(48px, 5.6vw, 80px); }
+.page-head--blog + .post-search-wrap + .blog-list { padding-top: 40px; }
 
 /* ---------- Imagen de la nota (tarjeta, destacada y nota) ---------- */
 .post-media {
@@ -65,7 +70,7 @@
 .post-filter__item:focus-visible { outline-offset: 2px; }
 @media (max-width: 600px) {
   .post-filter__list { width: auto; border-radius: 26px; }
-  .post-filter__item { min-height: 42px; padding: 0 16px; font-size: 15px; white-space: normal; text-align: center; }
+  .post-filter__item { min-height: 44px; padding: 0 16px; font-size: 15px; white-space: normal; text-align: center; }
 }
 
 /* ---------- Nota destacada ---------- */

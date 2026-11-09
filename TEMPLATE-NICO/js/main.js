@@ -786,7 +786,7 @@
       go(first !== undefined ? first : seq[0], true);
     };
     // Un punto por vista: por grupo ("Servicios 1 a 3") o, de a una tarjeta, con el nombre de cada una.
-    const buildDots = () => {
+    let buildDots = () => {
       dotsBox.textContent = '';
       dots = items.length > MAX_DOTS ? [] : items.map((item, i) => {
         const dot = document.createElement('button');
@@ -799,6 +799,16 @@
         return dot;
       });
     };
+    // En pantallas táctiles chicas los puntos son solo indicadores (no llegan a 44 px): fuera del orden de Tab y del
+    // árbol de accesibilidad; se navega con las flechas y deslizando (ver "Pantallas táctiles chicas" en el CSS).
+    const tactilChico = matchMedia('(max-width: 600px), (max-height: 430px) and (pointer: coarse)');
+    const marcarPuntos = () => dots.forEach((dot) => {
+      dot.tabIndex = tactilChico.matches ? -1 : 0;
+      if (tactilChico.matches) dot.setAttribute('aria-hidden', 'true'); else dot.removeAttribute('aria-hidden');
+    });
+    const buildDotsBase = buildDots;
+    buildDots = () => { buildDotsBase(); marcarPuntos(); };
+    tactilChico.addEventListener('change', marcarPuntos);
     buildDots();
     // Cambio de ancho que cruza el corte de celular: se pasa de grupos a tarjetas (o al revés) y queda a la vista la
     // misma tarjeta, o el grupo que la contiene.
@@ -1117,10 +1127,13 @@
         row.append(track);
         panel.append(row);
         if (!motion) return; // quieta (reducir movimiento): sin repeticiones ni copia
-        // Repetir dentro de la fila hasta cubrir el ancho, así la banda siempre se ve llena y pareja
+        // Repetir dentro de la fila hasta cubrir el ancho real de la fila con margen (un logo más del ancho de la
+        // ventana): así, en cualquier instante del recorrido, la banda llena todo el ancho visible, sin huecos
         const base = [...set.children];
+        const fila = Math.max(width, row.clientWidth, panel.clientWidth);
+        const margen = Math.max(...base.map((li) => li.offsetWidth)) + 200;
         let guard = 0;
-        while (set.scrollWidth < width && guard++ < 16) base.forEach((li) => set.append(quiet(li.cloneNode(true))));
+        while (set.scrollWidth < fila + margen && guard++ < 24) base.forEach((li) => set.append(quiet(li.cloneNode(true))));
         track.append(quiet(set.cloneNode(true)));
         track.style.setProperty('--cinta-dur', `${Math.max(20, set.scrollWidth / SPEED).toFixed(1)}s`);
       });
@@ -1187,14 +1200,15 @@
     }
     panels.forEach((panel) => { if (!panel.hidden) build(panel); });
 
-    let lastW = innerWidth;
+    // Se vuelve a armar si cambia el ancho real de la banda (ventana, zoom, barra de desplazamiento que aparece), no solo
+    // con el resize de la ventana. Los rubros ocultos se arman de nuevo al mostrarse (build compara el ancho).
     let raf = 0;
-    addEventListener('resize', () => {
-      if (innerWidth === lastW) return;
-      lastW = innerWidth;
+    const rearmar = () => {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => panels.forEach((panel) => { if (!panel.hidden) build(panel); }));
-    });
+    };
+    if ('ResizeObserver' in window) new ResizeObserver(rearmar).observe(cinta);
+    else addEventListener('resize', rearmar);
 
     cinta.addEventListener('click', (e) => {
       const a = e.target.closest('.cinta__link');
@@ -1851,13 +1865,15 @@
   }
 
   /* ---------- Brillos de marca en todas las secciones ---------- */
-  // Cada sección de primer nivel con fondo propio (blanca o lavanda) recibe como primer hijo una capa .brillos con dos
-  // brillos difusos (violeta y lima) que derivan lento (CSS, "Ritmo de fondos"): la misma animación y la misma
-  // intensidad en todas, alternando de lado (data-lado a/b) sección a sección. Fuera de pantalla se detiene. El hero
+  // Cada sección de primer nivel con fondo propio (blanca o lavanda) recibe como primer hijo una capa .brillos con 1 a 4
+  // puntos de luz (violeta y lima) que se desplazan despacio (CSS, "Luces de cada sección"). data-luces="N" en la
+  // sección fija la cantidad; si no, sale de su alto. Fuera de pantalla se detienen. El hero
   // carbón tiene su propio fondo de luces; lo que no tiene fondo propio muestra el de main::before.
   {
     const conFondo = (el) => {
-      const m = getComputedStyle(el).backgroundColor.match(/[\d.]+/g);
+      let m = getComputedStyle(el).backgroundColor.match(/[\d.]+/g);
+      // Sin fondo propio: cuenta el de la página (encabezados, bloque de reserva y casos del diagnóstico)
+      if (!m || (m.length > 3 && Number(m[3]) === 0)) m = getComputedStyle(document.body).backgroundColor.match(/[\d.]+/g);
       if (!m || (m.length > 3 && Number(m[3]) === 0)) return false;
       const [r, g, b] = m.map(Number);
       return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255 > 0.7; // claro (no el carbón)
@@ -1867,13 +1883,41 @@
     const io = 'IntersectionObserver' in window
       ? new IntersectionObserver((entries) => entries.forEach((en) => en.target.classList.toggle('is-quieto', !en.isIntersecting)), { rootMargin: '10% 0px' })
       : null;
+    // Puntos de luz de una sección: cantidad por data-luces o por alto; violeta y lima alternados (los dos colores en
+    // toda sección con 2 o más); posición, tamaño, recorrido (siempre hacia adentro), duración y desfase variados con
+    // una secuencia fija por página (mismo resultado en cada carga, distinto entre secciones).
+    let semilla = [...location.pathname].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
+    const azar = () => { semilla = (semilla * 1664525 + 1013904223) >>> 0; return semilla / 4294967296; };
+    const entre = (a, b) => a + (b - a) * azar();
+    const luces = (capa, sec, i) => {
+      const pedido = parseInt(sec.dataset.luces, 10);
+      const alto = sec.offsetHeight;
+      const n = Math.max(1, Math.min(4, Number.isNaN(pedido) ? (alto < 520 ? 2 : alto < 1100 ? 3 : 4) : pedido));
+      for (let k = 0; k < n; k++) {
+        const luz = document.createElement('i');
+        const violeta = (k + i) % 2 === 0;
+        luz.className = `luz luz--${violeta ? 'violeta' : 'lima'}`;
+        // Repartidos de arriba abajo, alternando lados, con algo de variación
+        const izquierda = (k + i) % 2 === 0;
+        const x = izquierda ? entre(3, 34) : entre(52, 80);
+        const y = ((k + 0.25) / n) * 100 + entre(-6, 6);
+        luz.style.setProperty('--x', `${x.toFixed(1)}%`);
+        luz.style.setProperty('--y', `${Math.max(2, y).toFixed(1)}%`);
+        luz.style.setProperty('--k', entre(0.55, 1).toFixed(2));
+        luz.style.setProperty('--dx', `${Math.round((x < 45 ? 1 : -1) * entre(60, 150))}px`);
+        luz.style.setProperty('--dy', `${Math.round((y < 50 ? 1 : -1) * entre(16, 60))}px`);
+        luz.style.setProperty('--t', `${entre(14, 21).toFixed(1)}s`);
+        luz.style.setProperty('--d', `${(-entre(0, 12)).toFixed(1)}s`);
+        capa.append(luz);
+      }
+    };
     capas.forEach((sec, i) => {
       const capa = document.createElement('div');
       capa.className = 'brillos';
       capa.setAttribute('aria-hidden', 'true');
-      capa.dataset.lado = i % 2 ? 'b' : 'a';
       sec.classList.add('con-brillos');
       sec.prepend(capa);
+      luces(capa, sec, i);
       if (io) io.observe(capa);
     });
   }
@@ -1967,7 +2011,7 @@
       globo.setAttribute('aria-labelledby', 'wa-globo-titulo');
       globo.innerHTML = '<div class="wa-globo__cab"><span class="wa-globo__avatar" aria-hidden="true"></span><div>'
         + '<p class="wa-globo__titulo" id="wa-globo-titulo">Escribinos por WhatsApp</p>'
-        + '<p class="wa-globo__sub">Podés editarlo antes de enviar.</p></div></div>'
+        + '<p class="wa-globo__sub">Lunes a viernes de 9 a 18</p></div></div>'
         + '<label class="sr-only" for="wa-globo-texto">Mensaje</label>'
         + '<textarea id="wa-globo-texto" class="wa-globo__texto" rows="3"></textarea>'
         + '<a class="btn btn-lime wa-globo__enviar" target="_blank" rel="noopener">Enviar por WhatsApp <span class="arr" aria-hidden="true">→</span></a>'

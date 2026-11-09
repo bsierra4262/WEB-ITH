@@ -142,7 +142,7 @@ Un perfil profesional informa quién es la persona dentro de la empresa y por qu
 - Datos personales: edad, familia, hobbies, situación laboral, recibos, datos de contacto personales.
 - Certificaciones vencidas, cursos sin relevancia o datos técnicos sensibles (IPs, hostnames, versiones, proveedores de la infraestructura interna).
 
-### 6.4 Ejemplo: Brian Sierra, jefe de sistemas y soporte técnico
+### 6.4 Ejemplo: Brian Sierra, administrador de sistemas (SysAdmin)
 
 **Rechazado:**
 > Lidera el equipo de soporte técnico de Intellihelp, el mismo en el que empezó en 2024. Armó desde cero la red y el servidor de la empresa, y desarrolla nuestras herramientas internas: el CRM, la mesa de ayuda que asigna cada ticket, el inventario y los comprobantes con ARCA.

@@ -7,7 +7,8 @@
     "verificar": "node verificar.mjs",
     "htaccess": "node test-htaccess.cjs",
     "rutas-viejas": "node rutas-viejas-vite.cjs",
-    "todo": "node test-htaccess.cjs && node rutas-viejas-vite.cjs && node verificar.mjs"
+    "todo": "node test-htaccess.cjs && node rutas-viejas-vite.cjs && node verificar.mjs",
+    "responsive": "node responsive.mjs"
   },
   "dependencies": {
     "puppeteer-core": "^23.11.1"

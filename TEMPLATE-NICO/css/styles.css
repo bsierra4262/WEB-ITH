@@ -149,9 +149,11 @@ a, a:is(:hover, :focus, :focus-visible, :active, :visited), summary, button, u, 
    Historia lavanda · Casos blanco · Cita lavanda · Preguntas blanco · Cierre lavanda (card blanca) · pie blanco.
    Las piezas claras se ajustan al fondo: círculos de íconos y chips en lavanda sobre blanco y en blanco sobre lavanda.
    BRILLOS EN TODAS LAS SECCIONES (pedido de Brian, 09/11): cada sección con fondo propio, blanca o lavanda, lleva la
-   misma textura con la misma intensidad: dos halos de marca chicos y sutiles (violeta .07 arriba, lima .09 abajo, como
-   el toque del título del diagnóstico) que derivan lento y poco (30–38 s, ida y vuelta), en esquinas que se alternan
-   sección a sección, y que se desvanecen antes del borde. Así no hay secciones lisas al lado de otras animadas.
+   misma textura: puntos de luz de marca chicos y casi imperceptibles (de 1 a 4 por sección, violeta y lima), como las
+   luces del hero pero en claro, que se desplazan despacio y se desvanecen antes del borde (ver "Luces de cada
+   sección", abajo). Así no hay secciones lisas al lado de otras animadas.
+   Si se activan las animaciones de Windows con Chrome abierto, Chrome sigue informando "reducir movimiento" hasta que se
+   lo cierra y se vuelve a abrir: recién ahí se ven moverse.
    - main.js agrega a cada sección de primer nivel con fondo propio una capa .brillos (aria-hidden) como primer hijo;
      fuera de pantalla se detiene. Las zonas sin fondo propio (encabezados de privacidad y 404, diagnóstico) muestran
      el de main::before, con los mismos brillos y la misma deriva.
@@ -163,18 +165,24 @@ a, a:is(:hover, :focus, :focus-visible, :active, :visited), summary, button, u, 
 main::before {
   content: "";
   position: fixed;
-  inset: -12%;
+  inset: -6%;
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(30% 26% at 80% 20%, rgb(102 51 153 / .07), transparent 100%),
-    radial-gradient(26% 24% at 16% 82%, rgb(152 204 50 / .09), transparent 100%);
+    radial-gradient(130px circle at 82% 22%, rgb(102 51 153 / .06), rgb(102 51 153 / .025) 35%, rgb(102 51 153 / 0) 100%),
+    radial-gradient(130px circle at 16% 80%, rgb(176 228 56 / .10), rgb(190 236 90 / .04) 35%, rgb(208 242 130 / 0) 100%);
 }
 .dx--noche main::before { content: none; }
 
-/* Capa de brillos de cada sección: dos halos chicos (≈40 % del ancho), muy difuminados y de opacidad baja, que se
-   desvanecen por completo antes del borde de la sección (además, la capa entera se funde arriba y abajo con una
-   máscara): nunca hay un corte duro ni una mancha. Deriva lenta y corta. */
+/* Luces de cada sección (como las del hero, pero en claro y casi imperceptibles). main.js agrega a cada sección clara
+   una capa .brillos con 1 a 4 puntos de luz (<i class="luz luz--violeta|luz--lima">): la cantidad sale de
+   data-luces="N" en la sección o, si no está, de su alto (corta: 2; media: 3; alta: 4), siempre con violeta y lima.
+   Posición, tamaño, recorrido, duración y desfase varían de sección a sección (valores fijos por página, no al azar en
+   cada carga), así no se repite el mismo patrón. Cada punto es chico (hasta el 16 % del ancho, como mucho 260 px; en
+   celular hasta el 40 %, como mucho 180 px), de opacidad baja y caída rápida (violeta .06, lima .10 en el centro), se
+   desplaza hacia adentro de la sección y se desvanece antes del borde (la capa además se funde arriba y abajo). Con
+   "reducir movimiento" quedan quietos. Variables de cada punto: --x y --y (posición), --k (escala del tamaño, .55 a 1),
+   --dx y --dy (recorrido en px), --t (duración) y --d (desfase). */
 .con-brillos { position: relative; isolation: isolate; }
 .brillos {
   position: absolute;
@@ -182,34 +190,33 @@ main::before {
   z-index: -1;
   overflow: hidden;
   pointer-events: none;
-  -webkit-mask-image: linear-gradient(180deg, transparent, #000 14%, #000 86%, transparent);
-  mask-image: linear-gradient(180deg, transparent, #000 14%, #000 86%, transparent);
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 24px, #000 calc(100% - 24px), transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 24px, #000 calc(100% - 24px), transparent);
 }
-.brillos::before, .brillos::after {
-  content: "";
+.luz {
   position: absolute;
-  width: 42%;
-  height: min(70%, 520px);
+  left: var(--x, 10%);
+  top: clamp(24px, var(--y, 20%), calc(100% - 24px - min(16%, 260px)));
+  width: calc(var(--k, 1) * min(16%, 260px));
+  aspect-ratio: 1;
   border-radius: 50%;
 }
-.brillos::before { top: 8%; left: 3%; background: radial-gradient(closest-side, rgb(102 51 153 / .07), rgb(102 51 153 / .03) 50%, rgb(102 51 153 / 0)); }
-.brillos::after { right: 3%; bottom: 8%; background: radial-gradient(closest-side, rgb(152 204 50 / .09), rgb(152 204 50 / .035) 50%, rgb(152 204 50 / 0)); }
-.brillos[data-lado="b"]::before { right: 3%; left: auto; }
-.brillos[data-lado="b"]::after { right: auto; left: 3%; }
+.luz--violeta { background: radial-gradient(closest-side, rgb(102 51 153 / .06), rgb(102 51 153 / .025) 35%, rgb(102 51 153 / .006) 70%, rgb(102 51 153 / 0)); }
+.luz--lima { background: radial-gradient(closest-side, rgb(176 228 56 / .10), rgb(190 236 90 / .04) 35%, rgb(208 242 130 / .01) 70%, rgb(226 248 175 / 0)); }
 @media (max-width: 760px) {
-  .brillos::before, .brillos::after { width: 80%; height: min(45%, 360px); }
+  .luz { width: calc(var(--k, 1) * min(40%, 180px)); top: clamp(24px, var(--y, 20%), calc(100% - 24px - min(40%, 180px))); }
 }
 @media (prefers-reduced-motion: no-preference) {
-  .brillos::before { animation: brilloA 32s ease-in-out infinite alternate; }
-  .brillos::after { animation: brilloB 38s ease-in-out -12s infinite alternate; }
-  .brillos[data-lado="b"]::before { animation-name: brilloB; animation-duration: 36s; }
-  .brillos[data-lado="b"]::after { animation-name: brilloA; animation-duration: 30s; }
-  .brillos.is-quieto::before, .brillos.is-quieto::after { animation-play-state: paused; }
-  main::before { animation: brilloFondo 40s ease-in-out infinite alternate; }
+  .luz { animation: luzDeriva var(--t, 17s) ease-in-out var(--d, 0s) infinite alternate; }
+  .brillos.is-quieto .luz { animation-play-state: paused; }
+  main::before { animation: brilloFondo 20s ease-in-out infinite alternate; }
 }
-@keyframes brilloA { from { transform: translate3d(0, 0, 0) scale(1); } to { transform: translate3d(7%, 5%, 0) scale(1.05); } }
-@keyframes brilloB { from { transform: translate3d(0, 0, 0) scale(1.04); } to { transform: translate3d(-6%, -5%, 0) scale(.97); } }
-@keyframes brilloFondo { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-3%, 2%, 0) scale(1.03); } }
+@keyframes luzDeriva {
+  0% { transform: translate3d(0, 0, 0) scale(.95); }
+  50% { transform: translate3d(calc(var(--dx, 80px) * .55), calc(var(--dy, 30px) * .55), 0) scale(1.06); }
+  100% { transform: translate3d(var(--dx, 80px), var(--dy, 30px), 0) scale(1); }
+}
+@keyframes brilloFondo { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-4%, 3%, 0); } }
 
 /* Piezas claras según el fondo */
 .bg-gray :is(.icon-circle, .chip, .offer__sub-num) { background: var(--white); }
@@ -567,7 +574,7 @@ h1.section-title { font-size: var(--h1); } /* páginas internas: el H1 usa la cl
 .section, .clients, .quienes-somos, .offer__part, .pres-slide { scroll-margin-top: var(--header-h); }
 .site-header__inner { display: flex; align-items: center; gap: 24px; height: 100%; }
 
-.brand { display: flex; flex: none; align-items: center; gap: 12px; color: var(--white); text-decoration: none; }
+.brand { display: flex; flex: none; align-items: center; gap: 12px; min-height: 44px; color: var(--white); text-decoration: none; } /* 44 px: tocable */
 .brand:hover { color: var(--white); }
 .brand img { display: block; width: auto; height: 40px; }
 .brand__tag { display: flex; flex-direction: column; color: rgb(240 235 245 / .72); font-size: 12px; font-weight: 500; line-height: 1.25; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
@@ -643,7 +650,16 @@ h1.section-title { font-size: var(--h1); } /* páginas internas: el H1 usa la cl
     border-bottom: 1px solid rgb(255 255 255 / .08);
     background: var(--ink);
     box-shadow: 0 24px 40px -24px rgb(0 0 0 / .7);
+    /* Celular en horizontal: el panel entra en la pantalla y, si hace falta, se desplaza por dentro con una barra fina
+       con los colores del sitio (no la del sistema), así el CTA "Agendá reunión" siempre se alcanza */
+    max-height: calc(100dvh - var(--header-h));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--lime) transparent;
   }
+  .js .nav::-webkit-scrollbar { width: 6px; background: transparent; }
+  .js .nav::-webkit-scrollbar-thumb { border-radius: 6px; background: var(--lime); }
   .js .nav.is-open { display: flex; }
   .js .nav ul { flex-direction: column; align-items: stretch; gap: 0; }
   .js .nav a:not(.btn) { display: flex; align-items: center; justify-content: space-between; min-height: 52px; border-bottom: 1px solid rgb(255 255 255 / .08); font-size: 14px; }
@@ -673,7 +689,7 @@ html:not(.js) .site-header__inner { flex-wrap: wrap; padding-block: 12px; }
   .site-header__inner { gap: 12px; }
   .brand { gap: 10px; }
   .brand img { height: 36px; }
-  .brand__tag { font-size: 11px; }
+  .brand__tag { font-size: 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .site-header, .site-header__inner, .brand { transition: background-color .2s linear; }
@@ -1427,7 +1443,7 @@ html:not(.anim) .cl-fichero .cinta.is-cinta .cinta__row .cinta__list { display: 
   #equipo .team { gap: 32px 14px; }
   #equipo .member:not(.member--grupo) { flex: 1 1 calc(50% - 7px); gap: 8px; }
   #equipo .member:not(.member--grupo) .member__photo { aspect-ratio: 1; padding: 12px; background-size: 52px; }
-  #equipo .member:not(.member--grupo) .eyebrow { align-items: flex-start; gap: 8px; font-size: 11px; letter-spacing: .1em; line-height: 1.35; }
+  #equipo .member:not(.member--grupo) .eyebrow { align-items: flex-start; gap: 8px; font-size: 12px; letter-spacing: .1em; line-height: 1.35; }
   #equipo .member:not(.member--grupo) .eyebrow::before { width: 16px; margin-top: .5em; }
   #equipo .member:not(.member--grupo) .member__name { font-size: 20px; line-height: 1.2; }
   #equipo .member:not(.member--grupo) .member__bio { font-size: 15px; line-height: 1.55; }
@@ -1467,7 +1483,7 @@ html:not(.anim) .cl-fichero .cinta.is-cinta .cinta__row .cinta__list { display: 
    se hace eterna. */
 .certs__grupos { margin: 0; border-bottom: 1px solid rgba(42, 42, 42, .1); }
 .certs__grupo { display: grid; gap: 5px; padding: 8px 0; border-top: 1px solid rgba(42, 42, 42, .1); }
-.certs__marca { color: var(--ink); font-size: 11px; font-weight: 700; letter-spacing: .08em; line-height: 1.3; text-transform: uppercase; }
+.certs__marca { color: var(--ink); font-size: 12px; font-weight: 700; letter-spacing: .08em; line-height: 1.3; text-transform: uppercase; }
 .certs .badges { gap: 4px; margin: 0; }
 .certs .badge { gap: 5px; min-height: 22px; padding: 2px 8px 2px 6px; font-size: 12px; line-height: 1.2; }
 .certs .badge::before { width: 11px; height: 11px; }
@@ -1737,7 +1753,7 @@ html:not(.anim) .cl-fichero .cinta.is-cinta .cinta__row .cinta__list { display: 
   background: none;
   color: var(--ink);
   font: inherit;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   line-height: 1.15;
   text-align: center;
@@ -2376,6 +2392,25 @@ html:not(.anim) .cl-fichero .cinta.is-cinta .cinta__row .cinta__list { display: 
   .faq__sign::after { transition: none; }
   .cinta__item img, .cinta__cue, .seg__btn, .pres-slider__arrow, .case-menu__logo { transition: none; }
   .btn, .btn::after, .btn .arr, .next-link .arr, .card-h, .card-h::after, .wa-float, .more__chev, .faq__q, .slot img, .member__photo img { transition: none; }
+}
+
+/* ---------- Pantallas táctiles chicas: todo lo que se toca mide al menos 44 px ----------
+   Celulares en vertical (hasta 600 px) y en horizontal (hasta 430 px de alto). Los puntos de los carruseles pasan a ser
+   solo indicadores (main.js los saca del orden de Tab): se navega con las flechas y deslizando. */
+@media (max-width: 600px), (max-height: 430px) and (pointer: coarse) {
+  .more__btn { min-height: 44px; }
+  .next-link { min-height: 44px; }
+  .seg__btn, .seg--fill .seg__btn { min-height: 44px; }
+  .cl-rubro { min-height: 46px; }
+  .carousel__dot { pointer-events: none; }
+  .js :is(#servicios, #soluciones) .carousel { --arrow: 44px; }
+  .js :is(#servicios, #soluciones) .carousel__btn, .js .cases-layout .carousel__btn { --arrow: 44px; width: 44px; height: 44px; }
+  .pres-slider__arrow { --arrow: 44px; }
+  .site-footer a:not(.btn) { display: inline-flex; align-items: center; min-height: 44px; }
+  .case-step { padding-block: 0; }
+  .case-step__btn { min-height: 44px; padding-block: 9px; }
+  .nf-links a, .nav-links a { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; }
+  .legal-toc a { min-height: 44px; align-content: center; }
 }
 
 @media print {

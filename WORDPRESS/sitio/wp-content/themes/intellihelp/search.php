@@ -38,7 +38,7 @@ get_template_part(
 	null,
 	array(
 		'filtro' => false,
-		'vacio'  => get_search_query() ? 'No encontramos notas para esta búsqueda. Probá con otras palabras o recorré todas las notas.' : 'Escribí una palabra clave para buscar entre las notas publicadas.',
+		'vacio'  => get_search_query() ? 'No encontramos notas para esta búsqueda. Probá con otras palabras o consultá todas las notas.' : 'Escribí una palabra clave para buscar entre las notas publicadas.',
 	)
 );
 

@@ -670,13 +670,13 @@
       const sigue = r.error === 'recargar_horarios' && horario && dias.some((d) => d.horarios.some((h) => h.ts === horario.ts));
       if (sigue) return avisar(estado, r.mensaje || 'Confirmá de nuevo, por favor.');
       aPasoHorario(false);
-      avisar(avisoHorario, r.error === 'horario_tomado' ? 'Justo tomaron ese horario. Elegí otro, por favor.' : (r.mensaje || 'Los horarios se actualizaron. Elegí el horario de nuevo, por favor.'));
+      avisar(avisoHorario, r.error === 'horario_tomado' ? 'Ese horario acaba de reservarse. Elegí otro, por favor.' : (r.mensaje || 'Los horarios se actualizaron. Elegí el horario de nuevo, por favor.'));
       return pasoTitulo.focus();
     }
 
     // 429 limite: tope de reservas del CRM (por correo o del día). Queda el formulario con los datos.
     if (status === 429 && r && r.error === 'limite') {
-      return alFormulario(`${r.mensaje || 'En este momento no podemos tomar más reservas por acá.'} Te dejamos el formulario con tus datos para que nos escribas.`, datos);
+      return alFormulario(`${r.mensaje || 'En este momento no podemos tomar más reservas desde la agenda.'} Completamos el formulario con tus datos para que nos envíes la consulta.`, datos);
     }
 
     if (status === 422 && r && r.campos && typeof r.campos === 'object') {

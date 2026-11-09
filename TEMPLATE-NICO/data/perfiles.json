@@ -295,10 +295,10 @@
     {
       "id": "automatizacion",
       "titulo": "Automatización",
-      "texto": "Agentes de inteligencia artificial y herramientas de automatización que resuelven tareas repetitivas y liberan tiempo de los equipos de nuestros clientes.",
+      "texto": "Automatización de procesos e incorporación de herramientas de inteligencia artificial que resuelven tareas repetitivas y liberan tiempo de los equipos de nuestros clientes.",
       "chips": [
-        "Agentes IA",
-        "Herramientas de automatización"
+        "Automatización de procesos",
+        "Herramientas de IA"
       ],
       "servicio": "Automatización",
       "palabras": [
@@ -318,7 +318,7 @@
     {
       "id": "ciberseguridad",
       "titulo": "Ciberseguridad",
-      "texto": "Redes seguras, evaluaciones de seguridad y protección de entornos de nuestros clientes junto a fabricantes como Fortinet.",
+      "texto": "Redes seguras, evaluaciones de seguridad y protección de entornos de nuestros clientes con fabricantes como Fortinet.",
       "chips": [
         "Soluciones Fortinet",
         "Evaluación de seguridad",

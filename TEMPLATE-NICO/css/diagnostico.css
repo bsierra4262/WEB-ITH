@@ -479,7 +479,7 @@ html:not(.anim) .dx-caso { scroll-snap-align: start; }
 }
 .dx-caso__marca::before { top: -10px; right: -18px; bottom: -12px; left: -10px; filter: blur(14px); }
 .dx-caso__lugar { margin: 0 0 16px; color: var(--muted); font-size: 13px; letter-spacing: .03em; }
-.dx-caso__lbl { display: block; margin: 16px 0 6px; color: var(--muted); font-size: 11.5px; font-weight: 700; }
+.dx-caso__lbl { display: block; margin: 16px 0 6px; color: var(--muted); font-size: 12px; font-weight: 700; }
 .dx-caso__bloque p:not(.dx-caso__lbl) { margin: 0; color: var(--ink-2); font-size: 15.5px; line-height: 1.5; }
 .dx-caso__bloque:has(+ .dx-caso__hoy) { margin-bottom: 30px; }
 .dx-caso__hoy {
@@ -566,7 +566,7 @@ html.dx-con-datos .gx [data-no] { display: none; }
   border-radius: 6px;
   background: rgba(152, 204, 50, .08);
   color: var(--lavender);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: .16em;
   text-transform: uppercase;
@@ -587,15 +587,15 @@ html.dx-con-datos .gx [data-no] { display: none; }
 .gx-texto strong { color: var(--white); }
 .gx-card { margin-top: 28px; padding: 22px 20px; border: 1px solid var(--line-dark); border-radius: 10px; background: var(--ink-2); }
 .gx-card .gx-texto { margin: 0; font-size: 16px; }
-.gx-card__rotulo { margin: 0 0 8px; color: var(--dx-bajo); font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+.gx-card__rotulo { margin: 0 0 8px; color: var(--dx-bajo); font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
 .gx-rinde__lista li { display: grid; grid-template-columns: 32px minmax(0, 1fr); align-items: baseline; padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, .08); color: var(--white); font-size: 15.5px; font-weight: 600; line-height: 1.45; }
 .gx-rinde__lista li:last-child { border-bottom: 0; padding-bottom: 2px; }
-.gx-rinde__num { color: var(--dx-bajo); font-size: 11px; font-weight: 600; letter-spacing: .08em; font-variant-numeric: tabular-nums; }
+.gx-rinde__num { color: var(--dx-bajo); font-size: 12px; font-weight: 600; letter-spacing: .08em; font-variant-numeric: tabular-nums; }
 .gx-firma { margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, .1); }
-.gx-firma__rotulo { margin: 0 0 10px; color: var(--dx-bajo); font-size: 10.5px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
+.gx-firma__rotulo { margin: 0 0 10px; color: var(--dx-bajo); font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
 .gx-firma__fila { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 22px; }
 .gx-firma__nombre { margin: 0; color: var(--lavender); font-size: 28px; font-weight: 500; letter-spacing: -.01em; text-shadow: 0 0 22px rgba(102, 51, 153, .9); }
-.gx-firma__datos { margin: 0; color: var(--dx-bajo); font-size: 10.5px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
+.gx-firma__datos { margin: 0; color: var(--dx-bajo); font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
 
 /* ---------- Celular y tablet ---------- */
 @media (max-width: 1180px) {
@@ -643,6 +643,22 @@ html.dx-con-datos .gx [data-no] { display: none; }
   .dx-enviar .btn { width: 100%; }
   .gx-card { padding: 20px 16px; }
   .dx-carrusel__flecha { width: 40px; height: 40px; }
+}
+
+/* Pantallas táctiles chicas: lo que se toca mide al menos 44 px (flechas del mes y de los casos, la alternativa de
+   contacto y el logo del pie). Los días del calendario miden 44 px de alto; de ancho, lo que da la grilla de 7 columnas
+   (en 320 px no entran 7 de 44: quedan de 38 px, por encima del mínimo de 24 px de las pautas de accesibilidad). */
+@media (max-width: 600px), (max-height: 430px) and (pointer: coarse) {
+  .dx-mes__cab { grid-template-columns: 44px minmax(0, 1fr) 44px; }
+  .dx-mes__flecha, .dx-agenda .agenda-crm__flecha { width: 44px; height: 44px; }
+  .dx-carrusel__flecha { width: 44px; height: 44px; }
+  .dx-reserva__alt-btn { display: inline-flex; align-items: center; min-height: 44px; }
+  .dx-pie__marca { display: inline-flex; align-items: center; min-height: 44px; }
+}
+@media (max-width: 400px) {
+  .dx-reserva { padding: 0 12px; }
+  .dx-reserva__main { padding: 20px 10px 22px; }
+  .dx-mes__semana, .dx-mes__grilla { gap: 2px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

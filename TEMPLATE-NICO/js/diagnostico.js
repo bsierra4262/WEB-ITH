@@ -122,7 +122,7 @@
       ['nombre', (v) => v.length >= 2 && /\p{L}/u.test(v), null],
       ['empresa', (v) => v.length >= 2, null],
       ['mail', (v) => v.length > 0, null],
-      ['mail', (v) => EMAIL.test(v), 'Revisá el mail: parece incompleto. Tiene que ser del tipo nombre@empresa.com.'],
+      ['mail', (v) => EMAIL.test(v), 'Revisá el mail: tiene que tener la forma nombre@empresa.com.'],
       ['telefono', (v) => v.length > 0, null],
       ['telefono', telOk, 'El WhatsApp tiene que empezar con + y el código de país, por ejemplo +54 9 11 1234 5678.'],
       ['acepto', (v, input) => input.checked, null],

@@ -1,6 +1,6 @@
 # Intellihelp
 
-> Intellihelp S.A. es una empresa argentina de servicios IT para empresas medianas y grandes y para organismos públicos, con sede en Av. Dorrego 1789, piso 6, Ciudad Autónoma de Buenos Aires. Brinda mesa de ayuda tercerizada (service desk), soporte y mantenimiento IT, outsourcing IT, consultoría IT, redes y cableado estructurado, infraestructura y cloud, control de accesos y videovigilancia, con equipo propio y cobertura en CABA, AMBA y el interior del país.
+> Intellihelp S.A. es una empresa argentina de servicios IT para empresas medianas y grandes y para organismos públicos, con sede en Av. Dorrego 1789, piso 6, Ciudad Autónoma de Buenos Aires. Presta servicios de mesa de ayuda tercerizada (service desk), soporte y mantenimiento IT, outsourcing IT, consultoría IT, redes y cableado estructurado, infraestructura y cloud, control de accesos y videovigilancia, con equipo propio y cobertura en CABA, AMBA y el interior del país.
 
 Datos clave de la empresa:
 
@@ -16,28 +16,28 @@ Datos clave de la empresa:
 
 Están todos en la sección "¿Qué ofrecemos?" de la home: https://www.intellihelp.tech/#servicios
 
-- Mesa de ayuda: service desk y soporte a usuarios con un único punto de contacto, tiempos de respuesta acordados y seguimiento de cada ticket hasta que se cierra.
-- Outsourcing: profesionales IT que se suman al equipo del cliente, seleccionados con psicodiagnóstico laboral, con inducción en la empresa y capacitación continua.
+- Mesa de ayuda: service desk y soporte a usuarios con un único punto de contacto, tiempos de respuesta acordados y seguimiento de cada ticket hasta su cierre.
+- Outsourcing: profesionales IT que se integran al equipo del cliente, seleccionados con psicodiagnóstico laboral, con inducción en la organización y capacitación continua.
 - Búsqueda de recursos: reclutamiento y selección de perfiles técnicos y ejecutivos, con evaluación en assessment centers.
-- Automatización: agentes de inteligencia artificial y herramientas de automatización para resolver tareas repetitivas.
-- Consultoría: ordenamiento de los procesos de tecnología sobre estándares y metodologías probadas.
+- Automatización: procesos automatizados e incorporación de herramientas de inteligencia artificial para resolver tareas repetitivas.
+- Consultoría: optimización de los procesos de tecnología sobre estándares y metodologías reconocidas (ITIL, metodologías ágiles y gestión de calidad), con especialización en COBIS, el sistema core bancario.
 - Desarrollo de apps: sistemas y aplicaciones a medida, desde la propuesta hasta la puesta en marcha.
 - Capacitación: formación para equipos técnicos y usuarios, con talleres prácticos y training center propio.
-- Transformación digital: asesoramiento estratégico para llevar los procesos de la organización al entorno digital: revisión de procesos y cultura de trabajo, transferencia de conocimiento al equipo y capacitación continua.
+- Transformación digital: asesoramiento estratégico para llevar los procesos de la organización al entorno digital, con revisión de procesos y cultura de trabajo, transferencia de conocimiento y capacitación continua.
 
 ## Soluciones
 
 En la misma sección, a continuación de los servicios: https://www.intellihelp.tech/#soluciones
 
 - Cloud: diseño, migración y operación de nubes privadas, públicas e híbridas.
-- Video seguridad: control de acceso y asistencia por biometría, videovigilancia y soluciones vía drones, sobre tecnología Hikvision.
+- Video seguridad: control de acceso y asistencia por biometría, videovigilancia y soluciones con drones, sobre tecnología Hikvision, Suprema y Dahua.
 - IoT: sistemas a medida que conectan sensores y equipos, con monitoreo en tiempo real.
 - Data center: infraestructura de centro de datos, de servidores y storage a redes definidas por software.
 - Energías renovables: soluciones solares conectadas a la red, aisladas o híbridas.
 - Redes outdoor: tendido y mantenimiento de redes de fibra óptica hasta el edificio, la oficina o el hogar.
 - Redes indoor: routing, switching y wireless, con soluciones Laserway de Furukawa.
 - Redes de acceso: redes de distribución de contenidos y acceso para operadores (CATV, híbridas, PON y servicios sobre IP).
-- Ciberseguridad: redes seguras con soluciones Fortinet y evaluaciones de seguridad.
+- Ciberseguridad: seguridad de redes y de operaciones, cloud security y protección basada en inteligencia artificial, con soluciones Fortinet.
 - Tecnología colaborativa: salas de reuniones y videoconferencia (diseño, audio, pantallas interactivas e integración con Teams, Zoom, Meet y Webex) y telefonía IP: centrales IP-PBX, migración a VoIP, IVR, colas de atención, grabación de llamadas y softphones.
 
 ## Páginas del sitio

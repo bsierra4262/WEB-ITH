@@ -127,7 +127,7 @@ get_template_part(
 	array(
 		'id'      => 'cta-nota',
 		'seccion' => 'nota-agendar',
-		'titulo'  => 'Conversemos sobre *tu proyecto.*',
+		'titulo'  => 'Contanos *tu proyecto.*',
 	)
 );
 
