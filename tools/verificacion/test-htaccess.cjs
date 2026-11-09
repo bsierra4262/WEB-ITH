@@ -263,11 +263,11 @@ caso('subdominio servicios: portada', 'http://servicios.intellihelp.tech/', { st
 caso('subdominio servicios: empresas.html', 'https://servicios.intellihelp.tech/empresas.html', { status: 200, cuerpo: 'servicios/empresas.html' });
 caso('subdominio servicios: home.html con UTM', 'https://servicios.intellihelp.tech/home.html?' + UTM, { status: 200, cuerpo: 'servicios/home.html' });
 caso('subdominio servicios: css sin cabecera', 'https://servicios.intellihelp.tech/css/estilos.css', { status: 200, cc: null });
-caso('subdominio servicios: inexistente -> 404 propio del host', 'https://servicios.intellihelp.tech/no-existe/', { status: 404, cuerpo: 'default' });
+caso('subdominio servicios: inexistente -> 404 del sitio', 'https://servicios.intellihelp.tech/no-existe/', { status: 404, cuerpo: '/404.html' });
 caso('subdominio desarrollo por http (sin forzar https)', 'http://desarrollo.intellihelp.tech/', { status: 200, cuerpo: 'desarrollo/index.php' });
 caso('subdominio tickets', 'https://tickets.intellihelp.tech/', { status: 200 });
-caso('subdominio tickets inexistente', 'https://tickets.intellihelp.tech/x/y', { status: 404, cuerpo: 'default' });
-caso('subdominio: ruta que en www sería 301 (/blog)', 'https://desarrollo.intellihelp.tech/blog/', { status: 404, cuerpo: 'default' });
+caso('subdominio tickets inexistente', 'https://tickets.intellihelp.tech/x/y', { status: 404, cuerpo: '/404.html' });
+caso('subdominio: ruta que en www sería 301 (/blog)', 'https://desarrollo.intellihelp.tech/blog/', { status: 404, cuerpo: '/404.html' });
 
 // Apps del host principal
 for (const app of ['crm', 'crm-pruebas', 'Desarrollo', 'desarrollo', 'GLPI', 'inventario', 'remitos', 'tickets', 'demo', 'learning', 'learningtest', 'comprobantes', 'marketing', 'landing-page-OLD']) {
@@ -275,8 +275,8 @@ for (const app of ['crm', 'crm-pruebas', 'Desarrollo', 'desarrollo', 'GLPI', 'in
 }
 caso('CRM sin www por https (login con Google)', 'https://intellihelp.tech/crm/', { status: 200, cuerpo: 'app:crm' });
 caso('CRM ruta interna la resuelve el CRM', 'https://intellihelp.tech/crm/clientes/12', { status: 200, cuerpo: 'app:crm' });
-caso('app GLPI inexistente: 404 sin la página del sitio', W + '/GLPI/no-existe', { status: 404, cuerpo: 'default' });
-caso('cgi-bin', W + '/cgi-bin/x', { status: 404, cuerpo: 'default' });
+caso('app GLPI inexistente: 404 del sitio', W + '/GLPI/no-existe', { status: 404, cuerpo: '/404.html' });
+caso('cgi-bin', W + '/cgi-bin/x', { status: 404, cuerpo: '/404.html' });
 caso('wp-snapshots', W + '/wp-snapshots/x.zip', { status: 200, cc: null });
 caso('app sin cabecera de caché', W + '/marketing/index.html', { status: 200, cc: null });
 

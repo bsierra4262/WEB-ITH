@@ -251,9 +251,16 @@ DirectoryIndex index.html index.php
 # Alternativa si el servidor no respetara el <If> (se nota porque /no-existe/ responde 404 con la página genérica del
 # hosting): sacar el ErrorDocument del bloque y dejarlo suelto, y en el .htaccess de cada subdominio o app que
 # necesite la suya poner "ErrorDocument 404 default".
-<If "%{HTTP_HOST} =~ /^(www\.)?intellihelp\.tech$/i && %{REQUEST_URI} !~ m#^/(crm|crm-pruebas|Desarrollo|desarrollo|GLPI|inventario|remitos|tickets|demo|learning|learningtest|comprobantes|marketing|servicios|landing-page-OLD|wp-snapshots|cgi-bin|novedades|api)(/|$)#">
-  ErrorDocument 404 /404.html
-</If>
+# En producción (LiteSpeed de Hostinger) el <If> no se respetó: el 404 queda suelto. Las apps con su propio
+# enrutador (CRM, blog) siguen mostrando su página; el resto de las rutas inexistentes, la del sitio.
+ErrorDocument 404 /404.html
+
+# llms.txt con su codificación explícita (LiteSpeed no tomaba el AddType con charset)
+<Files "llms.txt">
+  <IfModule mod_headers.c>
+    Header always set Content-Type "text/plain; charset=UTF-8"
+  </IfModule>
+</Files>
 
 # La página de error no se indexa (también lo dice su <meta name="robots">). "always" para que la cabecera salga
 # también cuando se muestra como respuesta 404.
