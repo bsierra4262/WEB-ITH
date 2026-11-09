@@ -569,8 +569,8 @@
     const dotsBox = carousel.querySelector('[data-carousel-dots]');
     const random = carousel.dataset.carouselOrder === 'random';
     // Tarjetas con "Ver más" (`data-carousel-cards`, Servicios y Soluciones). En celular el CSS desarma los grupos de
-    // tres (display: contents) y cada tarjeta pasa a ser una vista: se desliza de a una y asoma el borde de la
-    // siguiente. `items` son las vistas navegables en cada momento: los grupos o las tarjetas sueltas.
+    // tres (display: contents) y cada tarjeta pasa a ser una vista: se desliza de a una, centrada en la
+    // pantalla. `items` son las vistas navegables en cada momento: los grupos o las tarjetas sueltas.
     const cardsMode = carousel.hasAttribute('data-carousel-cards');
     const cards = cardsMode ? [...track.querySelectorAll('.service')] : [];
     const singles = () => cardsMode && getComputedStyle(slides[0]).display === 'contents';
@@ -1140,6 +1140,25 @@
     };
 
     cinta.classList.add('is-cinta');
+
+    // Logos: en el HTML van con carga diferida, pero dentro de una banda recortada y en movimiento el celular los pide
+    // tarde (al cambiar de rubro quedaban huecos varios segundos). Cuando el fichero está por entrar en pantalla se
+    // piden todos juntos (son livianos), también los de los rubros ocultos, así cada cambio de rubro ya los tiene.
+    let logosYa = false;
+    const pedirLogos = () => {
+      if (logosYa) return;
+      logosYa = true;
+      sources.forEach((items) => items.forEach((li) => li.querySelectorAll('img').forEach((img) => { img.loading = 'eager'; })));
+      cinta.querySelectorAll('img[loading="lazy"]').forEach((img) => { img.loading = 'eager'; });
+    };
+    if ('IntersectionObserver' in window) {
+      const cerca = new IntersectionObserver((entries) => {
+        if (!lastEntry(entries).isIntersecting) return;
+        cerca.disconnect();
+        pedirLogos();
+      }, { rootMargin: '900px 0px' });
+      cerca.observe(cinta.closest('[data-cl-fichero]') || cinta);
+    } else pedirLogos();
 
     // Solapas de rubro y avance automático
     const fichero = cinta.closest('[data-cl-fichero]');
@@ -1865,7 +1884,7 @@
   }
 
   /* ---------- Brillos de marca en todas las secciones ---------- */
-  // Cada sección de primer nivel con fondo propio (blanca o lavanda) recibe como primer hijo una capa .brillos con 1 a 4
+  // Cada sección de primer nivel con fondo propio (blanca o lavanda) recibe como primer hijo una capa .brillos con 2 a 7
   // puntos de luz (violeta y lima) que se desplazan despacio (CSS, "Luces de cada sección"). data-luces="N" en la
   // sección fija la cantidad; si no, sale de su alto. Fuera de pantalla se detienen. El hero
   // carbón tiene su propio fondo de luces; lo que no tiene fondo propio muestra el de main::before.
@@ -1892,7 +1911,7 @@
     const luces = (capa, sec, i) => {
       const pedido = parseInt(sec.dataset.luces, 10);
       const alto = sec.offsetHeight;
-      const n = Math.max(1, Math.min(4, Number.isNaN(pedido) ? (alto < 520 ? 2 : alto < 1100 ? 3 : 4) : pedido));
+      const n = Math.max(1, Math.min(7, Number.isNaN(pedido) ? (alto < 520 ? 3 : alto < 1100 ? 4 : alto < 1800 ? 6 : 7) : pedido));
       for (let k = 0; k < n; k++) {
         const luz = document.createElement('i');
         const violeta = (k + i) % 2 === 0;
@@ -1904,9 +1923,9 @@
         luz.style.setProperty('--x', `${x.toFixed(1)}%`);
         luz.style.setProperty('--y', `${Math.max(2, y).toFixed(1)}%`);
         luz.style.setProperty('--k', entre(0.55, 1).toFixed(2));
-        luz.style.setProperty('--dx', `${Math.round((x < 45 ? 1 : -1) * entre(60, 150))}px`);
-        luz.style.setProperty('--dy', `${Math.round((y < 50 ? 1 : -1) * entre(16, 60))}px`);
-        luz.style.setProperty('--t', `${entre(14, 21).toFixed(1)}s`);
+        luz.style.setProperty('--dx', `${Math.round((x < 45 ? 1 : -1) * entre(90, 210))}px`);
+        luz.style.setProperty('--dy', `${Math.round((y < 50 ? 1 : -1) * entre(30, 90))}px`);
+        luz.style.setProperty('--t', `${entre(11, 17).toFixed(1)}s`);
         luz.style.setProperty('--d', `${(-entre(0, 12)).toFixed(1)}s`);
         capa.append(luz);
       }

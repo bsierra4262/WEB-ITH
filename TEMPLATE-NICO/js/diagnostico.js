@@ -592,8 +592,12 @@
       carrusel.addEventListener('focusin', () => { foco = true; });
       carrusel.addEventListener('focusout', (e) => { if (!carrusel.contains(e.relatedTarget)) foco = false; });
       let soltar = 0;
-      pista.addEventListener('touchstart', () => { clearTimeout(soltar); dedo = true; }, { passive: true });
-      pista.addEventListener('touchend', () => { clearTimeout(soltar); soltar = setTimeout(() => { dedo = false; }, 2500); }, { passive: true });
+      // Con el dedo encima se detiene; al soltar (o si el navegador cancela el toque porque pasó a mover la página,
+      // touchcancel en Android) sigue a los 2,5 s. Por las dudas, nunca queda detenido más de 8 s por un toque.
+      const soltarDedo = (ms) => { clearTimeout(soltar); soltar = setTimeout(() => { dedo = false; }, ms); };
+      pista.addEventListener('touchstart', () => { dedo = true; soltarDedo(8000); }, { passive: true });
+      pista.addEventListener('touchend', () => soltarDedo(2500), { passive: true });
+      pista.addEventListener('touchcancel', () => soltarDedo(2500), { passive: true });
       if ('IntersectionObserver' in window) {
         new IntersectionObserver((entries) => { enPantalla = entries[entries.length - 1].isIntersecting; }).observe(pista);
       }
@@ -607,7 +611,10 @@
         const set = anchoSet();
         if (quieto) {
           pos = pista.scrollLeft; // sigue lo que haya movido la persona
-          if (ahora >= pausaHasta && pos >= set) { pos -= set; pista.scrollLeft = pos; }
+          // Bucle también a mano: pasado el primer juego vuelve al original y, al llegar al principio, salta a la
+          // copia (misma imagen), así con el dedo se puede seguir deslizando para los dos lados sin tope.
+          if (ahora >= pausaHasta && !dedo && pos >= set) { pos -= set; pista.scrollLeft = pos; }
+          else if (ahora >= pausaHasta && !dedo && pos < 2 && set > 0) { pos += set; pista.scrollLeft = pos; }
         } else {
           pos += VELOCIDAD * dt;
           if (pos >= set) pos -= set;

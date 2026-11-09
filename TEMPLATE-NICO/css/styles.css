@@ -73,6 +73,9 @@
 /* El lienzo también va en lavanda (no solo el body): ni al recargar, ni al rebotar el scroll en los bordes, ni mientras
    el navegador arma la página se ve un cuadro blanco. */
 html { background: var(--lavender); }
+/* Nada se sale a los costados: si algo sobresale aunque sea un instante (una banda que entra deslizándose), en el
+   celular la página se ensancha y lo fijo (el botón de WhatsApp) se corre. clip recorta sin romper el sticky. */
+@supports (overflow: clip) { html, body { overflow-x: clip; } }
 body {
   margin: 0;
   font-family: 'Saira', sans-serif;
@@ -149,7 +152,7 @@ a, a:is(:hover, :focus, :focus-visible, :active, :visited), summary, button, u, 
    Historia lavanda · Casos blanco · Cita lavanda · Preguntas blanco · Cierre lavanda (card blanca) · pie blanco.
    Las piezas claras se ajustan al fondo: círculos de íconos y chips en lavanda sobre blanco y en blanco sobre lavanda.
    BRILLOS EN TODAS LAS SECCIONES (pedido de Brian, 09/11): cada sección con fondo propio, blanca o lavanda, lleva la
-   misma textura: puntos de luz de marca chicos y casi imperceptibles (de 1 a 4 por sección, violeta y lima), como las
+   misma textura: puntos de luz de marca chicos y casi imperceptibles (de 2 a 7 por sección, violeta y lima), como las
    luces del hero pero en claro, que se desplazan despacio y se desvanecen antes del borde (ver "Luces de cada
    sección", abajo). Así no hay secciones lisas al lado de otras animadas.
    Si se activan las animaciones de Windows con Chrome abierto, Chrome sigue informando "reducir movimiento" hasta que se
@@ -175,7 +178,7 @@ main::before {
 .dx--noche main::before { content: none; }
 
 /* Luces de cada sección (como las del hero, pero en claro y casi imperceptibles). main.js agrega a cada sección clara
-   una capa .brillos con 1 a 4 puntos de luz (<i class="luz luz--violeta|luz--lima">): la cantidad sale de
+   una capa .brillos con 2 a 7 puntos de luz (<i class="luz luz--violeta|luz--lima">): la cantidad sale de
    data-luces="N" en la sección o, si no está, de su alto (corta: 2; media: 3; alta: 4), siempre con violeta y lima.
    Posición, tamaño, recorrido, duración y desfase varían de sección a sección (valores fijos por página, no al azar en
    cada carga), así no se repite el mismo patrón. Cada punto es chico (hasta el 16 % del ancho, como mucho 260 px; en
@@ -626,7 +629,7 @@ h1.section-title { font-size: var(--h1); } /* páginas internas: el H1 usa la cl
 /* Compacta y escondida (main.js). Todo con transform: la barra no cambia de alto en el flujo y la página no salta. */
 .site-header, .site-header__inner, .brand { transition: transform .45s var(--ease-out), background-color .35s var(--ease-out), box-shadow .35s var(--ease-out); }
 .brand { transform-origin: 0 50%; }
-.site-header.is-compact { transform: translateY(-10px); background-color: rgb(42 42 42 / .97); box-shadow: 0 10px 30px -14px rgb(0 0 0 / .6); }
+.site-header.is-compact { transform: translateY(-10px); background-color: var(--ink); /* opaco: en Android se transparentaba el texto de atrás */ box-shadow: 0 10px 30px -14px rgb(0 0 0 / .6); }
 .site-header.is-compact .site-header__inner { transform: translateY(5px); }
 .site-header.is-compact .brand { transform: scale(.9); }
 .site-header.is-hidden { transform: translateY(-100%); }
@@ -1065,7 +1068,7 @@ html:not(.anim) .cinta__list[aria-hidden="true"] { display: none !important; }
 
 /* Alto fijo del área de bandas en todos los rubros (el de dos filas): en los rubros de una fila la banda queda centrada
    en ese mismo espacio, así nada de lo que sigue se mueve al cambiar de rubro. */
-.cl-fichero .cinta { --item-h: 84px; --cl-gap: 12px; display: flex; align-items: center; height: calc(2 * var(--item-h) + var(--cl-gap)); min-width: 0; }
+.cl-fichero .cinta { --item-h: 84px; --cl-gap: 12px; overflow-x: clip; display: flex; align-items: center; height: calc(2 * var(--item-h) + var(--cl-gap)); min-width: 0; }
 .cl-fichero .cinta__panel[hidden] { display: none; }
 .cl-fichero .cinta__panel { display: flex; flex-direction: column; gap: var(--cl-gap); width: 100%; }
 /* Quieta (reducir movimiento): alto fijo de la grilla más larga (18 logos: tres renglones de seis; en celular, seis de tres) */
@@ -1252,12 +1255,12 @@ html:not(.anim) .cl-fichero .cinta.is-cinta .cinta__row .cinta__list { display: 
   .js :is(#servicios, #soluciones) .carousel__btn { transition: background-color var(--t-fast) var(--ease-out), color var(--t-fast) var(--ease-out), border-color var(--t-fast) var(--ease-out), margin-top .35s var(--ease-out); }
 }
 /* Celular: una tarjeta por vista. Los grupos de tres se desarman (display: contents) y las tarjetas quedan en una sola
-   fila que se desliza de a una, con el borde de la siguiente a la vista. La pista va de borde a borde de la pantalla y
+   fila que se desliza de a una, centrada en la pantalla. La pista va de borde a borde de la pantalla y
    el margen lateral pasa a ser su padding (el snap respeta ese margen con scroll-padding). Flechas más chicas, una a
    cada lado, superpuestas al borde de la tarjeta y centradas en su alto (como en Casos); puntos centrados debajo.
    main.js detecta el display: contents y navega tarjeta por tarjeta. */
 @media (max-width: 760px) {
-  :is(#servicios, #soluciones) .service { padding: 24px 34px 6px; } /* 34 px a los lados: la flecha no roza el ícono */
+  :is(#servicios, #soluciones) .service { padding: 24px 20px 6px; }
   :is(#servicios, #soluciones) .carousel__slide { display: contents; }
   :is(#servicios, #soluciones) .carousel__track {
     gap: 12px;
@@ -1265,7 +1268,8 @@ html:not(.anim) .cl-fichero .cinta.is-cinta .cinta__row .cinta__list { display: 
     padding-inline: var(--wrap-pad);
     scroll-padding-inline: var(--wrap-pad);
   }
-  :is(#servicios, #soluciones) .carousel__slide > .service { flex: 0 0 calc(100% - 36px); scroll-snap-align: start; }
+  /* Una tarjeta entera por vista, centrada en la pantalla (sin asomar la siguiente: así queda al medio exacto) */
+  :is(#servicios, #soluciones) .carousel__slide > .service { flex: 0 0 100%; scroll-snap-align: center; }
   .js :is(#servicios, #soluciones) .carousel { --arrow: 38px; position: relative; grid-template-columns: minmax(0, 1fr); }
   .js :is(#servicios, #soluciones) .carousel__track { grid-column: 1; }
   .js :is(#servicios, #soluciones) .carousel__btn {
@@ -2464,3 +2468,11 @@ html:not(.anim) .cl-fichero .cinta.is-cinta .cinta__row .cinta__list { display: 
 .nav-links .current { color: var(--ink); }
 
 .links-404 { display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; font-size: 19px; }
+
+/* Pantallas táctiles (celulares y tabletas): sin flechas en los carruseles, se pasan con el dedo; quedan los puntos y
+   el avance automático. Con mouse o panel táctil (hover) las flechas siguen. */
+@media (hover: none) and (pointer: coarse) {
+  .js :is(#servicios, #soluciones) .carousel__btn,
+  .js .cases-layout .carousel__btn,
+  .pres-slider__arrow { display: none !important; }
+}

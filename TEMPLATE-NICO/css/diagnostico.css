@@ -670,3 +670,9 @@ html.dx-con-datos .gx [data-no] { display: none; }
   .dx *, .dx *::before, .dx *::after { transition: none !important; }
   .dx-ac { animation: none !important; }
 }
+
+/* Pantallas táctiles: los casos se pasan con el dedo (en bucle), sin flechas. */
+@media (hover: none) and (pointer: coarse) {
+  .dx-carrusel__flecha { display: none !important; }
+  .dx-carrusel { margin: 0; }
+}

@@ -1,5 +1,4 @@
 # Levanta en segundo plano (sin ventanas) solo lo que usa el proyecto:
-#   Panel local  http://127.0.0.1:5173/          (opcional: solo si existe la carpeta .orion)
 #   Sitio        http://127.0.0.1:5174/            (TEMPLATE-NICO, Vite)
 #   API PHP      127.0.0.1:5176                    (agenda y consulta)
 #   Correo local 127.0.0.1:2525
@@ -37,7 +36,7 @@ function Levantar($nombre, $puerto, $exe, $argumentos, $dir) {
   Write-Host "$nombre arrancado ($puerto)."
 }
 
-if (Test-Path (Join-Path $raiz '.orion\servir.mjs')) { Levantar 'Panel local' 5173 'node' @("`"$raiz\.orion\servir.mjs`"", '5173') $raiz }
+# Orion (panel 5173) dado de baja el 09/11/2026: no se levanta más.
 Levantar 'Correo local' 2525 'node' @("`"$nico\dev\smtp-local.mjs`"", '2525') $nico
 Levantar 'API PHP' 5176 "$php\php.exe" @('-d', "extension_dir=`"$php\ext`"", '-d', 'extension=curl', '-d', 'extension=openssl', '-d', 'extension=mbstring', '-d', "curl.cainfo=`"$ca`"", '-d', 'SMTP=127.0.0.1', '-d', 'smtp_port=2525', '-d', 'sendmail_from=no-reply@intellihelp.tech', '-S', '127.0.0.1:5176', '-t', "`"$nico`"") $nico
 Levantar 'Sitio (Vite)' 5174 'node' @("`"$vite`"", "`"$nico`"", '--port', '5174', '--strictPort', '--host', '127.0.0.1') $nico
@@ -47,6 +46,5 @@ $env:PHPRC = "$wp\php"
 Levantar 'Blog (WordPress)' 5180 "$php\php.exe" @('-c', "`"$wp\php\php.ini`"", '-S', '127.0.0.1:5180', '-t', "`"$wp\sitio`"", "`"$wp\php\router.php`"") "$wp\sitio"
 
 Write-Host ''
-if (Test-Path (Join-Path $raiz '.orion')) { Write-Host '  Panel:  http://127.0.0.1:5173/__progreso' }
 Write-Host '  Sitio:  http://127.0.0.1:5174/'
 Write-Host '  Blog:   http://127.0.0.1:5180/  (admin: /wp-admin/)'
