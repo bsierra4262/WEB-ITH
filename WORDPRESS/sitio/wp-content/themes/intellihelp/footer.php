@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
           <img src="<?php echo esc_url( ith_img( 'logo-intellihelp.png' ) ); ?>" alt="ITH, Intellihelp" width="82" height="44" loading="lazy">
           <span class="footer__tag">Servicios IT<br>desde <?php echo esc_html( (string) ith_fundacion() ); ?></span>
         </div>
-        <p class="footer__text">Tecnología confiable para tu organización. <?php echo esc_html( (string) ith_anios() ); ?>&nbsp;años en la Argentina y la región.</p>
+        <p class="footer__text">Servicios IT: soporte, redes, infraestructura y seguridad. <?php echo esc_html( (string) ith_anios() ); ?>&nbsp;años en la Argentina y la región.</p>
       </div>
       <nav class="footer__col" aria-label="Qué ofrecemos">
         <span class="eyebrow eyebrow--lime">Qué ofrecemos</span>
