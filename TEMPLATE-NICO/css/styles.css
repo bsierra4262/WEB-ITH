@@ -733,6 +733,31 @@ html:not(.js) .site-header__inner { flex-wrap: wrap; padding-block: 12px; }
    Con "reducir movimiento" quedan quietas. En el hero, sin el velo pensado para el video: blanco sobre carbón ya
    tiene contraste. */
 .hero__media--luces::after { content: none; }
+/* Fotos en movimiento a los costados del título (provisorio hasta el video; ver index.html) */
+.hero-fotos { display: none; position: absolute; inset: 0; pointer-events: none; }
+@media (min-width: 1100px) { .hero-fotos { display: block; } }
+.hero-fotos__col {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(140px, 12vw, 250px);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
+}
+.hero-fotos__col--izq { left: clamp(20px, 3vw, 64px); }
+.hero-fotos__col--der { right: clamp(20px, 3vw, 64px); }
+.hero-fotos__pista { display: flex; flex-direction: column; gap: 22px; padding-bottom: 22px; will-change: transform; }
+.hero-fotos img { display: block; width: 88%; height: auto; border-radius: 16px; opacity: .55; box-shadow: 0 18px 40px -18px rgb(0 0 0 / .7); }
+.hero-fotos img:nth-child(even) { width: 76%; margin-left: 24%; }
+.hero-fotos__col--der img { margin-left: 12%; }
+.hero-fotos__col--der img:nth-child(even) { margin-left: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .hero-fotos__pista { animation: heroFotosSube 70s linear infinite; }
+  .hero-fotos__col--der .hero-fotos__pista { animation-name: heroFotosBaja; animation-duration: 82s; }
+}
+@keyframes heroFotosSube { to { transform: translate3d(0, -50%, 0); } }
+@keyframes heroFotosBaja { from { transform: translate3d(0, -50%, 0); } to { transform: none; } }
 .tech { position: relative; isolation: isolate; overflow: hidden; background: var(--ink); color: var(--white); }
 @supports (overflow: clip) { .tech { overflow: clip; } } /* recorta sin crear un contenedor de scroll: el sticky sigue andando */
 .fondo { position: absolute; inset: 0; z-index: -1; overflow: hidden; contain: strict; pointer-events: none; }
