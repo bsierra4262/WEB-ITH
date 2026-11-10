@@ -323,7 +323,7 @@ selección (portal: <https://intellihelp.hiringroom.com/jobs>).
   lugar de cada aviso publicado.
   - **Carpeta de datos** (caché e historial), la primera que se pueda usar: la variable de entorno
     `ITH_BUSQUEDAS_DATOS`; `busquedas-web/` al lado de la configuración del CRM (`ITH_CRM_CONFIG` o
-    `ITH_CRM_CONFIG_SERVIDOR`; en local queda en `WEB/config/busquedas-web/`, que no se versiona);
+    `ITH_CRM_CONFIG_SERVIDOR`; en local queda en `config/busquedas-web/`, que no se versiona);
     `ith_web_config/busquedas-web/` al lado de `public_html`, si `ith_web_config` existe; y como último recurso
     `datos-busquedas/` en la raíz del sitio, que el script protege con un `.htaccess` que niega el acceso y un
     `.gitignore`. En el hosting conviene que quede fuera de `public_html` (cualquiera de las tres primeras).

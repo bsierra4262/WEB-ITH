@@ -12,11 +12,11 @@ $nico = Join-Path $raiz 'TEMPLATE-NICO'
 $wp   = Join-Path $raiz 'WORDPRESS'
 $php  = Join-Path $env:LOCALAPPDATA 'Microsoft\WinGet\Packages\PHP.PHP.8.2_Microsoft.Winget.Source_8wekyb3d8bbwe'
 $maria = 'C:\Program Files\MariaDB 13.0\bin'
-$vite = Join-Path $raiz 'WEB\node_modules\vite\bin\vite.js'
+$vite = Join-Path $raiz 'OLD\web-multipagina-vite\node_modules\vite\bin\vite.js'
 $ca   = 'C:\Program Files\Git\mingw64\etc\ssl\certs\ca-bundle.crt'
 $logs = Join-Path $env:TEMP 'ith-servidores'
 New-Item -ItemType Directory -Force $logs | Out-Null
-if (-not $env:ITH_CRM_CONFIG) { $env:ITH_CRM_CONFIG = Join-Path $raiz 'WEB\config\crm.local.php' }
+if (-not $env:ITH_CRM_CONFIG) { $env:ITH_CRM_CONFIG = Join-Path $raiz 'config\crm.local.php' }
 
 # Animaciones de Windows: al iniciar sesión a veces se apagan solas y el navegador
 # entonces muestra la página sin movimiento (prefers-reduced-motion). Se vuelven a prender.

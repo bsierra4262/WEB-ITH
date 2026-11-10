@@ -22,7 +22,7 @@
  * Carpeta de datos (caché e historial), la primera que se pueda usar:
  *   1. La variable de entorno ITH_BUSQUEDAS_DATOS (ruta completa).
  *   2. busquedas-web/ al lado de la configuración del CRM (ITH_CRM_CONFIG o ITH_CRM_CONFIG_SERVIDOR): en local queda
- *      en WEB/config/ (no se versiona) y en el hosting, fuera de public_html.
+ *      en config/ (no se versiona) y en el hosting, fuera de public_html.
  *   3. ith_web_config/busquedas-web/ al lado de public_html (dos carpetas arriba de api/), si ith_web_config existe.
  *   4. datos-busquedas/ en la raíz del sitio, con un .htaccess que niega el acceso y un .gitignore que la deja afuera
  *      del repositorio. Es el último recurso: conviene cualquiera de las anteriores.

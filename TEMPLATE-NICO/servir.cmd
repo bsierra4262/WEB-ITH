@@ -17,8 +17,8 @@ if "%AQUI:~-1%"=="\" set "AQUI=%AQUI:~0,-1%"
 set "RAIZ=%AQUI%\.."
 set "PHP_DIR=%LOCALAPPDATA%\Microsoft\WinGet\Packages\PHP.PHP.8.2_Microsoft.Winget.Source_8wekyb3d8bbwe"
 set "CA_BUNDLE=C:\Program Files\Git\mingw64\etc\ssl\certs\ca-bundle.crt"
-set "VITE_JS=%RAIZ%\WEB\node_modules\vite\bin\vite.js"
-if not defined ITH_CRM_CONFIG set "ITH_CRM_CONFIG=%RAIZ%\WEB\config\crm.local.php"
+set "VITE_JS=%RAIZ%\OLD\web-multipagina-vite\node_modules\vite\bin\vite.js"
+if not defined ITH_CRM_CONFIG set "ITH_CRM_CONFIG=%RAIZ%\config\crm.local.php"
 
 rem Abierto con doble clic: al final se espera una tecla para que esta ventana no se cierre sola.
 set "DOBLE_CLIC=0"

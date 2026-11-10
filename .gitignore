@@ -1,12 +1,10 @@
 # Sitio
-WEB/node_modules/
-WEB/dist/
-WEB/config/*
-!WEB/config/crm.example.php
+OLD/web-multipagina-vite/node_modules/
+OLD/web-multipagina-vite/dist/
 
 # Material interno o pesado que no se versiona
 DOCS/privado/
-DOCS/wordpress-anterior/
+OLD/wordpress-anterior/
 
 *.log
 .DS_Store
@@ -23,7 +21,8 @@ Thumbs.db
 .vite/
 
 # Configuración local del CRM para la home (TEMPLATE-NICO/api/_crm.php la busca en ../config): nunca se versiona
-/config/
+/config/*
+!/config/crm.example.php
 
 # WordPress local (WORDPRESS/): se versiona solo el tema propio y los scripts
 WORDPRESS/sitio/wp-admin/

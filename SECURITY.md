@@ -13,7 +13,7 @@ y una posible mitigación. El reporte recibirá respuesta a la brevedad.
 - La clave y el secreto de la API del CRM **no se versionan**. `TEMPLATE-NICO/api/_crm.php` los
   lee de una configuración **fuera del web root**: la variable `ITH_CRM_CONFIG`, la variable
   `ITH_CRM_CONFIG_SERVIDOR` o, por defecto, `ith_web_config/crm.php` al lado de `public_html`.
-  En el repositorio solo hay un modelo sin datos (`WEB/config/crm.example.php`).
+  En el repositorio solo hay un modelo sin datos (`config/crm.example.php`).
 - Cada pedido de la web al CRM va **firmado con HMAC-SHA256** (hora, método, ruta, idempotencia,
   hash de IP y cuerpo), con tolerancia de ±5 minutos: una firma de pruebas no sirve en producción
   y un pedido copiado no se puede reenviar como si fuera otro.

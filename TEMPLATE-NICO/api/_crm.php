@@ -12,8 +12,8 @@
  *   ../config/crm.local.php
  *   (una carpeta arriba de la página, fuera de lo que se publica; ignorado por
  *   git). En local, servir.cmd apunta ITH_CRM_CONFIG a la configuración de
- *   pruebas del sitio (WEB/config/crm.local.php; modelo en
- *   WEB/config/crm.example.php). Lleva la clave y el secreto de la API: nunca
+ *   pruebas del sitio (config/crm.local.php; modelo en
+ *   config/crm.example.php). Lleva la clave y el secreto de la API: nunca
  *   se copian a esta carpeta ni a otro lado.
  * - Cada pedido va firmado: X-ITH-Signature = HMAC-SHA256(secreto,
  *   ts \n MÉTODO \n ruta \n idempotencia \n hash de IP \n cuerpo), con las

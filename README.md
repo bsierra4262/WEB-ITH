@@ -59,9 +59,9 @@ Google Meet, sin pasar por servicios de terceros.
 | `/novedades/` | Blog en WordPress, con el mismo header, pie y animación de carga |
 | `404` | Página de error propia |
 
-> `WEB/` es la versión anterior del sitio (multipágina en Vite). Se conserva como referencia y
-> porque aporta Vite (`WEB/node_modules`) y la configuración local de la API al entorno de
-> desarrollo; ya no se publica.
+> Las versiones anteriores del sitio están en `OLD/`: la multipágina en Vite
+> (`OLD/web-multipagina-vite/`, referencia; aporta Vite al entorno local) y el respaldo del WordPress
+> anterior (`OLD/wordpress-anterior/`, no se versiona). Ninguna se publica.
 
 ## Capturas
 
@@ -150,7 +150,8 @@ TEMPLATE-NICO/        Sitio principal (lo que se publica en public_html)
   .htaccess             Reglas de lanzamiento en Hostinger
   README.md, README-movimiento.md   Documentación del sitio y del movimiento
 WORDPRESS/            Blog "Novedades": tema propio (wp-content/themes/intellihelp) y scripts locales
-WEB/                  Versión anterior en Vite (referencia; aporta Vite y la config local de la API)
+OLD/                  Versiones anteriores, no se publican: web-multipagina-vite/ y wordpress-anterior/
+config/               Configuración local de la API (no se versiona; modelo en crm.example.php)
 DOCS/                 Documentación: diseño, contenido, marketing, desarrollo, capturas y banner
 tools/
   publicar/           construir.py (CSS y JS minificados con versión) y calentar.sh (precarga la CDN)
@@ -171,7 +172,7 @@ Doble clic en `levantar.cmd` (en segundo plano, sin ventanas) y `detener.cmd` pa
 | Blog WordPress | <http://127.0.0.1:5180/> (desde el sitio, el menú "Blog" lleva ahí) |
 | Base del blog (MariaDB) | `127.0.0.1:3307` |
 
-Requisitos: Node.js 20.19 o superior (con `npm install` en `WEB/`), PHP 8.2 y MariaDB. Los
+Requisitos: Node.js 20.19 o superior (con `npm install` en `OLD/web-multipagina-vite/`), PHP 8.2 y MariaDB. Los
 registros de cada servidor quedan en `%TEMP%\ith-servidores\`. Lo que se reserve en local va al
 CRM de pruebas. Detalle en [TEMPLATE-NICO/README.md](TEMPLATE-NICO/README.md) y
 [WORDPRESS/README.md](WORDPRESS/README.md).

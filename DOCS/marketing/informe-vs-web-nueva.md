@@ -26,7 +26,7 @@ Cómo lo verifiqué:
 1. **Nada del sitio lleva a `/diagnostico/`.** La landing existe, pero 0 enlaces apuntan a ella. El CTA del header y las bandas de cada servicio bajan al formulario de la misma página. El embudo de Clau (emb. p.3) dice "páginas de servicio → landing de diagnóstico".
 2. **Medifé aparece con logo y nombre** en la home y en `/clientes/`. Según `fuentes-drive-clientes.md`, hay un NDA firmado que pide "solo sin nombre". `confian.html` ya la saca, pero la home no (inf. p.8: "si alguno pidió no figurar").
 3. **Keyword del ejemplo del embudo: "control de accesos para empresas"** (emb. p.7). `/control-de-accesos/` redirige bien a `/soluciones/seguridad/`, pero esa página se ordena por "instalación de cámaras" y la frase no aparece en ningún lado.
-4. **Verificación de Search Console.** `DOCS/wordpress-anterior/google9ffcbef7277c41a3.html` es el archivo de verificación del WordPress y no está en `public/`. El día del cambio, Search Console puede perder la verificación.
+4. **Verificación de Search Console.** `OLD/wordpress-anterior/google9ffcbef7277c41a3.html` es el archivo de verificación del WordPress y no está en `public/`. El día del cambio, Search Console puede perder la verificación.
 5. **Del lado de Intellihelp:** URL del calendario, video de Carlos, fotos del equipo y testimonios. Sin eso, el CONVENCER del embudo queda a medias.
 
 ---
@@ -123,7 +123,7 @@ Cómo lo verifiqué:
 | HTTPS en un solo salto a `https://www.` (inf. p.5, p.27) | Reglas de www y https en un solo salto | Resuelto | — | — |
 | Caché activa (inf. p.26) | 1 año `immutable` para los archivos con hash, 30 días para las imágenes y `no-cache` para el HTML | Resuelto | — | — |
 | Medición desde el día 1 (inf. p.4-5, p.26) | La CSP ya permite GTM, GA4, Google Ads, Clarity, LinkedIn Insight, YouTube, Calendly y Google Calendar | Resuelto | — | Si Clau suma otra herramienta en GTM, hay que agregar su dominio. La CSP no corre etiquetas de "HTML personalizado": avisarle |
-| **Search Console verificado** (inf. p.26) | El archivo `DOCS/wordpress-anterior/google9ffcbef7277c41a3.html` del WordPress no está en `public/`. Al reemplazar el WP, esa verificación se cae | **Falta** | `public/google9ffcbef7277c41a3.html` | Copiarlo tal cual a `public/`, o confirmar con Clau que la propiedad quedó verificada por DNS, como pide el informe |
+| **Search Console verificado** (inf. p.26) | El archivo `OLD/wordpress-anterior/google9ffcbef7277c41a3.html` del WordPress no está en `public/`. Al reemplazar el WP, esa verificación se cae | **Falta** | `public/google9ffcbef7277c41a3.html` | Copiarlo tal cual a `public/`, o confirmar con Clau que la propiedad quedó verificada por DNS, como pide el informe |
 | Confirmación al prospecto (emb. p.5) | `contact.php` no responde al remitente | Parcial | `public/api/contact.php` | Ver INSTITUCIONALES: primero el calendario y, si se demora, una respuesta automática corta |
 
 ## Fuera del código (nada se toca ni se publica sin aviso)
