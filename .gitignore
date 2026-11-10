@@ -58,3 +58,6 @@ tools/verificacion/resultados/
 
 # Copia minificada que arma tools/publicar/construir.py (se sube al servidor, no se versiona)
 tools/publicar/dist/
+
+# Zips de fotos y material que se pasa por la carpeta del proyecto (no se versionan)
+/*.zip
