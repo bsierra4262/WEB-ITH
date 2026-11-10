@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <header id="inicio" class="site-header">
   <div class="wrap site-header__inner">
-    <a href="<?php echo esc_url( ith_principal( '/' ) ); ?>" class="brand" aria-label="Intellihelp, volver al inicio">
+    <a href="<?php echo esc_url( ith_principal( '/' ) ); ?>" class="brand" aria-label="Intellihelp, servicios IT desde <?php echo esc_attr( (string) ith_fundacion() ); ?>: volver al inicio">
       <img src="<?php echo esc_url( ith_img( 'logo-intellihelp.png' ) ); ?>" alt="ITH, Intellihelp" width="74" height="40">
       <span class="brand__tag"><span>Servicios IT</span><span>desde <?php echo esc_html( (string) ith_fundacion() ); ?></span></span>
     </a>
