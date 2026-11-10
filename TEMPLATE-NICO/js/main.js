@@ -2157,4 +2157,20 @@
       page_path: location.pathname,
     });
   });
+
+  /* ---------- Fotos del equipo y galerías: listas antes de llegar ---------- */
+  // Las fotos van con carga diferida para no frenar el primer vistazo, pero si se baja rápido aparecían tarde. Cuando la
+  // página ya terminó de cargar y el navegador está libre, se piden todas en segundo plano (la versión que corresponde a
+  // la pantalla, por srcset), así al llegar a la sección ya están. Mientras tanto se ve la vista previa borrosa que cada
+  // foto trae en su style. Con ahorro de datos activado no se adelanta nada.
+  {
+    const fotos = [...document.querySelectorAll('.galeria img[loading="lazy"], .member__photo img[loading="lazy"]')];
+    const ahorro = navigator.connection && navigator.connection.saveData;
+    if (fotos.length && !ahorro) {
+      const adelantar = () => fotos.forEach((img) => { img.loading = 'eager'; });
+      const enReposo = () => ('requestIdleCallback' in window ? requestIdleCallback(adelantar, { timeout: 3000 }) : setTimeout(adelantar, 1200));
+      if (document.readyState === 'complete') enReposo();
+      else addEventListener('load', enReposo, { once: true });
+    }
+  }
 })();
