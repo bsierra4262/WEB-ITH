@@ -1443,7 +1443,10 @@ html:not(.anim) .cl-fichero .cinta.is-cinta .cinta__row .cinta__list { display: 
 .galeria__item { overflow: hidden; border-radius: var(--radius); aspect-ratio: 3 / 2; background: var(--gray-bg); }
 .galeria__item img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform var(--t-img) var(--ease-out); }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) { .galeria__item:hover img { transform: scale(1.05); } }
-@media (max-width: 640px) { .galeria { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 32px; } }
+@media (max-width: 640px) {
+  .galeria { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 32px; }
+  .galeria__item:nth-child(9) { display: none; } /* de a dos: ocho fotos, sin una suelta al final */
+}
 #equipo .member--grupo { flex-basis: 100%; }
 #equipo .member--grupo .member__photo { aspect-ratio: 21 / 9; }
 @media (max-width: 640px) { #equipo .member--grupo .member__photo { aspect-ratio: 4 / 3; } }
