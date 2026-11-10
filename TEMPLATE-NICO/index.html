@@ -264,7 +264,7 @@
 
   <!-- Fuente propia (ver @font-face en styles.css): sin pedidos a Google Fonts. `crossorigin` es obligatorio para precargar fuentes. -->
   <link rel="preload" href="fonts/saira-latin.woff2?v=7eb811eb14" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/styles.css?v=17c9aab91c">
+  <link rel="stylesheet" href="css/styles.css?v=4f3ab14437">
 
   <script>
     // Antes del primer pintado: marca que hay JS y pone en <html> la clase "anim", que habilita las animaciones de
@@ -275,7 +275,7 @@
       if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) root.classList.add('anim');
     })(document.documentElement);
   </script>
-  <script src="js/main.js?v=e0f78a2c49" defer></script>
+  <script src="js/main.js?v=7050587803" defer></script>
   <!-- MOVIMIENTO: recetas de animación (títulos por líneas, fotos, header que se compacta y se esconde, íconos que
        levitan), después de los estilos y de main.js. Detalle en README-movimiento.md. -->
   <link rel="stylesheet" href="css/motion.css?v=2878a7a381">
@@ -342,15 +342,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <span class="fondo__luz fondo__luz--3"></span>
       <span class="fondo__luz fondo__luz--4"></span>
     </div>
-    <!-- Fotos en movimiento (PROVISORIO hasta que llegue el video): dos columnas de tarjetas a los costados del título,
-         una sube y la otra baja, con bordes fundidos arriba y abajo. Solo desde 1100 px (en celular no hay lugar al lado
-         del texto: queda el fondo de luces). Imágenes de 480 px de img/oficina/, con carga diferida y prioridad baja: no
-         compiten con el título (LCP). Cada pista lleva la serie dos veces para que el bucle no salte. Con "reducir
-         movimiento" quedan quietas. Cuando llegue el video, borrar este bloque. -->
-    <div class="hero-fotos" aria-hidden="true">
-      <div class="hero-fotos__col hero-fotos__col--izq"><div class="hero-fotos__pista"><img src="img/oficina/planificacion-320.webp?v=20261109i" alt="" width="320" height="213" loading="lazy" decoding="async" fetchpriority="low"><img src="img/oficina/carlos-oficina-320.webp?v=20261109i" alt="" width="320" height="213" loading="lazy" decoding="async" fetchpriority="low"><img src="img/oficina/pizarron-320.webp?v=20261109i" alt="" width="320" height="213" loading="lazy" decoding="async" fetchpriority="low"><img src="img/oficina/laura-puesto-320.webp?v=20261109i" alt="" width="320" height="213" loading="lazy" decoding="async" fetchpriority="low"><img src="img/oficina/nicolas-sala-320.webp?v=20261109i" alt="" width="320" height="213" loading="lazy" decoding="async" fetchpriority="low"><img src="img/oficina/planificacion-320.webp?v=20261109i" alt="" width="320" height="213" loading="lazy" decoding="async" fetchpriority="low"><img src="img/oficina/carlos-oficina-320.webp?v=20261109i" alt="" width="320" height="213" loading="lazy" decoding="async" fetchpriority="low"><img src="img/oficina/pizarron-320.webp?v=20261109i" alt="" width="320" height="213" loading="lazy" decoding="async" fetchpriority="low"><img src="img/oficina/laura-puesto-320.webp?v=20261109i" alt="" width="320" height="213" loading="lazy" decoding="async" fetchpriority="low"><img src="img/oficina/nicolas-sala-320.webp?v=20261109i" alt="" width="320" height="213" loading="lazy" decoding="async" fetchpriority="low"></div></div>
-      <div class="hero-fotos__col hero-fotos__col--der"><div class="hero-fotos__pista"><img src="img/oficina/equipo-320.webp?v=20261109i" alt="" width="320" height="213" loading="lazy" decoding="async" fetchpriority="low"><img src="img/oficina/brian-escritorio-320.webp?v=20261109i" alt="" width="320" height="213" loading="lazy" decoding="async" fetchpriority="low"><img src="img/oficina/laboratorio-320.webp?v=20261109i" alt="" width="320" height="213" loading="lazy" decoding="async" fetchpriority="low"><img src="img/oficina/reunion-320.webp?v=20261109i" alt="" width="320" height="213" loading="lazy" decoding="async" fetchpriority="low"><img src="img/oficina/alejandro-puesto-320.webp?v=20261109i" alt="" width="320" height="213" loading="lazy" decoding="async" fetchpriority="low"><img src="img/oficina/equipo-320.webp?v=20261109i" alt="" width="320" height="213" loading="lazy" decoding="async" fetchpriority="low"><img src="img/oficina/brian-escritorio-320.webp?v=20261109i" alt="" width="320" height="213" loading="lazy" decoding="async" fetchpriority="low"><img src="img/oficina/laboratorio-320.webp?v=20261109i" alt="" width="320" height="213" loading="lazy" decoding="async" fetchpriority="low"><img src="img/oficina/reunion-320.webp?v=20261109i" alt="" width="320" height="213" loading="lazy" decoding="async" fetchpriority="low"><img src="img/oficina/alejandro-puesto-320.webp?v=20261109i" alt="" width="320" height="213" loading="lazy" decoding="async" fetchpriority="low"></div></div>
-    </div>
+    <!-- Escena de fotos (PROVISORIO hasta que llegue el video), como la segunda pantalla de la home de Globant: en
+         escritorio (desde 1100 px) el texto va a la izquierda y en la mitad derecha flotan seis tarjetas de foto a
+         distintas profundidades (las de atrás más chicas, desenfocadas y tenues). Cada pocos segundos una tarjeta cambia
+         de foto con un fundido; ninguna foto se repite a la vista. main.js ("Escena del hero") arma las tarjetas después
+         de "load", así no compiten con el título (LCP). Fotos en img/hero/ (640 x 427), distintas de las de la página.
+         Con "reducir movimiento" quedan quietas. Cuando llegue el video, borrar este bloque y el módulo de main.js. -->
+    <div class="hero-escena" aria-hidden="true" data-hero-escena data-fotos="img/hero/soporte-equipo.webp?v=20261109a img/hero/planos.webp?v=20261109a img/hero/pizarron-equipo.webp?v=20261109a img/hero/monitor.webp?v=20261109a img/hero/direccion.webp?v=20261109a img/hero/hardware.webp?v=20261109a img/hero/nicolas.webp?v=20261109a img/hero/carlos.webp?v=20261109a img/hero/laura.webp?v=20261109a img/hero/lisandro.webp?v=20261109a img/hero/alejandro.webp?v=20261109a img/hero/brian.webp?v=20261109a img/hero/grupo.webp?v=20261109a"></div>
   </div>
   <button type="button" class="hero__down" data-hero-open aria-label="Ver más" hidden>
     <svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M6 13l6 6 6-6"/></svg>

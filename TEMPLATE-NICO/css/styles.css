@@ -733,31 +733,55 @@ html:not(.js) .site-header__inner { flex-wrap: wrap; padding-block: 12px; }
    Con "reducir movimiento" quedan quietas. En el hero, sin el velo pensado para el video: blanco sobre carbón ya
    tiene contraste. */
 .hero__media--luces::after { content: none; }
-/* Fotos en movimiento a los costados del título (provisorio hasta el video; ver index.html) */
-.hero-fotos { display: none; position: absolute; inset: 0; pointer-events: none; }
-@media (min-width: 1100px) { .hero-fotos { display: block; } }
-.hero-fotos__col {
+/* Escena de fotos del hero (provisorio hasta el video; ver index.html y main.js, "Escena del hero") */
+.hero-escena { display: none; }
+@media (min-width: 1100px) {
+  /* Dos columnas dentro del ancho del sitio: texto a la izquierda (55 %) y la escena de fotos a la derecha, sin
+     pisarse. La escena se ubica sobre la columna derecha del mismo contenedor que el texto. */
+  .hero-escena {
+    display: block;
+    position: absolute;
+    top: 6%;
+    bottom: 6%;
+    left: calc(max(0px, (100% - var(--wrap-max)) / 2) + var(--wrap-pad) + (min(100%, var(--wrap-max)) - 2 * var(--wrap-pad)) * .6);
+    right: max(16px, calc((100% - var(--wrap-max)) / 2 - 80px));
+    pointer-events: none;
+  }
+  /* Texto en la columna izquierda: el bloque ocupa el 54 % del ancho útil del sitio y no invade la escena */
+  .hero:has(.hero-escena) .hero__inner { display: block; text-align: left; }
+  .hero:has(.hero-escena) .hero__inner > * { width: 54%; max-width: 54%; margin-top: 22px; }
+  .hero:has(.hero-escena) .hero__inner > :first-child { margin-top: 0; }
+  .hero:has(.hero-escena) .hero__title { width: 54%; }
+  .hero:has(.hero-escena) .hero__ctas, .hero:has(.hero-escena) .stats { display: flex; }
+  .hero:has(.hero-escena) .hero__title { font-size: clamp(38px, 3.1vw, 58px); }
+  .hero:has(.hero-escena) .hero__title > .hero__kicker { justify-content: flex-start; }
+  .hero:has(.hero-escena) .hero__ctas { justify-content: flex-start; }
+  .hero:has(.hero-escena) .stats { justify-content: flex-start; flex-wrap: nowrap; column-gap: clamp(24px, 2.2vw, 40px); text-align: left; }
+  .hero:has(.hero-escena) .stat__value { font-size: clamp(26px, 2vw, 38px); white-space: nowrap; }
+  .hero:has(.hero-escena) .stat__label { white-space: nowrap; }
+  .hero:has(.hero-escena) .stat { min-width: 0; flex-shrink: 0; align-items: flex-start; }
+  .hero:has(.hero-escena) .hero__inner > .stats { width: auto; max-width: none; }
+}
+.escena__foto {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  width: clamp(140px, 12vw, 250px);
+  aspect-ratio: 3 / 2;
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
-  mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
+  border-radius: 16px;
+  background: rgb(255 255 255 / .04);
+  box-shadow: 0 24px 60px -24px rgb(0 0 0 / .8);
+  filter: blur(var(--b, 0px));
+  opacity: var(--o, 1);
 }
-.hero-fotos__col--izq { left: clamp(20px, 3vw, 64px); }
-.hero-fotos__col--der { right: clamp(20px, 3vw, 64px); }
-.hero-fotos__pista { display: flex; flex-direction: column; gap: 22px; padding-bottom: 22px; will-change: transform; }
-.hero-fotos img { display: block; width: 88%; height: auto; border-radius: 16px; opacity: .55; box-shadow: 0 18px 40px -18px rgb(0 0 0 / .7); }
-.hero-fotos img:nth-child(even) { width: 76%; margin-left: 24%; }
-.hero-fotos__col--der img { margin-left: 12%; }
-.hero-fotos__col--der img:nth-child(even) { margin-left: 0; }
+.escena__foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.4s ease; }
+.escena__foto img.is-visible { opacity: 1; }
 @media (prefers-reduced-motion: no-preference) {
-  .hero-fotos__pista { animation: heroFotosSube 70s linear infinite; }
-  .hero-fotos__col--der .hero-fotos__pista { animation-name: heroFotosBaja; animation-duration: 82s; }
+  .escena__foto { animation: escenaFlota var(--t, 18s) ease-in-out var(--d, 0s) infinite alternate; }
+  .hero.is-offscreen .escena__foto { animation-play-state: paused; }
 }
-@keyframes heroFotosSube { to { transform: translate3d(0, -50%, 0); } }
-@keyframes heroFotosBaja { from { transform: translate3d(0, -50%, 0); } to { transform: none; } }
+@keyframes escenaFlota {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(var(--dx, 16px), var(--dy, -20px), 0) scale(1.05); }
+}
 .tech { position: relative; isolation: isolate; overflow: hidden; background: var(--ink); color: var(--white); }
 @supports (overflow: clip) { .tech { overflow: clip; } } /* recorta sin crear un contenedor de scroll: el sticky sigue andando */
 .fondo { position: absolute; inset: 0; z-index: -1; overflow: hidden; contain: strict; pointer-events: none; }

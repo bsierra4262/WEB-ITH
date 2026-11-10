@@ -2158,6 +2158,61 @@
     });
   });
 
+  /* ---------- Escena del hero: tarjetas de foto a distintas profundidades (provisorio hasta el video) ---------- */
+  // Seis tarjetas en la mitad derecha (desde 1100 px). Cada una flota despacio (CSS) y cada 3,2 s una de ellas cambia de
+  // foto con un fundido: toma la siguiente de la cola y devuelve la suya al final, así ninguna foto se ve dos veces a la
+  // vez. Se arma después de "load" para no competir con el título. Fuera de pantalla o con la pestaña oculta no cambia.
+  {
+    const escena = document.querySelector('[data-hero-escena]');
+    const heroEsc = escena && escena.closest('[data-hero]');
+    if (escena && matchMedia('(min-width: 1100px)').matches) {
+      const LUGARES = [ // izquierda, arriba y ancho en % de la escena; z, desenfoque (px), opacidad, flotación
+        { l: 0, t: 6, w: 54, z: 3, dx: 12, dy: -14, s: 17 },
+        { l: 58, t: 0, w: 40, z: 1, b: 4, o: 0.42, dx: -10, dy: 12, s: 21 },
+        { l: 26, t: 34, w: 62, z: 4, dx: -14, dy: -10, s: 19 },
+        { l: 76, t: 44, w: 26, z: 2, b: 2, o: 0.66, dx: 8, dy: 14, s: 23 },
+        { l: 18, t: 70, w: 42, z: 3, dx: 10, dy: 12, s: 18 },
+        { l: 60, t: 76, w: 38, z: 2, b: 3, o: 0.55, dx: -12, dy: -8, s: 22 },
+      ];
+      const cola = escena.dataset.fotos.trim().split(/\s+/);
+      for (let i = cola.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [cola[i], cola[j]] = [cola[j], cola[i]]; }
+      let enPantalla = true;
+      const armar = () => {
+        const tarjetas = LUGARES.map((p, k) => {
+          const el = document.createElement('div');
+          el.className = 'escena__foto';
+          el.style.cssText = `left:${p.l}%;top:${p.t}%;width:${p.w}%;z-index:${p.z};--b:${p.b || 0}px;--o:${p.o || 1};--dx:${p.dx}px;--dy:${p.dy}px;--t:${p.s}s;--d:${-k * 3}s`;
+          const a = new Image(); const b = new Image();
+          [a, b].forEach((img) => { img.alt = ''; img.decoding = 'async'; el.append(img); });
+          a.onload = () => a.classList.add('is-visible');
+          a.src = cola.shift();
+          escena.append(el);
+          return { el, actual: a, libre: b };
+        });
+        if (!motion) return;
+        let ultima = -1;
+        setInterval(() => {
+          if (!enPantalla || document.hidden) return;
+          let k; do { k = Math.floor(Math.random() * tarjetas.length); } while (k === ultima);
+          ultima = k;
+          const t = tarjetas[k];
+          const nueva = cola.shift();
+          t.libre.onload = () => {
+            t.libre.classList.add('is-visible');
+            t.actual.classList.remove('is-visible');
+            cola.push(t.actual.getAttribute('src'));
+            [t.actual, t.libre] = [t.libre, t.actual];
+          };
+          t.libre.src = nueva;
+        }, 3200);
+      };
+      if ('IntersectionObserver' in window && heroEsc) {
+        new IntersectionObserver((en) => { enPantalla = lastEntry(en).isIntersecting; heroEsc.classList.toggle('is-offscreen', !enPantalla); }).observe(heroEsc);
+      }
+      if (document.readyState === 'complete') armar(); else addEventListener('load', armar, { once: true });
+    }
+  }
+
   /* ---------- Fotos del equipo y galerías: listas antes de llegar ---------- */
   // Las fotos van con carga diferida para no frenar el primer vistazo, pero si se baja rápido aparecían tarde. Cuando la
   // página ya terminó de cargar y el navegador está libre, se piden todas en segundo plano (la versión que corresponde a
