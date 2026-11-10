@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <b>Sitio institucional de Intellihelp: servicios IT para empresas y organismos, con agenda de reuniones conectada al CRM propio.</b><br>
+  <b>Sitio institucional de Intellihelp: servicios IT de soporte, redes, infraestructura y seguridad, con agenda de reuniones conectada al CRM propio.</b><br>
   HTML, CSS y JavaScript sin frameworks, una API mínima en PHP y el blog en WordPress, listos para Hostinger.
 </p>
 
@@ -19,6 +19,8 @@
 <p align="center">
   <b><a href="https://www.intellihelp.tech">www.intellihelp.tech</a></b>
 </p>
+
+<p align="center"><img src="DOCS/capturas/home-principal.webp" alt="Inicio del sitio: título a la izquierda y fotos del equipo a distintas profundidades" width="100%"></p>
 
 ---
 
@@ -76,6 +78,7 @@ Google Meet, sin pasar por servicios de terceros.
 <details>
 <summary><b>Secciones de la home y bloques clave</b></summary>
 
+<p><img src="DOCS/capturas/home-equipo.webp" alt="Quiénes somos: foto del equipo, retratos y galería en nuestras oficinas" width="100%"></p>
 <p><img src="DOCS/capturas/home-que-ofrecemos.webp" alt="Qué ofrecemos: servicios y soluciones" width="100%"></p>
 <p><img src="DOCS/capturas/home-presencia.webp" alt="Presencia en Argentina y Latam" width="100%"></p>
 <p><img src="DOCS/capturas/home-clientes.webp" alt="Clientes por rubro en bandas en movimiento" width="100%"></p>
@@ -83,6 +86,7 @@ Google Meet, sin pasar por servicios de terceros.
 <p><img src="DOCS/capturas/home-casos.webp" alt="Casos de éxito" width="100%"></p>
 <p><img src="DOCS/capturas/home-preguntas.webp" alt="Preguntas frecuentes" width="100%"></p>
 <p><img src="DOCS/capturas/diagnostico-reserva.webp" alt="Bloque de reserva del diagnóstico" width="100%"></p>
+<p><img src="DOCS/capturas/postulate-equipo.webp" alt="Postulate: por qué sumarse y el equipo en su puesto" width="100%"></p>
 <p><img src="DOCS/capturas/postulate-busquedas.webp" alt="Búsquedas abiertas de HiringRoom" width="100%"></p>
 <p><img src="DOCS/capturas/blog-nota-escritorio.webp" alt="Nota del blog" width="100%"></p>
 
@@ -140,14 +144,19 @@ TEMPLATE-NICO/        Sitio principal (lo que se publica en public_html)
   css/                  styles.css (sistema común), carga.css, motion.css y una hoja por página
   js/                   main.js (módulos comunes), carga.js, motion.js, agenda.js, diagnostico.js, postulate.js
   api/                  agenda.php, contact.php y _crm.php (firma y cola), con su .htaccess
-  img/, fonts/, video/  Recursos (Saira servida desde el sitio)
+  img/                  Recursos: equipo/ (retratos), oficina/ (galerías), hero/ (escena del inicio), clientes/ y
+                        socios/ (logos en WebP); cada foto con variantes de 320 y 480 px
+  fonts/, video/        Saira servida desde el sitio y el video del inicio (cuando esté)
   .htaccess             Reglas de lanzamiento en Hostinger
   README.md, README-movimiento.md   Documentación del sitio y del movimiento
 WORDPRESS/            Blog "Novedades": tema propio (wp-content/themes/intellihelp) y scripts locales
 WEB/                  Versión anterior en Vite (referencia; aporta Vite y la config local de la API)
 DOCS/                 Documentación: diseño, contenido, marketing, desarrollo, capturas y banner
-tools/verificacion/   Pruebas automáticas (páginas en el navegador y emulador del .htaccess)
-levantar.cmd, detener.cmd   Entorno local completo
+tools/
+  publicar/           construir.py (CSS y JS minificados con versión) y calentar.sh (precarga la CDN)
+  capturas/           web.mjs: rehace las capturas de DOCS/capturas desde el sitio publicado
+  verificacion/       Pruebas automáticas (páginas en el navegador y emulador del .htaccess)
+levantar.cmd, detener.cmd   Entorno local completo (opcional: hoy se trabaja sobre producción)
 ```
 
 ## Desarrollo local
@@ -184,6 +193,17 @@ aplicaciones de la empresa. Resumen:
 El `.htaccess` deja pasar sin tocar los subdominios y las aplicaciones, hace un solo salto a
 `https://www.intellihelp.tech` y redirige con 301 las URLs del sitio anterior. Paso a paso
 completo en [TEMPLATE-NICO/README.md → Lanzamiento en Hostinger](TEMPLATE-NICO/README.md#lanzamiento-en-hostinger).
+
+### Publicar un cambio
+
+El sitio ya está publicado; cada cambio se sube directo a producción:
+
+1. `python tools/publicar/construir.py`: pone la versión (`?v=`) a CSS, JS y fuente en cada página y arma en
+   `tools/publicar/dist/` la copia minificada.
+2. Respaldo en el servidor de los archivos que se reemplazan; después se suben las páginas de `TEMPLATE-NICO/`
+   y `css/` y `js/` desde `tools/publicar/dist/` (nunca los de `TEMPLATE-NICO`, que van sin minificar).
+3. Limpiar la caché del hosting (vacía también la CDN) y correr `bash tools/publicar/calentar.sh`.
+4. Si cambió algo visible, rehacer las capturas con `node ../capturas/web.mjs` desde `tools/verificacion/`.
 
 ## Pruebas y verificación
 

@@ -23,6 +23,7 @@ const PAGINAS = [
 const SECCIONES = [
   ['home-que-ofrecemos', '/', '#que-ofrecemos', true], ['home-presencia', '/', '#presencia'], ['home-clientes', '/', '#clientes'],
   ['home-historia', '/', '#historia', true], ['home-casos', '/', '#casos'], ['home-preguntas', '/', '#preguntas'],
+  ['home-equipo', '/', '#equipo'], ['postulate-equipo', '/postulate/', '#por-que'],
   ['diagnostico-reserva', '/diagnostico-sin-cargo/', '#agendar'], ['postulate-busquedas', '/postulate/', '#busquedas'],
 ];
 const espera = (ms) => new Promise((r) => setTimeout(r, ms));
