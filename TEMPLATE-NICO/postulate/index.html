@@ -7,11 +7,23 @@
   <!-- Google Tag Manager (GTM-54S82VL3). GA4 y Clarity se cargan desde el contenedor: no agregar gtag.js ni
        otros snippets a mano. El CTA "Agendá reunión" del header publica "cta_click" y los enlaces internos "internal_nav"
        (main.js); los botones de esta página publican además "postulate_click" (postulate.js). -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-54S82VL3');</script>
+  <script>
+    // Tag Manager se pide al terminar de cargar la página (rendimiento: sus 330 KB no compiten con la primera
+    // pantalla). gtm.start guarda el momento de llegada y todo lo que se publique antes en el dataLayer (cta_click,
+    // internal_nav...) queda en cola: el contenedor lo procesa apenas carga.
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+    (function () {
+      var cargar = function () {
+        var j = document.createElement('script');
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-54S82VL3';
+        document.head.appendChild(j);
+      };
+      if (document.readyState === 'complete') setTimeout(cargar, 0);
+      else window.addEventListener('load', function () { setTimeout(cargar, 0); });
+    })();
+  </script>
   <!-- End Google Tag Manager -->
 
   <title>Postulate: búsquedas laborales en IT | Intellihelp</title>
