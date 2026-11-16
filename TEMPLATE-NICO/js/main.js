@@ -285,6 +285,10 @@
       } else heroVideo.hidden = true;
     };
     const reproducir = () => {
+      // Pantallas grandes (más de 1600 píxeles reales de ancho): la versión 1080p (data-hd); el resto, la de 720p
+      const hd = heroVideo.dataset.hd;
+      const fuente = heroVideo.querySelector('source');
+      if (hd && fuente && innerWidth * (devicePixelRatio || 1) > 1600) { fuente.src = hd; heroVideo.load(); }
       heroVideo.preload = 'auto';
       const p = heroVideo.play();
       if (p && p.catch) p.catch(() => posterFijo());
