@@ -86,7 +86,7 @@
 
   @supports (animation-timeline: view()) {
     .anim .hero { view-timeline: --m-hero block; }
-    .anim .hero__media > :is(img, video, .fondo) {
+    .anim .hero__media > :is(img, picture, video, .fondo) {
       animation: mParMedia linear both;
       animation-timeline: --m-hero;
       animation-range: exit 0% exit 100%;

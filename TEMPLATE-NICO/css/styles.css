@@ -713,7 +713,16 @@ html:not(.js) .site-header__inner { flex-wrap: wrap; padding-block: 12px; }
 .hero { color: var(--white); } /* el texto va en blanco sobre el video con velo oscuro */
 .hero__media { position: absolute; inset: 0; z-index: -1; background: var(--ink); }
 .hero__media > img,
-.hero__media > video { display: block; width: 100%; height: 100%; object-fit: cover; }
+.hero__media > video,
+.hero__media > picture img { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* Imagen fija del video (<picture>): la versión vertical y liviana en celular (es el elemento principal de la primera
+   pantalla), la horizontal desde 600 px. El video va encima y solo se muestra desde 900 px: en celular y tablet vertical
+   no se reproduce. */
+.hero__media > picture,
+.hero__media > video { position: absolute; inset: 0; }
+@media (max-width: 899px) {
+  .hero__media > video { display: none; }
+}
 /* Nada nativo a la vista: sin el botón de play que Safari pone sobre un video que no arrancó ni sus controles (si
    play() falla, main.js cambia el video por su poster). */
 .hero__media video::-webkit-media-controls,
@@ -2374,6 +2383,12 @@ html:not(.anim) .cl-fichero .cinta.is-cinta .cinta__row .cinta__list { display: 
 /* Hero: primero aparece el video; el texto entra después, con las demoras de data-d (toda la entrada en ~1,6 s).
    Las dos líneas del título y la bajada entran con focusIn; el resto, con rise. */
 .anim .hero__media { animation: heroMedia 1.4s var(--ease-out) both; }
+/* En celular la imagen fija entra con un fundido corto que arranca en 35 % (no desde negro): así cuenta como pintada
+   desde el primer cuadro, igual que el título (rendimiento: es el elemento principal de la pantalla). */
+@keyframes heroMediaCorto { from { opacity: .35; } to { opacity: 1; } }
+@media (max-width: 899px) {
+  .anim .hero__media { animation: heroMediaCorto .5s var(--ease-out) both; }
+}
 /* H1 y bajada: se pintan desde el primer cuadro (son el LCP). Su entrada es solo CSS, sin esperar a main.js, y nunca
    arranca en opacidad 0: suben 18px desde un 35 % de opacidad. Con la animación de carga (.m-hero-tarde, la pone
    js/carga.js) la entrada se corre para que se vea mientras sale el telón (a los 0,7 s); el texto ya está debajo. */
@@ -2534,4 +2549,16 @@ html:not(.anim) .cl-fichero .cinta.is-cinta .cinta__row .cinta__list { display: 
   .js :is(#servicios, #soluciones) .carousel__btn,
   .js .cases-layout .carousel__btn,
   .pres-slider__arrow { display: none !important; }
+}
+
+/* ---------- Secciones diferidas (rendimiento) ----------
+   Las secciones de la home debajo del hero se calculan y se pintan recién cuando se acercan a la pantalla
+   (content-visibility: auto), igual que el pie de todas las páginas. Mientras tanto ocupan un alto estimado; una vez vistas, el navegador recuerda su alto
+   real ("auto"). Se ven y se animan igual: solo cambia cuándo las calcula el navegador. main.js arma sus módulos al
+   acercarse (ver "Preparación diferida"). Antes de saltar a una sección por un enlace interno, o si la página abre con
+   un #ancla, html.cv-todo las calcula todas, así el salto cae justo donde corresponde. */
+html:not(.cv-todo) main > section:not(.hero),
+html:not(.cv-todo) .site-footer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1000px;
 }

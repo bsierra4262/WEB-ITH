@@ -264,7 +264,7 @@
 
   <!-- Fuente propia (ver @font-face en styles.css): sin pedidos a Google Fonts. `crossorigin` es obligatorio para precargar fuentes. -->
   <link rel="preload" href="fonts/saira-latin.woff2?v=7eb811eb14" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/styles.css?v=4f3ab14437">
+  <link rel="stylesheet" href="css/styles.css?v=ad87971c45">
 
   <script>
     // Antes del primer pintado: marca que hay JS y pone en <html> la clase "anim", que habilita las animaciones de
@@ -272,13 +272,14 @@
     // movimiento". Va por script y no fija en el HTML: sin JS, "anim" dejaría ocultos los bloques que esperan su entrada.
     (function (root) {
       root.classList.add('js');
+      if (location.hash) root.classList.add('cv-todo'); // abre en una sección: se calculan todas (ver styles.css)
       if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) root.classList.add('anim');
     })(document.documentElement);
   </script>
-  <script src="js/main.js?v=4a5e457f35" defer></script>
+  <script src="js/main.js?v=6b7d6a896f" defer></script>
   <!-- MOVIMIENTO: recetas de animación (títulos por líneas, fotos, header que se compacta y se esconde, íconos que
        levitan), después de los estilos y de main.js. Detalle en README-movimiento.md. -->
-  <link rel="stylesheet" href="css/motion.css?v=2878a7a381">
+  <link rel="stylesheet" href="css/motion.css?v=afd1314338">
   <script src="js/motion.js?v=938c35f7b3" defer></script>
   <!-- ANIMACIÓN DE CARGA (igual en todas las páginas): css/carga.css + js/carga.js, sin defer. Corre en cada carga,
        recarga y al volver con Atrás; con "reducir movimiento" no aparece. -->
@@ -331,11 +332,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="hero section--dark bg-gray" aria-labelledby="hero-titulo" data-hero>
   <div class="hero__media">
     <!-- Video de la sesión institucional (55 s, sin sonido, en bucle): 1280 x 720 en video/hero.mp4 y 1920 x 1080 en
-         video/hero-1080.mp4 (data-hd), que main.js elige para pantallas grandes. No precarga: se pinta el poster (primer
-         cuadro, img/hero-poster.webp) y el video se pide después de "load", desde 900 px, sin "reducir movimiento" ni
-         ahorro de datos. En celular queda el poster fijo.
+         video/hero-1080.mp4 (data-hd), que main.js elige para pantallas grandes. Debajo va su primer cuadro como imagen
+         fija (<picture>): la horizontal (img/hero-poster.webp) desde 600 px (tablets y computadoras) y una vertical y
+         liviana para celular (img/hero-poster-movil.webp, 360 x 640), que es lo primero que se pinta. El video no precarga ni lleva poster
+         (en celular el navegador bajaría el poster aunque el video esté oculto): se pide después de "load", desde
+         900 px, sin "reducir movimiento" ni ahorro de datos. En celular no se reproduce: queda la imagen fija.
          La escena de fotos provisoria (img/hero/ y el módulo "Escena del hero" de main.js) quedó sin usar. -->
-    <video class="hero__video" muted loop playsinline preload="none" poster="img/hero-poster.webp?v=20261116" width="1280" height="720" aria-hidden="true" data-hero-video data-hd="video/hero-1080.mp4?v=20261116"><source src="video/hero.mp4?v=20261116" type="video/mp4"></video>
+    <picture><source media="(min-width: 600px)" srcset="img/hero-poster.webp?v=20261116" width="1280" height="720"><img src="img/hero-poster-movil.webp?v=20261116b" alt="" width="360" height="640" fetchpriority="high" aria-hidden="true"></picture>
+    <video class="hero__video" muted loop playsinline preload="none" width="1280" height="720" aria-hidden="true" data-hero-video data-hd="video/hero-1080.mp4?v=20261116"><source src="video/hero.mp4?v=20261116" type="video/mp4"></video>
   </div>
   <button type="button" class="hero__down" data-hero-open aria-label="Ver más" hidden>
     <svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M6 13l6 6 6-6"/></svg>
