@@ -4,6 +4,26 @@ Todos los cambios notables de este proyecto se documentan acá.
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/)
 y el versionado, [SemVer](https://semver.org/lang/es/).
 
+## [2.1.0] - 2026-11-16
+
+### Added
+
+- **Video institucional de fondo en el inicio**, en 720p y en 1080p para pantallas grandes. En
+  celulares y tablets se muestra una imagen fija del mismo video, en vertical para celular.
+- **Capturas completas en el README**: primera pantalla, página completa y cada sección, en
+  escritorio y en celular, sacadas del sitio publicado (`tools/capturas/web.mjs`).
+
+### Changed
+
+- **Fotos del equipo y galerías** con la edición final de la sesión institucional.
+- **Primera pantalla más rápida en celulares**, sin cambios visibles: el JavaScript arranca después
+  del primer pintado, carruseles, casos, clientes y brillos se arman al acercarse y las secciones
+  de más abajo se calculan recién cuando hacen falta.
+- **Imágenes con el tamaño justo**: cada foto se pide según su ancho real en pantalla; la foto
+  grupal suma una versión de 1200 px para escritorio.
+- **Google Tag Manager se carga al terminar la página**: Analytics, Clarity y los eventos de
+  cada botón siguen registrándose igual.
+
 ## [2.0.0] - 2026-11-08
 
 Nueva versión del sitio: la home y las páginas en HTML, CSS y JavaScript sin frameworks

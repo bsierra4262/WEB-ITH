@@ -20,7 +20,7 @@
   <b><a href="https://www.intellihelp.tech">www.intellihelp.tech</a></b>
 </p>
 
-<p align="center"><img src="DOCS/capturas/home-principal.webp" alt="Inicio del sitio: título a la izquierda y fotos del equipo a distintas profundidades" width="100%"></p>
+<p align="center"><img src="DOCS/capturas/home-principal.webp" alt="Inicio del sitio con el video institucional de fondo" width="100%"></p>
 
 ---
 
@@ -65,6 +65,11 @@ Google Meet, sin pasar por servicios de terceros.
 
 ## Capturas
 
+Todas salen del sitio publicado en www.intellihelp.tech, con las animaciones terminadas. Se rehacen con
+`tools/capturas/web.mjs` después de cada cambio visible.
+
+### Primera pantalla de cada página
+
 | Escritorio | Celular |
 |---|---|
 | <img src="DOCS/capturas/home-escritorio.webp" alt="Home en escritorio" width="560"> | <img src="DOCS/capturas/home-celular.webp" alt="Home en celular" width="190"> |
@@ -73,27 +78,55 @@ Google Meet, sin pasar por servicios de terceros.
 | <img src="DOCS/capturas/postulate-escritorio.webp" alt="Postulate en escritorio" width="560"> | <img src="DOCS/capturas/postulate-celular.webp" alt="Postulate en celular" width="190"> |
 | <img src="DOCS/capturas/privacidad-escritorio.webp" alt="Privacidad en escritorio" width="560"> | <img src="DOCS/capturas/privacidad-celular.webp" alt="Privacidad en celular" width="190"> |
 | <img src="DOCS/capturas/blog-escritorio.webp" alt="Blog en escritorio" width="560"> | <img src="DOCS/capturas/blog-celular.webp" alt="Blog en celular" width="190"> |
+| <img src="DOCS/capturas/blog-nota-escritorio.webp" alt="Nota del blog en escritorio" width="560"> | <img src="DOCS/capturas/blog-nota-celular.webp" alt="Nota del blog en celular" width="190"> |
 | <img src="DOCS/capturas/404-escritorio.webp" alt="Página 404 en escritorio" width="560"> | <img src="DOCS/capturas/404-celular.webp" alt="Página 404 en celular" width="190"> |
 
-<details>
-<summary><b>Secciones de la home y bloques clave</b></summary>
+### La home, sección por sección
 
-<p><img src="DOCS/capturas/home-equipo.webp" alt="Quiénes somos: foto del equipo, retratos y galería en nuestras oficinas" width="100%"></p>
-<p><img src="DOCS/capturas/home-que-ofrecemos.webp" alt="Qué ofrecemos: servicios y soluciones" width="100%"></p>
-<p><img src="DOCS/capturas/home-presencia.webp" alt="Presencia en Argentina y Latam" width="100%"></p>
-<p><img src="DOCS/capturas/home-clientes.webp" alt="Clientes por rubro en bandas en movimiento" width="100%"></p>
-<p><img src="DOCS/capturas/home-historia.webp" alt="Nuestra historia" width="100%"></p>
-<p><img src="DOCS/capturas/home-casos.webp" alt="Casos de éxito" width="100%"></p>
-<p><img src="DOCS/capturas/home-preguntas.webp" alt="Preguntas frecuentes" width="100%"></p>
-<p><img src="DOCS/capturas/diagnostico-reserva.webp" alt="Bloque de reserva del diagnóstico" width="100%"></p>
-<p><img src="DOCS/capturas/postulate-equipo.webp" alt="Postulate: por qué sumarse y el equipo en su puesto" width="100%"></p>
-<p><img src="DOCS/capturas/postulate-busquedas.webp" alt="Búsquedas abiertas de HiringRoom" width="100%"></p>
-<p><img src="DOCS/capturas/blog-nota-escritorio.webp" alt="Nota del blog" width="100%"></p>
+| Sección | Escritorio | Celular |
+|---|---|---|
+| Qué ofrecemos: servicios y soluciones | <img src="DOCS/capturas/home-02-que-ofrecemos-escritorio.webp" alt="Qué ofrecemos: servicios y soluciones en escritorio" width="460"> | <img src="DOCS/capturas/home-02-que-ofrecemos-celular.webp" alt="Qué ofrecemos: servicios y soluciones en celular" width="170"> |
+| Presencia en Argentina y Latam | <img src="DOCS/capturas/home-03-presencia-escritorio.webp" alt="Presencia en Argentina y Latam en escritorio" width="460"> | <img src="DOCS/capturas/home-03-presencia-celular.webp" alt="Presencia en Argentina y Latam en celular" width="170"> |
+| Quiénes somos: el equipo y nuestras oficinas | <img src="DOCS/capturas/home-04-equipo-escritorio.webp" alt="Quiénes somos: el equipo y nuestras oficinas en escritorio" width="460"> | <img src="DOCS/capturas/home-04-equipo-celular.webp" alt="Quiénes somos: el equipo y nuestras oficinas en celular" width="170"> |
+| Socios tecnológicos | <img src="DOCS/capturas/home-05-socios-escritorio.webp" alt="Socios tecnológicos en escritorio" width="460"> | <img src="DOCS/capturas/home-05-socios-celular.webp" alt="Socios tecnológicos en celular" width="170"> |
+| Clientes por rubro | <img src="DOCS/capturas/home-06-clientes-escritorio.webp" alt="Clientes por rubro en escritorio" width="460"> | <img src="DOCS/capturas/home-06-clientes-celular.webp" alt="Clientes por rubro en celular" width="170"> |
+| Nuestra historia | <img src="DOCS/capturas/home-07-historia-escritorio.webp" alt="Nuestra historia en escritorio" width="460"> | <img src="DOCS/capturas/home-07-historia-celular.webp" alt="Nuestra historia en celular" width="170"> |
+| Casos de éxito | <img src="DOCS/capturas/home-08-casos-escritorio.webp" alt="Casos de éxito en escritorio" width="460"> | <img src="DOCS/capturas/home-08-casos-celular.webp" alt="Casos de éxito en celular" width="170"> |
+| Palabras de Carlos Baldelli, CEO | <img src="DOCS/capturas/home-09-cita-escritorio.webp" alt="Palabras de Carlos Baldelli, CEO en escritorio" width="460"> | <img src="DOCS/capturas/home-09-cita-celular.webp" alt="Palabras de Carlos Baldelli, CEO en celular" width="170"> |
+| Preguntas frecuentes | <img src="DOCS/capturas/home-10-preguntas-escritorio.webp" alt="Preguntas frecuentes en escritorio" width="460"> | <img src="DOCS/capturas/home-10-preguntas-celular.webp" alt="Preguntas frecuentes en celular" width="170"> |
+| Cierre: agendá una reunión | <img src="DOCS/capturas/home-11-agenda-escritorio.webp" alt="Cierre: agendá una reunión en escritorio" width="460"> | <img src="DOCS/capturas/home-11-agenda-celular.webp" alt="Cierre: agendá una reunión en celular" width="170"> |
+| Pie del sitio | <img src="DOCS/capturas/home-12-pie-escritorio.webp" alt="Pie del sitio en escritorio" width="460"> | <img src="DOCS/capturas/home-12-pie-celular.webp" alt="Pie del sitio en celular" width="170"> |
+
+### Diagnóstico y Postulate, por secciones
+
+| Sección | Escritorio | Celular |
+|---|---|---|
+| Diagnóstico: calendario de reserva | <img src="DOCS/capturas/diagnostico-reserva-escritorio.webp" alt="Diagnóstico: calendario de reserva en escritorio" width="460"> | <img src="DOCS/capturas/diagnostico-reserva-celular.webp" alt="Diagnóstico: calendario de reserva en celular" width="170"> |
+| Diagnóstico: clientes | <img src="DOCS/capturas/diagnostico-clientes-escritorio.webp" alt="Diagnóstico: clientes en escritorio" width="460"> | <img src="DOCS/capturas/diagnostico-clientes-celular.webp" alt="Diagnóstico: clientes en celular" width="170"> |
+| Diagnóstico: casos | <img src="DOCS/capturas/diagnostico-casos-escritorio.webp" alt="Diagnóstico: casos en escritorio" width="460"> | <img src="DOCS/capturas/diagnostico-casos-celular.webp" alt="Diagnóstico: casos en celular" width="170"> |
+| Postulate: por qué sumarse | <img src="DOCS/capturas/postulate-por-que-escritorio.webp" alt="Postulate: por qué sumarse en escritorio" width="460"> | <img src="DOCS/capturas/postulate-por-que-celular.webp" alt="Postulate: por qué sumarse en celular" width="170"> |
+| Postulate: perfiles que buscamos | <img src="DOCS/capturas/postulate-perfiles-escritorio.webp" alt="Postulate: perfiles que buscamos en escritorio" width="460"> | <img src="DOCS/capturas/postulate-perfiles-celular.webp" alt="Postulate: perfiles que buscamos en celular" width="170"> |
+| Postulate: búsquedas abiertas | <img src="DOCS/capturas/postulate-busquedas-escritorio.webp" alt="Postulate: búsquedas abiertas en escritorio" width="460"> | <img src="DOCS/capturas/postulate-busquedas-celular.webp" alt="Postulate: búsquedas abiertas en celular" width="170"> |
+
+<details>
+<summary><b>Páginas completas, de arriba abajo</b></summary>
+
+| Página | Escritorio | Celular |
+|---|---|---|
+| Home | <img src="DOCS/capturas/home-completa-escritorio.webp" alt="Home: página completa en escritorio" width="360"> | <img src="DOCS/capturas/home-completa-celular.webp" alt="Home: página completa en celular" width="170"> |
+| Diagnóstico sin cargo | <img src="DOCS/capturas/diagnostico-completa-escritorio.webp" alt="Diagnóstico sin cargo: página completa en escritorio" width="360"> | <img src="DOCS/capturas/diagnostico-completa-celular.webp" alt="Diagnóstico sin cargo: página completa en celular" width="170"> |
+| Gracias por reservar | <img src="DOCS/capturas/gracias-reserva-completa-escritorio.webp" alt="Gracias por reservar: página completa en escritorio" width="360"> | <img src="DOCS/capturas/gracias-reserva-completa-celular.webp" alt="Gracias por reservar: página completa en celular" width="170"> |
+| Postulate | <img src="DOCS/capturas/postulate-completa-escritorio.webp" alt="Postulate: página completa en escritorio" width="360"> | <img src="DOCS/capturas/postulate-completa-celular.webp" alt="Postulate: página completa en celular" width="170"> |
+| Privacidad | <img src="DOCS/capturas/privacidad-completa-escritorio.webp" alt="Privacidad: página completa en escritorio" width="360"> | <img src="DOCS/capturas/privacidad-completa-celular.webp" alt="Privacidad: página completa en celular" width="170"> |
+| Blog | <img src="DOCS/capturas/blog-completa-escritorio.webp" alt="Blog: página completa en escritorio" width="360"> | <img src="DOCS/capturas/blog-completa-celular.webp" alt="Blog: página completa en celular" width="170"> |
+| Nota del blog | <img src="DOCS/capturas/blog-nota-completa-escritorio.webp" alt="Nota del blog: página completa en escritorio" width="360"> | <img src="DOCS/capturas/blog-nota-completa-celular.webp" alt="Nota del blog: página completa en celular" width="170"> |
+| Página 404 | <img src="DOCS/capturas/404-completa-escritorio.webp" alt="Página 404: página completa en escritorio" width="360"> | <img src="DOCS/capturas/404-completa-celular.webp" alt="Página 404: página completa en celular" width="170"> |
 
 </details>
 
-> Las búsquedas de HiringRoom que se ven en las capturas son datos de ejemplo; los formularios
-> están vacíos.
+> En celulares el inicio muestra una imagen fija del video institucional. La reunión confirmada usa
+> una reserva de ejemplo, las búsquedas son las que hay publicadas en HiringRoom ese día y los
+> formularios están vacíos.
 
 ## Características
 
@@ -108,6 +141,11 @@ Google Meet, sin pasar por servicios de terceros.
 - **Movimiento cuidado.** Apariciones escalonadas, íconos que levitan, mapas que recorren todas las
   zonas con presencia, bandas de clientes por rubro con avance automático y casos con transición
   coordinada; todo respeta "reducir movimiento" y no hay botones de pausa.
+- **Video institucional en el inicio.** 720p o 1080p según la pantalla; en celulares y tablets, una
+  imagen fija del mismo video, liviana y en vertical para celular.
+- **Rápido sin resignar nada.** El JavaScript arranca después del primer pintado, carruseles y
+  bandas se arman al acercarse, las secciones de abajo se calculan recién cuando hacen falta, cada
+  foto se pide según su ancho real y Tag Manager se carga al terminar la página.
 - **Nada nativo a la vista.** Calendario, chips, casillas, barras y controles con diseño propio.
 - **SEO y medición.** JSON-LD en todas las páginas (organización, servicio, `FAQPage`, migas),
   sitemap, `llms.txt`, 301 del sitio anterior con UTM y Google Tag Manager con eventos de cada CTA,
@@ -146,7 +184,7 @@ TEMPLATE-NICO/        Sitio principal (lo que se publica en public_html)
   api/                  agenda.php, contact.php y _crm.php (firma y cola), con su .htaccess
   img/                  Recursos: equipo/ (retratos), oficina/ (galerías), hero/ (escena del inicio), clientes/ y
                         socios/ (logos en WebP); cada foto con variantes de 320 y 480 px
-  fonts/, video/        Saira servida desde el sitio y el video del inicio (cuando esté)
+  fonts/, video/        Saira servida desde el sitio y el video institucional del inicio (720p y 1080p)
   .htaccess             Reglas de lanzamiento en Hostinger
   README.md, README-movimiento.md   Documentación del sitio y del movimiento
 WORDPRESS/            Blog "Novedades": tema propio (wp-content/themes/intellihelp) y scripts locales
