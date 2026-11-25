@@ -96,7 +96,7 @@
     extra.className = 'sr-only';
     extra.textContent = (titulo ? ': ' + titulo : '') + ' (se abre en una pestaña nueva)';
     a.appendChild(extra);
-    if (clase === 'btn-lime') {
+    if (clase === 'btn-violeta') {
       var flecha = document.createElement('span');
       flecha.className = 'arr';
       flecha.setAttribute('aria-hidden', 'true');
@@ -125,7 +125,7 @@
     rotulo(card.querySelector('.data_details'), 'Detalles');
 
     // Los dos enlaces pasan a su propia fila al pie: primero Postularme (principal), después Ver la búsqueda.
-    var postular = boton(card.querySelector('.data_form_link'), 'btn-lime', 'Postularme', 'vacante-postular', nombre);
+    var postular = boton(card.querySelector('.data_form_link'), 'btn-violeta', 'Postularme', 'vacante-postular', nombre);
     var ver = boton(card.querySelector('.data_link'), 'btn-light', 'Ver la búsqueda', 'vacante-ver', nombre);
     if (postular || ver) {
       var acciones = document.createElement('ul');

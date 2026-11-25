@@ -337,7 +337,7 @@ h1.section-title { font-size: var(--h1); } /* páginas internas: el H1 usa la cl
   .btn:hover::after { transform: translateX(445%) skewX(-22deg); }
 }
 
-/* Principal: .btn-primary (violeta) y .btn-lime (lima con letra carbón); .btn-light es el secundario con borde carbón */
+/* Principal: .btn-lime (lima con letra carbón) y .btn-violeta (violeta con letra blanca); .btn-light es el secundario con borde carbón */
 .btn-light { background: transparent; color: var(--ink); border-color: var(--ink); }
 .btn-light:hover { background: var(--ink); color: var(--white); }
 /* Botón de la card lima del CTA final: gris, y al pasar el mouse fondo blanco */
