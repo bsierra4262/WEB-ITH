@@ -496,37 +496,38 @@ h1.section-title { font-size: var(--h1); } /* el H1 del listado, las categorías
 @media print { .wa-globo { display: none; } }
 
 /* ---------- Header (componente único de todas las páginas) ----------
-   Barra carbón con el logo original y la frase "Servicios IT / desde 2010" en dos líneas, el menú en mayúsculas
-   espaciadas y un único CTA lima ("Agendá reunión →", el mismo .btn de todo el sitio). El marcado es el mismo en todas
+   Barra blanca con el logo original y la frase "Servicios IT / desde 2010" en dos líneas, el menú en mayúsculas
+   espaciadas en gris oscuro (negro al pasar el mouse) y un único CTA violeta con letras blancas ("Agendá reunión →", el
+   mismo .btn de todo el sitio). El marcado es el mismo en todas
    las páginas (entre header:inicio y header:fin) y en el tema del blog (header.php). Copiado tal cual de
    TEMPLATE-NICO/css/styles.css: si cambia allá, se copia acá igual.
    - main.js la compacta pasados 24 px (.is-compact: sube 10 px, el contenido baja 5 y la marca queda al 90 %) y la
      esconde al bajar (.is-hidden); vuelve apenas se sube. data-header-fijo en el <header> la deja quieta.
    - Hasta 1100 px el menú y el CTA van en un panel propio que despliega el botón [data-nav-toggle] (main.js). Sin JS,
      el menú queda siempre visible debajo de la marca.
-   - Sin subrayados: el ítem activo (sección a la vista en la home, o la página interna) va en lima. */
+   - Sin subrayados: el ítem activo (sección a la vista en la home, o la página interna) va en el violeta del logo. */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 60;
   height: var(--header-h);
-  background-color: var(--ink);
-  border-bottom: 1px solid rgb(255 255 255 / .08);
-  color: var(--white);
+  background-color: var(--white);
+  border-bottom: 1px solid rgb(42 42 42 / .08);
+  color: var(--ink);
 }
-.site-header :focus-visible { outline-color: var(--lime); }
+.site-header :focus-visible { outline-color: var(--purple); }
 .section, .post-layout { scroll-margin-top: var(--header-h); }
 .site-header__inner { display: flex; align-items: center; gap: 24px; height: 100%; }
 
-.brand { display: flex; flex: none; align-items: center; gap: 12px; color: var(--white); text-decoration: none; }
-.brand:hover { color: var(--white); }
+.brand { display: flex; flex: none; align-items: center; gap: 12px; color: var(--ink); text-decoration: none; }
+.brand:hover { color: var(--ink); }
 .brand img { display: block; width: auto; height: 40px; }
-.brand__tag { display: flex; flex-direction: column; color: rgb(240 235 245 / .72); font-size: 12px; font-weight: 500; line-height: 1.25; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+.brand__tag { display: flex; flex-direction: column; color: #555; font-size: 12px; font-weight: 500; line-height: 1.25; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
 
 .nav { display: flex; align-items: center; gap: clamp(20px, 2.4vw, 36px); margin-left: auto; }
 .nav ul { display: flex; align-items: center; gap: clamp(18px, 2.2vw, 34px); }
 .nav a:not(.btn) {
-  color: rgb(255 255 255 / .72);
+  color: #4A4A4A; /* gris oscuro */
   font-size: 13.5px;
   font-weight: 500;
   letter-spacing: .06em;
@@ -535,10 +536,13 @@ h1.section-title { font-size: var(--h1); } /* el H1 del listado, las categorías
   text-decoration: none;
   transition: color var(--t-fast) var(--ease-out);
 }
-.nav a:not(.btn):hover { color: var(--white); }
+.nav a:not(.btn):hover { color: #000; }
 /* is-active: sección de la home a la vista (main.js); aria-current: la página interna en la que se está */
-.nav a.is-active, .nav a[aria-current="page"] { color: var(--lime); }
+.nav a.is-active, .nav a[aria-current="page"] { color: var(--purple); }
 .site-header__cta { flex: none; min-height: 44px; padding: 0 20px; font-size: 15px; white-space: nowrap; }
+/* CTA violeta con letras blancas (el marcado sigue con .btn-lime en todas las páginas y en el tema del blog) */
+.site-header .site-header__cta, .site-header .site-header__cta:hover { background: var(--purple); border-color: var(--purple); color: var(--white); }
+.site-header .site-header__cta:hover { filter: brightness(1.12); }
 
 /* Botón del menú: tres líneas que se cruzan en una X al abrir (diseño propio) */
 .nav-toggle {
@@ -549,15 +553,15 @@ h1.section-title { font-size: var(--h1); } /* el H1 del listado, las categorías
   height: 44px;
   margin-left: auto;
   padding: 0;
-  border: 1px solid rgb(255 255 255 / .16);
+  border: 1px solid rgb(42 42 42 / .16);
   border-radius: var(--radius-sm);
   background: none;
-  color: var(--white);
+  color: var(--ink);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   transition: border-color var(--t-fast) var(--ease-out);
 }
-.nav-toggle:hover, .nav-toggle[aria-expanded="true"] { border-color: var(--lime); }
+.nav-toggle:hover, .nav-toggle[aria-expanded="true"] { border-color: var(--purple); }
 .nav-toggle__bars { position: relative; display: block; width: 20px; height: 14px; }
 .nav-toggle__bars span { position: absolute; left: 0; width: 100%; height: 2px; border-radius: 2px; background: currentColor; transition: transform .3s var(--ease-out), opacity .2s var(--ease-out), top .3s var(--ease-out); }
 .nav-toggle__bars span:nth-child(1) { top: 0; }
@@ -570,7 +574,7 @@ h1.section-title { font-size: var(--h1); } /* el H1 del listado, las categorías
 /* Compacta y escondida (main.js). Todo con transform: la barra no cambia de alto en el flujo y la página no salta. */
 .site-header, .site-header__inner, .brand { transition: transform .45s var(--ease-out), background-color .35s var(--ease-out), box-shadow .35s var(--ease-out); }
 .brand { transform-origin: 0 50%; }
-.site-header.is-compact { transform: translateY(-10px); background-color: rgb(42 42 42 / .97); box-shadow: 0 10px 30px -14px rgb(0 0 0 / .6); }
+.site-header.is-compact { transform: translateY(-10px); background-color: var(--white); box-shadow: 0 10px 30px -14px rgb(42 42 42 / .3); }
 .site-header.is-compact .site-header__inner { transform: translateY(5px); }
 .site-header.is-compact .brand { transform: scale(.9); }
 .site-header.is-hidden { transform: translateY(-100%); }
@@ -591,15 +595,15 @@ h1.section-title { font-size: var(--h1); } /* el H1 del listado, las categorías
     gap: 20px;
     margin: 0;
     padding: 8px var(--wrap-pad) 24px;
-    border-bottom: 1px solid rgb(255 255 255 / .08);
-    background: var(--ink);
-    box-shadow: 0 24px 40px -24px rgb(0 0 0 / .7);
+    border-bottom: 1px solid rgb(42 42 42 / .08);
+    background: var(--white);
+    box-shadow: 0 24px 40px -24px rgb(42 42 42 / .35);
   }
   .js .nav.is-open { display: flex; }
   .js .nav ul { flex-direction: column; align-items: stretch; gap: 0; }
-  .js .nav a:not(.btn) { display: flex; align-items: center; justify-content: space-between; min-height: 52px; border-bottom: 1px solid rgb(255 255 255 / .08); font-size: 14px; }
-  .js .nav a:not(.btn)::after { content: "→"; color: rgb(255 255 255 / .35); transition: transform var(--t-fast) var(--ease-out), color var(--t-fast) var(--ease-out); }
-  .js .nav a:not(.btn):hover::after { color: var(--lime); transform: translateX(4px); }
+  .js .nav a:not(.btn) { display: flex; align-items: center; justify-content: space-between; min-height: 52px; border-bottom: 1px solid rgb(42 42 42 / .08); font-size: 14px; }
+  .js .nav a:not(.btn)::after { content: "→"; color: rgb(42 42 42 / .35); transition: transform var(--t-fast) var(--ease-out), color var(--t-fast) var(--ease-out); }
+  .js .nav a:not(.btn):hover::after { color: var(--purple); transform: translateX(4px); }
   .js .nav .site-header__cta { width: 100%; min-height: 52px; }
 }
 @media (max-width: 1100px) and (prefers-reduced-motion: no-preference) {

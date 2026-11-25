@@ -95,20 +95,22 @@
 .postulate-profile__text { max-width: 26em; margin: 0; color: var(--muted); font-size: 17px; line-height: 1.6; }
 .postulate-profile .chips { justify-content: center; margin-top: 4px; }
 
-/* Marca "Buscamos ahora": a la altura del número, del lado derecho, así el ícono no se corre y la fila queda pareja.
-   Es un enlace a las búsquedas abiertas. */
+/* Marca "Buscamos ahora": a la altura del número, centrada sobre el ícono y en violeta (pedido de Brian, 25/11), así el
+   ícono no se corre y la fila queda pareja. Es un enlace a las búsquedas abiertas. */
 .postulate-profile__ahora {
   position: absolute;
   top: -7px;
-  right: 0;
+  left: 50%;
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  max-width: calc(100% - 44px);
+  max-width: calc(100% - 88px);
   padding: 6px 11px;
   border-radius: 6px;
-  background: var(--lime);
-  color: var(--ink);
+  background: var(--purple);
+  color: var(--white);
+  white-space: nowrap;
+  transform: translateX(-50%);
   font-size: 14px;
   font-weight: 600;
   line-height: 1.2;
@@ -116,8 +118,8 @@
   transition: background-color var(--t-fast) var(--ease-out), color var(--t-fast) var(--ease-out);
 }
 .postulate-profile__ahora::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
-.postulate-profiles a.postulate-profile__ahora { color: var(--ink); } /* .section--alt pinta los enlaces de violeta */
-.postulate-profiles a.postulate-profile__ahora:hover { background: var(--ink); color: var(--lime); }
+.postulate-profiles a.postulate-profile__ahora { color: var(--white); } /* .section--alt pinta los enlaces de violeta */
+.postulate-profiles a.postulate-profile__ahora:hover { background: #4B2272; color: var(--white); }
 
 /* Plegado: con JS, los perfiles que pasan de los seis primeros esperan a "Ver todos los perfiles" */
 .js .postulate-profiles:not(.is-abierto) .postulate-profile.is-extra { display: none; }

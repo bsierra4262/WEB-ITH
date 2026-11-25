@@ -53,12 +53,12 @@ html.m-intro body::after {
   html.m-intro body::after { --carga-w: 160px; --carga-aire: 24px; }
 }
 
-/* Versión animada (1,05 s): fundido y escala mínima del logo, línea lima que crece desde el centro y salida. */
+/* Versión animada (1,05 s): fundido y escala mínima del logo, línea violeta que crece desde el centro y salida. */
 @media (prefers-reduced-motion: no-preference) {
   html.m-intro body::before { animation: ithCargaFondo .35s cubic-bezier(.22, 1, .36, 1) .7s forwards; }
   html.m-intro body::after {
     background:
-      linear-gradient(#98CC32, #98CC32) 50% 100% / 0 2px no-repeat,
+      linear-gradient(#663399, #663399) 50% 100% / 0 2px no-repeat,
       linear-gradient(rgb(240 235 245 / .22), rgb(240 235 245 / .22)) 50% 100% / 100% 2px no-repeat,
       var(--carga-logo) 50% 50% / var(--carga-w) var(--carga-h) no-repeat;
     animation:
