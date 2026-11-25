@@ -53,6 +53,9 @@
 
   function enlaceSeguro(a) {
     var href = a.getAttribute('href') || '';
+    // HiringRoom manda los enlaces de la búsqueda y de la postulación sin protocolo ("//intellihelp.hiringroom.com/…"):
+    // se completan con https para no perderlos.
+    if (/^\/\/[^/]/.test(href)) { href = 'https:' + href; a.setAttribute('href', href); }
     if (!/^(https?:|mailto:)/i.test(href)) a.removeAttribute('href');
   }
 
@@ -71,7 +74,7 @@
 
   // Saca el rótulo de HiringRoom ("Lugar:", "Descripcion:") a texto para lectores de pantalla y marca vacío el dato
   // que llega sin contenido.
-  function rotulo(li, texto) {
+  function rotulo(li, texto, visible) {
     if (!li) return;
     var strong = li.querySelector(':scope > strong');
     if (strong) {
@@ -81,6 +84,56 @@
     var contenido = li.textContent.replace(texto + ':', '').trim();
     // Un dato que falta en HiringRoom llega como texto vacío o como "undefined"/"null" (embed.js lo pega tal cual).
     li.classList.toggle('is-vacio', contenido === '' || contenido === 'undefined' || contenido === 'null');
+    // Requisitos, beneficios y detalles llevan un título a la vista cuando la tarjeta se despliega con "Ver más"
+    if (visible && strong) {
+      var titulo = document.createElement('span');
+      titulo.className = 'postulate-jobs__rotulo';
+      titulo.setAttribute('aria-hidden', 'true');
+      titulo.textContent = visible;
+      strong.insertAdjacentElement('afterend', titulo);
+    }
+  }
+
+  // "Ver más": despliega en la misma tarjeta la descripción completa, requisitos, beneficios y detalles.
+  function verMas(card, nombre) {
+    var datos = card.querySelector('.microsite_datas');
+    if (!datos) return;
+    var extras = card.querySelectorAll('.data_req:not(.is-vacio), .data_benefits:not(.is-vacio), .data_details:not(.is-vacio)').length;
+    var desc = card.querySelector('.data_desc:not(.is-vacio)');
+    // La lista todavía puede estar oculta (no se puede medir): una descripción larga ya pasa de los cuatro renglones
+    if (!extras && !(desc && desc.textContent.trim().length > 260)) return;
+    if (!datos.id) datos.id = 'busqueda-' + Math.random().toString(36).slice(2, 9);
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'postulate-jobs__mas';
+    b.setAttribute('aria-expanded', 'false');
+    b.setAttribute('aria-controls', datos.id);
+    b.setAttribute('data-postulate', 'vacante-ver-mas');
+    var texto = document.createElement('span');
+    var flecha = document.createElement('span');
+    flecha.className = 'arr';
+    flecha.setAttribute('aria-hidden', 'true');
+    var extra = document.createElement('span');
+    extra.className = 'sr-only';
+    extra.textContent = nombre ? ': ' + nombre : '';
+    function pintar(abierta) {
+      texto.textContent = abierta ? 'Ver menos' : 'Ver más';
+      flecha.textContent = abierta ? '↑' : '↓';
+      b.setAttribute('aria-expanded', abierta ? 'true' : 'false');
+    }
+    b.appendChild(texto);
+    b.appendChild(extra);
+    b.appendChild(document.createTextNode(' '));
+    b.appendChild(flecha);
+    pintar(false);
+    b.addEventListener('click', function () {
+      var abierta = !card.classList.contains('is-completa');
+      card.classList.toggle('is-completa', abierta);
+      pintar(abierta);
+      // Al cerrar, si la tarjeta quedó arriba de la pantalla, se vuelve a su título
+      if (!abierta && card.getBoundingClientRect().top < 0) card.scrollIntoView({ block: 'start' });
+    });
+    datos.insertAdjacentElement('afterend', b);
   }
 
   function boton(li, clase, texto, idMedicion, titulo) {
@@ -120,9 +173,9 @@
     rotulo(lugar, 'Lugar');
     if (lugar && !lugar.classList.contains('is-vacio')) lugar.insertAdjacentHTML('afterbegin', PIN);
     rotulo(card.querySelector('.data_desc'), 'Descripción');
-    rotulo(card.querySelector('.data_req'), 'Requerimientos');
-    rotulo(card.querySelector('.data_benefits'), 'Beneficios');
-    rotulo(card.querySelector('.data_details'), 'Detalles');
+    rotulo(card.querySelector('.data_req'), 'Requerimientos', 'Requisitos');
+    rotulo(card.querySelector('.data_benefits'), 'Beneficios', 'Beneficios');
+    rotulo(card.querySelector('.data_details'), 'Detalles', 'Sobre Intellihelp');
 
     // Los dos enlaces pasan a su propia fila al pie: primero Postularme (principal), después Ver la búsqueda.
     var postular = boton(card.querySelector('.data_form_link'), 'btn-violeta', 'Postularme', 'vacante-postular', nombre);
@@ -134,6 +187,7 @@
       if (ver) acciones.appendChild(ver);
       card.appendChild(acciones);
     }
+    verMas(card, nombre);
   }
 
   function revisarDestino() {

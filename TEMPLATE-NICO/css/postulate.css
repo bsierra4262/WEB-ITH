@@ -233,10 +233,41 @@
 .postulate-jobs .data_desc :is(h1, h2, h3, h4, h5, h6, strong, b) { display: inline; margin: 0; color: inherit; font-size: inherit; font-weight: 600; }
 .postulate-jobs .data_desc img { display: none; }
 .postulate-jobs .data_desc.is-vacio { display: none; }
-/* Requerimientos, beneficios y detalles quedan para la página de la búsqueda: en la tarjeta alcanza con el resumen */
+/* Requerimientos, beneficios y detalles se ven al desplegar la tarjeta con "Ver más" (postulate.js) */
 .postulate-jobs :is(.data_req, .data_benefits, .data_details) { display: none; }
+.postulate-jobs__rotulo { display: none; }
 
-/* Botones al pie de la tarjeta: Postularme (lima) y Ver la búsqueda (borde carbón), flecha a la derecha del texto */
+/* "Ver más" / "Ver menos": enlace violeta con flecha, debajo del texto y arriba de los botones */
+.postulate-jobs__mas {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px; /* tocable */
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--purple);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.postulate-jobs__mas:hover { color: var(--ink); }
+.postulate-jobs__mas .arr { transition: transform var(--t-fast) var(--ease-out); }
+.postulate-jobs__mas:hover .arr { transform: translateY(2px); }
+.postulate-jobs__mas[aria-expanded="true"]:hover .arr { transform: translateY(-2px); }
+
+/* Tarjeta desplegada: la descripción entera con sus párrafos y listas, y debajo requisitos, beneficios y detalles,
+   cada uno con su título */
+.postulate-jobs .is-completa .data_desc { display: block; -webkit-line-clamp: unset; line-clamp: none; overflow: visible; }
+.postulate-jobs .is-completa :is(.data_desc, .data_req, .data_benefits, .data_details) :is(p, div) { display: block; margin: 0 0 10px; }
+.postulate-jobs .is-completa :is(.data_desc, .data_req, .data_benefits, .data_details) :is(ul, ol) { display: block; margin: 0 0 10px; padding-left: 1.3em; list-style: disc; }
+.postulate-jobs .is-completa :is(.data_desc, .data_req, .data_benefits, .data_details) li { display: list-item; margin: 0 0 4px; }
+.postulate-jobs .is-completa :is(.data_req, .data_benefits, .data_details):not(.is-vacio) { display: block; color: var(--muted); font-size: 17px; line-height: 1.6; }
+.postulate-jobs .is-completa :is(.data_req, .data_benefits, .data_details) :is(strong, b) { color: var(--ink); font-weight: 600; }
+.postulate-jobs .is-completa .postulate-jobs__rotulo { display: block; margin: 8px 0 8px; color: var(--ink); font-size: 18px; font-weight: 700; line-height: 1.3; }
+
+/* Botones al pie de la tarjeta: Postularme (violeta) y Ver la búsqueda (borde carbón), flecha a la derecha del texto */
 .postulate-jobs__acciones { display: flex; flex-wrap: wrap; gap: 12px; width: 100%; margin-top: auto; padding-top: 8px; }
 .postulate-jobs__acciones > li { margin: 0; }
 
